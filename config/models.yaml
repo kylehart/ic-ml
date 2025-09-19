@@ -1,0 +1,79 @@
+# LLM Model Configuration
+# Central configuration for all model usage across the project
+
+default:
+  model: "openai/gpt-4o-mini"  # Primary working model - maximum cost optimization
+  max_tokens: 1000
+  temperature: 0.0  # Deterministic for consistent classification
+
+# Alternative models for specific use cases or experiments
+models:
+  # Anthropic Claude Models
+  opus:
+    model: "anthropic/claude-3-opus-20240229"
+    max_tokens: 1000
+    temperature: 0.0
+    description: "Premium model - highest quality, use for difficult cases"
+
+  haiku:
+    model: "anthropic/claude-3-haiku-20240307"
+    max_tokens: 1000
+    temperature: 0.0
+    description: "Ultra-fast model - maximum cost optimization, good quality"
+
+  sonnet:
+    model: "anthropic/claude-3-5-sonnet-20241022"
+    max_tokens: 1000
+    temperature: 0.0
+    description: "Balanced model - cost-optimized, fast, high quality"
+
+  sonnet_legacy:
+    model: "anthropic/claude-3-sonnet-20241022"
+    max_tokens: 1000
+    temperature: 0.0
+    description: "Legacy sonnet model - may not be available"
+
+  # OpenAI GPT Models (three-tier structure)
+  gpt4o:
+    model: "openai/gpt-4o"
+    max_tokens: 1000
+    temperature: 0.0
+    description: "Premium OpenAI model - highest quality, comparable to Opus"
+
+  gpt4o_mini:
+    model: "openai/gpt-4o-mini"
+    max_tokens: 1000
+    temperature: 0.0
+    description: "Fast OpenAI model - cost-optimized, comparable to Haiku"
+
+  gpt4_turbo:
+    model: "openai/gpt-4-turbo-preview"
+    max_tokens: 1000
+    temperature: 0.0
+    description: "Balanced OpenAI model - good quality and speed, comparable to Sonnet"
+
+# Experiment-specific configurations
+experiments:
+  temperature_test:
+    model: "anthropic/claude-3-opus-20240229"
+    max_tokens: 1000
+    temperature: 0.7
+    description: "Testing temperature effects on classification"
+
+  batch_processing:
+    model: "anthropic/claude-3-opus-20240229"
+    max_tokens: 2000  # Larger context for batch classification
+    temperature: 0.0
+    description: "Configuration for batch processing multiple products"
+
+# API configuration
+api:
+  retry_attempts: 3
+  initial_retry_delay: 30  # seconds
+  exponential_backoff: true
+  rate_limit_delay: 60  # seconds between products
+
+# Usage tracking metadata
+metadata:
+  client: "rogue_herbalist"
+  business: "get_better_care"

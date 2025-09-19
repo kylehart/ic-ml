@@ -1,0 +1,1136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<taxonomy version="1.0" namespace="rogue-herbalist">
+    
+    <!-- INGREDIENT CATEGORY DEFINITIONS -->
+    <!-- 
+    ============================================================================
+    SELF-CARE INGREDIENT TAXONOMY DEFINITIONS
+    ============================================================================
+    
+    ** Natural Ingredients **
+    Definition: Ingredients derived from plants, fungi, animals, or minerals 
+    that retain their source identity, including whole materials, extracts, 
+    and concentrates.
+    
+    ** Isolated Compounds **
+    Definition: Single molecules or pure substances extracted or derived from 
+    natural sources or fermentation, sold in precise doses.
+    
+    ** Synthetic Compounds **
+    Definition: Molecules created through chemical synthesis, including 
+    pharmaceuticals and lab-created vitamins identical to or distinct from 
+    natural forms.
+    ============================================================================
+    -->
+    
+    <!-- 1. Immune Support & Infection Resistance -->
+    <taxon slug="immune-support" type="primary" hierarchical="true">
+        <title>Immune Support &amp; Infection Resistance</title>
+        <sub-title>Natural Defenses &amp; Seasonal Wellness</sub-title>
+        <description>Products that support healthy immune system function and resistance to infections</description>
+        
+        <meta>
+            <chebi-roles>immunomodulator,antioxidant,antimicrobial</chebi-roles>
+            <npclassifier>beta-glucans,phenolic_compounds,polysaccharides</npclassifier>
+            <chpa-category>immune_support</chpa-category>
+            <fda-claim>Supports immune system function</fda-claim>
+        </meta>
+        
+        <ingredients>
+            <natural-ingredients>
+                <ingredient type="natural" source="plant" formal_name="Sambucus nigra">Elderberry</ingredient>
+                <ingredient type="natural" source="plant" formal_name="Echinacea purpurea">Echinacea</ingredient>
+                <ingredient type="natural" source="plant" formal_name="Astragalus membranaceus">Astragalus</ingredient>
+                <ingredient type="natural" source="plant" formal_name="Andrographis paniculata">Andrographis</ingredient>
+                <ingredient type="natural" source="fungus" formal_name="Ganoderma lucidum">Reishi</ingredient>
+                <ingredient type="natural" source="fungus" formal_name="Trametes versicolor">Turkey Tail</ingredient>
+                <ingredient type="natural" source="fungus" formal_name="Inonotus obliquus">Chaga</ingredient>
+                <ingredient type="natural" source="fungus" formal_name="Lentinula edodes">Shiitake</ingredient>
+                <ingredient type="natural" source="fungus" formal_name="Grifola frondosa">Maitake</ingredient>
+                <ingredient type="natural" source="plant" formal_name="Allium sativum">Garlic</ingredient>
+            </natural-ingredients>
+            <isolated-compounds>
+                <ingredient type="isolated" source="plant-derived" formal_name="3,3′,4′,5,7-pentahydroxyflavone">Quercetin</ingredient>
+                <ingredient type="isolated" source="plant-derived" formal_name="epigallocatechin gallate">EGCG</ingredient>
+                <ingredient type="isolated" source="fungal" formal_name="beta-1,3/1,6-glucan">Beta-glucans</ingredient>
+                <ingredient type="isolated" source="natural" formal_name="N-acetyl-L-cysteine">NAC</ingredient>
+                <ingredient type="isolated" source="natural" formal_name="cholecalciferol">Vitamin D3</ingredient>
+                <ingredient type="isolated" source="natural" formal_name="ascorbic acid">Vitamin C</ingredient>
+                <ingredient type="isolated" source="natural" formal_name="zinc gluconate">Zinc</ingredient>
+            </isolated-compounds>
+        </ingredients>
+        
+        <!-- Subcategories -->
+        <taxon slug="daily-immune" type="subcategory">
+            <title>Daily Immune Maintenance</title>
+            <description>Foundational immune support for everyday wellness. Products designed for consistent, long-term use to maintain healthy immune system function, build resilience, and support the body's natural defense mechanisms throughout the year.</description>
+        </taxon>
+        <taxon slug="seasonal-support" type="subcategory">
+            <title>Seasonal &amp; Cold/Flu Support</title>
+            <description>Targeted support during cold and flu season or at the first sign of illness. Fast-acting formulations to boost immune response, reduce symptom duration, and help the body fight off seasonal challenges and upper respiratory infections.</description>
+        </taxon>
+        <taxon slug="antiviral-herbs" type="subcategory">
+            <title>Antiviral &amp; Antibacterial Herbs</title>
+            <description>Potent antimicrobial botanicals with documented antiviral and antibacterial properties. Natural alternatives to support the body's ability to resist and fight various pathogens, including viruses, bacteria, and other microorganisms.</description>
+        </taxon>
+        <taxon slug="mushroom-immune" type="subcategory">
+            <title>Mushroom Immune Complexes</title>
+            <description>Medicinal mushroom formulations rich in beta-glucans and immunomodulating compounds. Includes reishi, turkey tail, shiitake, and other fungi known for deep immune support, cancer prevention, and overall vitality enhancement.</description>
+        </taxon>
+        <taxon slug="childrens-immune" type="subcategory">
+            <title>Children's Immune Support</title>
+            <description>Gentle, kid-friendly immune support formulations with age-appropriate dosing. Tasty syrups, gummies, and chewables designed to support developing immune systems, reduce sick days, and keep children healthy during school and play.</description>
+        </taxon>
+    </taxon>
+    
+    <!-- 2. Gut Health & Digestion -->
+    <taxon slug="gut-health" type="primary" hierarchical="true">
+        <title>Gut Health &amp; Digestion</title>
+        <sub-title>Digestive Comfort &amp; Microbiome Balance</sub-title>
+        <description>Products supporting healthy digestion and gut microbiome</description>
+        
+        <meta>
+            <chebi-roles>digestive_aid,hepatoprotectant,prebiotic,probiotic</chebi-roles>
+            <npclassifier>iridoids,sesquiterpene_lactones,oligosaccharides</npclassifier>
+            <chpa-category>digestive_health</chpa-category>
+            <fda-claim>Supports healthy digestion and gut function</fda-claim>
+        </meta>
+        
+        <ingredients>
+            <natural-ingredients>
+                <ingredient type="natural" source="plant" formal_name="Zingiber officinale">Ginger</ingredient>
+                <ingredient type="natural" source="plant" formal_name="Mentha piperita">Peppermint</ingredient>
+                <ingredient type="natural" source="plant" formal_name="Silybum marianum">Milk Thistle</ingredient>
+                <ingredient type="natural" source="plant" formal_name="Taraxacum officinale">Dandelion</ingredient>
+                <ingredient type="natural" source="plant" formal_name="Glycyrrhiza glabra">Licorice Root</ingredient>
+                <ingredient type="natural" source="plant" formal_name="Ulmus rubra">Slippery Elm</ingredient>
+                <ingredient type="natural" source="plant" formal_name="Althaea officinalis">Marshmallow Root</ingredient>
+                <ingredient type="natural" source="plant" formal_name="Gentiana lutea">Gentian</ingredient>
+                <ingredient type="natural" source="plant" formal_name="Cynara scolymus">Artichoke</ingredient>
+                <ingredient type="natural" source="microbial">Lactobacillus acidophilus</ingredient>
+                <ingredient type="natural" source="microbial">Bifidobacterium longum</ingredient>
+                <ingredient type="natural" source="microbial">Saccharomyces boulardii</ingredient>
+            </natural-ingredients>
+            <isolated-compounds>
+                <ingredient type="isolated" source="natural" formal_name="L-glutamine">L-Glutamine</ingredient>
+                <ingredient type="isolated" source="fermentation" formal_name="amylase, protease, lipase">Digestive Enzymes</ingredient>
+                <ingredient type="isolated" source="plant-derived" formal_name="silymarin">Silymarin</ingredient>
+                <ingredient type="isolated" source="chicory" formal_name="inulin">Inulin</ingredient>
+                <ingredient type="isolated" source="natural" formal_name="zinc-L-carnosine">Zinc Carnosine</ingredient>
+            </isolated-compounds>
+        </ingredients>
+        
+        <taxon slug="digestive-bitters" type="subcategory">
+            <title>Digestive Bitters &amp; Enzymes</title>
+            <description>Traditional bitter herbs and digestive enzymes to stimulate digestive secretions and improve nutrient breakdown. Supports stomach acid production, bile flow, and enzymatic activity for optimal digestion and reduced bloating.</description>
+        </taxon>
+        <taxon slug="probiotic-support" type="subcategory">
+            <title>Probiotic &amp; Prebiotic Support</title>
+            <description>Beneficial bacteria strains and prebiotic fibers to support a healthy gut microbiome. Multi-strain probiotics, fermented foods, and microbiome nourishers for digestive health, immune function, and mental well-being.</description>
+        </taxon>
+        <taxon slug="ibs-comfort" type="subcategory">
+            <title>IBS &amp; Intestinal Comfort</title>
+            <description>Targeted relief for irritable bowel syndrome, inflammatory bowel conditions, and intestinal discomfort. Soothing herbs and nutrients to reduce cramping, normalize bowel movements, and heal the gut lining.</description>
+        </taxon>
+        <taxon slug="liver-gallbladder" type="subcategory">
+            <title>Liver &amp; Gallbladder Support</title>
+            <description>Hepatoprotective herbs and nutrients for liver function and bile production. Supports detoxification pathways, fat digestion, gallbladder health, and protection against fatty liver disease and liver damage.</description>
+        </taxon>
+        <taxon slug="appetite-nausea" type="subcategory">
+            <title>Appetite &amp; Nausea Relief</title>
+            <description>Natural remedies for appetite regulation and anti-nausea support. Helpful for morning sickness, motion sickness, chemotherapy side effects, poor appetite, and general stomach upset or queasiness.</description>
+        </taxon>
+    </taxon>
+    
+    <!-- 3. Stress, Mood & Anxiety -->
+    <taxon slug="stress-mood-anxiety" type="primary" hierarchical="true">
+        <title>Stress, Mood &amp; Anxiety</title>
+        <sub-title>Adaptogens, Nervines &amp; Emotional Balance</sub-title>
+        <description>Products supporting stress resilience, mood balance, and anxiety relief</description>
+        
+        <meta>
+            <chebi-roles>adaptogen,anxiolytic,antidepressant,nervine</chebi-roles>
+            <npclassifier>terpenoids,alkaloids,withanolides</npclassifier>
+            <chpa-category>stress_management,brain_health</chpa-category>
+            <fda-claim>Supports healthy stress response and emotional balance</fda-claim>
+        </meta>
+        
+        <ingredients>
+            <natural-ingredients>
+                <ingredient type="natural" source="plant" formal_name="Withania somnifera">Ashwagandha</ingredient>
+                <ingredient type="natural" source="plant" formal_name="Rhodiola rosea">Rhodiola</ingredient>
+                <ingredient type="natural" source="plant" formal_name="Ocimum sanctum">Holy Basil</ingredient>
+                <ingredient type="natural" source="plant" formal_name="Bacopa monnieri">Bacopa</ingredient>
+                <ingredient type="natural" source="plant" formal_name="Schisandra chinensis">Schisandra</ingredient>
+                <ingredient type="natural" source="plant" formal_name="Eleutherococcus senticosus">Eleuthero</ingredient>
+                <ingredient type="natural" source="plant" formal_name="Passiflora incarnata">Passionflower</ingredient>
+                <ingredient type="natural" source="plant" formal_name="Melissa officinalis">Lemon Balm</ingredient>
+                <ingredient type="natural" source="fungus" formal_name="Hericium erinaceus">Lions Mane</ingredient>
+                <ingredient type="natural" source="fungus" formal_name="Ganoderma lucidum">Reishi</ingredient>
+                <ingredient type="natural" source="fungus" formal_name="Cordyceps militaris">Cordyceps</ingredient>
+            </natural-ingredients>
+            <isolated-compounds>
+                <ingredient type="isolated" source="natural" formal_name="gamma-aminobutyric acid">GABA</ingredient>
+                <ingredient type="isolated" source="plant-derived" formal_name="L-theanine">L-Theanine</ingredient>
+                <ingredient type="isolated" source="natural" formal_name="5-hydroxytryptophan">5-HTP</ingredient>
+                <ingredient type="isolated" source="natural" formal_name="L-tryptophan">L-Tryptophan</ingredient>
+                <ingredient type="isolated" source="natural" formal_name="magnesium glycinate">Magnesium</ingredient>
+            </isolated-compounds>
+        </ingredients>
+        
+        <taxon slug="stress-anxiety-relief" type="subcategory">
+            <title>Stress &amp; Anxiety Relief</title>
+            <description>Fast-acting natural anxiolytics and stress relievers for acute anxiety, panic, and overwhelming stress. Calming herbs and nutrients that work quickly to reduce tension, racing thoughts, and stress-related physical symptoms.</description>
+        </taxon>
+        <taxon slug="mood-support" type="subcategory">
+            <title>Mood Support &amp; Depression</title>
+            <description>Natural mood elevators and antidepressant herbs for emotional balance and mental wellness. Support for seasonal affective disorder, mild depression, mood swings, and overall emotional resilience and positivity.</description>
+        </taxon>
+        <taxon slug="adaptogenic-support" type="subcategory">
+            <title>Adaptogenic Support</title>
+            <description>Traditional adaptogenic herbs that help the body adapt to stress and maintain homeostasis. Long-term stress resilience builders that support adrenal function, energy regulation, and stress recovery over time.</description>
+        </taxon>
+    </taxon>
+    
+    <!-- 4. Sleep & Relaxation -->
+    <taxon slug="sleep-relaxation" type="primary" hierarchical="true">
+        <title>Sleep &amp; Relaxation</title>
+        <sub-title>Rest, Recovery &amp; Calm</sub-title>
+        <description>Products promoting restful sleep and relaxation</description>
+        
+        <meta>
+            <chebi-roles>sedative,anxiolytic,gaba_modulator,hypnotic</chebi-roles>
+            <npclassifier>flavonoids,valepotriates,monoterpenes</npclassifier>
+            <chpa-category>sleep_support</chpa-category>
+            <fda-claim>Promotes restful sleep and relaxation</fda-claim>
+        </meta>
+        
+        <ingredients>
+            <natural-ingredients>
+                <ingredient type="natural" source="plant" formal_name="Valeriana officinalis">Valerian</ingredient>
+                <ingredient type="natural" source="plant" formal_name="Passiflora incarnata">Passionflower</ingredient>
+                <ingredient type="natural" source="plant" formal_name="Matricaria chamomilla">Chamomile</ingredient>
+                <ingredient type="natural" source="plant" formal_name="Humulus lupulus">Hops</ingredient>
+                <ingredient type="natural" source="plant" formal_name="Melissa officinalis">Lemon Balm</ingredient>
+                <ingredient type="natural" source="plant" formal_name="Scutellaria lateriflora">Skullcap</ingredient>
+                <ingredient type="natural" source="plant" formal_name="Lavandula angustifolia">Lavender</ingredient>
+                <ingredient type="natural" source="plant" formal_name="Nepeta cataria">Catnip</ingredient>
+                <ingredient type="natural" source="fungus" formal_name="Ganoderma lucidum">Reishi</ingredient>
+            </natural-ingredients>
+            <isolated-compounds>
+                <ingredient type="isolated" source="natural" formal_name="N-acetyl-5-methoxytryptamine">Melatonin</ingredient>
+                <ingredient type="isolated" source="natural" formal_name="magnesium glycinate">Magnesium Glycinate</ingredient>
+                <ingredient type="isolated" source="natural" formal_name="gamma-aminobutyric acid">GABA</ingredient>
+                <ingredient type="isolated" source="plant-derived" formal_name="L-theanine">L-Theanine</ingredient>
+                <ingredient type="isolated" source="natural" formal_name="5-hydroxytryptophan">5-HTP</ingredient>
+            </isolated-compounds>
+        </ingredients>
+        
+        <taxon slug="sleep-quality-patterns" type="subcategory">
+            <title>Sleep Quality &amp; Patterns</title>
+            <description>Natural sleep aids for deeper, more restorative sleep and healthy sleep patterns. Support for sleep onset, sleep maintenance, circadian rhythm regulation, and addressing insomnia without dependency or morning grogginess.</description>
+        </taxon>
+        <taxon slug="daytime-relaxation" type="subcategory">
+            <title>Daytime Relaxation</title>
+            <description>Gentle relaxation support that calms without sedation during waking hours. Perfect for reducing tension, promoting focus, and managing stress without drowsiness or interfering with daily activities and productivity.</description>
+        </taxon>
+        <taxon slug="childrens-sleep" type="subcategory">
+            <title>Children's Sleep Support</title>
+            <description>Safe, gentle sleep support formulated specifically for children. Mild, effective ingredients to help kids fall asleep easier, stay asleep longer, and develop healthy bedtime routines and sleep habits.</description>
+        </taxon>
+    </taxon>
+    
+    <!-- 5. Energy, Fatigue & Vitality -->
+    <taxon slug="energy-vitality" type="primary" hierarchical="true">
+        <title>Energy, Fatigue &amp; Vitality</title>
+        <sub-title>Natural Energy &amp; Stamina</sub-title>
+        <description>Products supporting energy production, combating fatigue, and enhancing vitality</description>
+        
+        <meta>
+            <chebi-roles>metabolic_enhancer,adaptogen,mitochondrial_support</chebi-roles>
+            <npclassifier>terpenoids,ginsenosides,alkaloids</npclassifier>
+            <chpa-category>energy_support</chpa-category>
+            <fda-claim>Supports natural energy production and vitality</fda-claim>
+        </meta>
+        
+        <ingredients>
+            <natural-ingredients>
+                <ingredient type="natural" source="plant" formal_name="Rhodiola rosea">Rhodiola</ingredient>
+                <ingredient type="natural" source="plant" formal_name="Panax ginseng">Ginseng</ingredient>
+                <ingredient type="natural" source="plant" formal_name="Eleutherococcus senticosus">Eleuthero</ingredient>
+                <ingredient type="natural" source="fungus" formal_name="Cordyceps sinensis">Cordyceps</ingredient>
+                <ingredient type="natural" source="plant" formal_name="Withania somnifera">Ashwagandha</ingredient>
+                <ingredient type="natural" source="plant" formal_name="Lepidium meyenii">Maca</ingredient>
+                <ingredient type="natural" source="plant" formal_name="Camellia sinensis">Green Tea</ingredient>
+                <ingredient type="natural" source="plant" formal_name="Paullinia cupana">Guarana</ingredient>
+                <ingredient type="natural" source="plant" formal_name="Theobroma cacao">Cacao</ingredient>
+            </natural-ingredients>
+            <isolated-compounds>
+                <ingredient type="isolated" source="fermentation">Coenzyme Q10</ingredient>
+                <ingredient type="isolated" source="natural" formal_name="pyrroloquinoline quinone">PQQ</ingredient>
+                <ingredient type="isolated" source="natural" formal_name="acetyl-L-carnitine">ALCAR</ingredient>
+                <ingredient type="isolated" source="natural" formal_name="R-alpha-lipoic acid">R-Lipoic Acid</ingredient>
+                <ingredient type="isolated" source="natural" formal_name="D-ribose">D-Ribose</ingredient>
+                <ingredient type="isolated" source="natural" formal_name="nicotinamide adenine dinucleotide">NAD+</ingredient>
+                <ingredient type="isolated" source="natural" formal_name="cyanocobalamin">Vitamin B12</ingredient>
+            </isolated-compounds>
+        </ingredients>
+        
+        <taxon slug="daily-energy-support" type="subcategory">
+            <title>Daily Energy Support</title>
+            <description>Sustained, natural energy support for everyday vitality without caffeine crashes. Mitochondrial support, B-vitamins, and adaptogenic herbs that provide steady energy throughout the day while supporting overall metabolic health.</description>
+        </taxon>
+        <taxon slug="athletic-performance" type="subcategory">
+            <title>Athletic Performance</title>
+            <description>Performance enhancers for athletes and active individuals. Pre-workout energy, endurance support, recovery acceleration, and muscle function optimization through natural compounds and performance-tested ingredients.</description>
+        </taxon>
+        <taxon slug="adrenal-burnout" type="subcategory">
+            <title>Adrenal &amp; Burnout Recovery</title>
+            <description>Restorative support for exhausted adrenal glands and chronic fatigue recovery. Adaptogenic herbs and nutrients that help rebuild depleted energy reserves, support stress recovery, and restore natural vitality over time.</description>
+        </taxon>
+    </taxon>
+    
+    <!-- 6. Cardiovascular Health -->
+    <taxon slug="cardiovascular-health" type="primary" hierarchical="true">
+        <title>Cardiovascular Health</title>
+        <sub-title>Heart, Circulation &amp; Blood Pressure</sub-title>
+        <description>Products supporting heart health and circulatory function</description>
+        
+        <meta>
+            <chebi-roles>cardiotonic,vasodilator,antioxidant,hypolipidemic</chebi-roles>
+            <npclassifier>cardiac_glycosides,flavonoids,omega_fatty_acids</npclassifier>
+            <chpa-category>heart_health</chpa-category>
+            <fda-claim>Supports cardiovascular health and circulation</fda-claim>
+        </meta>
+        
+        <ingredients>
+            <natural-ingredients>
+                <ingredient type="natural" source="plant" formal_name="Crataegus oxyacantha">Hawthorn</ingredient>
+                <ingredient type="natural" source="plant" formal_name="Allium sativum">Garlic</ingredient>
+                <ingredient type="natural" source="plant" formal_name="Ginkgo biloba">Ginkgo</ingredient>
+                <ingredient type="natural" source="plant" formal_name="Hibiscus sabdariffa">Hibiscus</ingredient>
+                <ingredient type="natural" source="plant" formal_name="Olea europaea">Olive Leaf</ingredient>
+                <ingredient type="natural" source="plant" formal_name="Berberis vulgaris">Berberine</ingredient>
+                <ingredient type="natural" source="fungus" formal_name="Monascus purpureus">Red Yeast Rice</ingredient>
+                <ingredient type="natural" source="plant" formal_name="Vitis vinifera">Grape Seed</ingredient>
+                <ingredient type="natural" source="marine">Fish Oil</ingredient>
+            </natural-ingredients>
+            <isolated-compounds>
+                <ingredient type="isolated" source="fermentation">Coenzyme Q10</ingredient>
+                <ingredient type="isolated" source="natural" formal_name="L-carnitine">L-Carnitine</ingredient>
+                <ingredient type="isolated" source="natural" formal_name="L-arginine">L-Arginine</ingredient>
+                <ingredient type="isolated" source="natural" formal_name="L-citrulline">L-Citrulline</ingredient>
+                <ingredient type="isolated" source="marine" formal_name="omega-3 fatty acids">EPA/DHA</ingredient>
+                <ingredient type="isolated" source="plant" formal_name="beta-sitosterol">Plant Sterols</ingredient>
+                <ingredient type="isolated" source="natural" formal_name="magnesium glycinate">Magnesium</ingredient>
+            </isolated-compounds>
+        </ingredients>
+        
+        <taxon slug="heart-rhythm" type="subcategory">
+            <title>Heart Rhythm &amp; Function</title>
+            <description>Support for healthy heart rhythm, cardiac function, and overall heart muscle strength. Nutrients and herbs that promote optimal heartbeat regulation, improve cardiac output, and support heart muscle health and endurance.</description>
+        </taxon>
+        <taxon slug="blood-pressure" type="subcategory">
+            <title>Blood Pressure Support</title>
+            <description>Natural support for healthy blood pressure levels within normal range. Herbs and nutrients that promote vascular relaxation, support arterial flexibility, and help maintain optimal blood pressure through lifestyle and dietary support.</description>
+        </taxon>
+        <taxon slug="circulation-vein" type="subcategory">
+            <title>Circulation &amp; Vein Health</title>
+            <description>Support for healthy circulation, blood flow, and venous function. Ingredients that strengthen blood vessel walls, reduce varicose veins, improve peripheral circulation, and enhance oxygen and nutrient delivery throughout the body.</description>
+        </taxon>
+        <taxon slug="cholesterol-balance" type="subcategory">
+            <title>Cholesterol Balance</title>
+            <description>Natural support for healthy cholesterol levels and lipid profiles. Plant sterols, fibers, and compounds that help maintain optimal HDL/LDL ratios, support healthy triglyceride levels, and promote cardiovascular wellness.</description>
+        </taxon>
+        <taxon slug="heart-antioxidants" type="subcategory">
+            <title>Heart-Protective Antioxidants</title>
+            <description>Powerful antioxidants specifically beneficial for cardiovascular health. Compounds that protect heart muscle from oxidative damage, support arterial health, reduce inflammation, and promote long-term cardiovascular wellness and protection.</description>
+        </taxon>
+    </taxon>
+    
+    <!-- 7. Pain & Inflammation -->
+    <taxon slug="pain-inflammation" type="primary" hierarchical="true">
+        <title>Pain &amp; Inflammation</title>
+        <sub-title>Natural Pain Relief &amp; Anti-Inflammatory Support</sub-title>
+        <description>Products supporting pain management and healthy inflammatory response</description>
+        
+        <meta>
+            <chebi-roles>anti-inflammatory,analgesic,cox_inhibitor</chebi-roles>
+            <npclassifier>phenolic_compounds,sesquiterpenes,salicylates</npclassifier>
+            <chpa-category>joint_health,pain_management</chpa-category>
+            <fda-claim>Supports healthy inflammatory response</fda-claim>
+        </meta>
+        
+        <ingredients>
+            <natural-ingredients>
+                <ingredient type="natural" source="plant" formal_name="Curcuma longa">Turmeric</ingredient>
+                <ingredient type="natural" source="plant" formal_name="Boswellia serrata">Boswellia</ingredient>
+                <ingredient type="natural" source="plant" formal_name="Zingiber officinale">Ginger</ingredient>
+                <ingredient type="natural" source="plant" formal_name="Salix alba">White Willow Bark</ingredient>
+                <ingredient type="natural" source="plant" formal_name="Harpagophytum procumbens">Devils Claw</ingredient>
+                <ingredient type="natural" source="plant" formal_name="Capsicum annuum">Cayenne</ingredient>
+                <ingredient type="natural" source="plant" formal_name="Cannabis sativa">CBD Hemp</ingredient>
+                <ingredient type="natural" source="plant" formal_name="Arnica montana">Arnica</ingredient>
+                <ingredient type="natural" source="plant" formal_name="Filipendula ulmaria">Meadowsweet</ingredient>
+            </natural-ingredients>
+            <isolated-compounds>
+                <ingredient type="isolated" source="plant-derived" formal_name="curcumin">Curcumin</ingredient>
+                <ingredient type="isolated" source="natural" formal_name="glucosamine sulfate">Glucosamine</ingredient>
+                <ingredient type="isolated" source="natural" formal_name="chondroitin sulfate">Chondroitin</ingredient>
+                <ingredient type="isolated" source="natural" formal_name="methylsulfonylmethane">MSM</ingredient>
+                <ingredient type="isolated" source="pineapple" formal_name="bromelain">Bromelain</ingredient>
+                <ingredient type="isolated" source="natural" formal_name="type II collagen">UC-II Collagen</ingredient>
+                <ingredient type="isolated" source="plant-derived" formal_name="3,3′,4′,5,7-pentahydroxyflavone">Quercetin</ingredient>
+            </isolated-compounds>
+        </ingredients>
+        
+        <taxon slug="joint-arthritis" type="subcategory">
+            <title>Joint Pain &amp; Arthritis</title>
+            <description>Natural relief for joint pain, stiffness, and arthritis symptoms. Anti-inflammatory herbs and joint-nourishing compounds that reduce swelling, improve mobility, protect cartilage, and provide long-term joint health support.</description>
+        </taxon>
+        <taxon slug="muscle-pain" type="subcategory">
+            <title>Muscle Pain &amp; Tension</title>
+            <description>Natural muscle relaxants and pain relievers for acute and chronic muscle discomfort. Herbs and compounds that reduce muscle tension, ease soreness, support recovery after exercise, and provide relief from muscular aches and spasms.</description>
+        </taxon>
+        <taxon slug="headache-migraine" type="subcategory">
+            <title>Headache &amp; Migraine Support</title>
+            <description>Natural headache relief and migraine prevention support. Herbs and nutrients that address headache triggers, reduce inflammation, support vascular health, and provide gentle pain relief without pharmaceutical side effects.</description>
+        </taxon>
+        <taxon slug="nerve-pain" type="subcategory">
+            <title>Nerve Pain &amp; Neuropathy</title>
+            <description>Specialized support for nerve pain, neuropathy, and nerve health. Nutrients that support nerve regeneration, reduce nerve inflammation, protect against nerve damage, and provide relief from burning, tingling, and shooting pains.</description>
+        </taxon>
+    </taxon>
+    
+    <!-- 8. Focus, Memory & Cognition -->
+    <taxon slug="focus-memory-cognition" type="primary" hierarchical="true">
+        <title>Focus, Memory &amp; Cognition</title>
+        <sub-title>Nootropics &amp; Brain Health</sub-title>
+        <description>Products supporting cognitive function, memory, and mental clarity</description>
+        
+        <meta>
+            <chebi-roles>nootropic,cognitive_enhancer,neuroprotective</chebi-roles>
+            <npclassifier>alkaloids,terpenoids,phospholipids</npclassifier>
+            <chpa-category>brain_health</chpa-category>
+            <fda-claim>Supports cognitive function and mental clarity</fda-claim>
+        </meta>
+        
+        <ingredients>
+            <natural-ingredients>
+                <ingredient type="natural" source="fungus" formal_name="Hericium erinaceus">Lions Mane</ingredient>
+                <ingredient type="natural" source="plant" formal_name="Bacopa monnieri">Bacopa</ingredient>
+                <ingredient type="natural" source="plant" formal_name="Ginkgo biloba">Ginkgo</ingredient>
+                <ingredient type="natural" source="plant" formal_name="Rhodiola rosea">Rhodiola</ingredient>
+                <ingredient type="natural" source="plant" formal_name="Centella asiatica">Gotu Kola</ingredient>
+                <ingredient type="natural" source="plant" formal_name="Withania somnifera">Ashwagandha</ingredient>
+                <ingredient type="natural" source="plant" formal_name="Huperzia serrata">Huperzine A</ingredient>
+                <ingredient type="natural" source="plant" formal_name="Camellia sinensis">Green Tea</ingredient>
+                <ingredient type="natural" source="plant" formal_name="Rosmarinus officinalis">Rosemary</ingredient>
+            </natural-ingredients>
+            <isolated-compounds>
+                <ingredient type="isolated" source="plant-derived" formal_name="L-theanine">L-Theanine</ingredient>
+                <ingredient type="isolated" source="natural" formal_name="phosphatidylserine">Phosphatidylserine</ingredient>
+                <ingredient type="isolated" source="natural" formal_name="citicoline">CDP-Choline</ingredient>
+                <ingredient type="isolated" source="natural" formal_name="alpha-glycerylphosphorylcholine">Alpha-GPC</ingredient>
+                <ingredient type="isolated" source="natural" formal_name="N-acetyl-L-tyrosine">NALT</ingredient>
+                <ingredient type="isolated" source="natural" formal_name="pyrroloquinoline quinone">PQQ</ingredient>
+                <ingredient type="isolated" source="plant-derived" formal_name="vinpocetine">Vinpocetine</ingredient>
+            </isolated-compounds>
+        </ingredients>
+        
+        <taxon slug="focus-mental-performance" type="subcategory">
+            <title>Focus &amp; Mental Performance</title>
+            <description>Natural nootropics for enhanced focus, concentration, and mental clarity. Brain-boosting compounds that improve attention span, reduce mental fog, enhance productivity, and support peak cognitive performance for work and study.</description>
+        </taxon>
+        <taxon slug="memory-enhancement" type="subcategory">
+            <title>Memory Enhancement</title>
+            <description>Natural memory support for learning, recall, and cognitive retention. Herbs and nutrients that enhance memory formation, improve information processing, support neural plasticity, and help maintain sharp memory function.</description>
+        </taxon>
+        <taxon slug="age-cognitive" type="subcategory">
+            <title>Age-Related Cognitive Support</title>
+            <description>Neuroprotective support for aging brains and cognitive longevity. Compounds that protect against cognitive decline, support healthy brain aging, maintain mental sharpness, and reduce risk of age-related memory issues.</description>
+        </taxon>
+    </taxon>
+    
+    <!-- 9. Skin, Hair & Nails -->
+    <taxon slug="skin-hair-nails" type="primary" hierarchical="true">
+        <title>Skin, Hair &amp; Nails</title>
+        <sub-title>Beauty-from-Within &amp; Topical Care</sub-title>
+        <description>Products supporting healthy skin, hair growth, and nail strength</description>
+        
+        <meta>
+            <chebi-roles>antioxidant,collagen_promoter,moisturizer</chebi-roles>
+            <npclassifier>carotenoids,flavonoids,proteins</npclassifier>
+            <chpa-category>beauty_health</chpa-category>
+            <fda-claim>Supports healthy skin, hair, and nails</fda-claim>
+        </meta>
+        
+        <ingredients>
+            <natural-ingredients>
+                <ingredient type="natural" source="plant" formal_name="Equisetum arvense">Horsetail</ingredient>
+                <ingredient type="natural" source="plant" formal_name="Urtica dioica">Nettle</ingredient>
+                <ingredient type="natural" source="plant" formal_name="Calendula officinalis">Calendula</ingredient>
+                <ingredient type="natural" source="plant" formal_name="Rosa canina">Rose Hips</ingredient>
+                <ingredient type="natural" source="plant" formal_name="Centella asiatica">Gotu Kola</ingredient>
+                <ingredient type="natural" source="marine" formal_name="Arthrospira platensis">Spirulina</ingredient>
+                <ingredient type="natural" source="plant" formal_name="Aloe vera">Aloe Vera</ingredient>
+                <ingredient type="natural" source="plant" formal_name="Hippophae rhamnoides">Sea Buckthorn</ingredient>
+            </natural-ingredients>
+            <isolated-compounds>
+                <ingredient type="isolated" source="natural" formal_name="biotin">Biotin</ingredient>
+                <ingredient type="isolated" source="marine">Collagen Peptides</ingredient>
+                <ingredient type="isolated" source="natural" formal_name="sodium hyaluronate">Hyaluronic Acid</ingredient>
+                <ingredient type="isolated" source="natural">Keratin</ingredient>
+                <ingredient type="isolated" source="natural" formal_name="orthosilicic acid">Silicon</ingredient>
+                <ingredient type="isolated" source="natural" formal_name="ascorbic acid">Vitamin C</ingredient>
+                <ingredient type="isolated" source="marine" formal_name="astaxanthin">Astaxanthin</ingredient>
+                <ingredient type="isolated" source="natural" formal_name="zinc picolinate">Zinc</ingredient>
+            </isolated-compounds>
+        </ingredients>
+        
+        <taxon slug="clear-skin" type="subcategory">
+            <title>Clear Skin &amp; Acne Support</title>
+            <description>Natural acne treatment and clear skin support for blemish-free complexion. Herbs and nutrients that balance oil production, reduce inflammation, clear pores, and promote healthy skin cell turnover for radiant, clear skin.</description>
+        </taxon>
+        <taxon slug="anti-aging" type="subcategory">
+            <title>Anti-Aging &amp; Collagen</title>
+            <description>Anti-aging nutrients and collagen support for youthful skin appearance. Antioxidants, peptides, and collagen-building compounds that reduce fine lines, improve skin elasticity, and promote healthy skin aging from within.</description>
+        </taxon>
+        <taxon slug="hair-growth" type="subcategory">
+            <title>Hair Growth &amp; Strength</title>
+            <description>Natural hair growth stimulators and strengthening nutrients for healthy, strong hair. Herbs and compounds that nourish hair follicles, reduce hair loss, promote regrowth, and improve hair thickness and shine.</description>
+        </taxon>
+        <taxon slug="nail-health" type="subcategory">
+            <title>Nail Health</title>
+            <description>Strengthening nutrients for healthy, strong nails that resist breaking and splitting. Biotin, minerals, and proteins that promote nail growth, improve nail thickness, reduce brittleness, and enhance overall nail appearance.</description>
+        </taxon>
+        <taxon slug="eczema-conditions" type="subcategory">
+            <title>Eczema &amp; Skin Conditions</title>
+            <description>Natural support for eczema, dermatitis, and sensitive skin conditions. Anti-inflammatory herbs and healing compounds that soothe irritated skin, reduce redness, promote skin barrier repair, and provide long-term skin health.</description>
+        </taxon>
+    </taxon>
+    
+    <!-- 10. Bone, Joint & Musculoskeletal -->
+    <taxon slug="bone-joint-musculoskeletal" type="primary" hierarchical="true">
+        <title>Bone, Joint &amp; Musculoskeletal</title>
+        <sub-title>Structural Support &amp; Movement</sub-title>
+        <description>Products supporting bone density, joint health, and musculoskeletal function</description>
+        
+        <meta>
+            <chebi-roles>bone_mineralizer,cartilage_support,anti-inflammatory</chebi-roles>
+            <npclassifier>glycosaminoglycans,minerals,proteins</npclassifier>
+            <chpa-category>bone_joint_health</chpa-category>
+            <fda-claim>Supports bone and joint health</fda-claim>
+        </meta>
+        
+        <ingredients>
+            <natural-ingredients>
+                <ingredient type="natural" source="plant" formal_name="Symphytum officinale">Comfrey</ingredient>
+                <ingredient type="natural" source="plant" formal_name="Equisetum arvense">Horsetail</ingredient>
+                <ingredient type="natural" source="plant" formal_name="Boswellia serrata">Boswellia</ingredient>
+                <ingredient type="natural" source="plant" formal_name="Curcuma longa">Turmeric</ingredient>
+                <ingredient type="natural" source="plant" formal_name="Bambusa vulgaris">Bamboo</ingredient>
+                <ingredient type="natural" source="marine">Shark Cartilage</ingredient>
+                <ingredient type="natural" source="marine">Green Lipped Mussel</ingredient>
+            </natural-ingredients>
+            <isolated-compounds>
+                <ingredient type="isolated" source="mineral" formal_name="calcium citrate">Calcium</ingredient>
+                <ingredient type="isolated" source="mineral" formal_name="magnesium glycinate">Magnesium</ingredient>
+                <ingredient type="isolated" source="natural" formal_name="cholecalciferol">Vitamin D3</ingredient>
+                <ingredient type="isolated" source="natural" formal_name="menaquinone-7">Vitamin K2</ingredient>
+                <ingredient type="isolated" source="natural" formal_name="glucosamine sulfate">Glucosamine</ingredient>
+                <ingredient type="isolated" source="natural" formal_name="chondroitin sulfate">Chondroitin</ingredient>
+                <ingredient type="isolated" source="natural" formal_name="methylsulfonylmethane">MSM</ingredient>
+                <ingredient type="isolated" source="natural" formal_name="type II collagen">Collagen</ingredient>
+                <ingredient type="isolated" source="natural" formal_name="S-adenosyl-L-methionine">SAMe</ingredient>
+            </isolated-compounds>
+        </ingredients>
+        
+        <taxon slug="bone-density" type="subcategory">
+            <title>Bone Density &amp; Strength</title>
+            <description>Essential nutrients for strong, dense bones and osteoporosis prevention. Calcium, magnesium, vitamin D, and bone-building compounds that support bone mineral density, reduce fracture risk, and maintain skeletal health throughout life.</description>
+        </taxon>
+        <taxon slug="joint-flexibility" type="subcategory">
+            <title>Joint Flexibility &amp; Comfort</title>
+            <description>Natural joint support for flexibility, mobility, and comfort. Glucosamine, chondroitin, and anti-inflammatory herbs that maintain cartilage health, reduce stiffness, improve range of motion, and support active lifestyles.</description>
+        </taxon>
+        <taxon slug="muscle-recovery" type="subcategory">
+            <title>Muscle Recovery &amp; Growth</title>
+            <description>Muscle recovery and growth support for athletes and active individuals. Protein, amino acids, and recovery-enhancing compounds that reduce muscle soreness, accelerate healing, and support muscle development and strength.</description>
+        </taxon>
+        <taxon slug="connective-tissue" type="subcategory">
+            <title>Connective Tissue Support</title>
+            <description>Structural support for tendons, ligaments, and connective tissues. Collagen, elastin precursors, and tissue-building nutrients that maintain connective tissue integrity, flexibility, and repair capacity throughout the body.</description>
+        </taxon>
+        <taxon slug="post-injury" type="subcategory">
+            <title>Post-Injury Healing</title>
+            <description>Accelerated healing support for sports injuries, fractures, and tissue damage. Anti-inflammatory herbs, healing nutrients, and regenerative compounds that reduce recovery time and promote optimal tissue repair and strength.</description>
+        </taxon>
+    </taxon>
+    
+    <!-- 11. Women's Health -->
+    <taxon slug="womens-health" type="primary" hierarchical="true">
+        <title>Women's Health</title>
+        <sub-title>Hormonal Balance &amp; Reproductive Wellness</sub-title>
+        <description>Products supporting women's hormonal health and reproductive wellness</description>
+        
+        <meta>
+            <chebi-roles>phytoestrogen,hormone_modulator,uterine_tonic</chebi-roles>
+            <npclassifier>isoflavones,lignans,steroidal_saponins</npclassifier>
+            <chpa-category>womens_health</chpa-category>
+            <fda-claim>Supports women's hormonal balance and reproductive health</fda-claim>
+        </meta>
+        
+        <ingredients>
+            <natural-ingredients>
+                <ingredient type="natural" source="plant" formal_name="Vitex agnus-castus">Chasteberry</ingredient>
+                <ingredient type="natural" source="plant" formal_name="Cimicifuga racemosa">Black Cohosh</ingredient>
+                <ingredient type="natural" source="plant" formal_name="Angelica sinensis">Dong Quai</ingredient>
+                <ingredient type="natural" source="plant" formal_name="Dioscorea villosa">Wild Yam</ingredient>
+                <ingredient type="natural" source="plant" formal_name="Trifolium pratense">Red Clover</ingredient>
+                <ingredient type="natural" source="plant" formal_name="Rubus idaeus">Red Raspberry Leaf</ingredient>
+                <ingredient type="natural" source="plant" formal_name="Oenothera biennis">Evening Primrose</ingredient>
+                <ingredient type="natural" source="plant" formal_name="Lepidium meyenii">Maca</ingredient>
+                <ingredient type="natural" source="plant" formal_name="Withania somnifera">Ashwagandha</ingredient>
+                <ingredient type="natural" source="plant" formal_name="Mentha spicata">Spearmint</ingredient>
+            </natural-ingredients>
+            <isolated-compounds>
+                <ingredient type="isolated" source="natural" formal_name="myo-inositol">Myo-Inositol</ingredient>
+                <ingredient type="isolated" source="natural" formal_name="D-chiro-inositol">D-Chiro-Inositol</ingredient>
+                <ingredient type="isolated" source="natural" formal_name="N-acetyl-L-cysteine">NAC</ingredient>
+                <ingredient type="isolated" source="natural" formal_name="alpha-lipoic acid">Alpha-Lipoic Acid</ingredient>
+                <ingredient type="isolated" source="natural" formal_name="gamma-linolenic acid">GLA</ingredient>
+                <ingredient type="isolated" source="natural" formal_name="folic acid">Folate</ingredient>
+                <ingredient type="isolated" source="natural" formal_name="ferrous bisglycinate">Iron</ingredient>
+            </isolated-compounds>
+        </ingredients>
+        
+        <taxon slug="pms-menstrual" type="subcategory">
+            <title>PMS &amp; Menstrual Support</title>
+            <description>Natural relief for PMS symptoms and menstrual cycle support. Herbs and nutrients that balance hormones, reduce cramping, ease mood swings, regulate cycles, and provide comprehensive menstrual wellness support.</description>
+        </taxon>
+        <taxon slug="menopause-hot-flashes" type="subcategory">
+            <title>Menopause &amp; Hot Flashes</title>
+            <description>Natural menopause support for hot flashes, night sweats, and hormonal transitions. Phytoestrogens and adaptogenic herbs that ease menopausal symptoms, support hormonal balance, and promote comfort during this life transition.</description>
+        </taxon>
+        <taxon slug="fertility-conception" type="subcategory">
+            <title>Fertility &amp; Conception</title>
+            <description>Natural fertility enhancement and conception support for women trying to conceive. Reproductive health nutrients, cycle regulators, and fertility-supporting herbs that optimize reproductive function and conception chances.</description>
+        </taxon>
+        <taxon slug="pregnancy-nursing" type="subcategory">
+            <title>Pregnancy &amp; Nursing</title>
+            <description>Safe, gentle support for pregnant and nursing mothers. Prenatal vitamins, morning sickness relief, lactation support, and pregnancy-safe herbs that nourish both mother and baby during pregnancy and breastfeeding.</description>
+        </taxon>
+        <taxon slug="pcos-hormonal" type="subcategory">
+            <title>PCOS &amp; Hormonal Balance</title>
+            <description>Specialized support for PCOS and hormonal imbalances in women. Insulin sensitizers, hormone balancers, and metabolic support that address PCOS symptoms, regulate cycles, and restore hormonal equilibrium naturally.</description>
+        </taxon>
+    </taxon>
+    
+    <!-- 12. Men's Health -->
+    <taxon slug="mens-health" type="primary" hierarchical="true">
+        <title>Men's Health</title>
+        <sub-title>Prostate, Performance &amp; Vitality</sub-title>
+        <description>Products supporting men's hormonal health, prostate function, and vitality</description>
+        
+        <meta>
+            <chebi-roles>androgen_support,prostate_health,testosterone_modulator</chebi-roles>
+            <npclassifier>sterols,fatty_acids,steroidal_saponins</npclassifier>
+            <chpa-category>mens_health</chpa-category>
+            <fda-claim>Supports men's health and vitality</fda-claim>
+        </meta>
+        
+        <ingredients>
+            <natural-ingredients>
+                <ingredient type="natural" source="plant" formal_name="Serenoa repens">Saw Palmetto</ingredient>
+                <ingredient type="natural" source="plant" formal_name="Urtica dioica">Nettle Root</ingredient>
+                <ingredient type="natural" source="plant" formal_name="Pygeum africanum">Pygeum</ingredient>
+                <ingredient type="natural" source="plant" formal_name="Tribulus terrestris">Tribulus</ingredient>
+                <ingredient type="natural" source="plant" formal_name="Eurycoma longifolia">Tongkat Ali</ingredient>
+                <ingredient type="natural" source="plant" formal_name="Trigonella foenum-graecum">Fenugreek</ingredient>
+                <ingredient type="natural" source="plant" formal_name="Withania somnifera">Ashwagandha</ingredient>
+                <ingredient type="natural" source="plant" formal_name="Lepidium meyenii">Maca</ingredient>
+                <ingredient type="natural" source="plant" formal_name="Panax ginseng">Korean Ginseng</ingredient>
+                <ingredient type="natural" source="mineral">Shilajit</ingredient>
+            </natural-ingredients>
+            <isolated-compounds>
+                <ingredient type="isolated" source="natural" formal_name="beta-sitosterol">Beta-Sitosterol</ingredient>
+                <ingredient type="isolated" source="natural" formal_name="lycopene">Lycopene</ingredient>
+                <ingredient type="isolated" source="natural" formal_name="D-aspartic acid">D-Aspartic Acid</ingredient>
+                <ingredient type="isolated" source="natural" formal_name="zinc picolinate">Zinc</ingredient>
+                <ingredient type="isolated" source="natural" formal_name="boron citrate">Boron</ingredient>
+                <ingredient type="isolated" source="natural" formal_name="selenium methionine">Selenium</ingredient>
+                <ingredient type="isolated" source="natural" formal_name="cholecalciferol">Vitamin D3</ingredient>
+            </isolated-compounds>
+        </ingredients>
+        
+        <taxon slug="prostate-health" type="subcategory">
+            <title>Prostate Health</title>
+            <description>Natural prostate support for men's urinary and reproductive health. Saw palmetto, lycopene, and prostate-specific nutrients that support healthy prostate size, function, and long-term prostate wellness and comfort.</description>
+        </taxon>
+        <taxon slug="testosterone-libido" type="subcategory">
+            <title>Testosterone &amp; Libido Support</title>
+            <description>Natural testosterone and libido enhancement for men's vitality and performance. Herbs and nutrients that support healthy testosterone levels, enhance libido, improve sexual function, and boost overall masculine vitality.</description>
+        </taxon>
+        <taxon slug="male-fertility" type="subcategory">
+            <title>Male Fertility</title>
+            <description>Male fertility enhancement and reproductive health support. Antioxidants, amino acids, and fertility-supporting nutrients that improve sperm quality, motility, count, and overall reproductive function for men trying to conceive.</description>
+        </taxon>
+    </taxon>
+    
+    <!-- 13. Liver & Detoxification -->
+    <taxon slug="liver-detoxification" type="primary" hierarchical="true">
+        <title>Liver &amp; Detoxification</title>
+        <sub-title>Cleansing &amp; Elimination Support</sub-title>
+        <description>Products supporting liver function and detoxification processes</description>
+        
+        <meta>
+            <chebi-roles>hepatoprotectant,choleretic,detoxifier</chebi-roles>
+            <npclassifier>flavonolignans,sesquiterpene_lactones,glucosinolates</npclassifier>
+            <chpa-category>liver_health,detox</chpa-category>
+            <fda-claim>Supports healthy liver function and detoxification</fda-claim>
+        </meta>
+        
+        <ingredients>
+            <natural-ingredients>
+                <ingredient type="natural" source="plant" formal_name="Silybum marianum">Milk Thistle</ingredient>
+                <ingredient type="natural" source="plant" formal_name="Taraxacum officinale">Dandelion</ingredient>
+                <ingredient type="natural" source="plant" formal_name="Cynara scolymus">Artichoke</ingredient>
+                <ingredient type="natural" source="plant" formal_name="Schisandra chinensis">Schisandra</ingredient>
+                <ingredient type="natural" source="plant" formal_name="Curcuma longa">Turmeric</ingredient>
+                <ingredient type="natural" source="plant" formal_name="Arctium lappa">Burdock Root</ingredient>
+                <ingredient type="natural" source="plant" formal_name="Rumex crispus">Yellow Dock</ingredient>
+                <ingredient type="natural" source="algae" formal_name="Chlorella vulgaris">Chlorella</ingredient>
+                <ingredient type="natural" source="plant" formal_name="Brassica oleracea">Cruciferous Vegetables</ingredient>
+            </natural-ingredients>
+            <isolated-compounds>
+                <ingredient type="isolated" source="plant-derived" formal_name="silymarin">Silymarin</ingredient>
+                <ingredient type="isolated" source="natural" formal_name="N-acetyl-L-cysteine">NAC</ingredient>
+                <ingredient type="isolated" source="natural" formal_name="alpha-lipoic acid">Alpha-Lipoic Acid</ingredient>
+                <ingredient type="isolated" source="natural" formal_name="glutathione">Glutathione</ingredient>
+                <ingredient type="isolated" source="natural" formal_name="S-adenosyl-L-methionine">SAMe</ingredient>
+                <ingredient type="isolated" source="natural" formal_name="taurine">Taurine</ingredient>
+                <ingredient type="isolated" source="natural" formal_name="methionine">Methionine</ingredient>
+            </isolated-compounds>
+        </ingredients>
+        
+        <taxon slug="daily-liver" type="subcategory">
+            <title>Daily Liver Support</title>
+            <description>Everyday liver support and hepatoprotective nutrition for optimal liver function. Milk thistle, NAC, and liver-supportive herbs that maintain healthy liver enzymes, support detoxification pathways, and protect against daily toxin exposure.</description>
+        </taxon>
+        <taxon slug="detox-cleanses" type="subcategory">
+            <title>Detox Programs &amp; Cleanses</title>
+            <description>Comprehensive detoxification programs and cleansing protocols. Structured detox support with herbs, fibers, and nutrients that eliminate toxins, reset metabolism, support weight loss, and promote overall cleansing and renewal.</description>
+        </taxon>
+        <taxon slug="alcohol-hangover" type="subcategory">
+            <title>Alcohol &amp; Hangover Support</title>
+            <description>Liver protection and hangover recovery support for alcohol consumption. Hepatoprotective compounds, antioxidants, and recovery nutrients that reduce hangover symptoms and protect the liver from alcohol-related damage.</description>
+        </taxon>
+        <taxon slug="heavy-metal" type="subcategory">
+            <title>Heavy Metal Detox</title>
+            <description>Specialized support for heavy metal detoxification and chelation. Binding agents, antioxidants, and detox enhancers that help eliminate mercury, lead, cadmium, and other toxic metals from the body safely and effectively.</description>
+        </taxon>
+        <taxon slug="lymphatic-drainage" type="subcategory">
+            <title>Lymphatic Drainage</title>
+            <description>Lymphatic system support for improved detoxification and immune function. Herbs and compounds that stimulate lymph flow, reduce lymphatic congestion, enhance toxin elimination, and support overall lymphatic health.</description>
+        </taxon>
+    </taxon>
+    
+    <!-- 14. Respiratory Health -->
+    <taxon slug="respiratory-health" type="primary" hierarchical="true">
+        <title>Respiratory Health</title>
+        <sub-title>Breathing, Airways &amp; Lung Support</sub-title>
+        <description>Products supporting respiratory function and lung health</description>
+        
+        <meta>
+            <chebi-roles>expectorant,bronchodilator,antitussive,mucolytic</chebi-roles>
+            <npclassifier>monoterpenes,alkaloids,saponins</npclassifier>
+            <chpa-category>respiratory_health</chpa-category>
+            <fda-claim>Supports respiratory health and function</fda-claim>
+        </meta>
+        
+        <ingredients>
+            <natural-ingredients>
+                <ingredient type="natural" source="plant" formal_name="Verbascum thapsus">Mullein</ingredient>
+                <ingredient type="natural" source="plant" formal_name="Thymus vulgaris">Thyme</ingredient>
+                <ingredient type="natural" source="plant" formal_name="Plantago major">Plantain</ingredient>
+                <ingredient type="natural" source="plant" formal_name="Althaea officinalis">Marshmallow</ingredient>
+                <ingredient type="natural" source="plant" formal_name="Glycyrrhiza glabra">Licorice</ingredient>
+                <ingredient type="natural" source="plant" formal_name="Eucalyptus globulus">Eucalyptus</ingredient>
+                <ingredient type="natural" source="plant" formal_name="Lobelia inflata">Lobelia</ingredient>
+                <ingredient type="natural" source="plant" formal_name="Inula helenium">Elecampane</ingredient>
+                <ingredient type="natural" source="plant" formal_name="Tussilago farfara">Coltsfoot</ingredient>
+                <ingredient type="natural" source="plant" formal_name="Prunus serotina">Wild Cherry Bark</ingredient>
+            </natural-ingredients>
+            <isolated-compounds>
+                <ingredient type="isolated" source="natural" formal_name="N-acetyl-L-cysteine">NAC</ingredient>
+                <ingredient type="isolated" source="plant-derived" formal_name="3,3′,4′,5,7-pentahydroxyflavone">Quercetin</ingredient>
+                <ingredient type="isolated" source="natural" formal_name="ascorbic acid">Vitamin C</ingredient>
+                <ingredient type="isolated" source="natural" formal_name="retinol">Vitamin A</ingredient>
+                <ingredient type="isolated" source="natural" formal_name="cholecalciferol">Vitamin D3</ingredient>
+                <ingredient type="isolated" source="pineapple" formal_name="bromelain">Bromelain</ingredient>
+            </isolated-compounds>
+        </ingredients>
+        
+        <taxon slug="cough-throat" type="subcategory">
+            <title>Cough &amp; Throat Relief</title>
+            <description>Natural cough suppressants and throat soothers for respiratory comfort. Herbal demulcents, expectorants, and anti-inflammatory compounds that calm coughs, soothe sore throats, and support healthy respiratory function.</description>
+        </taxon>
+        <taxon slug="sinus-congestion" type="subcategory">
+            <title>Sinus &amp; Congestion</title>
+            <description>Natural decongestants and sinus support for clear breathing. Herbs and nutrients that reduce sinus inflammation, promote drainage, clear congestion, and support healthy sinus function and comfort.</description>
+        </taxon>
+        <taxon slug="asthma-breathing" type="subcategory">
+            <title>Asthma &amp; Breathing Support</title>
+            <description>Natural bronchodilators and breathing support for asthma and respiratory conditions. Anti-inflammatory herbs and compounds that support open airways, reduce respiratory inflammation, and improve breathing capacity.</description>
+        </taxon>
+        <taxon slug="lung-recovery" type="subcategory">
+            <title>Lung Health &amp; Recovery</title>
+            <description>Lung health support for recovery from respiratory illness or environmental damage. Antioxidants, healing herbs, and protective compounds that support lung tissue repair, detoxification, and long-term respiratory wellness.</description>
+        </taxon>
+    </taxon>
+    
+    <!-- 15. Kidney & Urinary Health -->
+    <taxon slug="kidney-urinary" type="primary" hierarchical="true">
+        <title>Kidney &amp; Urinary Health</title>
+        <sub-title>Urinary Tract &amp; Fluid Balance</sub-title>
+        <description>Products supporting kidney function and urinary tract health</description>
+        
+        <meta>
+            <chebi-roles>diuretic,antimicrobial,antilithic,nephroprotective</chebi-roles>
+            <npclassifier>proanthocyanidins,arbutin,anthraquinones</npclassifier>
+            <chpa-category>urinary_health</chpa-category>
+            <fda-claim>Supports kidney and urinary tract health</fda-claim>
+        </meta>
+        
+        <ingredients>
+            <natural-ingredients>
+                <ingredient type="natural" source="plant" formal_name="Vaccinium macrocarpon">Cranberry</ingredient>
+                <ingredient type="natural" source="plant" formal_name="Arctostaphylos uva-ursi">Uva Ursi</ingredient>
+                <ingredient type="natural" source="plant" formal_name="Phyllanthus niruri">Chanca Piedra</ingredient>
+                <ingredient type="natural" source="plant" formal_name="Hydrangea arborescens">Hydrangea Root</ingredient>
+                <ingredient type="natural" source="plant" formal_name="Zea mays">Corn Silk</ingredient>
+                <ingredient type="natural" source="plant" formal_name="Urtica dioica">Nettle Leaf</ingredient>
+                <ingredient type="natural" source="plant" formal_name="Petroselinum crispum">Parsley</ingredient>
+                <ingredient type="natural" source="plant" formal_name="Juniperus communis">Juniper Berry</ingredient>
+                <ingredient type="natural" source="plant" formal_name="Solidago virgaurea">Goldenrod</ingredient>
+                <ingredient type="natural" source="plant" formal_name="Elymus repens">Couch Grass</ingredient>
+            </natural-ingredients>
+            <isolated-compounds>
+                <ingredient type="isolated" source="natural">D-Mannose</ingredient>
+                <ingredient type="isolated" source="plant-derived" formal_name="proanthocyanidins">PACs</ingredient>
+                <ingredient type="isolated" source="natural" formal_name="citric acid">Citrate</ingredient>
+                <ingredient type="isolated" source="natural" formal_name="magnesium citrate">Magnesium</ingredient>
+                <ingredient type="isolated" source="natural" formal_name="potassium citrate">Potassium</ingredient>
+            </isolated-compounds>
+        </ingredients>
+        
+        <taxon slug="uti-prevention" type="subcategory">
+            <title>UTI Prevention &amp; Support</title>
+            <description>Natural UTI prevention and urinary tract support. Cranberry, D-mannose, and antimicrobial herbs that prevent bacterial adhesion, support urinary tract health, and reduce recurrent UTI risk naturally.</description>
+        </taxon>
+        <taxon slug="kidney-stone" type="subcategory">
+            <title>Kidney Stone Prevention</title>
+            <description>Natural kidney stone prevention and dissolution support. Herbs and nutrients that reduce stone formation, support mineral balance, promote healthy urine flow, and protect against kidney stone recurrence.</description>
+        </taxon>
+        <taxon slug="bladder-health" type="subcategory">
+            <title>Bladder Health</title>
+            <description>Comprehensive bladder health and function support. Herbs and nutrients that strengthen bladder muscle tone, reduce urgency and frequency, support continence, and promote overall bladder wellness and comfort.</description>
+        </taxon>
+        <taxon slug="water-retention" type="subcategory">
+            <title>Water Retention &amp; Edema</title>
+            <description>Natural diuretics and fluid balance support for water retention and edema. Gentle herbs that promote healthy fluid elimination, reduce swelling, support lymphatic drainage, and maintain optimal fluid balance.</description>
+        </taxon>
+    </taxon>
+    
+    <!-- 16. Blood Sugar, Metabolism & Weight -->
+    <taxon slug="blood-sugar-metabolism" type="primary" hierarchical="true">
+        <title>Blood Sugar, Metabolism &amp; Weight</title>
+        <sub-title>Metabolic Balance &amp; Healthy Weight</sub-title>
+        <description>Products supporting blood sugar regulation, metabolism, and weight management</description>
+        
+        <meta>
+            <chebi-roles>hypoglycemic,insulin_sensitizer,thermogenic,appetite_suppressant</chebi-roles>
+            <npclassifier>alkaloids,polyphenols,chromophores</npclassifier>
+            <chpa-category>metabolic_health,weight_management</chpa-category>
+            <fda-claim>Supports healthy blood sugar metabolism and weight management</fda-claim>
+        </meta>
+        
+        <ingredients>
+            <natural-ingredients>
+                <ingredient type="natural" source="plant" formal_name="Berberis vulgaris">Berberine</ingredient>
+                <ingredient type="natural" source="plant" formal_name="Cinnamomum verum">Cinnamon</ingredient>
+                <ingredient type="natural" source="plant" formal_name="Gymnema sylvestre">Gymnema</ingredient>
+                <ingredient type="natural" source="plant" formal_name="Momordica charantia">Bitter Melon</ingredient>
+                <ingredient type="natural" source="plant" formal_name="Lagerstroemia speciosa">Banaba Leaf</ingredient>
+                <ingredient type="natural" source="plant" formal_name="Trigonella foenum-graecum">Fenugreek</ingredient>
+                <ingredient type="natural" source="plant" formal_name="Camellia sinensis">Green Tea</ingredient>
+                <ingredient type="natural" source="plant" formal_name="Coffea arabica">Green Coffee Bean</ingredient>
+                <ingredient type="natural" source="plant" formal_name="Garcinia cambogia">Garcinia</ingredient>
+                <ingredient type="natural" source="plant" formal_name="Phaseolus vulgaris">White Kidney Bean</ingredient>
+            </natural-ingredients>
+            <isolated-compounds>
+                <ingredient type="isolated" source="natural" formal_name="chromium picolinate">Chromium</ingredient>
+                <ingredient type="isolated" source="natural" formal_name="alpha-lipoic acid">Alpha-Lipoic Acid</ingredient>
+                <ingredient type="isolated" source="natural" formal_name="L-carnitine">L-Carnitine</ingredient>
+                <ingredient type="isolated" source="plant-derived" formal_name="chlorogenic acid">Chlorogenic Acid</ingredient>
+                <ingredient type="isolated" source="plant-derived" formal_name="hydroxycitric acid">HCA</ingredient>
+                <ingredient type="isolated" source="natural" formal_name="conjugated linoleic acid">CLA</ingredient>
+                <ingredient type="isolated" source="plant-derived" formal_name="capsaicin">Capsaicin</ingredient>
+            </isolated-compounds>
+        </ingredients>
+        
+        <taxon slug="blood-sugar-support" type="subcategory">
+            <title>Blood Sugar Support</title>
+            <description>Natural blood sugar regulation and glucose metabolism support. Chromium, berberine, and blood sugar stabilizing herbs that help maintain healthy glucose levels, improve insulin sensitivity, and support metabolic health.</description>
+        </taxon>
+        <taxon slug="appetite-control" type="subcategory">
+            <title>Appetite Control</title>
+            <description>Natural appetite suppressants and hunger management support. Fiber, protein, and satiety-promoting compounds that reduce cravings, control portion sizes, support healthy eating habits, and sustainable weight management.</description>
+        </taxon>
+        <taxon slug="metabolism-weight" type="subcategory">
+            <title>Metabolism &amp; Weight Management</title>
+            <description>Metabolic enhancement and healthy weight management support. Thermogenic herbs, fat burners, and metabolism boosters that increase caloric burn, support healthy weight loss, and maintain optimal body composition.</description>
+        </taxon>
+    </taxon>
+    
+    <!-- 17. Allergy & Histamine Support -->
+    <taxon slug="allergy-histamine" type="primary" hierarchical="true">
+        <title>Allergy &amp; Histamine Support</title>
+        <sub-title>Seasonal &amp; Food Sensitivities</sub-title>
+        <description>Products supporting allergy relief and histamine regulation</description>
+        
+        <meta>
+            <chebi-roles>antihistamine,mast_cell_stabilizer,anti-inflammatory</chebi-roles>
+            <npclassifier>flavonoids,alkaloids,polyphenols</npclassifier>
+            <chpa-category>allergy_support</chpa-category>
+            <fda-claim>Supports healthy histamine response</fda-claim>
+        </meta>
+        
+        <ingredients>
+            <natural-ingredients>
+                <ingredient type="natural" source="plant" formal_name="Urtica dioica">Stinging Nettle</ingredient>
+                <ingredient type="natural" source="plant" formal_name="Petasites hybridus">Butterbur</ingredient>
+                <ingredient type="natural" source="plant" formal_name="Perilla frutescens">Perilla</ingredient>
+                <ingredient type="natural" source="plant" formal_name="Euphrasia officinalis">Eyebright</ingredient>
+                <ingredient type="natural" source="plant" formal_name="Sambucus nigra">Elderflower</ingredient>
+                <ingredient type="natural" source="plant" formal_name="Plantago lanceolata">Ribwort Plantain</ingredient>
+                <ingredient type="natural" source="algae" formal_name="Arthrospira platensis">Spirulina</ingredient>
+                <ingredient type="natural" source="plant" formal_name="Nigella sativa">Black Seed</ingredient>
+            </natural-ingredients>
+            <isolated-compounds>
+                <ingredient type="isolated" source="plant-derived" formal_name="3,3′,4′,5,7-pentahydroxyflavone">Quercetin</ingredient>
+                <ingredient type="isolated" source="pineapple" formal_name="bromelain">Bromelain</ingredient>
+                <ingredient type="isolated" source="natural" formal_name="ascorbic acid">Vitamin C</ingredient>
+                <ingredient type="isolated" source="natural" formal_name="pyridoxine">Vitamin B6</ingredient>
+                <ingredient type="isolated" source="enzyme">Diamine Oxidase</ingredient>
+                <ingredient type="isolated" source="natural" formal_name="methylsulfonylmethane">MSM</ingredient>
+            </isolated-compounds>
+        </ingredients>
+        
+        <taxon slug="seasonal-allergy" type="subcategory">
+            <title>Seasonal Allergy Relief</title>
+            <description>Natural seasonal allergy relief for pollen, grass, and environmental allergens. Antihistamine herbs, mast cell stabilizers, and immune modulators that reduce sneezing, itching, congestion, and other seasonal allergy symptoms.</description>
+        </taxon>
+        <taxon slug="food-allergy" type="subcategory">
+            <title>Food Allergy Support</title>
+            <description>Support for food sensitivities and allergic reactions to common food allergens. Digestive enzymes, anti-inflammatory herbs, and gut healing compounds that reduce food sensitivity reactions and support tolerance.</description>
+        </taxon>
+        <taxon slug="histamine-intolerance" type="subcategory">
+            <title>Histamine Intolerance</title>
+            <description>Specialized support for histamine intolerance and histamine sensitivity. DAO enzyme support, histamine-degrading nutrients, and low-histamine lifestyle support for managing histamine overload and intolerance symptoms.</description>
+        </taxon>
+        <taxon slug="mast-cell" type="subcategory">
+            <title>Mast Cell Stabilization</title>
+            <description>Natural mast cell stabilizers for mast cell activation syndrome (MCAS) and excessive mast cell degranulation. Quercetin, vitamin C, and stabilizing compounds that calm overactive mast cells and reduce histamine release.</description>
+        </taxon>
+        <taxon slug="environmental-sensitivity" type="subcategory">
+            <title>Environmental Sensitivities</title>
+            <description>Support for multiple chemical sensitivity (MCS) and environmental sensitivities. Detoxification support, antioxidants, and protective compounds that help the body cope with environmental toxins and chemical exposures.</description>
+        </taxon>
+    </taxon>
+    
+    <!-- 18. Healthy Aging & Longevity -->
+    <taxon slug="healthy-aging" type="primary" hierarchical="true">
+        <title>Healthy Aging &amp; Longevity</title>
+        <sub-title>Vitality Through the Years</sub-title>
+        <description>Products supporting healthy aging and longevity</description>
+        
+        <meta>
+            <chebi-roles>antioxidant,senolytic,telomerase_activator,mitochondrial_support</chebi-roles>
+            <npclassifier>polyphenols,stilbenes,flavonoids</npclassifier>
+            <chpa-category>healthy_aging</chpa-category>
+            <fda-claim>Supports healthy aging and cellular health</fda-claim>
+        </meta>
+        
+        <ingredients>
+            <natural-ingredients>
+                <ingredient type="natural" source="plant" formal_name="Polygonum cuspidatum">Japanese Knotweed</ingredient>
+                <ingredient type="natural" source="plant" formal_name="Vitis vinifera">Grape Seed</ingredient>
+                <ingredient type="natural" source="plant" formal_name="Ginkgo biloba">Ginkgo</ingredient>
+                <ingredient type="natural" source="plant" formal_name="Camellia sinensis">Green Tea</ingredient>
+                <ingredient type="natural" source="plant" formal_name="Curcuma longa">Turmeric</ingredient>
+                <ingredient type="natural" source="plant" formal_name="Rhodiola rosea">Rhodiola</ingredient>
+                <ingredient type="natural" source="plant" formal_name="Withania somnifera">Ashwagandha</ingredient>
+                <ingredient type="natural" source="fungus" formal_name="Ganoderma lucidum">Reishi</ingredient>
+            </natural-ingredients>
+            <isolated-compounds>
+                <ingredient type="isolated" source="natural" formal_name="nicotinamide mononucleotide">NMN</ingredient>
+                <ingredient type="isolated" source="natural" formal_name="nicotinamide riboside">NR</ingredient>
+                <ingredient type="isolated" source="plant-derived" formal_name="trans-resveratrol">Resveratrol</ingredient>
+                <ingredient type="isolated" source="plant-derived" formal_name="pterostilbene">Pterostilbene</ingredient>
+                <ingredient type="isolated" source="plant-derived" formal_name="fisetin">Fisetin</ingredient>
+                <ingredient type="isolated" source="plant-derived" formal_name="3,3′,4′,5,7-pentahydroxyflavone">Quercetin</ingredient>
+                <ingredient type="isolated" source="fermentation">Coenzyme Q10</ingredient>
+                <ingredient type="isolated" source="natural" formal_name="pyrroloquinoline quinone">PQQ</ingredient>
+                <ingredient type="isolated" source="natural" formal_name="spermidine">Spermidine</ingredient>
+            </isolated-compounds>
+        </ingredients>
+        
+        <taxon slug="cellular-aging" type="subcategory">
+            <title>Cellular Anti-Aging</title>
+            <description>Advanced cellular anti-aging and longevity support. Resveratrol, NMN, NAD+ precursors, and senolytic compounds that promote cellular repair, reduce cellular aging, and support healthy lifespan extension at the cellular level.</description>
+        </taxon>
+        <taxon slug="mitochondrial-support" type="subcategory">
+            <title>Mitochondrial Support</title>
+            <description>Mitochondrial health and energy production support. CoQ10, PQQ, and mitochondrial nutrients that enhance cellular energy production, protect mitochondria from damage, and support optimal metabolic function and vitality.</description>
+        </taxon>
+        <taxon slug="telomere-dna" type="subcategory">
+            <title>Telomere &amp; DNA Protection</title>
+            <description>DNA protection and telomere health support for genetic longevity. Antioxidants, DNA repair nutrients, and telomerase activators that protect genetic material, maintain telomere length, and support healthy cellular aging.</description>
+        </taxon>
+        <taxon slug="senior-vitality" type="subcategory">
+            <title>Senior Nutrition &amp; Vitality</title>
+            <description>Comprehensive nutrition and vitality support for seniors and older adults. Age-appropriate nutrients, mobility support, cognitive health, and overall vitality enhancement for healthy aging and independence in later years.</description>
+        </taxon>
+    </taxon>
+    
+    <!-- 19. Eye & Vision Health -->
+    <taxon slug="eye-vision" type="primary" hierarchical="true">
+        <title>Eye &amp; Vision Health</title>
+        <sub-title>Visual Clarity &amp; Eye Protection</sub-title>
+        <description>Products supporting eye health and visual function</description>
+        
+        <meta>
+            <chebi-roles>antioxidant,macular_protectant,visual_enhancer</chebi-roles>
+            <npclassifier>carotenoids,anthocyanins,xanthophylls</npclassifier>
+            <chpa-category>eye_health</chpa-category>
+            <fda-claim>Supports eye health and visual function</fda-claim>
+        </meta>
+        
+        <ingredients>
+            <natural-ingredients>
+                <ingredient type="natural" source="plant" formal_name="Vaccinium myrtillus">Bilberry</ingredient>
+                <ingredient type="natural" source="plant" formal_name="Crocus sativus">Saffron</ingredient>
+                <ingredient type="natural" source="plant" formal_name="Lycium barbarum">Goji Berry</ingredient>
+                <ingredient type="natural" source="plant" formal_name="Euphrasia officinalis">Eyebright</ingredient>
+                <ingredient type="natural" source="plant" formal_name="Ginkgo biloba">Ginkgo</ingredient>
+                <ingredient type="natural" source="plant" formal_name="Tagetes erecta">Marigold</ingredient>
+                <ingredient type="natural" source="marine" formal_name="Haematococcus pluvialis">Astaxanthin Source</ingredient>
+            </natural-ingredients>
+            <isolated-compounds>
+                <ingredient type="isolated" source="plant-derived">Lutein</ingredient>
+                <ingredient type="isolated" source="plant-derived">Zeaxanthin</ingredient>
+                <ingredient type="isolated" source="plant-derived">Meso-zeaxanthin</ingredient>
+                <ingredient type="isolated" source="marine" formal_name="astaxanthin">Astaxanthin</ingredient>
+                <ingredient type="isolated" source="natural" formal_name="ascorbic acid">Vitamin C</ingredient>
+                <ingredient type="isolated" source="natural" formal_name="tocopherols">Vitamin E</ingredient>
+                <ingredient type="isolated" source="natural" formal_name="zinc oxide">Zinc</ingredient>
+                <ingredient type="isolated" source="natural" formal_name="retinol">Vitamin A</ingredient>
+                <ingredient type="isolated" source="natural" formal_name="copper gluconate">Copper</ingredient>
+            </isolated-compounds>
+        </ingredients>
+        
+        <taxon slug="age-vision" type="subcategory">
+            <title>Age-Related Vision Support</title>
+            <description>Comprehensive support for age-related vision changes and eye health. Lutein, zeaxanthin, and vision-protecting antioxidants that support overall eye health, reduce age-related vision decline, and maintain visual acuity with aging.</description>
+        </taxon>
+        <taxon slug="eye-strain" type="subcategory">
+            <title>Eye Strain &amp; Computer Vision</title>
+            <description>Relief for digital eye strain and computer vision syndrome. Blue light protection, eye muscle relaxation, and vision support for those who spend long hours at screens, computers, and digital devices.</description>
+        </taxon>
+        <taxon slug="night-vision" type="subcategory">
+            <title>Night Vision</title>
+            <description>Natural night vision enhancement and low-light visual support. Bilberry, vitamin A, and rhodopsin-supporting nutrients that improve night vision, dark adaptation, and visual performance in low-light conditions.</description>
+        </taxon>
+        <taxon slug="dry-eye" type="subcategory">
+            <title>Dry Eye Relief</title>
+            <description>Natural relief for dry eye syndrome and tear production support. Omega-3 fatty acids, eye-moisturizing nutrients, and inflammation reduction for comfortable, well-lubricated eyes and improved tear quality.</description>
+        </taxon>
+        <taxon slug="macular-health" type="subcategory">
+            <title>Macular Health</title>
+            <description>Targeted macular degeneration prevention and macular health support. High-potency macular carotenoids, antioxidants, and vision-preserving nutrients that protect the macula and reduce risk of age-related macular degeneration.</description>
+        </taxon>
+    </taxon>
+    
+    <!-- 20. Oral Health -->
+    <taxon slug="oral-health" type="primary" hierarchical="true">
+        <title>Oral Health</title>
+        <sub-title>Teeth, Gums &amp; Fresh Breath</sub-title>
+        <description>Products supporting oral and dental health</description>
+        
+        <meta>
+            <chebi-roles>antimicrobial,remineralizer,anti-inflammatory</chebi-roles>
+            <npclassifier>phenolics,alkaloids,tannins</npclassifier>
+            <chpa-category>oral_health</chpa-category>
+            <fda-claim>Supports oral health and hygiene</fda-claim>
+        </meta>
+        
+        <ingredients>
+            <natural-ingredients>
+                <ingredient type="natural" source="plant" formal_name="Camellia sinensis">Green Tea</ingredient>
+                <ingredient type="natural" source="plant" formal_name="Vaccinium macrocarpon">Cranberry</ingredient>
+                <ingredient type="natural" source="plant" formal_name="Syzygium aromaticum">Clove</ingredient>
+                <ingredient type="natural" source="plant" formal_name="Commiphora myrrha">Myrrh</ingredient>
+                <ingredient type="natural" source="plant" formal_name="Mentha piperita">Peppermint</ingredient>
+                <ingredient type="natural" source="plant" formal_name="Melaleuca alternifolia">Tea Tree</ingredient>
+                <ingredient type="natural" source="plant" formal_name="Aloe vera">Aloe Vera</ingredient>
+                <ingredient type="natural" source="plant" formal_name="Glycyrrhiza glabra">Licorice Root</ingredient>
+                <ingredient type="natural" source="microbial">Lactobacillus reuteri</ingredient>
+                <ingredient type="natural" source="microbial">Streptococcus salivarius</ingredient>
+            </natural-ingredients>
+            <isolated-compounds>
+                <ingredient type="isolated" source="mineral" formal_name="calcium hydroxyapatite">Hydroxyapatite</ingredient>
+                <ingredient type="isolated" source="natural" formal_name="menaquinone-7">Vitamin K2</ingredient>
+                <ingredient type="isolated" source="natural" formal_name="cholecalciferol">Vitamin D3</ingredient>
+                <ingredient type="isolated" source="fermentation">Coenzyme Q10</ingredient>
+                <ingredient type="isolated" source="natural" formal_name="ascorbic acid">Vitamin C</ingredient>
+                <ingredient type="isolated" source="natural">Xylitol</ingredient>
+                <ingredient type="isolated" source="mineral" formal_name="calcium phosphate">Calcium</ingredient>
+            </isolated-compounds>
+        </ingredients>
+        
+        <taxon slug="gum-health" type="subcategory">
+            <title>Gum Health &amp; Inflammation</title>
+            <description>Natural gum health and periodontal support for healthy gums and reduced inflammation. Anti-inflammatory herbs, antioxidants, and healing compounds that support gum health, reduce gingivitis, and promote oral tissue healing.</description>
+        </taxon>
+        <taxon slug="tooth-enamel" type="subcategory">
+            <title>Tooth &amp; Enamel Support</title>
+            <description>Tooth remineralization and enamel strengthening support. Calcium, phosphorus, hydroxyapatite, and mineralizing nutrients that strengthen tooth enamel, reduce sensitivity, and support overall dental health and cavity prevention.</description>
+        </taxon>
+        <taxon slug="breath-freshening" type="subcategory">
+            <title>Natural Breath Freshening</title>
+            <description>Natural breath freshening and oral odor elimination. Antimicrobial herbs, probiotics, and natural breath fresheners that address the root causes of bad breath and promote long-lasting oral freshness naturally.</description>
+        </taxon>
+        <taxon slug="oral-microbiome" type="subcategory">
+            <title>Oral Microbiome Balance</title>
+            <description>Oral microbiome balance and beneficial bacteria support for oral health. Oral probiotics, prebiotic support, and microbiome-balancing nutrients that promote healthy oral bacteria and overall oral ecosystem health.</description>
+        </taxon>
+        <taxon slug="canker-sore" type="subcategory">
+            <title>Canker Sore &amp; Mouth Ulcer Relief</title>
+            <description>Natural healing support for canker sores, mouth ulcers, and oral lesions. Anti-inflammatory herbs, healing nutrients, and immune support that accelerate healing, reduce pain, and prevent recurrent oral lesions.</description>
+        </taxon>
+    </taxon>
+    
+    <!-- 
+    ============================================================================
+    NOTE: Synthetic compounds are generally not used in Rogue Herbalist 
+    formulations, but are included in the taxonomy for completeness and 
+    comparison purposes. Examples would include:
+    - Synthetic vitamins (dl-alpha-tocopherol, synthetic folic acid)
+    - OTC pharmaceuticals (acetaminophen, ibuprofen, diphenhydramine)
+    - Prescription medications (not carried by RH)
+    ============================================================================
+    -->
+    
+</taxonomy>

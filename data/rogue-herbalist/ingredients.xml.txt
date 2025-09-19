@@ -1,0 +1,338 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ingredients version="1.0" namespace="rogue-herbalist-ingredients">
+
+    <!-- INGREDIENT CATEGORY DEFINITIONS -->
+    <!--
+    ============================================================================
+    SELF-CARE INGREDIENT TAXONOMY DEFINITIONS
+    ============================================================================
+
+    ** Natural Ingredients **
+    Definition: Ingredients derived from plants, fungi, animals, or minerals
+    that retain their source identity, including whole materials, extracts,
+    and concentrates.
+
+    ** Isolated Compounds **
+    Definition: Single molecules or pure substances extracted or derived from
+    natural sources or fermentation, sold in precise doses.
+
+    ** Synthetic Compounds **
+    Definition: Molecules created through chemical synthesis, including
+    pharmaceuticals and lab-created vitamins identical to or distinct from
+    natural forms.
+    ============================================================================
+    -->
+
+    <!-- NATURAL INGREDIENTS - Top 100 by Internet Discussion Frequency -->
+    <natural-ingredients>
+        <ingredient rank="1" slug="turmeric" formal_name="Curcuma longa" type="natural" source="plant">Turmeric</ingredient>
+        <ingredient rank="2" slug="ginger" formal_name="Zingiber officinale" type="natural" source="plant">Ginger</ingredient>
+        <ingredient rank="3" slug="garlic" formal_name="Allium sativum" type="natural" source="plant">Garlic</ingredient>
+        <ingredient rank="4" slug="green-tea" formal_name="Camellia sinensis" type="natural" source="plant">Green Tea</ingredient>
+        <ingredient rank="5" slug="echinacea" formal_name="Echinacea purpurea" type="natural" source="plant">Echinacea</ingredient>
+        <ingredient rank="6" slug="ginkgo" formal_name="Ginkgo biloba" type="natural" source="plant">Ginkgo</ingredient>
+        <ingredient rank="7" slug="ashwagandha" formal_name="Withania somnifera" type="natural" source="plant">Ashwagandha</ingredient>
+        <ingredient rank="8" slug="elderberry" formal_name="Sambucus nigra" type="natural" source="plant">Elderberry</ingredient>
+        <ingredient rank="9" slug="reishi-mushroom" formal_name="Ganoderma lucidum" type="natural" source="fungus">Reishi Mushroom</ingredient>
+        <ingredient rank="10" slug="lions-mane-mushroom" formal_name="Hericium erinaceus" type="natural" source="fungus">Lion's Mane Mushroom</ingredient>
+        <ingredient rank="11" slug="rhodiola" formal_name="Rhodiola rosea" type="natural" source="plant">Rhodiola</ingredient>
+        <ingredient rank="12" slug="milk-thistle" formal_name="Silybum marianum" type="natural" source="plant">Milk Thistle</ingredient>
+        <ingredient rank="13" slug="valerian" formal_name="Valeriana officinalis" type="natural" source="plant">Valerian</ingredient>
+        <ingredient rank="14" slug="cranberry" formal_name="Vaccinium macrocarpon" type="natural" source="plant">Cranberry</ingredient>
+        <ingredient rank="15" slug="saw-palmetto" formal_name="Serenoa repens" type="natural" source="plant">Saw Palmetto</ingredient>
+        <ingredient rank="16" slug="st-johns-wort" formal_name="Hypericum perforatum" type="natural" source="plant">St. John's Wort</ingredient>
+        <ingredient rank="17" slug="ginseng" formal_name="Panax ginseng" type="natural" source="plant">Ginseng</ingredient>
+        <ingredient rank="18" slug="chamomile" formal_name="Matricaria chamomilla" type="natural" source="plant">Chamomile</ingredient>
+        <ingredient rank="19" slug="aloe-vera" formal_name="Aloe vera" type="natural" source="plant">Aloe Vera</ingredient>
+        <ingredient rank="20" slug="cordyceps" formal_name="Cordyceps sinensis" type="natural" source="fungus">Cordyceps</ingredient>
+        <ingredient rank="21" slug="bacopa" formal_name="Bacopa monnieri" type="natural" source="plant">Bacopa</ingredient>
+        <ingredient rank="22" slug="holy-basil" formal_name="Ocimum sanctum" type="natural" source="plant">Holy Basil</ingredient>
+        <ingredient rank="23" slug="passionflower" formal_name="Passiflora incarnata" type="natural" source="plant">Passionflower</ingredient>
+        <ingredient rank="24" slug="hawthorn" formal_name="Crataegus oxyacantha" type="natural" source="plant">Hawthorn</ingredient>
+        <ingredient rank="25" slug="dandelion" formal_name="Taraxacum officinale" type="natural" source="plant">Dandelion</ingredient>
+        <ingredient rank="26" slug="nettle" formal_name="Urtica dioica" type="natural" source="plant">Nettle</ingredient>
+        <ingredient rank="27" slug="chaga-mushroom" formal_name="Inonotus obliquus" type="natural" source="fungus">Chaga Mushroom</ingredient>
+        <ingredient rank="28" slug="turkey-tail-mushroom" formal_name="Trametes versicolor" type="natural" source="fungus">Turkey Tail Mushroom</ingredient>
+        <ingredient rank="29" slug="maca" formal_name="Lepidium meyenii" type="natural" source="plant">Maca</ingredient>
+        <ingredient rank="30" slug="schisandra" formal_name="Schisandra chinensis" type="natural" source="plant">Schisandra</ingredient>
+        <ingredient rank="31" slug="astragalus" formal_name="Astragalus membranaceus" type="natural" source="plant">Astragalus</ingredient>
+        <ingredient rank="32" slug="licorice-root" formal_name="Glycyrrhiza glabra" type="natural" source="plant">Licorice Root</ingredient>
+        <ingredient rank="33" slug="black-cohosh" formal_name="Cimicifuga racemosa" type="natural" source="plant">Black Cohosh</ingredient>
+        <ingredient rank="34" slug="red-clover" formal_name="Trifolium pratense" type="natural" source="plant">Red Clover</ingredient>
+        <ingredient rank="35" slug="dong-quai" formal_name="Angelica sinensis" type="natural" source="plant">Dong Quai</ingredient>
+        <ingredient rank="36" slug="shiitake-mushroom" formal_name="Lentinula edodes" type="natural" source="fungus">Shiitake Mushroom</ingredient>
+        <ingredient rank="37" slug="maitake-mushroom" formal_name="Grifola frondosa" type="natural" source="fungus">Maitake Mushroom</ingredient>
+        <ingredient rank="38" slug="eleuthero" formal_name="Eleutherococcus senticosus" type="natural" source="plant">Eleuthero</ingredient>
+        <ingredient rank="39" slug="boswellia" formal_name="Boswellia serrata" type="natural" source="plant">Boswellia</ingredient>
+        <ingredient rank="40" slug="fenugreek" formal_name="Trigonella foenum-graecum" type="natural" source="plant">Fenugreek</ingredient>
+        <ingredient rank="41" slug="bilberry" formal_name="Vaccinium myrtillus" type="natural" source="plant">Bilberry</ingredient>
+        <ingredient rank="42" slug="grape-seed" formal_name="Vitis vinifera" type="natural" source="plant">Grape Seed</ingredient>
+        <ingredient rank="43" slug="andrographis" formal_name="Andrographis paniculata" type="natural" source="plant">Andrographis</ingredient>
+        <ingredient rank="44" slug="cats-claw" formal_name="Uncaria tomentosa" type="natural" source="plant">Cat's Claw</ingredient>
+        <ingredient rank="45" slug="evening-primrose" formal_name="Oenothera biennis" type="natural" source="plant">Evening Primrose</ingredient>
+        <ingredient rank="46" slug="kava" formal_name="Piper methysticum" type="natural" source="plant">Kava</ingredient>
+        <ingredient rank="47" slug="lemon-balm" formal_name="Melissa officinalis" type="natural" source="plant">Lemon Balm</ingredient>
+        <ingredient rank="48" slug="peppermint" formal_name="Mentha piperita" type="natural" source="plant">Peppermint</ingredient>
+        <ingredient rank="49" slug="slippery-elm" formal_name="Ulmus rubra" type="natural" source="plant">Slippery Elm</ingredient>
+        <ingredient rank="50" slug="white-willow-bark" formal_name="Salix alba" type="natural" source="plant">White Willow Bark</ingredient>
+        <ingredient rank="51" slug="artichoke" formal_name="Cynara scolymus" type="natural" source="plant">Artichoke</ingredient>
+        <ingredient rank="52" slug="burdock" formal_name="Arctium lappa" type="natural" source="plant">Burdock</ingredient>
+        <ingredient rank="53" slug="calendula" formal_name="Calendula officinalis" type="natural" source="plant">Calendula</ingredient>
+        <ingredient rank="54" slug="chasteberry" formal_name="Vitex agnus-castus" type="natural" source="plant">Chasteberry</ingredient>
+        <ingredient rank="55" slug="gotu-kola" formal_name="Centella asiatica" type="natural" source="plant">Gotu Kola</ingredient>
+        <ingredient rank="56" slug="lavender" formal_name="Lavandula angustifolia" type="natural" source="plant">Lavender</ingredient>
+        <ingredient rank="57" slug="marshmallow-root" formal_name="Althaea officinalis" type="natural" source="plant">Marshmallow Root</ingredient>
+        <ingredient rank="58" slug="mullein" formal_name="Verbascum thapsus" type="natural" source="plant">Mullein</ingredient>
+        <ingredient rank="59" slug="red-raspberry-leaf" formal_name="Rubus idaeus" type="natural" source="plant">Red Raspberry Leaf</ingredient>
+        <ingredient rank="60" slug="rosemary" formal_name="Rosmarinus officinalis" type="natural" source="plant">Rosemary</ingredient>
+        <ingredient rank="61" slug="sage" formal_name="Salvia officinalis" type="natural" source="plant">Sage</ingredient>
+        <ingredient rank="62" slug="thyme" formal_name="Thymus vulgaris" type="natural" source="plant">Thyme</ingredient>
+        <ingredient rank="63" slug="fresh-turmeric-root" formal_name="Curcuma longa" type="natural" source="plant">Fresh Turmeric Root</ingredient>
+        <ingredient rank="64" slug="wild-yam" formal_name="Dioscorea villosa" type="natural" source="plant">Wild Yam</ingredient>
+        <ingredient rank="65" slug="yarrow" formal_name="Achillea millefolium" type="natural" source="plant">Yarrow</ingredient>
+        <ingredient rank="66" slug="yellow-dock" formal_name="Rumex crispus" type="natural" source="plant">Yellow Dock</ingredient>
+        <ingredient rank="67" slug="goldenseal" formal_name="Hydrastis canadensis" type="natural" source="plant">Goldenseal</ingredient>
+        <ingredient rank="68" slug="devils-claw" formal_name="Harpagophytum procumbens" type="natural" source="plant">Devil's Claw</ingredient>
+        <ingredient rank="69" slug="gymnema" formal_name="Gymnema sylvestre" type="natural" source="plant">Gymnema</ingredient>
+        <ingredient rank="70" slug="horse-chestnut" formal_name="Aesculus hippocastanum" type="natural" source="plant">Horse Chestnut</ingredient>
+        <ingredient rank="71" slug="pau-darco" formal_name="Handroanthus impetiginosus" type="natural" source="plant">Pau d'Arco</ingredient>
+        <ingredient rank="72" slug="skullcap" formal_name="Scutellaria lateriflora" type="natural" source="plant">Skullcap</ingredient>
+        <ingredient rank="73" slug="plantain" formal_name="Plantago major" type="natural" source="plant">Plantain</ingredient>
+        <ingredient rank="74" slug="cleavers" formal_name="Galium aparine" type="natural" source="plant">Cleavers</ingredient>
+        <ingredient rank="75" slug="horsetail" formal_name="Equisetum arvense" type="natural" source="plant">Horsetail</ingredient>
+        <ingredient rank="76" slug="uva-ursi" formal_name="Arctostaphylos uva-ursi" type="natural" source="plant">Uva Ursi</ingredient>
+        <ingredient rank="77" slug="blessed-thistle" formal_name="Cnicus benedictus" type="natural" source="plant">Blessed Thistle</ingredient>
+        <ingredient rank="78" slug="gentian-bitters" formal_name="Gentiana lutea" type="natural" source="plant">Gentian Bitters</ingredient>
+        <ingredient rank="79" slug="fo-ti" formal_name="Polygonum multiflorum" type="natural" source="plant">Fo-Ti</ingredient>
+        <ingredient rank="80" slug="he-shou-wu" formal_name="Polygonum multiflorum" type="natural" source="plant">He Shou Wu</ingredient>
+        <ingredient rank="81" slug="reishi-spores" formal_name="Ganoderma lucidum spores" type="natural" source="fungus">Reishi Spores</ingredient>
+        <ingredient rank="82" slug="pine-bark-extract" formal_name="Pinus pinaster" type="natural" source="plant">Pine Bark Extract</ingredient>
+        <ingredient rank="83" slug="olive-leaf" formal_name="Olea europaea" type="natural" source="plant">Olive Leaf</ingredient>
+        <ingredient rank="84" slug="oregano" formal_name="Origanum vulgare" type="natural" source="plant">Oregano</ingredient>
+        <ingredient rank="85" slug="clove" formal_name="Syzygium aromaticum" type="natural" source="plant">Clove</ingredient>
+        <ingredient rank="86" slug="cinnamon" formal_name="Cinnamomum verum" type="natural" source="plant">Cinnamon</ingredient>
+        <ingredient rank="87" slug="hibiscus" formal_name="Hibiscus sabdariffa" type="natural" source="plant">Hibiscus</ingredient>
+        <ingredient rank="88" slug="rose-hips" formal_name="Rosa canina" type="natural" source="plant">Rose Hips</ingredient>
+        <ingredient rank="89" slug="sea-buckthorn" formal_name="Hippophae rhamnoides" type="natural" source="plant">Sea Buckthorn</ingredient>
+        <ingredient rank="90" slug="spirulina" formal_name="Arthrospira platensis" type="natural" source="algae">Spirulina</ingredient>
+        <ingredient rank="91" slug="chlorella" formal_name="Chlorella vulgaris" type="natural" source="algae">Chlorella</ingredient>
+        <ingredient rank="92" slug="kelp" formal_name="Various species" type="natural" source="algae">Kelp</ingredient>
+        <ingredient rank="93" slug="bladderwrack" formal_name="Fucus vesiculosus" type="natural" source="algae">Bladderwrack</ingredient>
+        <ingredient rank="94" slug="irish-moss" formal_name="Chondrus crispus" type="natural" source="algae">Irish Moss</ingredient>
+        <ingredient rank="95" slug="bee-pollen" formal_name="bee pollen" type="natural" source="animal">Bee Pollen</ingredient>
+        <ingredient rank="96" slug="royal-jelly" formal_name="royal jelly" type="natural" source="animal">Royal Jelly</ingredient>
+        <ingredient rank="97" slug="propolis" formal_name="propolis" type="natural" source="animal">Propolis</ingredient>
+        <ingredient rank="98" slug="manuka-honey" formal_name="Leptospermum scoparium honey" type="natural" source="animal">Manuka Honey</ingredient>
+        <ingredient rank="99" slug="raw-honey" formal_name="raw honey" type="natural" source="animal">Raw Honey</ingredient>
+        <ingredient rank="100" slug="apple-cider-vinegar" formal_name="acetic acid solution" type="natural" source="plant">Apple Cider Vinegar</ingredient>
+    </natural-ingredients>
+
+    <!-- ISOLATED COMPOUNDS - Top 100 by Internet Discussion Frequency -->
+    <isolated-compounds>
+        <ingredient rank="1" slug="vitamin-d3" formal_name="cholecalciferol" type="isolated" source="natural">Vitamin D3</ingredient>
+        <ingredient rank="2" slug="vitamin-c" formal_name="ascorbic acid" type="isolated" source="natural">Vitamin C</ingredient>
+        <ingredient rank="3" slug="omega-3-fatty-acids" formal_name="EPA/DHA" type="isolated" source="marine">Omega-3 Fatty Acids</ingredient>
+        <ingredient rank="4" slug="magnesium" formal_name="magnesium" type="isolated" source="mineral">Magnesium</ingredient>
+        <ingredient rank="5" slug="zinc" formal_name="zinc" type="isolated" source="mineral">Zinc</ingredient>
+        <ingredient rank="6" slug="curcumin" formal_name="curcumin" type="isolated" source="plant-derived">Curcumin</ingredient>
+        <ingredient rank="7" slug="resveratrol" formal_name="trans-resveratrol" type="isolated" source="plant-derived">Resveratrol</ingredient>
+        <ingredient rank="8" slug="quercetin" formal_name="3,3′,4′,5,7-pentahydroxyflavone" type="isolated" source="plant-derived">Quercetin</ingredient>
+        <ingredient rank="9" slug="melatonin" formal_name="N-acetyl-5-methoxytryptamine" type="isolated" source="natural">Melatonin</ingredient>
+        <ingredient rank="10" slug="probiotics" formal_name="Lactobacillus/Bifidobacterium" type="isolated" source="microbial">Probiotics</ingredient>
+        <ingredient rank="11" slug="vitamin-b12" formal_name="cobalamin" type="isolated" source="natural">Vitamin B12</ingredient>
+        <ingredient rank="12" slug="iron" formal_name="iron" type="isolated" source="mineral">Iron</ingredient>
+        <ingredient rank="13" slug="calcium" formal_name="calcium" type="isolated" source="mineral">Calcium</ingredient>
+        <ingredient rank="14" slug="coenzyme-q10" formal_name="ubiquinone" type="isolated" source="fermentation">Coenzyme Q10</ingredient>
+        <ingredient rank="15" slug="l-theanine" formal_name="L-theanine" type="isolated" source="plant-derived">L-Theanine</ingredient>
+        <ingredient rank="16" slug="gaba" formal_name="gamma-aminobutyric acid" type="isolated" source="natural">GABA</ingredient>
+        <ingredient rank="17" slug="5-htp" formal_name="5-hydroxytryptophan" type="isolated" source="natural">5-HTP</ingredient>
+        <ingredient rank="18" slug="l-arginine" formal_name="L-arginine" type="isolated" source="natural">L-Arginine</ingredient>
+        <ingredient rank="19" slug="creatine" formal_name="creatine" type="isolated" source="natural">Creatine</ingredient>
+        <ingredient rank="20" slug="whey-protein" formal_name="whey protein" type="isolated" source="animal">Whey Protein</ingredient>
+        <ingredient rank="21" slug="collagen-peptides" formal_name="collagen peptides" type="isolated" source="animal">Collagen Peptides</ingredient>
+        <ingredient rank="22" slug="glucosamine" formal_name="glucosamine sulfate" type="isolated" source="natural">Glucosamine</ingredient>
+        <ingredient rank="23" slug="chondroitin" formal_name="chondroitin sulfate" type="isolated" source="natural">Chondroitin</ingredient>
+        <ingredient rank="24" slug="msm" formal_name="methylsulfonylmethane" type="isolated" source="natural">MSM</ingredient>
+        <ingredient rank="25" slug="alpha-lipoic-acid" formal_name="alpha-lipoic acid" type="isolated" source="natural">Alpha-Lipoic Acid</ingredient>
+        <ingredient rank="26" slug="acetyl-l-carnitine" formal_name="acetyl-L-carnitine" type="isolated" source="natural">Acetyl-L-Carnitine</ingredient>
+        <ingredient rank="27" slug="beta-carotene" formal_name="beta-carotene" type="isolated" source="plant-derived">Beta-Carotene</ingredient>
+        <ingredient rank="28" slug="vitamin-e" formal_name="tocopherols" type="isolated" source="natural">Vitamin E</ingredient>
+        <ingredient rank="29" slug="folic-acid" formal_name="folate" type="isolated" source="natural">Folic Acid</ingredient>
+        <ingredient rank="30" slug="biotin" formal_name="biotin" type="isolated" source="natural">Biotin</ingredient>
+        <ingredient rank="31" slug="l-tyrosine" formal_name="L-tyrosine" type="isolated" source="natural">L-Tyrosine</ingredient>
+        <ingredient rank="32" slug="l-tryptophan" formal_name="L-tryptophan" type="isolated" source="natural">L-Tryptophan</ingredient>
+        <ingredient rank="33" slug="nac" formal_name="N-acetyl-L-cysteine" type="isolated" source="natural">NAC</ingredient>
+        <ingredient rank="34" slug="chromium" formal_name="chromium" type="isolated" source="mineral">Chromium</ingredient>
+        <ingredient rank="35" slug="selenium" formal_name="selenium" type="isolated" source="mineral">Selenium</ingredient>
+        <ingredient rank="36" slug="vitamin-k2" formal_name="menaquinone" type="isolated" source="natural">Vitamin K2</ingredient>
+        <ingredient rank="37" slug="b-complex-vitamins" formal_name="B-complex" type="isolated" source="natural">B-Complex Vitamins</ingredient>
+        <ingredient rank="38" slug="riboflavin" formal_name="riboflavin" type="isolated" source="natural">Riboflavin</ingredient>
+        <ingredient rank="39" slug="niacin" formal_name="niacin" type="isolated" source="natural">Niacin</ingredient>
+        <ingredient rank="40" slug="pantothenic-acid" formal_name="pantothenic acid" type="isolated" source="natural">Pantothenic Acid</ingredient>
+        <ingredient rank="41" slug="pyridoxine" formal_name="pyridoxine" type="isolated" source="natural">Pyridoxine</ingredient>
+        <ingredient rank="42" slug="thiamine" formal_name="thiamine" type="isolated" source="natural">Thiamine</ingredient>
+        <ingredient rank="43" slug="inositol" formal_name="inositol" type="isolated" source="natural">Inositol</ingredient>
+        <ingredient rank="44" slug="choline" formal_name="choline" type="isolated" source="natural">Choline</ingredient>
+        <ingredient rank="45" slug="lecithin" formal_name="lecithin" type="isolated" source="natural">Lecithin</ingredient>
+        <ingredient rank="46" slug="phosphatidylserine" formal_name="phosphatidylserine" type="isolated" source="natural">Phosphatidylserine</ingredient>
+        <ingredient rank="47" slug="dmae" formal_name="dimethylaminoethanol" type="isolated" source="natural">DMAE</ingredient>
+        <ingredient rank="48" slug="pqq" formal_name="pyrroloquinoline quinone" type="isolated" source="natural">PQQ</ingredient>
+        <ingredient rank="49" slug="astaxanthin" formal_name="astaxanthin" type="isolated" source="marine">Astaxanthin</ingredient>
+        <ingredient rank="50" slug="lutein" formal_name="lutein" type="isolated" source="plant-derived">Lutein</ingredient>
+        <ingredient rank="51" slug="zeaxanthin" formal_name="zeaxanthin" type="isolated" source="plant-derived">Zeaxanthin</ingredient>
+        <ingredient rank="52" slug="lycopene" formal_name="lycopene" type="isolated" source="plant-derived">Lycopene</ingredient>
+        <ingredient rank="53" slug="beta-glucans" formal_name="beta-1,3/1,6-glucan" type="isolated" source="fungal">Beta-Glucans</ingredient>
+        <ingredient rank="54" slug="silymarin" formal_name="silymarin" type="isolated" source="plant-derived">Silymarin</ingredient>
+        <ingredient rank="55" slug="berberine" formal_name="berberine" type="isolated" source="plant-derived">Berberine</ingredient>
+        <ingredient rank="56" slug="egcg" formal_name="epigallocatechin gallate" type="isolated" source="plant-derived">EGCG</ingredient>
+        <ingredient rank="57" slug="capsaicin" formal_name="capsaicin" type="isolated" source="plant-derived">Capsaicin</ingredient>
+        <ingredient rank="58" slug="piperine" formal_name="piperine" type="isolated" source="plant-derived">Piperine</ingredient>
+        <ingredient rank="59" slug="bromelain" formal_name="bromelain" type="isolated" source="pineapple">Bromelain</ingredient>
+        <ingredient rank="60" slug="papain" formal_name="papain" type="isolated" source="plant-derived">Papain</ingredient>
+        <ingredient rank="61" slug="digestive-enzymes" formal_name="amylase, protease, lipase" type="isolated" source="fermentation">Digestive Enzymes</ingredient>
+        <ingredient rank="62" slug="l-citrulline" formal_name="L-citrulline" type="isolated" source="natural">L-Citrulline</ingredient>
+        <ingredient rank="63" slug="l-ornithine" formal_name="L-ornithine" type="isolated" source="natural">L-Ornithine</ingredient>
+        <ingredient rank="64" slug="taurine" formal_name="taurine" type="isolated" source="natural">Taurine</ingredient>
+        <ingredient rank="65" slug="glycine" formal_name="glycine" type="isolated" source="natural">Glycine</ingredient>
+        <ingredient rank="66" slug="l-glutamine" formal_name="L-glutamine" type="isolated" source="natural">L-Glutamine</ingredient>
+        <ingredient rank="67" slug="bcaas" formal_name="branched-chain amino acids" type="isolated" source="natural">BCAAs</ingredient>
+        <ingredient rank="68" slug="cla" formal_name="conjugated linoleic acid" type="isolated" source="natural">CLA</ingredient>
+        <ingredient rank="69" slug="gla" formal_name="gamma-linolenic acid" type="isolated" source="natural">GLA</ingredient>
+        <ingredient rank="70" slug="hyaluronic-acid" formal_name="sodium hyaluronate" type="isolated" source="natural">Hyaluronic Acid</ingredient>
+        <ingredient rank="71" slug="boron" formal_name="boron" type="isolated" source="mineral">Boron</ingredient>
+        <ingredient rank="72" slug="manganese" formal_name="manganese" type="isolated" source="mineral">Manganese</ingredient>
+        <ingredient rank="73" slug="molybdenum" formal_name="molybdenum" type="isolated" source="mineral">Molybdenum</ingredient>
+        <ingredient rank="74" slug="iodine" formal_name="iodine" type="isolated" source="mineral">Iodine</ingredient>
+        <ingredient rank="75" slug="copper" formal_name="copper" type="isolated" source="mineral">Copper</ingredient>
+        <ingredient rank="76" slug="vanadium" formal_name="vanadium" type="isolated" source="mineral">Vanadium</ingredient>
+        <ingredient rank="77" slug="d-ribose" formal_name="D-ribose" type="isolated" source="natural">D-Ribose</ingredient>
+        <ingredient rank="78" slug="betaine" formal_name="betaine" type="isolated" source="natural">Betaine</ingredient>
+        <ingredient rank="79" slug="tmg" formal_name="trimethylglycine" type="isolated" source="natural">TMG</ingredient>
+        <ingredient rank="80" slug="same" formal_name="S-adenosyl-L-methionine" type="isolated" source="natural">SAMe</ingredient>
+        <ingredient rank="81" slug="carnosine" formal_name="carnosine" type="isolated" source="natural">Carnosine</ingredient>
+        <ingredient rank="82" slug="beta-alanine" formal_name="beta-alanine" type="isolated" source="natural">Beta-Alanine</ingredient>
+        <ingredient rank="83" slug="hmb" formal_name="β-Hydroxy β-Methylbutyrate" type="isolated" source="natural">HMB</ingredient>
+        <ingredient rank="84" slug="rhodiola-extract" formal_name="rosavins/salidroside" type="isolated" source="plant-derived">Rhodiola Extract</ingredient>
+        <ingredient rank="85" slug="ashwagandha-extract" formal_name="withanolides" type="isolated" source="plant-derived">Ashwagandha Extract</ingredient>
+        <ingredient rank="86" slug="ginkgo-extract" formal_name="flavone glycosides" type="isolated" source="plant-derived">Ginkgo Extract</ingredient>
+        <ingredient rank="87" slug="milk-thistle-extract" formal_name="silymarin" type="isolated" source="plant-derived">Milk Thistle Extract</ingredient>
+        <ingredient rank="88" slug="grape-seed-extract" formal_name="proanthocyanidins" type="isolated" source="plant-derived">Grape Seed Extract</ingredient>
+        <ingredient rank="89" slug="pine-bark-extract-pycnogenol" formal_name="pycnogenol" type="isolated" source="plant-derived">Pine Bark Extract</ingredient>
+        <ingredient rank="90" slug="forskolin" formal_name="forskolin" type="isolated" source="plant-derived">Forskolin</ingredient>
+        <ingredient rank="91" slug="garcinia-extract" formal_name="hydroxycitric acid" type="isolated" source="plant-derived">Garcinia Extract</ingredient>
+        <ingredient rank="92" slug="green-coffee-bean-extract" formal_name="chlorogenic acid" type="isolated" source="plant-derived">Green Coffee Bean Extract</ingredient>
+        <ingredient rank="93" slug="raspberry-ketones" formal_name="raspberry ketones" type="isolated" source="plant-derived">Raspberry Ketones</ingredient>
+        <ingredient rank="94" slug="chlorogenic-acid" formal_name="chlorogenic acid" type="isolated" source="plant-derived">Chlorogenic Acid</ingredient>
+        <ingredient rank="95" slug="ellagic-acid" formal_name="ellagic acid" type="isolated" source="plant-derived">Ellagic Acid</ingredient>
+        <ingredient rank="96" slug="hesperidin" formal_name="hesperidin" type="isolated" source="plant-derived">Hesperidin</ingredient>
+        <ingredient rank="97" slug="rutin" formal_name="rutin" type="isolated" source="plant-derived">Rutin</ingredient>
+        <ingredient rank="98" slug="kaempferol" formal_name="kaempferol" type="isolated" source="plant-derived">Kaempferol</ingredient>
+        <ingredient rank="99" slug="apigenin" formal_name="apigenin" type="isolated" source="plant-derived">Apigenin</ingredient>
+        <ingredient rank="100" slug="naringenin" formal_name="naringenin" type="isolated" source="plant-derived">Naringenin</ingredient>
+    </isolated-compounds>
+
+    <!-- SYNTHETIC COMPOUNDS - Top 100 by Internet Discussion Frequency -->
+    <synthetic-compounds>
+        <ingredient rank="1" slug="ibuprofen" formal_name="ibuprofen" type="synthetic" source="synthetic">Ibuprofen</ingredient>
+        <ingredient rank="2" slug="acetaminophen" formal_name="acetaminophen" type="synthetic" source="synthetic">Acetaminophen</ingredient>
+        <ingredient rank="3" slug="aspirin" formal_name="acetylsalicylic acid" type="synthetic" source="synthetic">Aspirin</ingredient>
+        <ingredient rank="4" slug="synthetic-caffeine" formal_name="caffeine" type="synthetic" source="synthetic">Synthetic Caffeine</ingredient>
+        <ingredient rank="5" slug="synthetic-vitamin-d2" formal_name="ergocalciferol" type="synthetic" source="synthetic">Synthetic Vitamin D2</ingredient>
+        <ingredient rank="6" slug="synthetic-folic-acid" formal_name="folic acid" type="synthetic" source="synthetic">Synthetic Folic Acid</ingredient>
+        <ingredient rank="7" slug="cyanocobalamin" formal_name="cyanocobalamin" type="synthetic" source="synthetic">Cyanocobalamin</ingredient>
+        <ingredient rank="8" slug="synthetic-vitamin-e" formal_name="dl-alpha-tocopherol" type="synthetic" source="synthetic">Synthetic Vitamin E</ingredient>
+        <ingredient rank="9" slug="synthetic-vitamin-a" formal_name="retinyl palmitate" type="synthetic" source="synthetic">Synthetic Vitamin A</ingredient>
+        <ingredient rank="10" slug="omeprazole" formal_name="omeprazole" type="synthetic" source="synthetic">Omeprazole</ingredient>
+        <ingredient rank="11" slug="atorvastatin" formal_name="atorvastatin" type="synthetic" source="synthetic">Atorvastatin</ingredient>
+        <ingredient rank="12" slug="metformin" formal_name="metformin" type="synthetic" source="synthetic">Metformin</ingredient>
+        <ingredient rank="13" slug="lisinopril" formal_name="lisinopril" type="synthetic" source="synthetic">Lisinopril</ingredient>
+        <ingredient rank="14" slug="losartan" formal_name="losartan" type="synthetic" source="synthetic">Losartan</ingredient>
+        <ingredient rank="15" slug="amlodipine" formal_name="amlodipine" type="synthetic" source="synthetic">Amlodipine</ingredient>
+        <ingredient rank="16" slug="diphenhydramine" formal_name="diphenhydramine" type="synthetic" source="synthetic">Diphenhydramine</ingredient>
+        <ingredient rank="17" slug="loratadine" formal_name="loratadine" type="synthetic" source="synthetic">Loratadine</ingredient>
+        <ingredient rank="18" slug="cetirizine" formal_name="cetirizine" type="synthetic" source="synthetic">Cetirizine</ingredient>
+        <ingredient rank="19" slug="pseudoephedrine" formal_name="pseudoephedrine" type="synthetic" source="synthetic">Pseudoephedrine</ingredient>
+        <ingredient rank="20" slug="dextromethorphan" formal_name="dextromethorphan" type="synthetic" source="synthetic">Dextromethorphan</ingredient>
+        <ingredient rank="21" slug="guaifenesin" formal_name="guaifenesin" type="synthetic" source="synthetic">Guaifenesin</ingredient>
+        <ingredient rank="22" slug="loperamide" formal_name="loperamide" type="synthetic" source="synthetic">Loperamide</ingredient>
+        <ingredient rank="23" slug="simethicone" formal_name="simethicone" type="synthetic" source="synthetic">Simethicone</ingredient>
+        <ingredient rank="24" slug="famotidine" formal_name="famotidine" type="synthetic" source="synthetic">Famotidine</ingredient>
+        <ingredient rank="25" slug="synthetic-melatonin" formal_name="melatonin" type="synthetic" source="synthetic">Synthetic Melatonin</ingredient>
+        <ingredient rank="26" slug="modafinil" formal_name="modafinil" type="synthetic" source="synthetic">Modafinil</ingredient>
+        <ingredient rank="27" slug="piracetam" formal_name="piracetam" type="synthetic" source="synthetic">Piracetam</ingredient>
+        <ingredient rank="28" slug="phenylpiracetam" formal_name="phenylpiracetam" type="synthetic" source="synthetic">Phenylpiracetam</ingredient>
+        <ingredient rank="29" slug="aniracetam" formal_name="aniracetam" type="synthetic" source="synthetic">Aniracetam</ingredient>
+        <ingredient rank="30" slug="oxiracetam" formal_name="oxiracetam" type="synthetic" source="synthetic">Oxiracetam</ingredient>
+        <ingredient rank="31" slug="noopept" formal_name="noopept" type="synthetic" source="synthetic">Noopept</ingredient>
+        <ingredient rank="32" slug="synthetic-alpha-gpc" formal_name="alpha-GPC" type="synthetic" source="synthetic">Synthetic Alpha-GPC</ingredient>
+        <ingredient rank="33" slug="synthetic-cdp-choline" formal_name="CDP-choline" type="synthetic" source="synthetic">Synthetic CDP-Choline</ingredient>
+        <ingredient rank="34" slug="phenibut" formal_name="phenibut" type="synthetic" source="synthetic">Phenibut</ingredient>
+        <ingredient rank="35" slug="baclofen" formal_name="baclofen" type="synthetic" source="synthetic">Baclofen</ingredient>
+        <ingredient rank="36" slug="gabapentin" formal_name="gabapentin" type="synthetic" source="synthetic">Gabapentin</ingredient>
+        <ingredient rank="37" slug="pregabalin" formal_name="pregabalin" type="synthetic" source="synthetic">Pregabalin</ingredient>
+        <ingredient rank="38" slug="topiramate" formal_name="topiramate" type="synthetic" source="synthetic">Topiramate</ingredient>
+        <ingredient rank="39" slug="lamotrigine" formal_name="lamotrigine" type="synthetic" source="synthetic">Lamotrigine</ingredient>
+        <ingredient rank="40" slug="carbamazepine" formal_name="carbamazepine" type="synthetic" source="synthetic">Carbamazepine</ingredient>
+        <ingredient rank="41" slug="sertraline" formal_name="sertraline" type="synthetic" source="synthetic">Sertraline</ingredient>
+        <ingredient rank="42" slug="fluoxetine" formal_name="fluoxetine" type="synthetic" source="synthetic">Fluoxetine</ingredient>
+        <ingredient rank="43" slug="escitalopram" formal_name="escitalopram" type="synthetic" source="synthetic">Escitalopram</ingredient>
+        <ingredient rank="44" slug="alprazolam" formal_name="alprazolam" type="synthetic" source="synthetic">Alprazolam</ingredient>
+        <ingredient rank="45" slug="lorazepam" formal_name="lorazepam" type="synthetic" source="synthetic">Lorazepam</ingredient>
+        <ingredient rank="46" slug="zolpidem" formal_name="zolpidem" type="synthetic" source="synthetic">Zolpidem</ingredient>
+        <ingredient rank="47" slug="eszopiclone" formal_name="eszopiclone" type="synthetic" source="synthetic">Eszopiclone</ingredient>
+        <ingredient rank="48" slug="suvorexant" formal_name="suvorexant" type="synthetic" source="synthetic">Suvorexant</ingredient>
+        <ingredient rank="49" slug="sildenafil" formal_name="sildenafil" type="synthetic" source="synthetic">Sildenafil</ingredient>
+        <ingredient rank="50" slug="tadalafil" formal_name="tadalafil" type="synthetic" source="synthetic">Tadalafil</ingredient>
+        <ingredient rank="51" slug="finasteride" formal_name="finasteride" type="synthetic" source="synthetic">Finasteride</ingredient>
+        <ingredient rank="52" slug="minoxidil" formal_name="minoxidil" type="synthetic" source="synthetic">Minoxidil</ingredient>
+        <ingredient rank="53" slug="tretinoin" formal_name="tretinoin" type="synthetic" source="synthetic">Tretinoin</ingredient>
+        <ingredient rank="54" slug="hydroquinone" formal_name="hydroquinone" type="synthetic" source="synthetic">Hydroquinone</ingredient>
+        <ingredient rank="55" slug="synthetic-salicylic-acid" formal_name="salicylic acid" type="synthetic" source="synthetic">Synthetic Salicylic Acid</ingredient>
+        <ingredient rank="56" slug="benzoyl-peroxide" formal_name="benzoyl peroxide" type="synthetic" source="synthetic">Benzoyl Peroxide</ingredient>
+        <ingredient rank="57" slug="clindamycin" formal_name="clindamycin" type="synthetic" source="synthetic">Clindamycin</ingredient>
+        <ingredient rank="58" slug="erythromycin" formal_name="erythromycin" type="synthetic" source="synthetic">Erythromycin</ingredient>
+        <ingredient rank="59" slug="azithromycin" formal_name="azithromycin" type="synthetic" source="synthetic">Azithromycin</ingredient>
+        <ingredient rank="60" slug="amoxicillin" formal_name="amoxicillin" type="synthetic" source="synthetic">Amoxicillin</ingredient>
+        <ingredient rank="61" slug="ciprofloxacin" formal_name="ciprofloxacin" type="synthetic" source="synthetic">Ciprofloxacin</ingredient>
+        <ingredient rank="62" slug="doxycycline" formal_name="doxycycline" type="synthetic" source="synthetic">Doxycycline</ingredient>
+        <ingredient rank="63" slug="cephalexin" formal_name="cephalexin" type="synthetic" source="synthetic">Cephalexin</ingredient>
+        <ingredient rank="64" slug="prednisone" formal_name="prednisone" type="synthetic" source="synthetic">Prednisone</ingredient>
+        <ingredient rank="65" slug="hydrocortisone" formal_name="hydrocortisone" type="synthetic" source="synthetic">Hydrocortisone</ingredient>
+        <ingredient rank="66" slug="levothyroxine" formal_name="levothyroxine" type="synthetic" source="synthetic">Levothyroxine</ingredient>
+        <ingredient rank="67" slug="synthetic-insulin" formal_name="insulin" type="synthetic" source="synthetic">Synthetic Insulin</ingredient>
+        <ingredient rank="68" slug="synthetic-growth-hormone" formal_name="somatropin" type="synthetic" source="synthetic">Synthetic Growth Hormone</ingredient>
+        <ingredient rank="69" slug="synthetic-testosterone" formal_name="testosterone" type="synthetic" source="synthetic">Synthetic Testosterone</ingredient>
+        <ingredient rank="70" slug="synthetic-estradiol" formal_name="estradiol" type="synthetic" source="synthetic">Synthetic Estradiol</ingredient>
+        <ingredient rank="71" slug="synthetic-progesterone" formal_name="progesterone" type="synthetic" source="synthetic">Synthetic Progesterone</ingredient>
+        <ingredient rank="72" slug="synthetic-dhea" formal_name="dehydroepiandrosterone" type="synthetic" source="synthetic">Synthetic DHEA</ingredient>
+        <ingredient rank="73" slug="synthetic-pregnenolone" formal_name="pregnenolone" type="synthetic" source="synthetic">Synthetic Pregnenolone</ingredient>
+        <ingredient rank="74" slug="methylphenidate" formal_name="methylphenidate" type="synthetic" source="synthetic">Methylphenidate</ingredient>
+        <ingredient rank="75" slug="amphetamine-salts" formal_name="amphetamine salts" type="synthetic" source="synthetic">Amphetamine Salts</ingredient>
+        <ingredient rank="76" slug="atomoxetine" formal_name="atomoxetine" type="synthetic" source="synthetic">Atomoxetine</ingredient>
+        <ingredient rank="77" slug="bupropion" formal_name="bupropion" type="synthetic" source="synthetic">Bupropion</ingredient>
+        <ingredient rank="78" slug="venlafaxine" formal_name="venlafaxine" type="synthetic" source="synthetic">Venlafaxine</ingredient>
+        <ingredient rank="79" slug="duloxetine" formal_name="duloxetine" type="synthetic" source="synthetic">Duloxetine</ingredient>
+        <ingredient rank="80" slug="aripiprazole" formal_name="aripiprazole" type="synthetic" source="synthetic">Aripiprazole</ingredient>
+        <ingredient rank="81" slug="quetiapine" formal_name="quetiapine" type="synthetic" source="synthetic">Quetiapine</ingredient>
+        <ingredient rank="82" slug="olanzapine" formal_name="olanzapine" type="synthetic" source="synthetic">Olanzapine</ingredient>
+        <ingredient rank="83" slug="risperidone" formal_name="risperidone" type="synthetic" source="synthetic">Risperidone</ingredient>
+        <ingredient rank="84" slug="warfarin" formal_name="warfarin" type="synthetic" source="synthetic">Warfarin</ingredient>
+        <ingredient rank="85" slug="clopidogrel" formal_name="clopidogrel" type="synthetic" source="synthetic">Clopidogrel</ingredient>
+        <ingredient rank="86" slug="furosemide" formal_name="furosemide" type="synthetic" source="synthetic">Furosemide</ingredient>
+        <ingredient rank="87" slug="hydrochlorothiazide" formal_name="hydrochlorothiazide" type="synthetic" source="synthetic">Hydrochlorothiazide</ingredient>
+        <ingredient rank="88" slug="metoprolol" formal_name="metoprolol" type="synthetic" source="synthetic">Metoprolol</ingredient>
+        <ingredient rank="89" slug="carvedilol" formal_name="carvedilol" type="synthetic" source="synthetic">Carvedilol</ingredient>
+        <ingredient rank="90" slug="propranolol" formal_name="propranolol" type="synthetic" source="synthetic">Propranolol</ingredient>
+        <ingredient rank="91" slug="atenolol" formal_name="atenolol" type="synthetic" source="synthetic">Atenolol</ingredient>
+        <ingredient rank="92" slug="montelukast" formal_name="montelukast" type="synthetic" source="synthetic">Montelukast</ingredient>
+        <ingredient rank="93" slug="albuterol" formal_name="albuterol" type="synthetic" source="synthetic">Albuterol</ingredient>
+        <ingredient rank="94" slug="fluticasone" formal_name="fluticasone" type="synthetic" source="synthetic">Fluticasone</ingredient>
+        <ingredient rank="95" slug="budesonide" formal_name="budesonide" type="synthetic" source="synthetic">Budesonide</ingredient>
+        <ingredient rank="96" slug="pantoprazole" formal_name="pantoprazole" type="synthetic" source="synthetic">Pantoprazole</ingredient>
+        <ingredient rank="97" slug="lansoprazole" formal_name="lansoprazole" type="synthetic" source="synthetic">Lansoprazole</ingredient>
+        <ingredient rank="98" slug="rabeprazole" formal_name="rabeprazole" type="synthetic" source="synthetic">Rabeprazole</ingredient>
+        <ingredient rank="99" slug="domperidone" formal_name="domperidone" type="synthetic" source="synthetic">Domperidone</ingredient>
+        <ingredient rank="100" slug="ondansetron" formal_name="ondansetron" type="synthetic" source="synthetic">Ondansetron</ingredient>
+    </synthetic-compounds>
+
+</ingredients>
