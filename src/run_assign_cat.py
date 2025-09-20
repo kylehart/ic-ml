@@ -125,11 +125,22 @@ class RunManager:
                     errors: List[str] = None):
         """Save all run outputs."""
 
-        # Save main results as CSV (previous load-form pattern)
+        # Save main results as CSV (standard category_assignment format)
         import csv
         with open(self.run_dir / "outputs" / "classifications.csv", "w", newline="") as f:
             if classifications:
-                writer = csv.DictWriter(f, fieldnames=classifications[0].keys())
+                # Use exact field order from original category_assignment.csv
+                fieldnames = ["taxonomy_slug", "category_slug", "sub_category_slug", "tag", "product_id"]
+                writer = csv.DictWriter(f, fieldnames=fieldnames, extrasaction='ignore')
+                writer.writeheader()
+                writer.writerows(classifications)
+
+        # Save detailed results with additional debugging fields
+        with open(self.run_dir / "outputs" / "classifications_detailed.csv", "w", newline="") as f:
+            if classifications:
+                # Remove raw_response and model_used fields as requested
+                detailed_fieldnames = ["taxonomy_slug", "category_slug", "sub_category_slug", "tag", "product_id", "title"]
+                writer = csv.DictWriter(f, fieldnames=detailed_fieldnames, extrasaction='ignore')
                 writer.writeheader()
                 writer.writerows(classifications)
 
@@ -169,8 +180,9 @@ class RunManager:
         print(f"✅ Run completed in {duration:.1f}s: {self.run_dir}")
 
 def classify_products(products: List[Product],
-                     model_override: Optional[str] = None) -> tuple:
-    """Main classification logic."""
+                     model_override: Optional[str] = None,
+                     batch_size: int = 10) -> tuple:
+    """Main classification logic with batch processing."""
 
     client = LLMClient(model_override)
 
@@ -182,46 +194,49 @@ def classify_products(products: List[Product],
     if taxonomy_path.exists():
         taxonomy_content = taxonomy_path.read_text()
 
-    # Define prompt template
-    system_prompt = "You are a herbal product classifier. Classify products into health categories and return CSV format."
+    # Define prompt templates for batch processing
+    system_prompt = f"""You are a herbal product classifier. Use the following taxonomy to classify products into health categories.
 
-    prompt_template = """Classify this product:
+TAXONOMY:
+{taxonomy_content}
 
-Title: {title}
-Description: {description}
-Ingredients: {ingredients}
+Return classifications in CSV format: category_slug,subcategory_slug,product_id
+One line per product, no explanations."""
 
-Health categories:
-- immune-support
-- stress-mood-anxiety
-- sleep-relaxation
-- energy-vitality
-- gut-health
-- pain-inflammation
+    batch_prompt_template = """Classify these {count} products based on the taxonomy provided:
 
-Return format: category,subcategory,product_id
-Return only the classification, no explanation."""
+{products_text}
+
+Return exactly {count} lines in CSV format: category_slug,subcategory_slug,product_id
+Match the product_id from each product. No headers, no explanations."""
 
     # Store prompt templates for snapshotting
     prompt_templates = {
         "system_prompt": system_prompt,
-        "user_prompt_template": prompt_template
+        "batch_prompt_template": batch_prompt_template
     }
 
-    # Process products
+    # Process products in batches
     classifications = []
     token_usage = {"total_prompt_tokens": 0, "total_completion_tokens": 0, "calls_made": 0}
     errors = []
 
     start_time = time.time()
 
-    for product in products:
+    # Process in batches
+    for i in range(0, len(products), batch_size):
+        batch = products[i:i + batch_size]
+
         try:
-            # Format prompt
-            user_prompt = prompt_template.format(
-                title=product.title,
-                description=product.description,
-                ingredients=', '.join(product.ingredients)
+            # Format batch prompt
+            products_text = "\n\n".join([
+                f"Product ID: {p.id}\nTitle: {p.title}\nDescription: {p.description[:500]}"  # Limit description length
+                for p in batch
+            ])
+
+            user_prompt = batch_prompt_template.format(
+                count=len(batch),
+                products_text=products_text
             )
 
             messages = [
@@ -229,29 +244,51 @@ Return only the classification, no explanation."""
                 {"role": "user", "content": user_prompt}
             ]
 
-            # Get classification
+            # Get batch classification
             response = client.complete_sync(messages)
-
-            # Parse response (basic CSV parsing)
-            parts = response.strip().split(',')
-            classification = {
-                "product_id": product.id,
-                "title": product.title,
-                "category": parts[0] if len(parts) > 0 else "",
-                "subcategory": parts[1] if len(parts) > 1 else "",
-                "raw_response": response.strip(),
-                "model_used": client.config.model
-            }
-
-            classifications.append(classification)
             token_usage["calls_made"] += 1
 
-            print(f"✅ {product.id}: {parts[0] if parts else 'parse_error'}")
+            # Parse batch response
+            lines = response.strip().split('\n')
+
+            for j, line in enumerate(lines[:len(batch)]):  # Only process expected number of lines
+                if j < len(batch):
+                    product = batch[j]
+                    parts = line.strip().split(',')
+
+                    classification = {
+                        "taxonomy_slug": "health-areas",  # Standard taxonomy
+                        "category_slug": parts[0].strip() if len(parts) > 0 else "",
+                        "sub_category_slug": parts[1].strip() if len(parts) > 1 else "",
+                        "tag": "",  # Empty tag field as per original format
+                        "product_id": parts[2].strip() if len(parts) > 2 else product.id,
+                        # Additional fields for debugging/analysis
+                        "title": product.title,
+                        "raw_response": line.strip(),
+                        "model_used": client.config.model
+                    }
+
+                    classifications.append(classification)
+                    print(f"✅ {product.id}: {parts[0] if parts else 'parse_error'}")
+
+            print(f"  Batch {i//batch_size + 1}: Processed {len(batch)} products")
 
         except Exception as e:
-            error_msg = f"Error processing {product.id}: {str(e)}"
+            error_msg = f"Error processing batch {i//batch_size + 1}: {str(e)}"
             errors.append(error_msg)
             print(f"❌ {error_msg}")
+            # Add empty classifications for failed batch
+            for product in batch:
+                classifications.append({
+                    "taxonomy_slug": "health-areas",
+                    "category_slug": "error",
+                    "sub_category_slug": "",
+                    "tag": "",
+                    "product_id": product.id,
+                    "title": product.title,
+                    "raw_response": "batch_error",
+                    "model_used": client.config.model
+                })
 
     end_time = time.time()
 
@@ -270,7 +307,7 @@ def main():
     parser.add_argument("--model", help="Model override (e.g., haiku, gpt4o_mini)")
     parser.add_argument("--input", help="Input CSV file with products")
     parser.add_argument("--single-product", help="Single product title for quick test")
-    parser.add_argument("--batch-size", type=int, default=1, help="Batch size for processing")
+    parser.add_argument("--batch-size", type=int, default=10, help="Batch size for processing (default: 10)")
 
     args = parser.parse_args()
 
@@ -309,10 +346,11 @@ def main():
             )]
 
         print(f"🚀 Starting run with {len(products)} products using model: {args.model or 'default'}")
+        print(f"   Batch size: {args.batch_size}")
 
         # Run classification
         classifications, token_usage, timing_info, errors, prompt_templates, taxonomy_path = classify_products(
-            products, args.model
+            products, args.model, args.batch_size
         )
 
         # Snapshot everything

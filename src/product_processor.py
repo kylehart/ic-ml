@@ -19,12 +19,36 @@ class Product:
     @classmethod
     def from_csv_row(cls, row: dict) -> 'Product':
         """Create Product instance from CSV row."""
-        return cls(
-            id=row['id'],
-            title=row['title'],
-            description=row['description'],
-            ingredients=row.get('ingredients', '').split(',')
-        )
+        # Handle different CSV formats
+        # Standard format: id, title, description, ingredients
+        # Rogue Herbalist format: ﻿ID, Name, Short description, Description
+
+        # Map field names (remove BOM if present)
+        clean_row = {k.strip('\ufeff'): v for k, v in row.items()}
+
+        # Try standard format first
+        if 'id' in clean_row:
+            return cls(
+                id=clean_row['id'],
+                title=clean_row['title'],
+                description=clean_row['description'],
+                ingredients=clean_row.get('ingredients', '').split(',') if clean_row.get('ingredients') else []
+            )
+
+        # Handle Rogue Herbalist format
+        elif 'ID' in clean_row:
+            # Extract ingredients from description text (basic extraction)
+            description = clean_row.get('Short description', '') + ' ' + clean_row.get('Description', '')
+
+            return cls(
+                id=clean_row['ID'],
+                title=clean_row['Name'],
+                description=description.strip(),
+                ingredients=[]  # No explicit ingredients in this format
+            )
+
+        else:
+            raise ValueError(f"Unrecognized CSV format. Available fields: {list(clean_row.keys())}")
 
 class ProductCatalogReader:
     """Reads and streams products from catalog CSV."""

@@ -1,0 +1,394 @@
+You are an expert herbalist and health category specialist tasked with creating precise, user-friendly definitions for herbal product health categories. These definitions will serve as the foundation for an automated product classification system, so accuracy and consistency are critical.
+
+Below you will see background on your task, followed by the precise instructions. 
+
+### **Herbal Medicine Reality**
+
+The herbal medicine field naturally exists on a spectrum of evidence:
+
+- **Traditional uses** passed down through generations
+- **Emerging research** with preliminary evidence
+- **Widespread practice** with anecdotal support
+- **Regulatory validation** through clinical studies
+
+Our definitions must reflect this reality rather than imposing artificial binary categories.
+
+## Three-Section Structure
+
+### Section 1: Category Description
+
+**Purpose**: Provide clear, user-friendly explanation of what this health category covers.
+
+**Content**:
+- **Core definition** in 1-2 sentences (maybe 3 for top-level categories) 
+- **Natural examples** integrated where they enhance understanding
+- **Scope clarification** to distinguish from similar categories
+- **Consumer-friendly language** throughout
+
+**Example**:
+"This category supports the body's natural immune defenses and helps maintain seasonal wellness. Common examples include echinacea for immune support, elderberry for seasonal challenges, and medicinal mushrooms like reishi for daily immune maintenance. Products in this category focus on strengthening immunity rather than treating specific symptoms."
+
+**Key Features**:
+- Examples flow naturally within prose
+- No forced separation of confidence levels
+- Clear boundaries with other categories
+- Accessible to general consumers
+
+### Section 2: Common Ingredients
+
+**Purpose**: List widely recognized herbs/compounds for this health area (high confidence within LLM knowledge).
+
+**Content**:
+- **Established herbs** frequently mentioned across sources
+- **Well-known compounds** (e.g., curcumin, ginsenosides)
+- **Traditional staples** with broad recognition
+- **No explanatory text** - just clean lists
+
+**Confidence Level**: High (within LLM training data)
+**Validation Priority**: Primary focus for regulatory cross-checking
+
+**Example**:
+```
+- Echinacea (Echinacea purpurea)
+- Elderberry (Sambucus canadensis)
+- Astragalus (Astragalus membranaceus)
+- Reishi mushroom (Ganoderma lucidum)
+- Zinc
+- Vitamin C
+```
+
+### Section 3: Other Ingredients
+
+**Purpose**: List herbs/compounds that are discussed but with less universal consensus (medium confidence).
+
+**Content**:
+- **Emerging research subjects** gaining attention
+- **Traditional uses** mentioned in herbalism
+- **Regional or cultural variations** in practice
+- **Less mainstream applications** still worthy of note
+
+**Confidence Level**: Medium (acknowledged uncertainty)
+**Validation Priority**: Secondary focus, research pipeline
+
+**Example**:
+```
+- Cat's claw (Uncaria tomentosa)
+- Olive leaf extract
+- Andrographis (Andrographis paniculata)
+- Colostrum
+- Transfer factor
+- Beta-glucans
+```
+
+## Strategic Benefits
+
+### 1. **Natural Confidence Hierarchy**
+
+The three-section structure creates an intuitive confidence gradient:
+
+- **Description examples**: Integrated naturally, represent clear consensus
+- **Common ingredients**: High confidence, prioritized for validation
+- **Other ingredients**: Medium confidence, honest about uncertainty
+
+### 2. **Validation Efficiency**
+
+This structure enables efficient validation workflows:
+
+1. **Start with common ingredients** for regulatory cross-checking
+2. **Use regulatory data** to validate or challenge common status
+3. **Research other ingredients** as time and resources permit
+4. **Update confidence levels** based on validation results
+
+### 3. **User Utility**
+
+Different users can focus on different sections:
+
+- **General consumers**: Read description for understanding
+- **Herbalists**: Review common ingredients for product selection
+- **Researchers**: Explore other ingredients for investigation
+- **Validators**: Cross-check common ingredients against regulatory data
+
+
+### Quality Metrics
+
+- **Internal Consistency**: Categories have clear, non-overlapping boundaries
+- **Validation Coverage**: Percentage of common ingredients with regulatory data
+- **Classification Accuracy**: Product assignments match expected confidence levels
+- **User Comprehension**: Consumer understanding of category meanings
+
+## Implementation Considerations
+
+### Prompt Engineering Requirements
+
+The generation prompt must:
+
+1. **Maintain consistency** across all categories
+2. **Ensure boundary clarity** between similar categories
+3. **Control confidence level separation** between common/other ingredients
+4. **Generate appropriate description length** and tone
+5. **Create reproducible results** across multiple runs
+
+
+## Expected Outcomes
+
+### Immediate Benefits
+
+- **Clear category boundaries** reducing classification ambiguity
+- **User-friendly explanations** improving customer understanding
+- **Systematic validation framework** enabling quality assurance
+- **Reproducible definition process** supporting system maintenance
+
+### Long-term Value
+
+- **Regulatory compliance** through systematic validation
+- **Knowledge base evolution** as evidence and practice develop
+- **User trust** through transparent confidence levels
+- **Scientific contribution** to herbal medicine categorization
+
+### Success Metrics
+
+- **Classification consistency**: >90% agreement on common ingredient classifications
+- **User comprehension**: >85% customer understanding of categories in testing
+- **Validation coverage**: >70% of common ingredients cross-checked against regulatory data
+- **System reliability**: <5% variation in repeated classifications
+
+
+---
+
+## GENERATION PROMPT
+
+### Context and Instructions
+
+You are an expert herbalist and health category specialist tasked with creating precise, user-friendly definitions for herbal product health categories. These definitions will serve as the foundation for an automated product classification system, so accuracy and consistency are critical.
+
+**Background**: You have extensive knowledge of herbal medicine, traditional uses, emerging research, and regulatory validation. Your task is to create definitions that reflect the natural consensus in herbal medicine while being accessible to regular consumers.
+
+**Strategy**: Create three-section definitions that encode confidence levels naturally:
+1. **Category Description**: Natural prose with integrated examples for user understanding
+2. **Common Ingredients**: High-confidence herbs/compounds widely recognized for this health area
+3. **Other Ingredients**: Medium-confidence herbs/compounds that are discussed but with less universal consensus
+
+### Specific Instructions
+
+For the category "{CATEGORY_NAME}" from the health category list below, generate a complete definition following this exact structure:
+
+#### **Category Description**
+Write 2-4 sentences that:
+- Define what this health category covers in consumer-friendly language
+- Include examples naturally within the prose where they enhance understanding
+- Distinguish this category from similar/adjacent categories
+- Use accessible terminology (avoid medical jargon)
+- Focus on what regular consumers would recognize and understand
+
+#### **Common Ingredients**
+Create a clean list of herbs/compounds that are:
+- Widely recognized and frequently mentioned for this health area
+- Considered established or traditional for this purpose
+- Have broad consensus in herbal medicine communities
+- Include both botanical names and common names where helpful
+- Format as simple bullet points with no explanatory text
+
+Requirements:
+- Include 8-15 ingredients
+- Focus on what you're confident is widely accepted
+- Include both herbs and relevant compounds/nutrients where applicable
+- Use format: "- Common name (Botanical name)" when both exist
+
+#### **Other Ingredients**
+Create a clean list of herbs/compounds that are:
+- Mentioned in herbal medicine but with less universal consensus
+- Emerging in research or traditional use
+- Regionally popular or culturally specific
+- Worth noting but not as established as "common" ingredients
+- Format as simple bullet points with no explanatory text
+
+Requirements:
+- Include 5-10 ingredients
+- Focus on things that are "talked about" but less universally accepted
+- Acknowledge this represents medium confidence
+- Use same format as common ingredients
+
+### Category Context
+
+You are defining: **{CATEGORY_NAME}**
+
+The complete list of all health categories and sub-categories shall be defined at the end of this prompt. 
+
+
+### Quality Guidelines
+
+**DO:**
+- Trust your knowledge of what's commonly vs. less commonly discussed
+- Use natural, conversational language in descriptions
+- Include examples that genuinely help clarify the category
+- Create clear distinctions from adjacent categories
+- Be honest about confidence levels through ingredient placement
+
+**DON'T:**
+- Include unsafe or controversial herbs 
+- Use medical claims or diagnostic language
+- Overlap significantly with other categories
+- Include ingredients you're uncertain about in "common" list
+- Add explanatory text to ingredient lists
+- Make the description longer than necessary
+
+### Output Format
+
+```
+## {CATEGORY_NAME}
+
+### Category Description
+[2-4 sentences with natural examples integrated]
+
+### Common Ingredients
+- [Ingredient 1]
+- [Ingredient 2]
+- [...]
+
+### Other Ingredients
+- [Ingredient 1]
+- [Ingredient 2]
+- [...]
+```
+
+### Example (for reference only)
+
+```
+## immune-support
+
+### Category Description
+This category supports the body's natural immune defenses and helps maintain seasonal wellness. Common approaches include echinacea for immune support, elderberry for seasonal challenges, and medicinal mushrooms like reishi for daily immune maintenance. Products in this category focus on strengthening immunity rather than treating specific symptoms or addressing sleep, stress, or digestive concerns.
+
+### Common Ingredients
+- Echinacea (Echinacea purpurea)
+- Elderberry (Sambucus canadensis)
+- Astragalus (Astragalus membranaceus)
+- Reishi mushroom (Ganoderma lucidum)
+- Turkey tail mushroom (Trametes versicolor)
+- Shiitake mushroom (Lentinula edodes)
+- Vitamin C
+- Zinc
+- Garlic (Allium sativum)
+- Ginger (Zingiber officinale)
+- Oregano (Origanum vulgare)
+- Propolis
+
+### Other Ingredients
+- Cat's claw (Uncaria tomentosa)
+- Olive leaf extract (Olea europaea)
+- Andrographis (Andrographis paniculata)
+- Colostrum
+- Transfer factor
+- Beta-glucans
+- Cordyceps (Cordyceps sinensis)
+- Chaga mushroom (Inonotus obliquus)
+```
+
+Now generate the complete definition for **{CATEGORY_NAME}** following this exact structure and guidelines.  
+
+Here is the taxonomy with categories and sub-categoires: 
+
+1. IMMUNE SUPPORT
+     - Daily Immune Maintenance
+     - Seasonal & Cold/Flu Support
+     - Antiviral & Antibacterial Herbs
+     - Mushroom Immune Complexes
+     - Children's Immune Support
+
+  2. GUT HEALTH
+     - General Digestive Support
+     - Digestive Bitters & Stimulants
+     - Probiotic & Prebiotic Support
+     - Stomach Acid & Enzyme Support
+
+  3. STRESS MOOD ANXIETY
+     - Stress & Anxiety Relief
+     - Adaptogenic Support
+     - Mood Balance & Depression Support
+
+  4. SLEEP RELAXATION
+     - Sleep Quality & Patterns
+     - General Sleep Support
+     - Deep Sleep & Recovery
+
+  5. ENERGY VITALITY
+     - Daily Energy Support
+     - Physical Performance & Endurance
+     - Mental Clarity & Focus
+     - Adrenal Support
+
+  6. CARDIOVASCULAR HEALTH
+     - Heart Health Support
+     - Blood Pressure Support
+     - Cholesterol Management
+
+  7. PAIN INFLAMMATION
+     - Joint & Muscle Support
+     - General Anti-Inflammatory
+     - Acute Pain Relief
+
+  8. FOCUS MEMORY COGNITION
+     - Cognitive Enhancement
+     - Memory Support
+     - Mental Focus & Concentration
+
+  9. RESPIRATORY HEALTH
+     - Lung & Breathing Support
+     - Seasonal Respiratory Support
+     - Throat & Voice Support
+
+  10. LIVER DETOXIFICATION
+      - Liver Health Support
+      - Detox & Cleansing
+      - Phase I & II Detox Support
+
+  11. BONE JOINT MUSCULOSKELETAL
+      - Bone Health & Density
+      - Joint Mobility & Flexibility
+      - Muscle Recovery & Repair
+
+  12. SKIN HAIR NAILS
+      - Skin Health & Beauty
+      - Hair Growth & Strength
+      - Nail Health Support
+
+  13. WOMENS HEALTH
+      - Menstrual Cycle Support
+      - Hormonal Balance
+      - Reproductive Health
+      - Menopause Support
+
+  14. MENS HEALTH
+      - Prostate Health
+      - Testosterone & Hormone Support
+      - Male Vitality & Performance
+
+  15. EYE VISION
+      - Vision Support & Protection
+      - Eye Health & Comfort
+      - Age-Related Vision Support
+
+  16. KIDNEY URINARY
+      - Kidney Health Support
+      - Urinary Tract Health
+      - Bladder Support
+
+  17. BLOOD SUGAR METABOLISM
+      - Blood Sugar Support
+      - Metabolic Health
+      - Weight Management Support
+
+  18. ALLERGY HISTAMINE
+      - Seasonal Allergy Support
+      - Histamine Response
+      - Environmental Sensitivities
+
+  19. HEALTHY AGING
+      - Longevity Support
+      - Cellular Health
+      - Age-Related Wellness
+
+  20. ORAL HEALTH
+      - Dental & Gum Health
+      - Oral Hygiene Support
+      - Breath & Mouth Care
