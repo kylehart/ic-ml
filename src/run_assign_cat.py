@@ -123,7 +123,8 @@ class RunManager:
                     classifications: List[Dict[str, Any]],
                     token_usage: Dict[str, Any],
                     timing_info: Dict[str, Any],
-                    errors: List[str] = None):
+                    errors: List[str] = None,
+                    client_cost_data: Optional[Dict[str, Any]] = None):
         """Save all run outputs."""
 
         # Save main results as CSV (standard category_assignment format)
@@ -153,6 +154,11 @@ class RunManager:
         with open(self.run_dir / "outputs" / "timing.json", "w") as f:
             json.dump(timing_info, f, indent=2)
 
+        # Save client-aware cost data
+        if client_cost_data:
+            with open(self.run_dir / "outputs" / "client_cost_breakdown.json", "w") as f:
+                json.dump(client_cost_data, f, indent=2)
+
         # Save errors if any
         if errors:
             with open(self.run_dir / "outputs" / "errors.log", "w") as f:
@@ -161,13 +167,19 @@ class RunManager:
 
         # Generate and save all analyses using modular analysis engine
         analyzer = ClassificationAnalyzer()
-        analysis_results = analyzer.run_all_analyses(classifications)
+
+        # Extract model used from classifications
+        model_used = classifications[0].get('model_used') if classifications else None
+
+        analysis_results = analyzer.run_all_analyses(classifications, token_usage, model_used)
 
         # Create run metadata for markdown report
         run_metadata = {
             "run_id": self.run_id,
             "duration_seconds": timing_info.get('total_duration_seconds', 0),
-            "start_time": self.start_time.isoformat()
+            "start_time": self.start_time.isoformat(),
+            "token_usage": token_usage,
+            "model_used": model_used
         }
 
         # Generate and save markdown report
@@ -246,7 +258,6 @@ Match the product_id from each product. No headers, no explanations."""
 
     # Process products in batches
     classifications = []
-    token_usage = {"total_prompt_tokens": 0, "total_completion_tokens": 0, "calls_made": 0}
     errors = []
 
     start_time = time.time()
@@ -274,7 +285,6 @@ Match the product_id from each product. No headers, no explanations."""
 
             # Get batch classification
             response = client.complete_sync(messages)
-            token_usage["calls_made"] += 1
 
             # Parse batch response
             lines = response.strip().split('\n')
@@ -320,6 +330,10 @@ Match the product_id from each product. No headers, no explanations."""
 
     end_time = time.time()
 
+    # Get final token usage and cost data from client
+    token_usage = client.get_usage_stats()
+    client_cost_data = client.get_cost_breakdown_for_reporting()
+
     timing_info = {
         "total_duration_seconds": end_time - start_time,
         "products_processed": len(classifications),
@@ -327,7 +341,7 @@ Match the product_id from each product. No headers, no explanations."""
         "average_time_per_product": (end_time - start_time) / len(products) if products else 0
     }
 
-    return classifications, token_usage, timing_info, errors, prompt_templates, taxonomy_path
+    return classifications, token_usage, timing_info, errors, prompt_templates, taxonomy_path, client_cost_data
 
 def main():
     """Main CLI entry point."""
@@ -377,7 +391,7 @@ def main():
         print(f"   Batch size: {args.batch_size}")
 
         # Run classification
-        classifications, token_usage, timing_info, errors, prompt_templates, taxonomy_path = classify_products(
+        classifications, token_usage, timing_info, errors, prompt_templates, taxonomy_path, client_cost_data = classify_products(
             products, args.model, args.batch_size
         )
 
@@ -388,7 +402,7 @@ def main():
             batch_size=args.batch_size,
             input_source=args.input or args.single_product or "default_test"
         )
-        run_manager.save_outputs(classifications, token_usage, timing_info, errors)
+        run_manager.save_outputs(classifications, token_usage, timing_info, errors, client_cost_data)
         run_manager.finalize_run()
 
         # Print summary

@@ -22,9 +22,12 @@ class ClassificationAnalyzer:
             "assignment_histogram": self.generate_assignment_histogram,
             "category_distribution": self.generate_category_distribution,
             "quality_metrics": self.generate_quality_metrics,
+            "cost_analysis": self.generate_cost_analysis,
         }
 
-    def run_all_analyses(self, classifications: List[Dict[str, Any]]) -> Dict[str, Any]:
+    def run_all_analyses(self, classifications: List[Dict[str, Any]],
+                        token_usage: Optional[Dict[str, Any]] = None,
+                        model_used: Optional[str] = None) -> Dict[str, Any]:
         """Run all available analyses on classification results."""
         results = {
             "analysis_metadata": {
@@ -36,7 +39,11 @@ class ClassificationAnalyzer:
 
         for analysis_name, analysis_func in self.available_analyses.items():
             try:
-                results[analysis_name] = analysis_func(classifications)
+                # Pass extra parameters to cost analysis
+                if analysis_name == "cost_analysis":
+                    results[analysis_name] = analysis_func(classifications, token_usage, model_used)
+                else:
+                    results[analysis_name] = analysis_func(classifications)
             except Exception as e:
                 results[analysis_name] = {
                     "error": str(e),
@@ -224,6 +231,121 @@ class ClassificationAnalyzer:
 
         return metrics
 
+    def generate_cost_analysis(self, classifications: List[Dict[str, Any]],
+                              token_usage: Optional[Dict[str, Any]] = None,
+                              model_used: Optional[str] = None) -> Dict[str, Any]:
+        """Generate cost analysis using LiteLLM's built-in cost functions."""
+        try:
+            from litellm import completion_cost, cost_per_token
+        except ImportError:
+            return {
+                "error": "LiteLLM not available for cost calculation",
+                "status": "failed"
+            }
+
+        # Extract model from classifications if not provided
+        if not model_used and classifications:
+            model_used = classifications[0].get('model_used', 'unknown')
+
+        cost_analysis = {
+            "model_used": model_used,
+            "total_classifications": len(classifications),
+        }
+
+        # Calculate costs if token usage provided
+        if token_usage and model_used and model_used != 'unknown':
+            try:
+                input_tokens = token_usage.get('total_prompt_tokens', 0)
+                output_tokens = token_usage.get('total_completion_tokens', 0)
+
+                # Use LiteLLM's built-in cost calculation with token counts
+                input_cost_per_token, output_cost_per_token = cost_per_token(
+                    model=model_used,
+                    prompt_tokens=input_tokens,
+                    completion_tokens=output_tokens
+                )
+
+                input_cost = input_cost_per_token
+                output_cost = output_cost_per_token
+                total_cost = input_cost + output_cost
+
+                # Calculate per-million rates for display
+                input_cost_per_1m = (input_cost / input_tokens) * 1_000_000 if input_tokens > 0 else 0
+                output_cost_per_1m = (output_cost / output_tokens) * 1_000_000 if output_tokens > 0 else 0
+
+                cost_analysis.update({
+                    "token_usage": {
+                        "input_tokens": input_tokens,
+                        "output_tokens": output_tokens,
+                        "total_tokens": input_tokens + output_tokens
+                    },
+                    "cost_breakdown": {
+                        "input_cost": input_cost,
+                        "output_cost": output_cost,
+                        "total_cost": total_cost,
+                        "formatted_total": self._format_cost(total_cost)
+                    },
+                    "pricing_info": {
+                        "cost_per_1m_input": input_cost_per_1m,
+                        "cost_per_1m_output": output_cost_per_1m
+                    },
+                    "efficiency_metrics": {
+                        "cost_per_product": total_cost / len(classifications) if classifications else 0,
+                        "cost_per_1k_products": (total_cost / len(classifications)) * 1000 if classifications else 0
+                    }
+                })
+
+                # Add model comparison using LiteLLM for common models
+                cost_analysis["model_comparisons"] = self._compare_model_costs_litellm(
+                    input_tokens, output_tokens, total_cost
+                )
+
+            except Exception as e:
+                cost_analysis["cost_calculation_error"] = str(e)
+
+        return cost_analysis
+
+    def _format_cost(self, cost: float) -> str:
+        """Format cost for display."""
+        if cost < 0.01:
+            return f"${cost:.4f}"
+        elif cost < 1.0:
+            return f"${cost:.3f}"
+        else:
+            return f"${cost:.2f}"
+
+    def _compare_model_costs_litellm(self, input_tokens: int, output_tokens: int, current_cost: float) -> Dict:
+        """Compare costs across models using LiteLLM."""
+        from litellm import cost_per_token
+
+        # Common models to compare
+        models_to_compare = [
+            'gpt-4o-mini', 'gpt-4o', 'gpt-4-turbo',
+            'claude-3-haiku', 'claude-3-5-haiku', 'claude-3-5-sonnet', 'claude-3-opus'
+        ]
+
+        comparisons = {}
+        for model in models_to_compare:
+            try:
+                input_cost, output_cost = cost_per_token(
+                    model=model,
+                    prompt_tokens=input_tokens,
+                    completion_tokens=output_tokens
+                )
+                model_cost = input_cost + output_cost
+
+                comparisons[model] = {
+                    "total_cost": model_cost,
+                    "formatted_cost": self._format_cost(model_cost),
+                    "savings_vs_current": model_cost - current_cost,
+                    "percent_of_current": (model_cost / current_cost) * 100 if current_cost > 0 else 0
+                }
+            except:
+                # Skip models that don't have pricing data
+                continue
+
+        return comparisons
+
     def generate_markdown_report(self, classifications: List[Dict[str, Any]],
                                 run_metadata: Optional[Dict[str, Any]] = None) -> str:
         """Generate comprehensive markdown report for human review."""
@@ -232,6 +354,18 @@ class ClassificationAnalyzer:
         histogram = self.generate_assignment_histogram(classifications)
         distribution = self.generate_category_distribution(classifications)
         quality = self.generate_quality_metrics(classifications)
+
+        # Try to get cost analysis if token usage available
+        cost_analysis = None
+        if run_metadata:
+            # Try to extract model and token info from metadata
+            model_used = run_metadata.get('model_used')
+            token_usage = run_metadata.get('token_usage')
+            if model_used or token_usage:
+                try:
+                    cost_analysis = self.generate_cost_analysis(classifications, token_usage, model_used)
+                except:
+                    pass  # Cost analysis optional for markdown report
 
         # Start building the report
         report_lines = []
@@ -257,8 +391,21 @@ class ClassificationAnalyzer:
                 f"- **Run ID:** {run_metadata.get('run_id', 'Unknown')}",
                 f"- **Duration:** {run_metadata.get('duration_seconds', 'Unknown')}s",
                 f"- **Timestamp:** {run_metadata.get('start_time', 'Unknown')}",
-                "",
             ])
+
+            # Add cost information if available
+            if cost_analysis and 'cost_breakdown' in cost_analysis:
+                cost_breakdown = cost_analysis['cost_breakdown']
+                model_used = cost_analysis.get('model_used', 'Unknown')
+                efficiency = cost_analysis.get('efficiency_metrics', {})
+
+                report_lines.extend([
+                    f"- **Model Used:** {model_used}",
+                    f"- **Total Cost:** {cost_breakdown.get('formatted_total', 'Unknown')}",
+                    f"- **Cost per Product:** {efficiency.get('cost_per_product', 0):.4f}",
+                ])
+
+            report_lines.append("")
 
         # Assignment Quality Analysis
         report_lines.extend([
@@ -406,6 +553,62 @@ class ClassificationAnalyzer:
             quality_assessment,
             "",
         ])
+
+        # Cost Analysis Section
+        if cost_analysis and 'cost_breakdown' in cost_analysis:
+            report_lines.extend([
+                "## Cost Analysis",
+                "",
+                "_Detailed breakdown of API costs based on current provider pricing._",
+                "",
+            ])
+
+            cost_breakdown = cost_analysis['cost_breakdown']
+            token_usage = cost_analysis.get('token_usage', {})
+            pricing_info = cost_analysis.get('pricing_info', {})
+
+            # Cost breakdown table
+            report_lines.extend([
+                "| Cost Component | Tokens | Rate (per 1M) | Cost |",
+                "|----------------|--------|---------------|------|",
+                f"| Input Tokens | {token_usage.get('input_tokens', 0):,} | ${pricing_info.get('cost_per_1m_input', 0):.2f} | ${cost_breakdown.get('input_cost', 0):.4f} |",
+                f"| Output Tokens | {token_usage.get('output_tokens', 0):,} | ${pricing_info.get('cost_per_1m_output', 0):.2f} | ${cost_breakdown.get('output_cost', 0):.4f} |",
+                f"| **Total** | {token_usage.get('total_tokens', 0):,} | | **{cost_breakdown.get('formatted_total', '$0.00')}** |",
+                "",
+            ])
+
+            # Efficiency metrics
+            efficiency = cost_analysis.get('efficiency_metrics', {})
+            report_lines.extend([
+                "### Cost Efficiency:",
+                "",
+                f"- **Cost per Product:** ${efficiency.get('cost_per_product', 0):.6f}",
+                f"- **Cost per 1,000 Products:** ${efficiency.get('cost_per_1k_products', 0):.3f}",
+                "",
+            ])
+
+            # Model comparison if available
+            if 'model_comparisons' in cost_analysis:
+                comparisons = cost_analysis['model_comparisons']
+                current_cost = cost_breakdown.get('total_cost', 0)
+
+                report_lines.extend([
+                    "### Model Cost Comparison:",
+                    "",
+                    "| Model | Total Cost | vs Current | Savings |",
+                    "|-------|------------|------------|---------|",
+                ])
+
+                for model, comparison in sorted(comparisons.items(), key=lambda x: x[1]['total_cost']):
+                    savings = comparison['savings_vs_current']
+                    savings_text = f"+${abs(savings):.4f}" if savings > 0 else f"-${abs(savings):.4f}"
+                    percent = comparison['percent_of_current']
+
+                    report_lines.append(
+                        f"| {model} | {comparison['formatted_cost']} | {percent:.0f}% | {savings_text} |"
+                    )
+
+                report_lines.extend(["", ""])
 
         # Recommendations
         report_lines.extend([

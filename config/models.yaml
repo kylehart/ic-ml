@@ -34,6 +34,12 @@ models:
     description: "Legacy sonnet model - may not be available"
 
   # OpenAI GPT Models (three-tier structure)
+  gpt4o_mini:
+    model: "openai/gpt-4o-mini"
+    max_tokens: 1000
+    temperature: 0.0
+    description: "Fast OpenAI model - cost-optimized, comparable to Haiku"
+
   gpt4o:
     model: "openai/gpt-4o"
     max_tokens: 1000
@@ -73,7 +79,44 @@ api:
   exponential_backoff: true
   rate_limit_delay: 60  # seconds between products
 
-# Usage tracking metadata
+# Use case specific configurations
+use_cases:
+  product_classification:
+    default_model: "openai/gpt-4o-mini"
+    max_tokens: 1000
+    temperature: 0.0
+    batch_size: 10
+    retry_on_parse_error: true
+
+  health_quiz:
+    default_model: "openai/gpt-4o-mini"  # Same as product classification for cost
+    max_tokens: 1000
+    temperature: 0.0  # Deterministic for medical consistency
+    max_recommendations: 5
+    min_relevance_score: 0.3
+    include_educational_content: true
+    consultation_threshold: 7  # Severity level triggering consultation recommendation
+    response_format: "json"  # Structured output format
+    # WordPress/WooCommerce URL Configuration
+    # TESTED: ID-based URLs don't work (?product=ID, /product/ID/ all return 404)
+    # WORKING: Slug-based URLs work (e.g., /product/hemp-adapt-2oz/)
+    # IMPLEMENTATION: Algorithmic slug generation from product titles
+    product_url_template: "https://rogueherbalist.com/product/{product_slug}/"
+    # Fallback if slug generation fails:
+    # product_url_template: "https://rogueherbalist.com/shop/"
+
+# Client-aware cost tracking configuration
+client_tracking:
+  client: "get-better-care"
+  use_case: "herbal-classification"
+  project: "ic-ml"
+  environment: "production"
+  tags:
+    - "herbal-products"
+    - "classification"
+    - "taxonomy-based"
+
+# Legacy metadata (kept for compatibility)
 metadata:
   client: "rogue_herbalist"
   business: "get_better_care"

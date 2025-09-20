@@ -96,6 +96,10 @@ class ModelConfigManager:
         """Get metadata for API calls."""
         return self._config.get("metadata", {})
 
+    def get_client_tracking(self) -> Dict[str, Any]:
+        """Get client-aware cost tracking metadata."""
+        return self._config.get("client_tracking", {})
+
     def list_available_models(self) -> Dict[str, str]:
         """List all available model configurations with descriptions."""
         models = {}

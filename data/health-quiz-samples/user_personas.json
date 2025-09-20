@@ -1,0 +1,91 @@
+{
+  "users": [
+    {
+      "name": "Sarah Chen",
+      "demographics": {
+        "age_range": "28-35",
+        "location": "Portland, OR",
+        "lifestyle": "Busy professional, health-conscious"
+      },
+      "quiz_submission": {
+        "health_issue_description": "I've been having digestive issues for the past few months - bloating, gas, and stomach discomfort especially after eating dairy or gluten. It's affecting my energy levels and making me feel sluggish throughout the day. I work long hours and often eat irregular meals, which might be contributing to the problem.",
+        "tried_already": "I tried eliminating dairy for two weeks and felt somewhat better, but the symptoms came back when I reintroduced it. Also tried taking probiotics from the drugstore for a month but didn't notice much difference. My doctor said it might be IBS but didn't offer specific treatment options.",
+        "primary_health_area": "digestive_health",
+        "secondary_health_area": "energy_vitality",
+        "severity_level": 6,
+        "budget_preference": "medium",
+        "lifestyle_factors": "High stress job in tech, irregular eating schedule, limited time for meal prep, tries to exercise 2-3x per week"
+      }
+    },
+    {
+      "name": "Marcus Rodriguez",
+      "demographics": {
+        "age_range": "45-55",
+        "location": "Austin, TX",
+        "lifestyle": "Construction worker, family man"
+      },
+      "quiz_submission": {
+        "health_issue_description": "My joints, especially my knees and lower back, have been aching more frequently. It's worse in the mornings and after long days on construction sites. The pain is starting to interfere with my work and I don't want to rely on ibuprofen every day.",
+        "tried_already": "Been taking ibuprofen almost daily for 6 months. Tried ice and heat therapy. Wife got me some glucosamine supplements from Costco but haven't noticed much improvement after 2 months.",
+        "primary_health_area": "joint_health",
+        "secondary_health_area": "inflammation",
+        "severity_level": 7,
+        "age_range": "45-55",
+        "budget_preference": "low",
+        "lifestyle_factors": "Physical job requiring lifting and standing, father of two teenagers, limited time for self-care"
+      }
+    },
+    {
+      "name": "Lisa Thompson",
+      "demographics": {
+        "age_range": "35-45",
+        "location": "Denver, CO",
+        "lifestyle": "Working mom, wellness enthusiast"
+      },
+      "quiz_submission": {
+        "health_issue_description": "I'm dealing with chronic stress and anxiety from juggling work and two young kids. I have trouble falling asleep at night because my mind won't stop racing, and I wake up feeling tired. During the day I feel on edge and sometimes get overwhelmed by small things that shouldn't bother me.",
+        "tried_already": "I've tried meditation apps like Headspace for a few weeks but struggle to be consistent. Drinking chamomile tea before bed helps a little. I don't want to take prescription anxiety medication if I can avoid it.",
+        "primary_health_area": "stress_relief",
+        "secondary_health_area": "sleep_support",
+        "severity_level": 8,
+        "budget_preference": "high",
+        "lifestyle_factors": "Full-time marketing manager, mother of 6 and 8 year old, interested in natural health solutions, has time for self-care on weekends"
+      }
+    },
+    {
+      "name": "Robert Kim",
+      "demographics": {
+        "age_range": "55-65",
+        "location": "Seattle, WA",
+        "lifestyle": "Semi-retired, health-focused"
+      },
+      "quiz_submission": {
+        "health_issue_description": "I want to support my overall immune system and energy levels as I get older. I don't have any specific health problems, but I've noticed I don't bounce back from minor illnesses as quickly as I used to, and my energy dips in the afternoons.",
+        "tried_already": "I take a daily multivitamin and vitamin D. I eat pretty well and exercise regularly. I've read about adaptogens but haven't tried any specific herbs yet.",
+        "primary_health_area": "immune_support",
+        "secondary_health_area": "energy_vitality",
+        "severity_level": 3,
+        "age_range": "55-65",
+        "budget_preference": "high",
+        "lifestyle_factors": "Semi-retired consultant, regular exercise routine, good diet, proactive about health, has time to research natural health options"
+      }
+    },
+    {
+      "name": "Jennifer Walsh",
+      "demographics": {
+        "age_range": "25-35",
+        "location": "Boston, MA",
+        "lifestyle": "Graduate student, health newcomer"
+      },
+      "quiz_submission": {
+        "health_issue_description": "I've been getting frequent colds and feeling run down, especially during exam periods. I think my immune system is weak from stress and poor sleep habits. I also have trouble concentrating when studying for long periods.",
+        "tried_already": "I started taking vitamin C when I feel a cold coming on, and I try to drink more water. I've never really used herbal medicine before but I'm open to trying natural approaches.",
+        "primary_health_area": "immune_support",
+        "secondary_health_area": "cognitive_support",
+        "severity_level": 5,
+        "budget_preference": "low",
+        "lifestyle_factors": "Graduate student in psychology, irregular sleep schedule, limited budget, new to natural health, willing to learn"
+      }
+    }
+  ]
+}
