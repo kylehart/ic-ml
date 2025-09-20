@@ -19,6 +19,7 @@ sys.path.insert(0, str(Path(__file__).parent))
 from llm_client import LLMClient
 from product_processor import Product, ProductCatalogReader, BatchProcessor
 from model_config import get_config_manager
+from analysis_engine import ClassificationAnalyzer
 
 class RunManager:
     """Manages experimental runs with complete artifact capture."""
@@ -158,7 +159,34 @@ class RunManager:
                 for error in errors:
                     f.write(f"{error}\n")
 
+        # Generate and save all analyses using modular analysis engine
+        analyzer = ClassificationAnalyzer()
+        analysis_results = analyzer.run_all_analyses(classifications)
+
+        # Create run metadata for markdown report
+        run_metadata = {
+            "run_id": self.run_id,
+            "duration_seconds": timing_info.get('total_duration_seconds', 0),
+            "start_time": self.start_time.isoformat()
+        }
+
+        # Generate and save markdown report
+        markdown_report = analyzer.generate_markdown_report(classifications, run_metadata)
+        with open(self.run_dir / "outputs" / "classification_report.md", "w") as f:
+            f.write(markdown_report)
+
+        # Save individual analysis files for backward compatibility
+        for analysis_name, analysis_data in analysis_results.items():
+            if analysis_name != "analysis_metadata":
+                with open(self.run_dir / "outputs" / f"{analysis_name}.json", "w") as f:
+                    json.dump(analysis_data, f, indent=2)
+
+        # Save combined analysis results
+        with open(self.run_dir / "outputs" / "combined_analysis.json", "w") as f:
+            json.dump(analysis_results, f, indent=2)
+
         print(f"📤 Outputs saved: {len(classifications)} classifications")
+
 
     def finalize_run(self):
         """Finalize run with metadata."""
