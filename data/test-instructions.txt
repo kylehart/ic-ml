@@ -1,0 +1,9 @@
+Add a third primary category for "Stress & Mood Support" with appropriate subcategories.
+
+The new category should include:
+- A sub-title that fits the pattern of existing categories
+- A description of stress and mood support products
+- Meta information with relevant chebi-roles (e.g., anxiolytic, adaptogen)
+- At least two subcategories related to stress relief and mood balance
+
+Maintain all existing categories unchanged. Follow the same XML structure and formatting patterns as the source taxonomy.

@@ -302,6 +302,7 @@ Match the product_id from each product. No headers, no explanations."""
                         "product_id": parts[2].strip() if len(parts) > 2 else product.id,
                         # Additional fields for debugging/analysis
                         "title": product.title,
+                        "slug": product.slug or "",  # Product slug from WooCommerce
                         "raw_response": line.strip(),
                         "model_used": client.config.model
                     }
@@ -324,6 +325,7 @@ Match the product_id from each product. No headers, no explanations."""
                     "tag": "",
                     "product_id": product.id,
                     "title": product.title,
+                    "slug": product.slug or "",
                     "raw_response": "batch_error",
                     "model_used": client.config.model
                 })

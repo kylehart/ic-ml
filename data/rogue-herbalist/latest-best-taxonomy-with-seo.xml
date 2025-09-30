@@ -1,0 +1,2172 @@
+<?xml version='1.0' encoding='utf-8'?>
+<taxonomy version="1.0" namespace="rogue-herbalist">
+
+<taxon slug="immune-support" type="primary" hierarchical="true">
+  <title>Immune Support &amp; Infection Resistance</title>
+  <sub-title>Natural Defenses &amp; Seasonal Wellness</sub-title>
+  <description>Strengthen your body's defenses with echinacea and elderberry. Support seasonal wellness and daily immune resilience naturally.</description>
+
+  <meta>
+    <chebi-roles>immunomodulator,antioxidant,antimicrobial</chebi-roles>
+    <npclassifier>beta-glucans,phenolic_compounds,polysaccharides</npclassifier>
+    <chpa-category>immune_support</chpa-category>
+    <fda-claim>Supports immune system function</fda-claim>
+  </meta>
+
+  <ingredients>
+    <common>
+      <item>Echinacea (Echinacea purpurea)</item>
+      <item>Elderberry (Sambucus canadensis)</item>
+      <item>Astragalus (Astragalus membranaceus)</item>
+      <item>Reishi (Ganoderma lucidum)</item>
+      <item>Turkey tail (Trametes versicolor)</item>
+      <item>Vitamin C</item>
+      <item>Zinc</item>
+      <item>Garlic (Allium sativum)</item>
+    </common>
+    <other>
+      <item>Cat's claw (Uncaria tomentosa)</item>
+      <item>Andrographis (Andrographis paniculata)</item>
+      <item>Cordyceps (Cordyceps sinensis)</item>
+    </other>
+  </ingredients>
+
+<taxon slug="daily-immune" type="subcategory">
+      <title>Daily Immune Maintenance</title>
+      <description>Build lasting immunity with gentle modulators like reishi and astragalus.</description>
+      <ingredients>
+        <common>
+          <item>Reishi (Ganoderma lucidum)</item>
+          <item>Astragalus (Astragalus membranaceus)</item>
+          <item>Vitamin D3</item>
+        </common>
+        <other>
+          <item>Maitake (Grifola frondosa)</item>
+        </other>
+      </ingredients>
+    <seo>
+  <focus-keyword>daily immune support supplements</focus-keyword>
+  <meta-title>Daily Immune Support Vitamins &amp; Herbs | Rogue Herbalist</meta-title>
+  <meta-description>Build lasting immunity with reishi, astragalus, and vitamin D3. Gentle herbs for year-round wellness and resilience.</meta-description>
+  <h1>Daily Immune Maintenance Supplements for Lasting Health</h1>
+  <og-title>Daily Immune Support: Build Lasting Immunity Naturally</og-title>
+  <og-description>Enhance your immune system daily with reishi, astragalus, and vitamin D3. Perfect for consistent, long-term immune health and resilience. Discover our gentle herbal formulas today!</og-description>
+  <keywords>daily immune support, immune maintenance, reishi supplement, astragalus, vitamin D3, preventative immune health</keywords>
+  <canonical-url>https://rogueherbalist.com/category/immune-support/daily-immune/</canonical-url>
+  <schema-type>CollectionPage</schema-type>
+</seo>
+  </taxon>
+    <taxon slug="seasonal-support" type="subcategory">
+      <title>Seasonal &amp; Cold/Flu Support</title>
+      <description>Boost your immune response with elderberry and echinacea during cold and flu season.</description>
+      <ingredients>
+        <common>
+          <item>Elderberry (Sambucus canadensis)</item>
+          <item>Echinacea (Echinacea purpurea)</item>
+          <item>Vitamin C</item>
+          <item>Zinc</item>
+          <item>Ginger (Zingiber officinale)</item>
+        </common>
+        <other>
+          <item>Andrographis (Andrographis paniculata)</item>
+          <item>Olive leaf (Olea europaea)</item>
+        </other>
+      </ingredients>
+    <seo>
+  <focus-keyword>seasonal cold flu support</focus-keyword>
+  <meta-title>Seasonal Cold &amp; Flu Support | Rogue Herbalist</meta-title>
+  <meta-description>Boost immunity with elderberry, echinacea, and vitamin C for effective cold and flu season defense.</meta-description>
+  <h1>Seasonal Cold &amp; Flu Support Supplements</h1>
+  <og-title>Stay Healthy This Season with Cold &amp; Flu Support</og-title>
+  <og-description>Enhance your immune response with elderberry, echinacea, vitamin C, and zinc. Perfect for staying resilient during cold and flu season. Shop now for natural support.</og-description>
+  <keywords>seasonal support, cold and flu supplements, elderberry, echinacea, vitamin C, immune boosters</keywords>
+  <canonical-url>https://rogueherbalist.com/category/immune-support/seasonal-support/</canonical-url>
+  <schema-type>CollectionPage</schema-type>
+</seo>
+  </taxon>
+    <taxon slug="antiviral-herbs" type="subcategory">
+      <title>Antiviral &amp; Antibacterial Herbs</title>
+      <description>Fight pathogens with potent herbs like garlic. Support your body's natural resistance to viruses and bacteria.</description>
+      <ingredients>
+        <common>
+          <item>Garlic (Allium sativum)</item>
+          <item>Echinacea (Echinacea purpurea)</item>
+          <item>Olive leaf (Olea europaea)</item>
+          <item>Oregano (Origanum vulgare)</item>
+          <item>Thyme (Thymus vulgaris)</item>
+          <item>Ginger (Zingiber officinale)</item>
+        </common>
+        <other>
+          <item>Licorice root (Glycyrrhiza glabra)</item>
+          <item>Neem (Azadirachta indica)</item>
+          <item>Usnea (Usnea barbata)</item>
+        </other>
+      </ingredients>
+    <seo>
+  <focus-keyword>antiviral antibacterial herbs</focus-keyword>
+  <meta-title>Antiviral &amp; Antibacterial Herbs | Rogue Herbalist</meta-title>
+  <meta-description>Boost your body's defenses with garlic, echinacea, and olive leaf. Potent herbs for natural resistance to viruses and bacteria.</meta-description>
+  <h1>Antiviral &amp; Antibacterial Herbs for Natural Resistance</h1>
+  <og-title>Discover Potent Antiviral &amp; Antibacterial Herbs</og-title>
+  <og-description>Explore the power of garlic, echinacea, and olive leaf to naturally fight pathogens. Enhance your body's resistance to viruses and bacteria with our herbal solutions.</og-description>
+  <keywords>antiviral herbs, antibacterial herbs, garlic supplements, echinacea, olive leaf, natural pathogen resistance</keywords>
+  <canonical-url>https://rogueherbalist.com/category/immune-support/antiviral-herbs/</canonical-url>
+  <schema-type>CollectionPage</schema-type>
+</seo>
+  </taxon>
+    <taxon slug="mushroom-immune" type="subcategory">
+      <title>Mushroom Immune Complexes</title>
+      <description>Enhance immunity with reishi and shiitake mushrooms. These fungi offer deep immune support and vitality.</description>
+      <ingredients>
+        <common>
+          <item>Reishi (Ganoderma lucidum)</item>
+          <item>Turkey tail (Trametes versicolor)</item>
+          <item>Shiitake (Lentinula edodes)</item>
+          <item>Maitake (Grifola frondosa)</item>
+          <item>Cordyceps (Cordyceps sinensis)</item>
+          <item>Chaga (Inonotus obliquus)</item>
+        </common>
+        <other>
+          <item>Agaricus (Agaricus blazei)</item>
+          <item>Enoki (Flammulina velutipes)</item>
+          <item>Lion's mane (Hericium erinaceus)</item>
+        </other>
+      </ingredients>
+    </taxon>
+    <taxon slug="childrens-immune" type="subcategory">
+      <title>Children's Immune Support</title>
+      <description>Gentle immune support with elderberry and vitamin C for kids.</description>
+      <ingredients>
+        <common>
+          <item>Elderberry (Sambucus canadensis)</item>
+          <item>Vitamin C</item>
+          <item>Zinc</item>
+        </common>
+        <other>
+          <item>Astragalus (Astragalus membranaceus)</item>
+          <item>Chamomile (Matricaria chamomilla)</item>
+        </other>
+      </ingredients>
+    </taxon>
+    <seo>
+  <focus-keyword>natural immune support supplements</focus-keyword>
+  <meta-title>Natural Immune Support Supplements | Rogue Herbalist</meta-title>
+  <meta-description>Strengthen your defenses with echinacea, elderberry, and astragalus. Support daily wellness and seasonal resilience naturally.</meta-description>
+  <h1>Natural Immune Support Supplements &amp; Infection Resistance</h1>
+  <og-title>Boost Your Immunity with Natural Herbal Supplements</og-title>
+  <og-description>Discover the power of echinacea, elderberry, and reishi to enhance your immune system. Shop our natural supplements for daily and seasonal support.</og-description>
+  <keywords>immune support supplements, echinacea, elderberry, astragalus, reishi, natural immunity</keywords>
+  <canonical-url>https://rogueherbalist.com/category/immune-support/</canonical-url>
+  <schema-type>CollectionPage</schema-type>
+</seo>
+  </taxon>
+
+<taxon slug="gut-health" type="primary" hierarchical="true">
+  <title>Gut Health &amp; Digestion</title>
+  <sub-title>Digestive Comfort &amp; Microbiome Balance</sub-title>
+  <description>Enhance digestion and balance your microbiome with ginger and peppermint. Support gut health naturally for overall wellness.</description>
+
+  <meta>
+    <chebi-roles>digestive_aid,hepatoprotectant,prebiotic,probiotic</chebi-roles>
+    <npclassifier>iridoids,sesquiterpene_lactones,oligosaccharides</npclassifier>
+    <chpa-category>digestive_health</chpa-category>
+    <fda-claim>Supports healthy digestion and gut function</fda-claim>
+  </meta>
+
+  <ingredients>
+    <common>
+      <item>Ginger (Zingiber officinale)</item>
+      <item>Peppermint (Mentha piperita)</item>
+      <item>Fennel (Foeniculum vulgare)</item>
+      <item>Chamomile (Matricaria chamomilla)</item>
+      <item>Licorice (Glycyrrhiza glabra)</item>
+      <item>Probiotics</item>
+      <item>Prebiotics</item>
+      <item>Turmeric (Curcuma longa)</item>
+    </common>
+    <other>
+      <item>Slippery Elm (Ulmus rubra)</item>
+      <item>Marshmallow Root (Althaea officinalis)</item>
+      <item>Artichoke Leaf (Cynara scolymus)</item>
+    </other>
+  </ingredients>
+
+<taxon slug="digestive-support" type="subcategory">
+    <title>General Digestive Support</title>
+    <description>Support digestion with enzymes and herbs like peppermint for daily comfort.</description>
+
+    <ingredients>
+      <common>
+        <item>Peppermint (Mentha piperita)</item>
+        <item>Digestive Enzymes</item>
+        <item>Fennel (Foeniculum vulgare)</item>
+      </common>
+      <other>
+        <item>Slippery Elm (Ulmus rubra)</item>
+      </other>
+    </ingredients>
+  </taxon>
+    <taxon slug="digestive-bitters" type="subcategory">
+    <title>Digestive Bitters &amp; Stimulants</title>
+    <description>Stimulate digestion with bitters like dandelion and gentian for appetite and comfort.</description>
+
+    <ingredients>
+      <common>
+        <item>Dandelion (Taraxacum officinale)</item>
+        <item>Gentian (Gentiana lutea)</item>
+        <item>Artichoke (Cynara scolymus)</item>
+      </common>
+      <other>
+        <item>Angelica (Angelica archangelica)</item>
+      </other>
+    </ingredients>
+  <seo>
+  <focus-keyword>digestive bitters supplements</focus-keyword>
+  <meta-title>Digestive Bitters Supplements | Rogue Herbalist</meta-title>
+  <meta-description>Enhance digestion with dandelion, gentian, and artichoke. Herbal bitters for appetite and digestive comfort.</meta-description>
+  <h1>Digestive Bitters Supplements for Enhanced Digestion</h1>
+  <og-title>Boost Your Digestion with Herbal Bitters</og-title>
+  <og-description>Discover the power of digestive bitters with dandelion, gentian, and artichoke. Perfect for stimulating appetite and enhancing digestive comfort. Shop now for natural digestive support.</og-description>
+  <keywords>digestive bitters, dandelion supplement, gentian root, artichoke extract, herbal digestion support, appetite stimulants</keywords>
+  <canonical-url>https://rogueherbalist.com/category/gut-health/digestive-bitters/</canonical-url>
+  <schema-type>CollectionPage</schema-type>
+</seo>
+  </taxon>
+    <taxon slug="probiotic-support" type="subcategory">
+      <title>Probiotic &amp; Prebiotic Support</title>
+      <description>Boost gut flora with probiotics and prebiotics like inulin.</description>
+      <ingredients>
+        <common>
+          <item>Inulin</item>
+          <item>Lactobacillus acidophilus</item>
+          <item>Bifidobacterium bifidum</item>
+        </common>
+        <other>
+          <item>Jerusalem Artichoke (Helianthus tuberosus)</item>
+        </other>
+      </ingredients>
+    </taxon>
+    <taxon slug="stomach-acid" type="subcategory">
+      <title>Stomach Acid &amp; Enzyme Support</title>
+      <description>Support digestion with enzymes and herbs like ginger.</description>
+      <ingredients>
+        <common>
+          <item>Ginger (Zingiber officinale)</item>
+          <item>Bromelain</item>
+          <item>Betaine HCl</item>
+        </common>
+        <other>
+          <item>Papaya Enzyme</item>
+        </other>
+      </ingredients>
+    <seo>
+  <focus-keyword>stomach acid enzyme support</focus-keyword>
+  <meta-title>Stomach Acid &amp; Enzyme Support | Rogue Herbalist</meta-title>
+  <meta-description>Enhance digestion with ginger, bromelain, and betaine HCl. Support your stomach's natural acid and enzyme balance.</meta-description>
+  <h1>Stomach Acid &amp; Enzyme Support for Optimal Digestion</h1>
+  <og-title>Boost Your Digestion with Stomach Acid &amp; Enzyme Support</og-title>
+  <og-description>Discover the benefits of ginger, bromelain, and betaine HCl for improved digestion. Support your stomach's natural balance with our targeted formulas.</og-description>
+  <keywords>stomach acid support, enzyme supplements, ginger digestion, bromelain, betaine HCl, digestive health</keywords>
+  <canonical-url>https://rogueherbalist.com/category/gut-health/stomach-acid/</canonical-url>
+  <schema-type>CollectionPage</schema-type>
+</seo>
+  </taxon>
+    </taxon>
+
+<taxon slug="stress-mood-anxiety" type="primary" hierarchical="true">
+  <title>Stress, Mood &amp; Anxiety</title>
+  <sub-title>Emotional Balance &amp; Mental Resilience</sub-title>
+  <description>Enhance emotional well-being with ashwagandha and passionflower. Support stress management and mental resilience naturally.</description>
+
+  <meta>
+    <chebi-roles>anxiolytic,adaptogen,neuroprotective,antidepressant</chebi-roles>
+    <npclassifier>alkaloids,saponins,phenolic_glycosides</npclassifier>
+    <chpa-category>mood_support</chpa-category>
+    <fda-claim>Supports emotional well-being and stress management</fda-claim>
+  </meta>
+
+  <ingredients>
+    <common>
+      <item>Ashwagandha (Withania somnifera)</item>
+      <item>Passionflower (Passiflora incarnata)</item>
+      <item>Rhodiola (Rhodiola rosea)</item>
+      <item>Chamomile (Matricaria chamomilla)</item>
+      <item>Lavender (Lavandula angustifolia)</item>
+      <item>Lemon balm (Melissa officinalis)</item>
+      <item>Valerian (Valeriana officinalis)</item>
+      <item>St. John's Wort (Hypericum perforatum)</item>
+    </common>
+    <other>
+      <item>Holy basil (Ocimum sanctum)</item>
+      <item>Skullcap (Scutellaria lateriflora)</item>
+      <item>Saffron (Crocus sativus)</item>
+    </other>
+  </ingredients>
+
+<taxon slug="stress-anxiety-relief" type="subcategory">
+      <title>Stress &amp; Anxiety Relief</title>
+      <description>Calm acute stress with passionflower and kava for immediate relief.</description>
+      <ingredients>
+        <common>
+          <item>Passionflower (Passiflora incarnata)</item>
+          <item>Kava (Piper methysticum)</item>
+          <item>Valerian (Valeriana officinalis)</item>
+        </common>
+        <other>
+          <item>Skullcap (Scutellaria lateriflora)</item>
+        </other>
+      </ingredients>
+    <seo>
+  <focus-keyword>acute stress relief supplements</focus-keyword>
+  <meta-title>Acute Stress Relief Supplements | Rogue Herbalist</meta-title>
+  <meta-description>Calm stress with passionflower, kava &amp; valerian. Fast-acting herbal support for immediate anxiety relief.</meta-description>
+  <h1>Acute Stress Relief Supplements &amp; Herbal Support</h1>
+  <og-title>Fast-Acting Stress Relief: Herbal Supplements for Calm</og-title>
+  <og-description>Experience immediate stress relief with our herbal supplements featuring passionflower, kava, and valerian. Perfect for calming acute stress and anxiety naturally. Shop now for fast-acting support.</og-description>
+  <keywords>acute stress relief, anxiety relief supplements, passionflower, kava, valerian, herbal stress support</keywords>
+  <canonical-url>https://rogueherbalist.com/category/stress-mood-anxiety/stress-anxiety-relief/</canonical-url>
+  <schema-type>CollectionPage</schema-type>
+</seo>
+  </taxon>
+    <taxon slug="adaptogenic-support" type="subcategory">
+      <title>Adaptogenic Support</title>
+      <description>Boost resilience with ashwagandha and rhodiola for stress balance.</description>
+      <ingredients>
+        <common>
+          <item>Ashwagandha (Withania somnifera)</item>
+          <item>Rhodiola (Rhodiola rosea)</item>
+          <item>Holy basil (Ocimum sanctum)</item>
+        </common>
+        <other>
+          <item>Schisandra (Schisandra chinensis)</item>
+        </other>
+      </ingredients>
+    <seo>
+  <focus-keyword>adaptogenic stress support supplements</focus-keyword>
+  <meta-title>Adaptogenic Stress Support Supplements | Rogue Herbalist</meta-title>
+  <meta-description>Boost resilience with ashwagandha, rhodiola, and holy basil for stress balance and enhanced mood.</meta-description>
+  <h1>Adaptogenic Stress Support Supplements for Resilience</h1>
+  <og-title>Adaptogenic Support: Balance Stress &amp; Enhance Resilience</og-title>
+  <og-description>Discover the power of adaptogens like ashwagandha, rhodiola, and holy basil to naturally balance stress and boost resilience. Perfect for maintaining calm and focus in daily life.</og-description>
+  <keywords>adaptogenic supplements, stress support, ashwagandha, rhodiola, holy basil, adaptogens for stress</keywords>
+  <canonical-url>https://rogueherbalist.com/category/stress-mood-anxiety/adaptogenic-support/</canonical-url>
+  <schema-type>CollectionPage</schema-type>
+</seo>
+  </taxon>
+    <taxon slug="mood-balance" type="subcategory">
+      <title>Mood Balance &amp; Depression Support</title>
+      <description>Boost mood with St. John's wort and saffron for emotional stability.</description>
+      <ingredients>
+        <common>
+          <item>St. John's Wort (Hypericum perforatum)</item>
+          <item>Saffron (Crocus sativus)</item>
+          <item>Rhodiola (Rhodiola rosea)</item>
+        </common>
+        <other>
+          <item>5-HTP</item>
+          <item>Ginkgo Biloba</item>
+        </other>
+      </ingredients>
+    <seo>
+  <focus-keyword>mood balance supplements</focus-keyword>
+  <meta-title>Mood Balance Supplements &amp; Herbs | Rogue Herbalist</meta-title>
+  <meta-description>Enhance emotional stability with St. John's wort, saffron, and rhodiola. Natural support for mood balance and well-being.</meta-description>
+  <h1>Mood Balance Supplements for Emotional Stability</h1>
+  <og-title>Achieve Emotional Stability with Mood Balance Supplements</og-title>
+  <og-description>Discover natural mood balance with St. John's wort, saffron, and rhodiola. Support your emotional well-being and find stability with our herbal supplements.</og-description>
+  <keywords>mood balance supplements, emotional stability herbs, St. John's wort, saffron supplements, rhodiola mood support</keywords>
+  <canonical-url>https://rogueherbalist.com/category/stress-mood-anxiety/mood-balance/</canonical-url>
+  <schema-type>CollectionPage</schema-type>
+</seo>
+  </taxon>
+    </taxon>
+
+<taxon slug="sleep-relaxation" type="primary" hierarchical="true">
+  <title>Sleep &amp; Relaxation</title>
+  <sub-title>Restorative Rest &amp; Deep Sleep</sub-title>
+  <description>Enhance your sleep with valerian and chamomile. Promote relaxation and restful nights naturally.</description>
+
+  <meta>
+    <chebi-roles>sedative,hypnotic,muscle_relaxant,anxiolytic</chebi-roles>
+    <npclassifier>valepotriates,monoterpenes,flavonoids</npclassifier>
+    <chpa-category>sleep_support</chpa-category>
+    <fda-claim>Supports healthy sleep patterns and relaxation</fda-claim>
+  </meta>
+
+  <ingredients>
+    <common>
+      <item>Valerian (Valeriana officinalis)</item>
+      <item>Chamomile (Matricaria chamomilla)</item>
+      <item>Lavender (Lavandula angustifolia)</item>
+      <item>Passionflower (Passiflora incarnata)</item>
+      <item>Lemon balm (Melissa officinalis)</item>
+      <item>Hops (Humulus lupulus)</item>
+      <item>Magnesium</item>
+    </common>
+    <other>
+      <item>Ashwagandha (Withania somnifera)</item>
+      <item>California poppy (Eschscholzia californica)</item>
+      <item>Skullcap (Scutellaria lateriflora)</item>
+    </other>
+  </ingredients>
+
+<taxon slug="sleep-quality-patterns" type="subcategory">
+    <title>Sleep Quality &amp; Patterns</title>
+    <description>Improve sleep quality with lavender and support natural circadian rhythms.</description>
+
+    <ingredients>
+      <common>
+        <item>Lavender (Lavandula angustifolia)</item>
+        <item>Melatonin</item>
+        <item>Passionflower (Passiflora incarnata)</item>
+      </common>
+      <other>
+        <item>Skullcap (Scutellaria lateriflora)</item>
+      </other>
+    </ingredients>
+  </taxon>
+    <taxon slug="sleep-support" type="subcategory">
+    <title>General Sleep Support</title>
+    <description>Use valerian and chamomile for occasional sleeplessness and relaxation.</description>
+
+    <ingredients>
+      <common>
+        <item>Valerian (Valeriana officinalis)</item>
+        <item>Chamomile (Matricaria chamomilla)</item>
+        <item>Lemon balm (Melissa officinalis)</item>
+      </common>
+      <other>
+        <item>California poppy (Eschscholzia californica)</item>
+      </other>
+    </ingredients>
+  </taxon>
+    <taxon slug="deep-sleep" type="subcategory">
+      <title>Deep Sleep &amp; Recovery</title>
+      <description>Promote profound sleep with valerian and hops for muscle relaxation and recovery.</description>
+      <ingredients>
+        <common>
+          <item>Valerian (Valeriana officinalis)</item>
+          <item>Hops (Humulus lupulus)</item>
+          <item>Melatonin</item>
+        </common>
+        <other>
+          <item>California poppy (Eschscholzia californica)</item>
+        </other>
+      </ingredients>
+    <seo>
+  <focus-keyword>deep sleep recovery supplements</focus-keyword>
+  <meta-title>Deep Sleep Recovery Supplements | Rogue Herbalist</meta-title>
+  <meta-description>Enhance deep sleep with valerian, hops, and melatonin for muscle relaxation and recovery. Natural support for restful nights.</meta-description>
+  <h1>Deep Sleep Recovery Supplements for Restful Nights</h1>
+  <og-title>Achieve Deep Sleep and Recovery Naturally</og-title>
+  <og-description>Experience profound sleep and muscle recovery with our natural supplements. Featuring valerian, hops, and melatonin for enhanced relaxation and restful nights. Discover the benefits today!</og-description>
+  <keywords>deep sleep supplements, sleep recovery, valerian root, hops extract, melatonin, muscle relaxation, natural sleep aids</keywords>
+  <canonical-url>https://rogueherbalist.com/category/sleep-relaxation/deep-sleep/</canonical-url>
+  <schema-type>CollectionPage</schema-type>
+</seo>
+  </taxon>
+    </taxon>
+
+<taxon slug="energy-vitality" type="primary" hierarchical="true">
+  <title>Energy &amp; Vitality</title>
+  <sub-title>Natural Energy &amp; Endurance</sub-title>
+  <description>Boost your energy and enhance vitality with ginseng and maca. Discover natural ways to sustain endurance and mental clarity.</description>
+
+  <meta>
+    <chebi-roles>stimulant,adaptogen,ergogenic,nootropic</chebi-roles>
+    <npclassifier>caffeine,ginsenosides,withanolides</npclassifier>
+    <chpa-category>energy_support</chpa-category>
+    <fda-claim>Supports natural energy and vitality</fda-claim>
+  </meta>
+
+  <ingredients>
+    <common>
+      <item>Ginseng (Panax ginseng)</item>
+      <item>Maca (Lepidium meyenii)</item>
+      <item>Rhodiola (Rhodiola rosea)</item>
+      <item>Guarana (Paullinia cupana)</item>
+      <item>Green tea (Camellia sinensis)</item>
+      <item>Cordyceps (Cordyceps sinensis)</item>
+      <item>Ashwagandha (Withania somnifera)</item>
+      <item>Caffeine</item>
+    </common>
+    <other>
+      <item>Schisandra (Schisandra chinensis)</item>
+      <item>Eleuthero (Eleutherococcus senticosus)</item>
+      <item>Yerba mate (Ilex paraguariensis)</item>
+    </other>
+  </ingredients>
+
+<taxon slug="daily-energy-support" type="subcategory">
+    <title>Daily Energy Support</title>
+    <description>Maintain daily energy with ginseng and B-vitamins for steady vitality.</description>
+
+    <ingredients>
+      <common>
+        <item>Ginseng (Panax ginseng)</item>
+        <item>Vitamin B6</item>
+        <item>Vitamin B12</item>
+      </common>
+      <other>
+        <item>Schisandra (Schisandra chinensis)</item>
+      </other>
+    </ingredients>
+  <seo>
+  <focus-keyword>daily energy support supplements</focus-keyword>
+  <meta-title>Daily Energy Support Supplements | Rogue Herbalist</meta-title>
+  <meta-description>Boost daily vitality with ginseng, vitamin B6, and B12. Herbal formulas for sustained energy and focus.</meta-description>
+  <h1>Daily Energy Support Supplements for Steady Vitality</h1>
+  <og-title>Daily Energy Boost: Herbal Supplements for Vitality</og-title>
+  <og-description>Enhance your daily energy levels with our powerful blend of ginseng, vitamin B6, and B12. Perfect for maintaining steady vitality and focus throughout the day. Discover our herbal formulas today!</og-description>
+  <keywords>daily energy support, energy supplements, ginseng vitality, vitamin B6 energy, B12 supplements, herbal energy boost</keywords>
+  <canonical-url>https://rogueherbalist.com/category/energy-vitality/daily-energy-support/</canonical-url>
+  <schema-type>CollectionPage</schema-type>
+</seo>
+  </taxon>
+    <taxon slug="physical-performance" type="subcategory">
+    <title>Physical Performance &amp; Endurance</title>
+    <description>Enhance stamina and recovery with cordyceps and rhodiola for peak performance.</description>
+
+    <ingredients>
+      <common>
+        <item>Cordyceps (Cordyceps sinensis)</item>
+        <item>Rhodiola (Rhodiola rosea)</item>
+        <item>Creatine</item>
+      </common>
+      <other>
+        <item>Beetroot (Beta vulgaris)</item>
+      </other>
+    </ingredients>
+  <seo>
+  <focus-keyword>physical performance supplements</focus-keyword>
+  <meta-title>Physical Performance Supplements | Rogue Herbalist</meta-title>
+  <meta-description>Boost stamina and recovery with cordyceps, rhodiola, and creatine for peak physical performance and endurance.</meta-description>
+  <h1>Physical Performance &amp; Endurance Supplements</h1>
+  <og-title>Enhance Your Physical Performance with Natural Supplements</og-title>
+  <og-description>Elevate your stamina and recovery with our powerful blend of cordyceps, rhodiola, and creatine. Achieve peak performance and endurance naturally. Shop now for optimal results.</og-description>
+  <keywords>physical performance supplements, stamina boosters, cordyceps, rhodiola, creatine, endurance support</keywords>
+  <canonical-url>https://rogueherbalist.com/category/energy-vitality/physical-performance/</canonical-url>
+  <schema-type>CollectionPage</schema-type>
+</seo>
+  </taxon>
+    <taxon slug="mental-clarity" type="subcategory">
+    <title>Mental Clarity &amp; Focus</title>
+    <description>Sharpen focus and clarity with ginkgo and bacopa. Enhance mental stamina naturally.</description>
+
+    <ingredients>
+      <common>
+        <item>Ginkgo (Ginkgo biloba)</item>
+        <item>Bacopa (Bacopa monnieri)</item>
+        <item>L-theanine</item>
+        <item>Rhodiola (Rhodiola rosea)</item>
+        <item>Panax ginseng</item>
+      </common>
+      <other>
+        <item>Gotu kola (Centella asiatica)</item>
+        <item>Huperzine A</item>
+      </other>
+    </ingredients>
+  <seo>
+  <focus-keyword>mental clarity supplements</focus-keyword>
+  <meta-title>Mental Clarity Supplements &amp; Herbs | Rogue Herbalist</meta-title>
+  <meta-description>Sharpen focus with ginkgo, bacopa, and L-theanine. Enhance mental stamina and clarity naturally.</meta-description>
+  <h1>Mental Clarity &amp; Focus Supplements for Enhanced Cognition</h1>
+  <og-title>Boost Your Mental Clarity with Herbal Supplements</og-title>
+  <og-description>Discover the power of ginkgo, bacopa, and L-theanine to enhance your mental clarity and focus. Perfect for boosting cognitive function and mental stamina naturally.</og-description>
+  <keywords>mental clarity supplements, focus herbs, ginkgo biloba, bacopa monnieri, L-theanine, cognitive enhancement</keywords>
+  <canonical-url>https://rogueherbalist.com/category/energy-vitality/mental-clarity/</canonical-url>
+  <schema-type>CollectionPage</schema-type>
+</seo>
+  </taxon>
+    <taxon slug="adrenal-support" type="subcategory">
+    <title>Adrenal Support</title>
+    <description>Support adrenal health with ashwagandha and licorice. Balance stress and energy naturally.</description>
+
+    <ingredients>
+      <common>
+        <item>Ashwagandha (Withania somnifera)</item>
+        <item>Licorice (Glycyrrhiza glabra)</item>
+        <item>Rhodiola (Rhodiola rosea)</item>
+        <item>Holy basil (Ocimum sanctum)</item>
+        <item>Vitamin C</item>
+      </common>
+      <other>
+        <item>Schisandra (Schisandra chinensis)</item>
+        <item>Siberian ginseng (Eleutherococcus senticosus)</item>
+      </other>
+    </ingredients>
+  </taxon>
+    <seo>
+  <focus-keyword>natural energy vitality supplements</focus-keyword>
+  <meta-title>Natural Energy &amp; Vitality Supplements | Rogue Herbalist</meta-title>
+  <meta-description>Boost energy and enhance vitality with ginseng, maca, and rhodiola. Discover natural ways to sustain endurance and mental clarity.</meta-description>
+  <h1>Natural Energy &amp; Vitality Supplements for Endurance</h1>
+  <og-title>Revitalize Your Energy &amp; Vitality Naturally</og-title>
+  <og-description>Explore our range of natural supplements to boost energy and vitality. Featuring ginseng, maca, and rhodiola, our formulas support endurance and mental clarity. Shop now for sustained energy and enhanced vitality.</og-description>
+  <keywords>energy supplements, vitality boosters, ginseng, maca, rhodiola, natural energy, endurance support</keywords>
+  <canonical-url>https://rogueherbalist.com/category/energy-vitality/</canonical-url>
+  <schema-type>CollectionPage</schema-type>
+</seo>
+  </taxon>
+
+<taxon slug="cardiovascular-health" type="primary" hierarchical="true">
+  <title>Cardiovascular Health</title>
+  <sub-title>Heart Health &amp; Circulation</sub-title>
+  <description>Enhance heart health and circulation with hawthorn and omega-3s. Support your cardiovascular system naturally and effectively.</description>
+
+  <meta>
+    <chebi-roles>cardioprotective,vasodilator,antithrombotic,antioxidant</chebi-roles>
+    <npclassifier>flavonoids,cardiac_glycosides,omega_fatty_acids</npclassifier>
+    <chpa-category>cardiovascular_support</chpa-category>
+    <fda-claim>Supports cardiovascular health and circulation</fda-claim>
+  </meta>
+
+  <ingredients>
+    <common>
+      <item>Hawthorn (Crataegus monogyna)</item>
+      <item>Garlic (Allium sativum)</item>
+      <item>Omega-3 fatty acids</item>
+      <item>Coenzyme Q10</item>
+      <item>Ginkgo biloba</item>
+      <item>Resveratrol</item>
+      <item>Green tea (Camellia sinensis)</item>
+      <item>Magnesium</item>
+    </common>
+    <other>
+      <item>Arjuna (Terminalia arjuna)</item>
+      <item>Motherwort (Leonurus cardiaca)</item>
+      <item>Olive leaf (Olea europaea)</item>
+    </other>
+  </ingredients>
+
+<taxon slug="heart-rhythm" type="subcategory">
+      <title>Heart Rhythm &amp; Function</title>
+      <description>Support heart rhythm and function with hawthorn and CoQ10.</description>
+      <ingredients>
+        <common>
+          <item>Hawthorn (Crataegus monogyna)</item>
+          <item>Coenzyme Q10</item>
+          <item>Magnesium</item>
+        </common>
+        <other>
+          <item>Motherwort (Leonurus cardiaca)</item>
+        </other>
+      </ingredients>
+    <seo>
+  <focus-keyword>heart rhythm support supplements</focus-keyword>
+  <meta-title>Heart Rhythm Support Supplements | Rogue Herbalist</meta-title>
+  <meta-description>Enhance heart rhythm with hawthorn, CoQ10, and magnesium. Natural support for cardiovascular function and balance.</meta-description>
+  <h1>Heart Rhythm Support Supplements &amp; Natural Remedies</h1>
+  <og-title>Heart Rhythm Support: Natural Supplements for Cardiovascular Health</og-title>
+  <og-description>Discover natural heart rhythm support with hawthorn, CoQ10, magnesium, and motherwort. Enhance cardiovascular function and maintain a healthy heart rhythm with our expertly crafted supplements.</og-description>
+  <keywords>heart rhythm support, hawthorn supplements, CoQ10, magnesium for heart, cardiovascular health, natural heart remedies</keywords>
+  <canonical-url>https://rogueherbalist.com/category/cardiovascular-health/heart-rhythm/</canonical-url>
+  <schema-type>CollectionPage</schema-type>
+</seo>
+  </taxon>
+    <taxon slug="blood-pressure" type="subcategory">
+      <title>Blood Pressure Support</title>
+      <description>Maintain healthy blood pressure with garlic and omega-3s.</description>
+      <ingredients>
+        <common>
+          <item>Garlic (Allium sativum)</item>
+          <item>Omega-3 fatty acids</item>
+          <item>Hibiscus (Hibiscus sabdariffa)</item>
+        </common>
+        <other>
+          <item>Olive leaf (Olea europaea)</item>
+        </other>
+      </ingredients>
+    </taxon>
+    <taxon slug="circulation" type="subcategory">
+    <title>Circulation &amp; Vascular Health</title>
+    <description>Boost circulation and vascular health with ginkgo and horse chestnut.</description>
+
+    <ingredients>
+      <common>
+        <item>Ginkgo (Ginkgo biloba)</item>
+        <item>Horse chestnut (Aesculus hippocastanum)</item>
+        <item>Butcher's broom (Ruscus aculeatus)</item>
+      </common>
+      <other>
+        <item>Gotu kola (Centella asiatica)</item>
+      </other>
+    </ingredients>
+  <seo>
+  <focus-keyword>circulation support supplements</focus-keyword>
+  <meta-title>Circulation Support Supplements | Rogue Herbalist</meta-title>
+  <meta-description>Boost circulation with ginkgo, horse chestnut, and butcher's broom for enhanced vascular health and vitality.</meta-description>
+  <h1>Circulation Support Supplements for Vascular Health</h1>
+  <og-title>Enhance Circulation &amp; Vascular Health Naturally</og-title>
+  <og-description>Discover natural circulation support with ginkgo, horse chestnut, and butcher's broom. Improve vascular health and vitality with our herbal supplements.</og-description>
+  <keywords>circulation support, vascular health, ginkgo supplements, horse chestnut, butcher's broom, cardiovascular health</keywords>
+  <canonical-url>https://rogueherbalist.com/category/cardiovascular-health/circulation/</canonical-url>
+  <schema-type>CollectionPage</schema-type>
+</seo>
+  </taxon>
+    <taxon slug="cholesterol-support" type="subcategory">
+    <title>Cholesterol &amp; Lipid Support</title>
+    <description>Maintain healthy cholesterol with red yeast rice and artichoke.</description>
+
+    <ingredients>
+      <common>
+        <item>Red yeast rice (Monascus purpureus)</item>
+        <item>Artichoke (Cynara scolymus)</item>
+        <item>Niacin</item>
+      </common>
+      <other>
+        <item>Policosanol</item>
+      </other>
+    </ingredients>
+  </taxon>
+    </taxon>
+
+<taxon slug="pain-inflammation" type="primary" hierarchical="true">
+  <title>Pain &amp; Inflammation</title>
+  <sub-title>Natural Pain Relief &amp; Anti-Inflammatory Support</sub-title>
+  <description>Ease discomfort with turmeric and willow bark. Support joint health and reduce inflammation naturally.</description>
+
+  <meta>
+    <chebi-roles>anti-inflammatory,analgesic,antioxidant,cox_inhibitor</chebi-roles>
+    <npclassifier>curcuminoids,salicylates,boswellic_acids</npclassifier>
+    <chpa-category>pain_relief</chpa-category>
+    <fda-claim>Supports comfort and mobility</fda-claim>
+  </meta>
+
+  <ingredients>
+    <common>
+      <item>Turmeric (Curcuma longa)</item>
+      <item>Willow Bark (Salix alba)</item>
+      <item>Ginger (Zingiber officinale)</item>
+      <item>Boswellia (Boswellia serrata)</item>
+      <item>Devil's Claw (Harpagophytum procumbens)</item>
+      <item>Capsaicin</item>
+      <item>Omega-3 Fatty Acids</item>
+    </common>
+    <other>
+      <item>Feverfew (Tanacetum parthenium)</item>
+      <item>Cat's Claw (Uncaria tomentosa)</item>
+      <item>St. John's Wort (Hypericum perforatum)</item>
+    </other>
+  </ingredients>
+
+<taxon slug="joint-arthritis" type="subcategory">
+      <title>Joint &amp; Arthritis Support</title>
+      <description>Support joint health and flexibility with turmeric and boswellia.</description>
+      <ingredients>
+        <common>
+          <item>Turmeric (Curcuma longa)</item>
+          <item>Boswellia (Boswellia serrata)</item>
+          <item>Glucosamine</item>
+          <item>Chondroitin</item>
+        </common>
+        <other>
+          <item>MSM (Methylsulfonylmethane)</item>
+        </other>
+      </ingredients>
+    </taxon>
+    <taxon slug="general-inflammation" type="subcategory">
+      <title>General Inflammation Support</title>
+      <description>Manage systemic inflammation with ginger and omega-3s.</description>
+      <ingredients>
+        <common>
+          <item>Ginger (Zingiber officinale)</item>
+          <item>Omega-3 fatty acids</item>
+          <item>Curcumin</item>
+        </common>
+        <other>
+          <item>Green tea (Camellia sinensis)</item>
+        </other>
+      </ingredients>
+    </taxon>
+    <taxon slug="muscle-recovery" type="subcategory">
+      <title>Muscle Recovery &amp; Sports Injuries</title>
+      <description>Support muscle recovery with arnica and willow bark to reduce soreness.</description>
+      <ingredients>
+        <common>
+          <item>Arnica (Arnica montana)</item>
+          <item>Willow Bark (Salix alba)</item>
+          <item>Ginger (Zingiber officinale)</item>
+        </common>
+        <other>
+          <item>Comfrey (Symphytum officinale)</item>
+          <item>Devil's Claw (Harpagophytum procumbens)</item>
+        </other>
+      </ingredients>
+    </taxon>
+    </taxon>
+
+<taxon slug="focus-memory-cognition" type="primary" hierarchical="true">
+  <title>Focus, Memory &amp; Cognition</title>
+  <sub-title>Brain Health &amp; Mental Performance</sub-title>
+  <description>Enhance cognitive function and brain health with ginkgo biloba. Boost mental clarity and focus naturally.</description>
+
+  <meta>
+    <chebi-roles>nootropic,neuroprotective,cholinesterase_inhibitor,antioxidant</chebi-roles>
+    <npclassifier>ginkgolides,bacosides,huperzine</npclassifier>
+    <chpa-category>cognitive_support</chpa-category>
+    <fda-claim>Supports cognitive function and mental clarity</fda-claim>
+  </meta>
+
+  <ingredients>
+    <common>
+      <item>Ginkgo biloba (Ginkgo biloba)</item>
+      <item>Bacopa (Bacopa monnieri)</item>
+      <item>Huperzine A</item>
+      <item>Rhodiola (Rhodiola rosea)</item>
+      <item>Panax ginseng (Panax ginseng)</item>
+      <item>Gotu kola (Centella asiatica)</item>
+      <item>Vitamin B12</item>
+      <item>Omega-3 fatty acids</item>
+    </common>
+    <other>
+      <item>Lion's mane (Hericium erinaceus)</item>
+      <item>Schisandra (Schisandra chinensis)</item>
+      <item>Rosemary (Rosmarinus officinalis)</item>
+    </other>
+  </ingredients>
+
+<taxon slug="memory-enhancement" type="subcategory">
+      <title>Memory Enhancement</title>
+      <description>Boost memory with ginkgo and bacopa for improved recall and retention.</description>
+      <ingredients>
+        <common>
+          <item>Ginkgo (Ginkgo biloba)</item>
+          <item>Bacopa (Bacopa monnieri)</item>
+          <item>Huperzine A</item>
+        </common>
+        <other>
+          <item>Gotu kola (Centella asiatica)</item>
+        </other>
+      </ingredients>
+    <seo>
+  <focus-keyword>memory enhancement supplements</focus-keyword>
+  <meta-title>Memory Enhancement Supplements | Rogue Herbalist</meta-title>
+  <meta-description>Boost memory and recall with ginkgo, bacopa, and huperzine A. Enhance cognitive function naturally.</meta-description>
+  <h1>Memory Enhancement Supplements for Improved Recall</h1>
+  <og-title>Enhance Your Memory with Natural Supplements</og-title>
+  <og-description>Discover the power of ginkgo, bacopa, and huperzine A for memory enhancement. Support your cognitive function and improve recall naturally. Shop now for effective memory supplements.</og-description>
+  <keywords>memory enhancement, ginkgo supplements, bacopa memory support, huperzine A, cognitive function, natural memory boosters</keywords>
+  <canonical-url>https://rogueherbalist.com/category/focus-memory-cognition/memory-enhancement/</canonical-url>
+  <schema-type>CollectionPage</schema-type>
+</seo>
+  </taxon>
+    <taxon slug="cognitive-support" type="subcategory">
+      <title>General Cognitive Support</title>
+      <description>Support overall brain health and mental clarity with rhodiola and omega-3s.</description>
+      <ingredients>
+        <common>
+          <item>Rhodiola (Rhodiola rosea)</item>
+          <item>Omega-3 fatty acids</item>
+          <item>Panax ginseng</item>
+        </common>
+        <other>
+          <item>Schisandra (Schisandra chinensis)</item>
+        </other>
+      </ingredients>
+    <seo>
+  <focus-keyword>general cognitive support supplements</focus-keyword>
+  <meta-title>General Cognitive Support Supplements | Rogue Herbalist</meta-title>
+  <meta-description>Enhance brain health and mental clarity with rhodiola, omega-3s, and Panax ginseng. Natural support for cognitive function.</meta-description>
+  <h1>General Cognitive Support Supplements for Brain Health</h1>
+  <og-title>Boost Your Brain: General Cognitive Support Supplements</og-title>
+  <og-description>Discover natural cognitive support with rhodiola, omega-3s, and Panax ginseng. Enhance mental clarity and overall brain health with our expertly crafted supplements.</og-description>
+  <keywords>cognitive support supplements, brain health, mental clarity, rhodiola supplements, omega-3 fatty acids, Panax ginseng</keywords>
+  <canonical-url>https://rogueherbalist.com/category/focus-memory-cognition/cognitive-support/</canonical-url>
+  <schema-type>CollectionPage</schema-type>
+</seo>
+  </taxon>
+    <taxon slug="brain-health" type="subcategory">
+      <title>Brain Health &amp; Neuroprotection</title>
+      <description>Protect your brain with neuroprotective herbs like ginkgo and rhodiola.</description>
+      <ingredients>
+        <common>
+          <item>Ginkgo biloba (Ginkgo biloba)</item>
+          <item>Rhodiola (Rhodiola rosea)</item>
+          <item>Omega-3 fatty acids</item>
+        </common>
+        <other>
+          <item>Gotu kola (Centella asiatica)</item>
+        </other>
+      </ingredients>
+    <seo>
+  <focus-keyword>brain health supplements</focus-keyword>
+  <meta-title>Brain Health Supplements &amp; Neuroprotection | Rogue Herbalist</meta-title>
+  <meta-description>Enhance brain function with ginkgo, rhodiola, and omega-3s. Support cognitive health and neuroprotection naturally.</meta-description>
+  <h1>Brain Health Supplements &amp; Neuroprotection</h1>
+  <og-title>Boost Your Brain Health with Natural Supplements</og-title>
+  <og-description>Discover the power of ginkgo, rhodiola, and omega-3 fatty acids for brain health and neuroprotection. Enhance cognitive function and support your brain naturally.</og-description>
+  <keywords>brain health supplements, neuroprotection, ginkgo biloba, rhodiola rosea, omega-3 fatty acids, cognitive support</keywords>
+  <canonical-url>https://rogueherbalist.com/category/focus-memory-cognition/brain-health/</canonical-url>
+  <schema-type>CollectionPage</schema-type>
+</seo>
+  </taxon>
+    <seo>
+  <focus-keyword>natural cognitive support supplements</focus-keyword>
+  <meta-title>Natural Cognitive Support Supplements | Rogue Herbalist</meta-title>
+  <meta-description>Enhance brain health with ginkgo biloba, bacopa, and huperzine A. Boost focus and mental clarity naturally.</meta-description>
+  <h1>Natural Cognitive Support Supplements for Focus &amp; Memory</h1>
+  <og-title>Boost Your Brain: Natural Cognitive Support Supplements</og-title>
+  <og-description>Discover the power of ginkgo biloba, bacopa, and huperzine A to enhance cognitive function and mental clarity. Shop now for natural brain health support.</og-description>
+  <keywords>cognitive support, brain health supplements, ginkgo biloba, bacopa, huperzine A, mental clarity, focus enhancement</keywords>
+  <canonical-url>https://rogueherbalist.com/category/focus-memory-cognition/</canonical-url>
+  <schema-type>CollectionPage</schema-type>
+</seo>
+  </taxon>
+
+<taxon slug="skin-hair-nails" type="primary" hierarchical="true">
+  <title>Skin, Hair &amp; Nails</title>
+  <sub-title>Beauty &amp; Dermatological Support</sub-title>
+  <description>Enhance your natural beauty with biotin and horsetail. Support vibrant skin, strong nails, and lustrous hair with herbal care.</description>
+
+  <meta>
+    <chebi-roles>antioxidant,anti-inflammatory,antimicrobial,wound_healing</chebi-roles>
+    <npclassifier>carotenoids,anthocyanins,silicic_acid</npclassifier>
+    <chpa-category>beauty_support</chpa-category>
+    <fda-claim>Supports healthy skin, hair, and nails</fda-claim>
+  </meta>
+
+  <ingredients>
+    <common>
+      <item>Biotin</item>
+      <item>Horsetail (Equisetum arvense)</item>
+      <item>Collagen</item>
+      <item>Vitamin E</item>
+      <item>Vitamin C</item>
+      <item>Silica</item>
+      <item>Omega-3 fatty acids</item>
+      <item>Green tea (Camellia sinensis)</item>
+    </common>
+    <other>
+      <item>Gotu kola (Centella asiatica)</item>
+      <item>Sea buckthorn (Hippophae rhamnoides)</item>
+      <item>Rosehip (Rosa canina)</item>
+    </other>
+  </ingredients>
+
+<taxon slug="clear-skin" type="subcategory">
+      <title>Clear Skin &amp; Acne Support</title>
+      <description>Support clear skin with burdock and nettle, promoting clarity from within.</description>
+      <ingredients>
+        <common>
+          <item>Burdock (Arctium lappa)</item>
+          <item>Nettle (Urtica dioica)</item>
+          <item>Tea tree oil (Melaleuca alternifolia)</item>
+          <item>Witch hazel (Hamamelis virginiana)</item>
+        </common>
+        <other>
+          <item>Calendula (Calendula officinalis)</item>
+        </other>
+      </ingredients>
+    <seo>
+  <focus-keyword>clear skin supplements</focus-keyword>
+  <meta-title>Clear Skin Supplements &amp; Acne Support | Rogue Herbalist</meta-title>
+  <meta-description>Promote clear skin with burdock, nettle, and tea tree oil. Herbal support for acne-free, radiant skin.</meta-description>
+  <h1>Clear Skin Supplements &amp; Acne Support Solutions</h1>
+  <og-title>Achieve Clear Skin Naturally with Herbal Supplements</og-title>
+  <og-description>Discover the power of burdock, nettle, and tea tree oil for clear, acne-free skin. Embrace natural clarity and radiance with our herbal solutions.</og-description>
+  <keywords>clear skin supplements, acne support, burdock root, nettle leaf, tea tree oil, herbal skin clarity</keywords>
+  <canonical-url>https://rogueherbalist.com/category/skin-hair-nails/clear-skin/</canonical-url>
+  <schema-type>CollectionPage</schema-type>
+</seo>
+  </taxon>
+    <taxon slug="anti-aging" type="subcategory">
+      <title>Anti-Aging &amp; Skin Repair</title>
+      <description>Reduce aging signs with antioxidant-rich herbs like ginseng for youthful skin.</description>
+      <ingredients>
+        <common>
+          <item>Ginseng (Panax ginseng)</item>
+          <item>Resveratrol</item>
+          <item>Coenzyme Q10</item>
+          <item>Vitamin C</item>
+        </common>
+        <other>
+          <item>Schisandra (Schisandra chinensis)</item>
+        </other>
+      </ingredients>
+    <seo>
+  <focus-keyword>anti-aging skin supplements</focus-keyword>
+  <meta-title>Anti-Aging Skin Supplements &amp; Repair | Rogue Herbalist</meta-title>
+  <meta-description>Reduce aging signs with ginseng, resveratrol, and CoQ10 for youthful, radiant skin. Enhance skin repair naturally.</meta-description>
+  <h1>Anti-Aging Skin Supplements &amp; Repair Solutions</h1>
+  <og-title>Revitalize Your Skin with Anti-Aging Supplements</og-title>
+  <og-description>Discover the power of ginseng, resveratrol, and CoQ10 in reducing signs of aging. Achieve youthful, radiant skin with our natural supplements. Perfect for enhancing skin repair and vitality.</og-description>
+  <keywords>anti-aging supplements, skin repair, ginseng skin benefits, resveratrol anti-aging, CoQ10 skin health, youthful skin</keywords>
+  <canonical-url>https://rogueherbalist.com/category/skin-hair-nails/anti-aging/</canonical-url>
+  <schema-type>CollectionPage</schema-type>
+</seo>
+  </taxon>
+    <taxon slug="hair-growth" type="subcategory">
+      <title>Hair Growth &amp; Strength</title>
+      <description>Boost hair vitality with saw palmetto and horsetail for lush, strong locks.</description>
+      <ingredients>
+        <common>
+          <item>Saw Palmetto (Serenoa repens)</item>
+          <item>Horsetail (Equisetum arvense)</item>
+          <item>Biotin</item>
+          <item>Collagen</item>
+          <item>Vitamin E</item>
+        </common>
+        <other>
+          <item>Fo-ti (Polygonum multiflorum)</item>
+          <item>Nettle (Urtica dioica)</item>
+        </other>
+      </ingredients>
+    <seo>
+  <focus-keyword>hair growth supplements</focus-keyword>
+  <meta-title>Hair Growth Supplements for Strong Locks | Rogue Herbalist</meta-title>
+  <meta-description>Boost hair vitality with saw palmetto, horsetail, and biotin for lush, strong locks. Enhance your hair's natural strength and shine.</meta-description>
+  <h1>Hair Growth Supplements for Vitality and Strength</h1>
+  <og-title>Revitalize Your Hair with Natural Growth Supplements</og-title>
+  <og-description>Discover the power of saw palmetto, horsetail, and biotin in promoting hair growth and strength. Achieve lush, vibrant hair with our natural supplements. Shop now for healthier hair.</og-description>
+  <keywords>hair growth supplements, saw palmetto, horsetail, biotin, hair vitality, strong hair, natural hair growth</keywords>
+  <canonical-url>https://rogueherbalist.com/category/skin-hair-nails/hair-growth/</canonical-url>
+  <schema-type>CollectionPage</schema-type>
+</seo>
+  </taxon>
+    <taxon slug="nail-strength" type="subcategory">
+      <title>Nail Strength &amp; Health</title>
+      <description>Promote nail resilience with silica and biotin for optimal growth.</description>
+      <ingredients>
+        <common>
+          <item>Silica</item>
+          <item>Biotin</item>
+          <item>Collagen</item>
+          <item>Zinc</item>
+          <item>Vitamin C</item>
+        </common>
+        <other>
+          <item>Horsetail (Equisetum arvense)</item>
+          <item>MSM (Methylsulfonylmethane)</item>
+        </other>
+      </ingredients>
+    </taxon>
+    </taxon>
+
+<taxon slug="bone-joint-musculoskeletal" type="primary" hierarchical="true">
+  <title>Bone, Joint &amp; Musculoskeletal</title>
+  <sub-title>Structural Support &amp; Mobility</sub-title>
+  <description>Enhance bone strength and joint flexibility with turmeric and boswellia. Promote musculoskeletal health for active lifestyles.</description>
+
+  <meta>
+    <chebi-roles>bone_remodeling,anti-inflammatory,analgesic,chondroprotective</chebi-roles>
+    <npclassifier>isoflavones,glucosamine,chondroitin</npclassifier>
+    <chpa-category>bone_joint_support</chpa-category>
+    <fda-claim>Supports bone and joint health</fda-claim>
+  </meta>
+
+  <ingredients>
+    <common>
+      <item>Turmeric (Curcuma longa)</item>
+      <item>Boswellia (Boswellia serrata)</item>
+      <item>Glucosamine</item>
+      <item>Chondroitin</item>
+      <item>MSM (Methylsulfonylmethane)</item>
+      <item>Calcium</item>
+      <item>Vitamin D</item>
+      <item>Collagen</item>
+    </common>
+    <other>
+      <item>Devil's claw (Harpagophytum procumbens)</item>
+      <item>Horsetail (Equisetum arvense)</item>
+      <item>Willow bark (Salix alba)</item>
+    </other>
+  </ingredients>
+
+<taxon slug="bone-density" type="subcategory">
+      <title>Bone Density &amp; Osteoporosis Support</title>
+      <description>Boost bone density with calcium and vitamin D for lifelong skeletal strength.</description>
+      <ingredients>
+        <common>
+          <item>Calcium</item>
+          <item>Vitamin D</item>
+          <item>Magnesium</item>
+          <item>Vitamin K2</item>
+        </common>
+        <other>
+          <item>Strontium</item>
+          <item>Silica</item>
+        </other>
+      </ingredients>
+    <seo>
+  <focus-keyword>bone density supplements</focus-keyword>
+  <meta-title>Bone Density Supplements &amp; Support | Rogue Herbalist</meta-title>
+  <meta-description>Boost bone density with calcium, vitamin D, and magnesium for lifelong skeletal strength and osteoporosis prevention.</meta-description>
+  <h1>Bone Density Supplements &amp; Osteoporosis Support</h1>
+  <og-title>Enhance Bone Density with Natural Supplements</og-title>
+  <og-description>Strengthen your bones with our natural supplements featuring calcium, vitamin D, magnesium, and vitamin K2. Perfect for maintaining lifelong skeletal health and preventing osteoporosis.</og-description>
+  <keywords>bone density supplements, calcium supplements, vitamin D for bones, magnesium for bone health, osteoporosis support</keywords>
+  <canonical-url>https://rogueherbalist.com/category/bone-joint-musculoskeletal/bone-density/</canonical-url>
+  <schema-type>CollectionPage</schema-type>
+</seo>
+  </taxon>
+    <taxon slug="joint-mobility" type="subcategory">
+      <title>Joint Mobility &amp; Flexibility</title>
+      <description>Maintain flexibility with glucosamine and anti-inflammatory herbs like turmeric.</description>
+      <ingredients>
+        <common>
+          <item>Glucosamine</item>
+          <item>Chondroitin</item>
+          <item>MSM (Methylsulfonylmethane)</item>
+          <item>Turmeric (Curcuma longa)</item>
+        </common>
+        <other>
+          <item>Ginger (Zingiber officinale)</item>
+          <item>Devil's Claw (Harpagophytum procumbens)</item>
+        </other>
+      </ingredients>
+    <seo>
+  <focus-keyword>joint mobility supplements</focus-keyword>
+  <meta-title>Joint Mobility Supplements for Flexibility | Rogue Herbalist</meta-title>
+  <meta-description>Enhance joint flexibility with glucosamine, chondroitin, and turmeric. Support your active lifestyle with anti-inflammatory herbs.</meta-description>
+  <h1>Joint Mobility &amp; Flexibility Supplements for Active Living</h1>
+  <og-title>Boost Your Joint Mobility with Natural Supplements</og-title>
+  <og-description>Discover the power of glucosamine, chondroitin, and turmeric in promoting joint flexibility and reducing inflammation. Perfect for maintaining an active lifestyle.</og-description>
+  <keywords>joint mobility supplements, glucosamine chondroitin, turmeric for joints, anti-inflammatory herbs, flexibility support</keywords>
+  <canonical-url>https://rogueherbalist.com/category/bone-joint-musculoskeletal/joint-mobility/</canonical-url>
+  <schema-type>CollectionPage</schema-type>
+</seo>
+  </taxon>
+    <taxon slug="muscle-support" type="subcategory">
+    <title>Muscle Support &amp; Recovery</title>
+    <description>Boost muscle recovery with ashwagandha and amino acids.</description>
+
+    <ingredients>
+      <common>
+        <item>Ashwagandha (Withania somnifera)</item>
+        <item>Branched-chain amino acids (BCAAs)</item>
+        <item>Protein</item>
+        <item>Creatine</item>
+        <item>L-Glutamine</item>
+      </common>
+      <other>
+        <item>Rhodiola (Rhodiola rosea)</item>
+        <item>Ginseng (Panax ginseng)</item>
+      </other>
+    </ingredients>
+  <seo>
+  <focus-keyword>muscle recovery supplements</focus-keyword>
+  <meta-title>Muscle Recovery Supplements &amp; Herbs | Rogue Herbalist</meta-title>
+  <meta-description>Boost muscle recovery with ashwagandha, BCAAs, and creatine. Enhance strength and reduce fatigue naturally.</meta-description>
+  <h1>Muscle Recovery Supplements &amp; Herbal Support</h1>
+  <og-title>Enhance Muscle Recovery with Natural Supplements</og-title>
+  <og-description>Discover powerful muscle recovery with ashwagandha, BCAAs, and creatine. Support your strength and reduce fatigue naturally. Perfect for athletes and active lifestyles.</og-description>
+  <keywords>muscle recovery supplements, ashwagandha, BCAAs, creatine, muscle support, natural recovery, athletic supplements</keywords>
+  <canonical-url>https://rogueherbalist.com/category/bone-joint-musculoskeletal/muscle-support/</canonical-url>
+  <schema-type>CollectionPage</schema-type>
+</seo>
+  </taxon>
+    <seo>
+  <focus-keyword>bone joint musculoskeletal supplements</focus-keyword>
+  <meta-title>Bone Joint Musculoskeletal Supplements | Rogue Herbalist</meta-title>
+  <meta-description>Enhance bone strength and joint flexibility with turmeric, boswellia, and glucosamine. Support active lifestyles naturally.</meta-description>
+  <h1>Bone, Joint &amp; Musculoskeletal Health Supplements</h1>
+  <og-title>Boost Bone &amp; Joint Health with Natural Supplements</og-title>
+  <og-description>Discover natural supplements to enhance bone strength and joint flexibility. Featuring turmeric, boswellia, and glucosamine for active lifestyles. Shop now for musculoskeletal support.</og-description>
+  <keywords>bone health supplements, joint flexibility, musculoskeletal support, turmeric, boswellia, glucosamine, active lifestyle</keywords>
+  <canonical-url>https://rogueherbalist.com/category/bone-joint-musculoskeletal/</canonical-url>
+  <schema-type>CollectionPage</schema-type>
+</seo>
+  </taxon>
+
+<taxon slug="womens-health" type="primary" hierarchical="true">
+  <title>Women's Health</title>
+  <sub-title>Feminine Wellness &amp; Hormonal Balance</sub-title>
+  <description>Support women's unique health needs with herbs like red clover. Promote hormonal balance and overall feminine wellness naturally.</description>
+
+  <meta>
+    <chebi-roles>phytoestrogen,hormone_modulator,uterine_tonic,galactagogue</chebi-roles>
+    <npclassifier>isoflavones,triterpene_saponins,essential_oils</npclassifier>
+    <chpa-category>womens_health</chpa-category>
+    <fda-claim>Supports women's health and hormonal balance</fda-claim>
+  </meta>
+
+  <ingredients>
+    <common>
+      <item>Red Clover (Trifolium pratense)</item>
+      <item>Black Cohosh (Actaea racemosa)</item>
+      <item>Dong Quai (Angelica sinensis)</item>
+      <item>Chaste Tree (Vitex agnus-castus)</item>
+      <item>Evening Primrose Oil</item>
+      <item>Fenugreek (Trigonella foenum-graecum)</item>
+      <item>Ginger (Zingiber officinale)</item>
+      <item>Raspberry Leaf (Rubus idaeus)</item>
+    </common>
+    <other>
+      <item>Shatavari (Asparagus racemosus)</item>
+      <item>Wild Yam (Dioscorea villosa)</item>
+      <item>Motherwort (Leonurus cardiaca)</item>
+    </other>
+  </ingredients>
+
+<taxon slug="menstrual-support" type="subcategory">
+    <title>Menstrual Support &amp; PMS Relief</title>
+    <description>Ease menstrual cycles and PMS with chasteberry and dong quai.</description>
+
+    <ingredients>
+      <common>
+        <item>Chasteberry (Vitex agnus-castus)</item>
+        <item>Dong Quai (Angelica sinensis)</item>
+        <item>Ginger (Zingiber officinale)</item>
+        <item>Evening Primrose Oil</item>
+      </common>
+      <other>
+        <item>Cramp Bark (Viburnum opulus)</item>
+        <item>Yarrow (Achillea millefolium)</item>
+      </other>
+    </ingredients>
+  <seo>
+  <focus-keyword>menstrual support supplements</focus-keyword>
+  <meta-title>Menstrual Support Supplements &amp; PMS Relief | Rogue Herbalist</meta-title>
+  <meta-description>Ease menstrual cycles with chasteberry, dong quai, and ginger. Herbal solutions for PMS relief and hormonal balance.</meta-description>
+  <h1>Menstrual Support Supplements &amp; Herbal PMS Relief</h1>
+  <og-title>Effective Menstrual Support &amp; PMS Relief Supplements</og-title>
+  <og-description>Discover natural menstrual support with chasteberry, dong quai, and evening primrose oil. Enhance your cycle comfort and balance hormones with our herbal solutions.</og-description>
+  <keywords>menstrual support, PMS relief, chasteberry supplements, dong quai, hormonal balance, women's health</keywords>
+  <canonical-url>https://rogueherbalist.com/category/womens-health/menstrual-support/</canonical-url>
+  <schema-type>CollectionPage</schema-type>
+</seo>
+  </taxon>
+    <taxon slug="menopause-hot-flashes" type="subcategory">
+    <title>Menopause &amp; Hot Flash Support</title>
+    <description>Manage menopause symptoms with black cohosh and red clover.</description>
+
+    <ingredients>
+      <common>
+        <item>Black Cohosh (Actaea racemosa)</item>
+        <item>Red Clover (Trifolium pratense)</item>
+        <item>Sage (Salvia officinalis)</item>
+        <item>Evening Primrose Oil</item>
+      </common>
+      <other>
+        <item>Wild Yam (Dioscorea villosa)</item>
+        <item>Licorice Root (Glycyrrhiza glabra)</item>
+      </other>
+    </ingredients>
+  </taxon>
+    <taxon slug="fertility-support" type="subcategory">
+    <title>Fertility &amp; Reproductive Support</title>
+    <description>Boost fertility with maca and vitex, supporting reproductive health and preconception wellness.</description>
+
+    <ingredients>
+      <common>
+        <item>Maca (Lepidium meyenii)</item>
+        <item>Chaste Tree (Vitex agnus-castus)</item>
+        <item>Red Clover (Trifolium pratense)</item>
+        <item>Dong Quai (Angelica sinensis)</item>
+      </common>
+      <other>
+        <item>Tribulus (Tribulus terrestris)</item>
+        <item>Shatavari (Asparagus racemosus)</item>
+      </other>
+    </ingredients>
+  </taxon>
+    <taxon slug="pregnancy-lactation" type="subcategory">
+    <title>Pregnancy &amp; Lactation Support</title>
+    <description>Gentle herbs like red raspberry leaf support pregnancy and lactation, easing morning sickness.</description>
+
+    <ingredients>
+      <common>
+        <item>Red Raspberry Leaf (Rubus idaeus)</item>
+        <item>Ginger (Zingiber officinale)</item>
+        <item>Fenugreek (Trigonella foenum-graecum)</item>
+        <item>Fennel (Foeniculum vulgare)</item>
+      </common>
+      <other>
+        <item>Nettle (Urtica dioica)</item>
+        <item>Alfalfa (Medicago sativa)</item>
+      </other>
+    </ingredients>
+  <seo>
+  <focus-keyword>pregnancy lactation herbal support</focus-keyword>
+  <meta-title>Pregnancy &amp; Lactation Herbal Support | Rogue Herbalist</meta-title>
+  <meta-description>Support pregnancy and lactation with red raspberry leaf, ginger, and fenugreek. Ease morning sickness naturally.</meta-description>
+  <h1>Pregnancy &amp; Lactation Herbal Support for Mothers</h1>
+  <og-title>Herbal Support for Pregnancy &amp; Lactation</og-title>
+  <og-description>Discover gentle herbal support for pregnancy and lactation with red raspberry leaf, ginger, and fenugreek. Ease morning sickness and nourish your body naturally. Perfect for expectant and nursing mothers.</og-description>
+  <keywords>pregnancy support, lactation herbs, red raspberry leaf, ginger for nausea, fenugreek lactation, herbal pregnancy care</keywords>
+  <canonical-url>https://rogueherbalist.com/category/womens-health/pregnancy-lactation/</canonical-url>
+  <schema-type>CollectionPage</schema-type>
+</seo>
+  </taxon>
+    <seo>
+  <focus-keyword>women's health herbal supplements</focus-keyword>
+  <meta-title>Women's Health Herbal Supplements | Rogue Herbalist</meta-title>
+  <meta-description>Support feminine wellness with red clover, black cohosh, and dong quai. Promote hormonal balance naturally.</meta-description>
+  <h1>Women's Health Herbal Supplements for Hormonal Balance</h1>
+  <og-title>Empower Your Health with Women's Herbal Supplements</og-title>
+  <og-description>Discover natural support for women's health with herbs like red clover, black cohosh, and dong quai. Enhance hormonal balance and overall wellness. Explore our range of herbal supplements designed for women's unique needs.</og-description>
+  <keywords>women's health supplements, hormonal balance herbs, red clover, black cohosh, dong quai, feminine wellness</keywords>
+  <canonical-url>https://rogueherbalist.com/category/womens-health/</canonical-url>
+  <schema-type>CollectionPage</schema-type>
+</seo>
+  </taxon>
+
+<taxon slug="mens-health" type="primary" hierarchical="true">
+  <title>Men's Health</title>
+  <sub-title>Masculine Vitality &amp; Wellness</sub-title>
+  <description>Enhance vitality and wellness with tribulus and saw palmetto. Support men's unique health needs naturally and effectively.</description>
+
+  <meta>
+    <chebi-roles>testosterone_support,alpha_reductase_inhibitor,adaptogen,aphrodisiac</chebi-roles>
+    <npclassifier>steroidal_saponins,fatty_acids,withanolides</npclassifier>
+    <chpa-category>mens_health</chpa-category>
+    <fda-claim>Supports men's health and vitality</fda-claim>
+  </meta>
+
+  <ingredients>
+    <common>
+      <item>Tribulus (Tribulus terrestris)</item>
+      <item>Saw Palmetto (Serenoa repens)</item>
+      <item>Ashwagandha (Withania somnifera)</item>
+      <item>Ginseng (Panax ginseng)</item>
+      <item>Maca (Lepidium meyenii)</item>
+      <item>Zinc</item>
+      <item>Fenugreek (Trigonella foenum-graecum)</item>
+    </common>
+    <other>
+      <item>Horny Goat Weed (Epimedium)</item>
+      <item>Muira Puama (Ptychopetalum olacoides)</item>
+      <item>Pine Bark Extract (Pinus pinaster)</item>
+    </other>
+  </ingredients>
+
+<taxon slug="prostate-health" type="subcategory">
+      <title>Prostate Health</title>
+      <description>Support prostate wellness with saw palmetto and pygeum.</description>
+
+      <ingredients>
+        <common>
+          <item>Saw Palmetto (Serenoa repens)</item>
+          <item>Pygeum (Prunus africana)</item>
+          <item>Beta-Sitosterol</item>
+        </common>
+        <other>
+          <item>Nettle Root (Urtica dioica)</item>
+        </other>
+      </ingredients>
+    <seo>
+  <focus-keyword>prostate health supplements</focus-keyword>
+  <meta-title>Prostate Health Supplements &amp; Herbs | Rogue Herbalist</meta-title>
+  <meta-description>Enhance prostate wellness with saw palmetto, pygeum, and beta-sitosterol. Natural support for men's health.</meta-description>
+  <h1>Prostate Health Supplements for Men's Wellness</h1>
+  <og-title>Prostate Health: Natural Supplements &amp; Herbal Support</og-title>
+  <og-description>Boost your prostate health with our natural supplements featuring saw palmetto, pygeum, and beta-sitosterol. Support your wellness journey with effective herbal solutions.</og-description>
+  <keywords>prostate health supplements, saw palmetto, pygeum extract, beta-sitosterol, men's health, herbal prostate support</keywords>
+  <canonical-url>https://rogueherbalist.com/category/mens-health/prostate-health/</canonical-url>
+  <schema-type>CollectionPage</schema-type>
+</seo>
+  </taxon>
+    <taxon slug="testosterone-support" type="subcategory">
+      <title>Testosterone &amp; Hormone Support</title>
+      <description>Boost testosterone naturally with ashwagandha and fenugreek.</description>
+
+      <ingredients>
+        <common>
+          <item>Ashwagandha (Withania somnifera)</item>
+          <item>Fenugreek (Trigonella foenum-graecum)</item>
+          <item>Tribulus (Tribulus terrestris)</item>
+        </common>
+        <other>
+          <item>Maca (Lepidium meyenii)</item>
+        </other>
+      </ingredients>
+    </taxon>
+    <taxon slug="male-vitality" type="subcategory">
+      <title>Male Vitality &amp; Performance</title>
+      <description>Boost energy and stamina with maca and ginseng for enhanced male vitality.</description>
+      <ingredients>
+        <common>
+          <item>Maca (Lepidium meyenii)</item>
+          <item>Ginseng (Panax ginseng)</item>
+          <item>Tribulus (Tribulus terrestris)</item>
+        </common>
+        <other>
+          <item>Yohimbe (Pausinystalia johimbe)</item>
+        </other>
+      </ingredients>
+    </taxon>
+    <seo>
+  <focus-keyword>natural men's health supplements</focus-keyword>
+  <meta-title>Natural Men's Health Supplements | Rogue Herbalist</meta-title>
+  <meta-description>Enhance vitality with tribulus, saw palmetto, and ashwagandha. Support men's health naturally and effectively.</meta-description>
+  <h1>Natural Men's Health Supplements for Vitality &amp; Wellness</h1>
+  <og-title>Boost Your Vitality with Natural Men's Health Supplements</og-title>
+  <og-description>Discover the power of tribulus, saw palmetto, and ashwagandha to enhance vitality and support men's unique health needs. Shop now for natural and effective solutions.</og-description>
+  <keywords>men's health supplements, tribulus, saw palmetto, ashwagandha, natural vitality, men's wellness</keywords>
+  <canonical-url>https://rogueherbalist.com/category/mens-health/</canonical-url>
+  <schema-type>CollectionPage</schema-type>
+</seo>
+  </taxon>
+
+<taxon slug="liver-detoxification" type="primary" hierarchical="true">
+  <title>Liver &amp; Detoxification</title>
+  <sub-title>Cleansing &amp; Liver Support</sub-title>
+  <description>Enhance liver health with milk thistle and dandelion. Promote natural detoxification and support your body's cleansing processes.</description>
+
+  <meta>
+    <chebi-roles>hepatoprotective,detoxifying,cholagogue,antioxidant</chebi-roles>
+    <npclassifier>silymarin,artichoke_acids,sulfur_compounds</npclassifier>
+    <chpa-category>liver_support</chpa-category>
+    <fda-claim>Supports liver health and detoxification</fda-claim>
+  </meta>
+
+  <ingredients>
+    <common>
+      <item>Milk Thistle (Silybum marianum)</item>
+      <item>Dandelion (Taraxacum officinale)</item>
+      <item>Artichoke (Cynara scolymus)</item>
+      <item>Turmeric (Curcuma longa)</item>
+      <item>Schisandra (Schisandra chinensis)</item>
+      <item>Licorice (Glycyrrhiza glabra)</item>
+      <item>N-acetyl cysteine</item>
+      <item>Alpha-lipoic acid</item>
+    </common>
+    <other>
+      <item>Burdock root (Arctium lappa)</item>
+      <item>Yellow dock (Rumex crispus)</item>
+      <item>Chanca piedra (Phyllanthus niruri)</item>
+    </other>
+  </ingredients>
+
+<taxon slug="daily-liver" type="subcategory">
+    <title>Daily Liver Support</title>
+    <description>Maintain liver health with milk thistle and dandelion.</description>
+
+    <ingredients>
+      <common>
+        <item>Milk Thistle (Silybum marianum)</item>
+        <item>Dandelion (Taraxacum officinale)</item>
+        <item>Turmeric (Curcuma longa)</item>
+      </common>
+      <other>
+        <item>Schisandra (Schisandra chinensis)</item>
+      </other>
+    </ingredients>
+  </taxon>
+    <taxon slug="detox-cleanse" type="subcategory">
+    <title>Detox &amp; Cleanse Programs</title>
+    <description>Support detox pathways with artichoke and turmeric.</description>
+
+    <ingredients>
+      <common>
+        <item>Artichoke (Cynara scolymus)</item>
+        <item>Turmeric (Curcuma longa)</item>
+        <item>N-acetyl cysteine</item>
+      </common>
+      <other>
+        <item>Chanca Piedra (Phyllanthus niruri)</item>
+      </other>
+    </ingredients>
+  <seo>
+  <focus-keyword>detox cleanse supplements</focus-keyword>
+  <meta-title>Detox Cleanse Supplements &amp; Programs | Rogue Herbalist</meta-title>
+  <meta-description>Enhance detox pathways with artichoke, turmeric, and N-acetyl cysteine. Support liver health and natural cleansing.</meta-description>
+  <h1>Detox Cleanse Supplements &amp; Herbal Programs</h1>
+  <og-title>Revitalize with Detox Cleanse Supplements &amp; Programs</og-title>
+  <og-description>Boost your body's natural detoxification with our herbal cleanse programs. Featuring artichoke, turmeric, and N-acetyl cysteine for effective liver support and cleansing.</og-description>
+  <keywords>detox cleanse supplements, liver detox, artichoke detox, turmeric cleanse, N-acetyl cysteine, herbal detox programs</keywords>
+  <canonical-url>https://rogueherbalist.com/category/liver-detoxification/detox-cleanse/</canonical-url>
+  <schema-type>CollectionPage</schema-type>
+</seo>
+  </taxon>
+    <taxon slug="heavy-metal" type="subcategory">
+      <title>Heavy Metal &amp; Toxin Support</title>
+      <description>Utilize chlorella and cilantro for effective heavy metal detoxification.</description>
+      <ingredients>
+        <common>
+          <item>Chlorella (Chlorella vulgaris)</item>
+          <item>Cilantro (Coriandrum sativum)</item>
+          <item>Spirulina (Arthrospira platensis)</item>
+        </common>
+        <other>
+          <item>Zeolite</item>
+          <item>Modified Citrus Pectin</item>
+        </other>
+      </ingredients>
+    <seo>
+  <focus-keyword>heavy metal detox supplements</focus-keyword>
+  <meta-title>Heavy Metal Detox Supplements | Rogue Herbalist</meta-title>
+  <meta-description>Support detoxification with chlorella, cilantro, and spirulina. Effective formulas for heavy metal cleansing and toxin removal.</meta-description>
+  <h1>Heavy Metal Detox Supplements &amp; Toxin Support</h1>
+  <og-title>Effective Heavy Metal Detox: Cleanse with Natural Supplements</og-title>
+  <og-description>Experience powerful detoxification with chlorella, cilantro, and spirulina. Our supplements support heavy metal cleansing and promote overall toxin removal. Start your detox journey today!</og-description>
+  <keywords>heavy metal detox, chlorella supplements, cilantro detox, spirulina cleanse, toxin removal, natural detox supplements</keywords>
+  <canonical-url>https://rogueherbalist.com/category/liver-detoxification/heavy-metal/</canonical-url>
+  <schema-type>CollectionPage</schema-type>
+</seo>
+  </taxon>
+    </taxon>
+
+<taxon slug="respiratory-health" type="primary" hierarchical="true">
+  <title>Respiratory Health</title>
+  <sub-title>Lung Function &amp; Breathing Support</sub-title>
+  <description>Enhance lung function and ease breathing with mullein and thyme. Support respiratory health naturally and effectively.</description>
+
+  <meta>
+    <chebi-roles>expectorant,bronchodilator,anti-inflammatory,antimicrobial</chebi-roles>
+    <npclassifier>essential_oils,saponins,mucilage</npclassifier>
+    <chpa-category>respiratory_support</chpa-category>
+    <fda-claim>Supports respiratory health and lung function</fda-claim>
+  </meta>
+
+  <ingredients>
+    <common>
+      <item>Mullein (Verbascum thapsus)</item>
+      <item>Thyme (Thymus vulgaris)</item>
+      <item>Eucalyptus (Eucalyptus globulus)</item>
+      <item>Licorice root (Glycyrrhiza glabra)</item>
+      <item>Ginger (Zingiber officinale)</item>
+      <item>Peppermint (Mentha piperita)</item>
+      <item>Oregano (Origanum vulgare)</item>
+      <item>Marshmallow root (Althaea officinalis)</item>
+    </common>
+    <other>
+      <item>Lobelia (Lobelia inflata)</item>
+      <item>Elecampane (Inula helenium)</item>
+      <item>Coltsfoot (Tussilago farfara)</item>
+    </other>
+  </ingredients>
+
+<taxon slug="lung-support" type="subcategory">
+      <title>General Lung Support</title>
+      <description>Boost lung health with mullein and marshmallow root.</description>
+      <ingredients>
+        <common>
+          <item>Mullein (Verbascum thapsus)</item>
+          <item>Marshmallow root (Althaea officinalis)</item>
+          <item>Licorice root (Glycyrrhiza glabra)</item>
+        </common>
+        <other>
+          <item>Elecampane (Inula helenium)</item>
+        </other>
+      </ingredients>
+    </taxon>
+    <taxon slug="cough-congestion" type="subcategory">
+      <title>Cough &amp; Congestion Relief</title>
+      <description>Relieve coughs with ivy leaf and thyme.</description>
+      <ingredients>
+        <common>
+          <item>Ivy leaf (Hedera helix)</item>
+          <item>Thyme (Thymus vulgaris)</item>
+          <item>Eucalyptus (Eucalyptus globulus)</item>
+        </common>
+        <other>
+          <item>Coltsfoot (Tussilago farfara)</item>
+        </other>
+      </ingredients>
+    </taxon>
+    <taxon slug="allergy-asthma" type="subcategory">
+      <title>Allergy &amp; Asthma Support</title>
+      <description>Ease allergies and asthma with quercetin and butterbur. Support respiratory comfort naturally.</description>
+      <ingredients>
+        <common>
+          <item>Quercetin</item>
+          <item>Butterbur (Petasites hybridus)</item>
+          <item>Nettle (Urtica dioica)</item>
+          <item>Vitamin C</item>
+        </common>
+        <other>
+          <item>Perilla (Perilla frutescens)</item>
+          <item>Stinging nettle (Urtica dioica)</item>
+        </other>
+      </ingredients>
+    <seo>
+  <focus-keyword>allergy asthma support supplements</focus-keyword>
+  <meta-title>Allergy &amp; Asthma Support Supplements | Rogue Herbalist</meta-title>
+  <meta-description>Ease allergies and asthma with quercetin, butterbur, and nettle. Support respiratory comfort naturally and breathe easier.</meta-description>
+  <h1>Allergy &amp; Asthma Support Supplements for Respiratory Comfort</h1>
+  <og-title>Natural Allergy &amp; Asthma Relief: Herbal Supplements</og-title>
+  <og-description>Discover natural relief for allergies and asthma with quercetin, butterbur, and nettle. Enhance your respiratory comfort and breathe easier with our herbal supplements. Perfect for those seeking natural support for respiratory health.</og-description>
+  <keywords>allergy support, asthma relief, quercetin supplements, butterbur extract, nettle allergy relief, respiratory health</keywords>
+  <canonical-url>https://rogueherbalist.com/category/respiratory-health/allergy-asthma/</canonical-url>
+  <schema-type>CollectionPage</schema-type>
+</seo>
+  </taxon>
+    </taxon>
+
+<taxon slug="kidney-urinary" type="primary" hierarchical="true">
+  <title>Kidney &amp; Urinary</title>
+  <sub-title>Urological Health &amp; Kidney Support</sub-title>
+  <description>Enhance kidney and urinary tract health with cranberry and nettle. Promote natural cleansing and support urinary comfort.</description>
+
+  <meta>
+    <chebi-roles>diuretic,antiseptic,anti-inflammatory,nephroprotective</chebi-roles>
+    <npclassifier>arbutin,cranberry_proanthocyanidins,potassium_salts</npclassifier>
+    <chpa-category>urinary_support</chpa-category>
+    <fda-claim>Supports urinary tract and kidney health</fda-claim>
+  </meta>
+
+  <ingredients>
+    <common>
+      <item>Cranberry (Vaccinium macrocarpon)</item>
+      <item>Nettle (Urtica dioica)</item>
+      <item>Dandelion (Taraxacum officinale)</item>
+      <item>Horsetail (Equisetum arvense)</item>
+      <item>Uva Ursi (Arctostaphylos uva-ursi)</item>
+      <item>Parsley (Petroselinum crispum)</item>
+      <item>Juniper (Juniperus communis)</item>
+      <item>Marshmallow root (Althaea officinalis)</item>
+    </common>
+    <other>
+      <item>Goldenrod (Solidago virgaurea)</item>
+      <item>Chanca Piedra (Phyllanthus niruri)</item>
+      <item>Celery seed (Apium graveolens)</item>
+    </other>
+  </ingredients>
+
+<taxon slug="kidney-function" type="subcategory">
+      <title>Kidney Function &amp; Support</title>
+      <description>Boost kidney health with nettle and corn silk, traditional tonics for nephroprotection.</description>
+      <ingredients>
+        <common>
+          <item>Nettle (Urtica dioica)</item>
+          <item>Corn Silk (Zea mays)</item>
+          <item>Dandelion (Taraxacum officinale)</item>
+        </common>
+        <other>
+          <item>Chanca Piedra (Phyllanthus niruri)</item>
+        </other>
+      </ingredients>
+    </taxon>
+    <taxon slug="urinary-tract" type="subcategory">
+      <title>Urinary Tract Health</title>
+      <description>Support urinary health with cranberry and uva ursi, known for their antiseptic properties.</description>
+      <ingredients>
+        <common>
+          <item>Cranberry (Vaccinium macrocarpon)</item>
+          <item>Uva Ursi (Arctostaphylos uva-ursi)</item>
+          <item>Horsetail (Equisetum arvense)</item>
+        </common>
+        <other>
+          <item>Java Tea (Orthosiphon stamineus)</item>
+        </other>
+      </ingredients>
+    <seo>
+  <focus-keyword>urinary tract health supplements</focus-keyword>
+  <meta-title>Urinary Tract Health Supplements | Rogue Herbalist</meta-title>
+  <meta-description>Enhance urinary health with cranberry, uva ursi, and horsetail. Herbal support for cleansing and antiseptic benefits.</meta-description>
+  <h1>Urinary Tract Health Supplements &amp; Herbal Support</h1>
+  <og-title>Boost Urinary Tract Health with Natural Supplements</og-title>
+  <og-description>Discover the power of cranberry, uva ursi, and horsetail for urinary tract health. Support cleansing and antiseptic benefits naturally. Shop now for effective herbal solutions.</og-description>
+  <keywords>urinary tract health, cranberry supplements, uva ursi, horsetail herb, urinary cleansing, herbal urinary support</keywords>
+  <canonical-url>https://rogueherbalist.com/category/kidney-urinary/urinary-tract/</canonical-url>
+  <schema-type>CollectionPage</schema-type>
+</seo>
+  </taxon>
+    <taxon slug="bladder-support" type="subcategory">
+      <title>Bladder Support &amp; Control</title>
+      <description>Promote bladder health with uva ursi and horsetail for comfort and control.</description>
+      <ingredients>
+        <common>
+          <item>Uva Ursi (Arctostaphylos uva-ursi)</item>
+          <item>Horsetail (Equisetum arvense)</item>
+          <item>Marshmallow root (Althaea officinalis)</item>
+        </common>
+        <other>
+          <item>Cleavers (Galium aparine)</item>
+        </other>
+      </ingredients>
+    <seo>
+  <focus-keyword>bladder health supplements</focus-keyword>
+  <meta-title>Bladder Health Supplements &amp; Herbs | Rogue Herbalist</meta-title>
+  <meta-description>Enhance bladder comfort with uva ursi, horsetail, and marshmallow root. Herbal support for control and health.</meta-description>
+  <h1>Bladder Health Supplements &amp; Control Solutions</h1>
+  <og-title>Bladder Health: Herbal Supplements for Comfort &amp; Control</og-title>
+  <og-description>Support your bladder health naturally with uva ursi, horsetail, and marshmallow root. Discover herbal solutions for comfort and control. Shop now for effective bladder support.</og-description>
+  <keywords>bladder health supplements, uva ursi, horsetail herb, marshmallow root, bladder control, herbal bladder support</keywords>
+  <canonical-url>https://rogueherbalist.com/category/kidney-urinary/bladder-support/</canonical-url>
+  <schema-type>CollectionPage</schema-type>
+</seo>
+  </taxon>
+    </taxon>
+
+<taxon slug="blood-sugar-metabolism" type="primary" hierarchical="true">
+  <title>Blood Sugar &amp; Metabolism</title>
+  <sub-title>Metabolic Health &amp; Blood Sugar Support</sub-title>
+  <description>Support healthy blood sugar levels with cinnamon and chromium. Enhance metabolic health naturally for balanced energy and wellness.</description>
+
+  <meta>
+    <chebi-roles>hypoglycemic,insulin_sensitizer,metabolic_regulator,antioxidant</chebi-roles>
+    <npclassifier>chromium_compounds,alpha_lipoic_acid,gymnemic_acids</npclassifier>
+    <chpa-category>metabolic_support</chpa-category>
+    <fda-claim>Supports healthy blood sugar metabolism</fda-claim>
+  </meta>
+
+  <ingredients>
+    <common>
+      <item>Cinnamon (Cinnamomum verum)</item>
+      <item>Chromium</item>
+      <item>Alpha-lipoic acid</item>
+      <item>Gymnema (Gymnema sylvestre)</item>
+      <item>Berberine</item>
+      <item>Bitter melon (Momordica charantia)</item>
+      <item>Fenugreek (Trigonella foenum-graecum)</item>
+      <item>Magnesium</item>
+    </common>
+    <other>
+      <item>Banaba (Lagerstroemia speciosa)</item>
+      <item>Holy basil (Ocimum sanctum)</item>
+      <item>Jiaogulan (Gynostemma pentaphyllum)</item>
+    </other>
+  </ingredients>
+
+<taxon slug="blood-sugar-control" type="subcategory">
+    <title>Blood Sugar Control</title>
+    <description>Maintain healthy blood sugar with cinnamon and chromium.</description>
+
+    <ingredients>
+      <common>
+        <item>Cinnamon (Cinnamomum verum)</item>
+        <item>Chromium</item>
+        <item>Alpha-lipoic acid</item>
+      </common>
+      <other>
+        <item>Banaba (Lagerstroemia speciosa)</item>
+      </other>
+    </ingredients>
+  </taxon>
+    <taxon slug="metabolic-support" type="subcategory">
+    <title>Metabolic Support &amp; Weight Management</title>
+    <description>Boost metabolism and manage weight with green tea and garcinia.</description>
+
+    <ingredients>
+      <common>
+        <item>Green tea (Camellia sinensis)</item>
+        <item>Garcinia (Garcinia cambogia)</item>
+        <item>Cayenne (Capsicum annuum)</item>
+      </common>
+      <other>
+        <item>Yerba mate (Ilex paraguariensis)</item>
+      </other>
+    </ingredients>
+  </taxon>
+    <taxon slug="insulin-sensitivity" type="subcategory">
+      <title>Insulin Sensitivity Support</title>
+      <description>Boost insulin sensitivity with alpha-lipoic acid and bitter melon.</description>
+      <ingredients>
+        <common>
+          <item>Alpha-lipoic acid</item>
+          <item>Bitter melon (Momordica charantia)</item>
+          <item>Cinnamon (Cinnamomum verum)</item>
+        </common>
+        <other>
+          <item>Fenugreek (Trigonella foenum-graecum)</item>
+          <item>Banaba (Lagerstroemia speciosa)</item>
+        </other>
+      </ingredients>
+    <seo>
+  <focus-keyword>insulin sensitivity supplements</focus-keyword>
+  <meta-title>Insulin Sensitivity Supplements | Rogue Herbalist</meta-title>
+  <meta-description>Enhance insulin sensitivity with alpha-lipoic acid, bitter melon, and cinnamon for balanced blood sugar and metabolism.</meta-description>
+  <h1>Insulin Sensitivity Supplements for Blood Sugar Balance</h1>
+  <og-title>Boost Insulin Sensitivity with Natural Supplements</og-title>
+  <og-description>Support your body's insulin response with powerful ingredients like alpha-lipoic acid, bitter melon, and cinnamon. Achieve balanced blood sugar and improved metabolism naturally.</og-description>
+  <keywords>insulin sensitivity supplements, alpha-lipoic acid, bitter melon, cinnamon, blood sugar balance, metabolism support</keywords>
+  <canonical-url>https://rogueherbalist.com/category/blood-sugar-metabolism/insulin-sensitivity/</canonical-url>
+  <schema-type>CollectionPage</schema-type>
+</seo>
+  </taxon>
+    <seo>
+  <focus-keyword>blood sugar metabolism supplements</focus-keyword>
+  <meta-title>Blood Sugar Metabolism Supplements | Rogue Herbalist</meta-title>
+  <meta-description>Support blood sugar levels with cinnamon, chromium &amp; alpha-lipoic acid. Enhance metabolic health for balanced energy.</meta-description>
+  <h1>Blood Sugar &amp; Metabolism Supplements for Balanced Health</h1>
+  <og-title>Optimize Blood Sugar &amp; Metabolism Naturally</og-title>
+  <og-description>Discover natural supplements to support blood sugar and metabolism. Featuring cinnamon, chromium, and alpha-lipoic acid for balanced energy and wellness. Shop now for a healthier lifestyle.</og-description>
+  <keywords>blood sugar support, metabolism supplements, cinnamon, chromium, alpha-lipoic acid, metabolic health, energy balance</keywords>
+  <canonical-url>https://rogueherbalist.com/category/blood-sugar-metabolism/</canonical-url>
+  <schema-type>CollectionPage</schema-type>
+</seo>
+  </taxon>
+
+<taxon slug="allergy-histamine" type="primary" hierarchical="true">
+  <title>Allergy &amp; Histamine</title>
+  <sub-title>Immune Balance &amp; Histamine Support</sub-title>
+  <description>Manage allergies naturally with quercetin and nettle. Support your body's histamine response and maintain immune balance.</description>
+
+  <meta>
+    <chebi-roles>antihistamine,anti-inflammatory,immune_modulator,mast_cell_stabilizer</chebi-roles>
+    <npclassifier>quercetin,vitamin_c,bromelain</npclassifier>
+    <chpa-category>allergy_support</chpa-category>
+    <fda-claim>Supports healthy immune response to environmental factors</fda-claim>
+  </meta>
+
+  <ingredients>
+    <common>
+      <item>Quercetin</item>
+      <item>Vitamin C</item>
+      <item>Bromelain</item>
+      <item>Nettle (Urtica dioica)</item>
+      <item>Butterbur (Petasites hybridus)</item>
+      <item>Stinging Nettle (Urtica dioica)</item>
+      <item>Vitamin D</item>
+    </common>
+    <other>
+      <item>Perilla (Perilla frutescens)</item>
+      <item>Black Seed (Nigella sativa)</item>
+      <item>Reishi (Ganoderma lucidum)</item>
+    </other>
+  </ingredients>
+
+<taxon slug="seasonal-allergies" type="subcategory">
+    <title>Seasonal Allergies</title>
+    <description>Ease seasonal allergies with quercetin and butterbur.</description>
+
+    <ingredients>
+      <common>
+        <item>Quercetin</item>
+        <item>Butterbur (Petasites hybridus)</item>
+        <item>Stinging Nettle (Urtica dioica)</item>
+      </common>
+      <other>
+        <item>Perilla (Perilla frutescens)</item>
+      </other>
+    </ingredients>
+  </taxon>
+    <taxon slug="food-sensitivities" type="subcategory">
+    <title>Food Sensitivities &amp; Intolerances</title>
+    <description>Support digestion with enzymes and ginger for food sensitivities.</description>
+
+    <ingredients>
+      <common>
+        <item>Bromelain</item>
+        <item>Ginger (Zingiber officinale)</item>
+        <item>Turmeric (Curcuma longa)</item>
+      </common>
+      <other>
+        <item>Black Seed (Nigella sativa)</item>
+      </other>
+    </ingredients>
+  <seo>
+  <focus-keyword>food sensitivity support supplements</focus-keyword>
+  <meta-title>Food Sensitivity Support Supplements | Rogue Herbalist</meta-title>
+  <meta-description>Enhance digestion with bromelain, ginger, and turmeric. Herbal solutions for managing food sensitivities and intolerances.</meta-description>
+  <h1>Food Sensitivity Support Supplements &amp; Herbal Solutions</h1>
+  <og-title>Manage Food Sensitivities with Herbal Support</og-title>
+  <og-description>Discover natural support for food sensitivities with bromelain, ginger, and turmeric. Enhance your digestive health and manage intolerances effectively. Shop now for herbal solutions.</og-description>
+  <keywords>food sensitivity supplements, digestive enzymes, ginger supplements, bromelain, turmeric, herbal digestion support</keywords>
+  <canonical-url>https://rogueherbalist.com/category/allergy-histamine/food-sensitivities/</canonical-url>
+  <schema-type>CollectionPage</schema-type>
+</seo>
+  </taxon>
+    <taxon slug="histamine-regulation" type="subcategory">
+      <title>Histamine Regulation</title>
+      <description>Manage histamine levels with DAO enzymes and nettle for sensitivity support.</description>
+      <ingredients>
+        <common>
+          <item>DAO Enzyme</item>
+          <item>Quercetin</item>
+          <item>Vitamin C</item>
+        </common>
+        <other>
+          <item>Stinging Nettle (Urtica dioica)</item>
+          <item>Butterbur (Petasites hybridus)</item>
+        </other>
+      </ingredients>
+    <seo>
+  <focus-keyword>histamine regulation supplements</focus-keyword>
+  <meta-title>Histamine Regulation Supplements | Rogue Herbalist</meta-title>
+  <meta-description>Support histamine balance with DAO enzymes, quercetin, and vitamin C. Enhance sensitivity management naturally.</meta-description>
+  <h1>Histamine Regulation Supplements for Sensitivity Support</h1>
+  <og-title>Effective Histamine Regulation: Natural Supplements for Balance</og-title>
+  <og-description>Discover natural solutions for histamine regulation with DAO enzymes, quercetin, and vitamin C. Perfect for managing sensitivities and promoting balance.</og-description>
+  <keywords>histamine regulation, DAO enzyme supplements, quercetin, vitamin C, sensitivity support, nettle supplements</keywords>
+  <canonical-url>https://rogueherbalist.com/category/allergy-histamine/histamine-regulation/</canonical-url>
+  <schema-type>CollectionPage</schema-type>
+</seo>
+  </taxon>
+    </taxon>
+
+<taxon slug="healthy-aging" type="primary" hierarchical="true">
+  <title>Healthy Aging</title>
+  <sub-title>Longevity &amp; Age-Related Support</sub-title>
+  <description>Promote longevity and vitality with resveratrol and ginkgo biloba. Support cellular health and age gracefully with natural antioxidants.</description>
+
+  <meta>
+    <chebi-roles>antioxidant,anti-aging,neuroprotective,cardioprotective</chebi-roles>
+    <npclassifier>resveratrol,coenzyme_q10,telomerase_activators</npclassifier>
+    <chpa-category>anti_aging</chpa-category>
+    <fda-claim>Supports healthy aging and cellular function</fda-claim>
+  </meta>
+
+  <ingredients>
+    <common>
+      <item>Resveratrol</item>
+      <item>Coenzyme Q10</item>
+      <item>Ginkgo biloba (Ginkgo biloba)</item>
+      <item>Curcumin (Curcuma longa)</item>
+      <item>Green tea extract (Camellia sinensis)</item>
+      <item>Vitamin E</item>
+      <item>Omega-3 fatty acids</item>
+      <item>Alpha-lipoic acid</item>
+    </common>
+    <other>
+      <item>Gotu kola (Centella asiatica)</item>
+      <item>Rhodiola (Rhodiola rosea)</item>
+      <item>Schisandra (Schisandra chinensis)</item>
+    </other>
+  </ingredients>
+
+<taxon slug="cellular-health" type="subcategory">
+    <title>Cellular Health &amp; Antioxidants</title>
+    <description>Boost cellular health with resveratrol and CoQ10 for anti-aging benefits.</description>
+
+    <ingredients>
+      <common>
+        <item>Resveratrol</item>
+        <item>Coenzyme Q10</item>
+        <item>Vitamin C</item>
+        <item>Alpha-lipoic acid</item>
+      </common>
+      <other>
+        <item>Astaxanthin</item>
+      </other>
+    </ingredients>
+  <seo>
+  <focus-keyword>cellular health antioxidants</focus-keyword>
+  <meta-title>Cellular Health Antioxidants | Rogue Herbalist</meta-title>
+  <meta-description>Enhance cellular vitality with resveratrol, CoQ10, and vitamin C for anti-aging and longevity support.</meta-description>
+  <h1>Cellular Health &amp; Antioxidant Supplements for Longevity</h1>
+  <og-title>Boost Your Cellular Health with Powerful Antioxidants</og-title>
+  <og-description>Discover the benefits of resveratrol, CoQ10, and alpha-lipoic acid in supporting cellular health and combating aging. Elevate your wellness with our targeted antioxidant formulas.</og-description>
+  <keywords>cellular health, antioxidants, resveratrol, CoQ10, vitamin C, anti-aging supplements, longevity support</keywords>
+  <canonical-url>https://rogueherbalist.com/category/healthy-aging/cellular-health/</canonical-url>
+  <schema-type>CollectionPage</schema-type>
+</seo>
+  </taxon>
+    <taxon slug="longevity-support" type="subcategory">
+    <title>Longevity &amp; Life Extension</title>
+    <description>Explore sirtuin activators and botanicals like ginkgo for lifespan support.</description>
+
+    <ingredients>
+      <common>
+        <item>Ginkgo biloba</item>
+        <item>Resveratrol</item>
+        <item>Curcumin (Curcuma longa)</item>
+      </common>
+      <other>
+        <item>Rhodiola (Rhodiola rosea)</item>
+      </other>
+    </ingredients>
+  <seo>
+  <focus-keyword>longevity support supplements</focus-keyword>
+  <meta-title>Longevity Support Supplements | Rogue Herbalist</meta-title>
+  <meta-description>Enhance lifespan with resveratrol, ginkgo biloba, and curcumin. Discover botanicals for longevity and life extension.</meta-description>
+  <h1>Longevity Support Supplements &amp; Life Extension Botanicals</h1>
+  <og-title>Longevity Support: Extend Your Lifespan Naturally</og-title>
+  <og-description>Explore the power of sirtuin activators and botanicals like resveratrol, ginkgo biloba, and curcumin for enhanced longevity and life extension. Shop now for a healthier, longer life.</og-description>
+  <keywords>longevity supplements, life extension, resveratrol, ginkgo biloba, curcumin, sirtuin activators, healthy aging</keywords>
+  <canonical-url>https://rogueherbalist.com/category/healthy-aging/longevity-support/</canonical-url>
+  <schema-type>CollectionPage</schema-type>
+</seo>
+  </taxon>
+    <taxon slug="age-related-decline" type="subcategory">
+    <title>Age-Related Decline Prevention</title>
+    <description>Support cognitive and cardiovascular health with ginkgo and omega-3s.</description>
+
+    <ingredients>
+      <common>
+        <item>Ginkgo biloba</item>
+        <item>Omega-3 fatty acids</item>
+        <item>Coenzyme Q10</item>
+      </common>
+      <other>
+        <item>Hawthorn (Crataegus monogyna)</item>
+      </other>
+    </ingredients>
+  </taxon>
+    <seo>
+  <focus-keyword>natural healthy aging supplements</focus-keyword>
+  <meta-title>Natural Healthy Aging Supplements | Rogue Herbalist</meta-title>
+  <meta-description>Promote longevity with resveratrol, ginkgo biloba, and CoQ10. Support cellular health and age gracefully with natural antioxidants.</meta-description>
+  <h1>Natural Healthy Aging Supplements for Longevity</h1>
+  <og-title>Embrace Healthy Aging with Natural Supplements</og-title>
+  <og-description>Discover the power of resveratrol, ginkgo biloba, and CoQ10 in promoting longevity and vitality. Support your cellular health and age gracefully with our natural antioxidant-rich formulas.</og-description>
+  <keywords>healthy aging supplements, natural longevity support, resveratrol, ginkgo biloba, CoQ10, antioxidants, cellular health</keywords>
+  <canonical-url>https://rogueherbalist.com/category/healthy-aging/</canonical-url>
+  <schema-type>CollectionPage</schema-type>
+</seo>
+  </taxon>
+
+<taxon slug="eye-vision" type="primary" hierarchical="true">
+  <title>Eye &amp; Vision</title>
+  <sub-title>Ocular Health &amp; Visual Support</sub-title>
+  <description>Enhance your eye health with bilberry and lutein. Support visual acuity and protect against oxidative stress naturally.</description>
+
+  <meta>
+    <chebi-roles>antioxidant,anti-inflammatory,photoprotective,vasodilator</chebi-roles>
+    <npclassifier>carotenoids,anthocyanins,lutein</npclassifier>
+    <chpa-category>eye_support</chpa-category>
+    <fda-claim>Supports healthy vision and eye function</fda-claim>
+  </meta>
+
+  <ingredients>
+    <common>
+      <item>Bilberry (Vaccinium myrtillus)</item>
+      <item>Lutein</item>
+      <item>Zeaxanthin</item>
+      <item>Vitamin A</item>
+      <item>Ginkgo biloba</item>
+      <item>Omega-3 fatty acids</item>
+    </common>
+    <other>
+      <item>Eyebright (Euphrasia officinalis)</item>
+      <item>Marigold (Tagetes erecta)</item>
+      <item>Astaxanthin</item>
+    </other>
+  </ingredients>
+
+<taxon slug="macular-support" type="subcategory">
+      <title>Macular Health &amp; AMD Prevention</title>
+      <description>Protect macular health with lutein and zeaxanthin.</description>
+      <ingredients>
+        <common>
+          <item>Lutein</item>
+          <item>Zeaxanthin</item>
+          <item>Vitamin E</item>
+        </common>
+        <other>
+          <item>Astaxanthin</item>
+        </other>
+      </ingredients>
+    </taxon>
+    <taxon slug="general-eye-health" type="subcategory">
+      <title>General Eye Health</title>
+      <description>Support overall eye wellness with antioxidants like bilberry.</description>
+      <ingredients>
+        <common>
+          <item>Bilberry (Vaccinium myrtillus)</item>
+          <item>Vitamin A</item>
+          <item>Vitamin C</item>
+        </common>
+        <other>
+          <item>Ginkgo biloba</item>
+        </other>
+      </ingredients>
+    </taxon>
+    <taxon slug="age-vision" type="subcategory">
+      <title>Age-Related Vision Support</title>
+      <description>Support aging eyes with ginkgo and zeaxanthin for clarity and comfort.</description>
+      <ingredients>
+        <common>
+          <item>Ginkgo biloba</item>
+          <item>Zeaxanthin</item>
+          <item>Lutein</item>
+        </common>
+        <other>
+          <item>Astaxanthin</item>
+        </other>
+      </ingredients>
+    </taxon>
+    </taxon>
+
+<taxon slug="oral-health" type="primary" hierarchical="true">
+  <title>Oral Health</title>
+  <sub-title>Dental &amp; Gum Health</sub-title>
+  <description>Enhance your oral health with natural remedies like neem and clove. Support dental and gum health with herbal solutions.</description>
+
+  <meta>
+    <chebi-roles>antimicrobial,anti-inflammatory,astringent,remineralizing</chebi-roles>
+    <npclassifier>tannins,essential_oils,fluoride_compounds</npclassifier>
+    <chpa-category>oral_health</chpa-category>
+    <fda-claim>Supports oral and dental health</fda-claim>
+  </meta>
+
+  <ingredients>
+    <common>
+      <item>Neem (Azadirachta indica)</item>
+      <item>Clove (Syzygium aromaticum)</item>
+      <item>Tea tree oil (Melaleuca alternifolia)</item>
+      <item>Green tea (Camellia sinensis)</item>
+      <item>Licorice root (Glycyrrhiza glabra)</item>
+      <item>Myrrh (Commiphora myrrha)</item>
+      <item>Fluoride</item>
+    </common>
+    <other>
+      <item>Miswak (Salvadora persica)</item>
+      <item>Propolis</item>
+      <item>Horsetail (Equisetum arvense)</item>
+    </other>
+  </ingredients>
+
+<taxon slug="gum-health" type="subcategory">
+    <title>Gum Health &amp; Periodontal Support</title>
+    <description>Promote gum wellness with anti-inflammatory herbs like neem.</description>
+
+    <ingredients>
+      <common>
+        <item>Neem (Azadirachta indica)</item>
+        <item>Tea tree oil (Melaleuca alternifolia)</item>
+        <item>Clove (Syzygium aromaticum)</item>
+      </common>
+      <other>
+        <item>Propolis</item>
+      </other>
+    </ingredients>
+  <seo>
+  <focus-keyword>gum health supplements</focus-keyword>
+  <meta-title>Gum Health Supplements &amp; Herbs | Rogue Herbalist</meta-title>
+  <meta-description>Enhance gum wellness with neem, tea tree oil, and clove. Herbal support for periodontal health and inflammation reduction.</meta-description>
+  <h1>Gum Health Supplements &amp; Periodontal Support</h1>
+  <og-title>Boost Your Gum Health with Natural Supplements</og-title>
+  <og-description>Support your gums with powerful anti-inflammatory herbs like neem, tea tree oil, and clove. Discover natural solutions for periodontal health and inflammation reduction.</og-description>
+  <keywords>gum health supplements, periodontal support, neem, tea tree oil, clove, anti-inflammatory herbs, oral health</keywords>
+  <canonical-url>https://rogueherbalist.com/category/oral-health/gum-health/</canonical-url>
+  <schema-type>CollectionPage</schema-type>
+</seo>
+  </taxon>
+    <taxon slug="tooth-enamel" type="subcategory">
+    <title>Tooth Enamel &amp; Cavity Prevention</title>
+    <description>Strengthen enamel with calcium and fluoride for cavity prevention.</description>
+
+    <ingredients>
+      <common>
+        <item>Calcium</item>
+        <item>Fluoride</item>
+        <item>Green tea (Camellia sinensis)</item>
+      </common>
+      <other>
+        <item>Horsetail (Equisetum arvense)</item>
+      </other>
+    </ingredients>
+  <seo>
+  <focus-keyword>tooth enamel strengthening supplements</focus-keyword>
+  <meta-title>Tooth Enamel Strengthening Supplements | Rogue Herbalist</meta-title>
+  <meta-description>Enhance enamel strength with calcium, fluoride, and green tea. Prevent cavities naturally with our specialized formulas.</meta-description>
+  <h1>Tooth Enamel Strengthening &amp; Cavity Prevention Supplements</h1>
+  <og-title>Strengthen Your Tooth Enamel Naturally</og-title>
+  <og-description>Boost your enamel's resilience with calcium, fluoride, and green tea. Discover our natural solutions for cavity prevention and oral health.</og-description>
+  <keywords>tooth enamel supplements, enamel strengthening, cavity prevention, calcium fluoride, green tea oral health</keywords>
+  <canonical-url>https://rogueherbalist.com/category/oral-health/tooth-enamel/</canonical-url>
+  <schema-type>CollectionPage</schema-type>
+</seo>
+  </taxon>
+    <taxon slug="oral-hygiene" type="subcategory">
+      <title>Oral Hygiene &amp; Fresh Breath</title>
+      <description>Maintain fresh breath and oral cleanliness with tea tree oil and peppermint.</description>
+      <ingredients>
+        <common>
+          <item>Tea tree oil (Melaleuca alternifolia)</item>
+          <item>Peppermint (Mentha piperita)</item>
+          <item>Clove (Syzygium aromaticum)</item>
+        </common>
+        <other>
+          <item>Cardamom (Elettaria cardamomum)</item>
+        </other>
+      </ingredients>
+    <seo>
+  <focus-keyword>natural oral hygiene products</focus-keyword>
+  <meta-title>Natural Oral Hygiene Products | Rogue Herbalist</meta-title>
+  <meta-description>Enhance oral cleanliness with tea tree oil, peppermint, and clove. Fresh breath and healthy gums naturally.</meta-description>
+  <h1>Natural Oral Hygiene Products for Fresh Breath</h1>
+  <og-title>Fresh Breath &amp; Oral Cleanliness with Natural Products</og-title>
+  <og-description>Discover the power of tea tree oil, peppermint, and clove for maintaining fresh breath and oral hygiene. Shop our natural products for a healthier smile.</og-description>
+  <keywords>oral hygiene, fresh breath, tea tree oil, peppermint, clove, natural oral care</keywords>
+  <canonical-url>https://rogueherbalist.com/category/oral-health/oral-hygiene/</canonical-url>
+  <schema-type>CollectionPage</schema-type>
+</seo>
+  </taxon>
+    </taxon>
+
+</taxonomy>

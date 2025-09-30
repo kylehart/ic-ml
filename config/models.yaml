@@ -105,6 +105,85 @@ use_cases:
     # Fallback if slug generation fails:
     # product_url_template: "https://rogueherbalist.com/shop/"
 
+  taxonomy_generation:
+    default_model: "gpt4o"  # Premium quality with tightened brevity prompt (references gpt4o alias)
+    max_tokens: 16000  # GPT-4o hard limit: 16,384 tokens output maximum
+    temperature: 0.1  # Slight creativity for improvements while maintaining consistency
+    validation_retries: 3  # Number of retry attempts if validation fails
+    include_diff_report: true  # Generate diff reports comparing before/after
+    document_format: "xml"  # Expected document format
+    preserve_structure: true  # Maintain original XML structure and hierarchy
+    chunk_size: 3  # Maximum taxons per chunk (including subcategories) - stays under 16K output limit
+    # GPT-4o: $2.50/1M input + $10.00/1M output tokens (~$0.56 for full taxonomy)
+    # With tightened brevity prompt: produces excellent concise content
+
+  seo_generation:
+    default_model: "gpt4o"  # Premium quality for SEO metadata
+    max_tokens: 2000  # Small - only generating <seo> block (~15 lines)
+    temperature: 0.1  # Consistent SEO generation
+    validation_retries: 3  # Number of retry attempts if validation fails
+    validate_urls: true  # Check canonical URLs actually work (HTTP HEAD request)
+
+    # SEO field specifications
+    fields:
+      focus-keyword:
+        required: true
+        max_chars: 40
+        description: "2-4 word keyword phrase, more specific for subcategories"
+
+      meta-title:
+        required: true
+        max_chars: 60
+        suffix: " | Rogue Herbalist"
+        description: "Page title for search results, includes brand"
+
+      meta-description:
+        required: true
+        max_chars: 160
+        description: "Search result description, benefit-driven, mentions 2-3 ingredients"
+
+      h1:
+        required: true
+        max_chars: 70
+        description: "Main page heading, include focus keyword"
+
+      og-title:
+        required: true
+        max_chars: 90
+        description: "Social sharing title, more engaging than meta-title"
+
+      og-description:
+        required: true
+        max_chars: 300
+        description: "Social sharing description, conversational"
+
+      keywords:
+        required: true
+        max_chars: 120
+        description: "5-10 comma-separated keywords"
+
+      canonical-url:
+        required: true
+        description: "Full canonical URL for the page"
+
+      schema-type:
+        required: true
+        default: "CollectionPage"
+        description: "Schema.org type"
+
+    # URL templates for different element types
+    url_templates:
+      primary: "https://rogueherbalist.com/category/{slug}/"
+      subcategory: "https://rogueherbalist.com/category/{parent_slug}/{slug}/"
+      product: "https://rogueherbalist.com/product/{slug}/"
+      default: "https://rogueherbalist.com/{slug}/"
+
+    # Element-specific XPath for finding elements to enhance
+    element_xpath: ".//taxon"  # For taxonomies; change to ".//product" for product catalogs
+
+    # GPT-4o: $2.50/1M input + $10.00/1M output tokens
+    # ~87 calls for full taxonomy: 87 × (800 input + 200 output) = ~$0.26
+
 # Client-aware cost tracking configuration
 client_tracking:
   client: "get-better-care"

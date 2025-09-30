@@ -126,14 +126,19 @@ class ClassificationAnalyzer:
         for product_id, count in sorted(multi_assigned.items(), key=lambda x: x[1], reverse=True)[:10]:
             # Get the actual assignments for this product
             product_assignments = []
+            product_slug = None
             for classification in classifications:
                 if str(classification.get('product_id', '')).strip() == product_id:
                     category = classification.get('category_slug', '')
                     subcategory = classification.get('sub_category_slug', '')
                     product_assignments.append(f"{category}/{subcategory}" if subcategory else category)
+                    # Get slug from first matching classification
+                    if not product_slug and classification.get('slug'):
+                        product_slug = classification.get('slug')
 
             multi_assigned_examples.append({
                 "product_id": product_id,
+                "product_slug": product_slug,
                 "assignment_count": count,
                 "assignments": product_assignments
             })
@@ -457,7 +462,13 @@ class ClassificationAnalyzer:
 
             for example in histogram['multi_assignment_examples'][:5]:  # Show top 5
                 assignments_str = ", ".join(example['assignments'])
-                report_lines.append(f"- **Product {example['product_id']}:** {assignments_str}")
+                # Use product slug if available, otherwise use ID
+                product_ref = example.get('product_slug') or example['product_id']
+                if example.get('product_slug'):
+                    product_link = f"[{product_ref}](https://rogueherbalist.com/product/{product_ref}/)"
+                    report_lines.append(f"- **{product_link}** (ID: {example['product_id']}): {assignments_str}")
+                else:
+                    report_lines.append(f"- **Product {example['product_id']}:** {assignments_str}")
 
             report_lines.extend(["", ""])
 

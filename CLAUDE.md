@@ -116,7 +116,13 @@ ls runs/*/outputs/client_cost_breakdown.json
 2. Compare models for cost optimization
 3. Use reanalysis tools for iterative development
 4. Check `runs/*/outputs/health_quiz_report.html` for styled reports with clickable links
-5. Verify product URLs are working: all generated URLs tested successful
+
+### Updating Product Catalog
+When updating the product catalog from WooCommerce:
+1. Export products from WooCommerce admin (Products > All Products > Export)
+2. WooCommerce export includes all necessary fields including product slugs
+3. Run `python3 transform_catalog.py` to clean newlines and format for use
+4. The catalog now includes real WooCommerce slugs (no generation needed)
 
 ## Configuration (CURRENT)
 
@@ -140,11 +146,11 @@ health_quiz:
 ### Health Quiz
 - ✅ Real user persona processing (Sarah Chen tested)
 - ✅ LLM-powered health recommendations (3-5 evidence-based points)
-- ✅ Product catalog integration (787 products, 5 recommendations)
-- ✅ WordPress/WooCommerce URL generation
+- ✅ Product catalog integration (799 products from WooCommerce, 5 recommendations)
+- ✅ WordPress/WooCommerce URLs using real slugs from WooCommerce
 - ✅ Safety features (consultation recommendations for severity ≥7)
 - ✅ Cost tracking ($0.0003 per interaction)
-- ✅ Markdown report generation
+- ✅ Markdown and HTML report generation
 
 ### Product Classification
 - ✅ Batch processing (20x speed improvement)

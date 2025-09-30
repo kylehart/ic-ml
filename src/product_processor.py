@@ -15,6 +15,7 @@ class Product:
     title: str
     description: str
     ingredients: List[str]
+    slug: Optional[str] = None
 
     @classmethod
     def from_csv_row(cls, row: dict) -> 'Product':
@@ -44,7 +45,8 @@ class Product:
                 id=clean_row['ID'],
                 title=clean_row['Name'],
                 description=description.strip(),
-                ingredients=[]  # No explicit ingredients in this format
+                ingredients=[],  # No explicit ingredients in this format
+                slug=clean_row.get('Slug', '').strip()  # Get slug from WooCommerce export
             )
 
         else:

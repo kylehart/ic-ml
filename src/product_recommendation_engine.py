@@ -36,34 +36,6 @@ class ProductCatalogItem:
     benefits: List[str] = field(default_factory=list)
     slug: str = ""
 
-    def generate_slug(self) -> str:
-        """Generate a URL slug from the product title using observed patterns."""
-        import re
-
-        # Start with the title
-        slug = self.title.lower()
-
-        # Remove common brand prefixes if present
-        brand_prefixes = ['somush ', 'rogue herbalist ', 'rh ']
-        for prefix in brand_prefixes:
-            if slug.startswith(prefix):
-                slug = slug[len(prefix):]
-                break
-
-        # Remove quotes and special characters
-        slug = re.sub(r'[\'\"]+', '', slug)  # Remove quotes
-        slug = re.sub(r'[^\w\s-]', '', slug)  # Remove special chars except spaces and hyphens
-
-        # Replace spaces with hyphens
-        slug = re.sub(r'\s+', '-', slug)
-
-        # Remove multiple consecutive hyphens
-        slug = re.sub(r'-+', '-', slug)
-
-        # Remove leading/trailing hyphens
-        slug = slug.strip('-')
-
-        return slug
 
     @classmethod
     def from_csv_row(cls, row: Dict[str, str]) -> 'ProductCatalogItem':
@@ -390,8 +362,10 @@ class ProductRecommendationEngine:
 
         # Handle different URL template formats
         if '{product_slug}' in url_template:
-            # Use pre-generated slug from CSV, fall back to generated slug if empty
-            slug = product.slug if product.slug else product.generate_slug()
+            # Use slug from WooCommerce export (stored in CSV)
+            slug = product.slug
+            if not slug:
+                raise ValueError(f"Product {product.id} ({product.title}) has no slug. Ensure WooCommerce export includes slug field.")
             return url_template.format(product_slug=slug)
         elif '{product_name}' in url_template:
             return url_template.format(product_name=product.title)

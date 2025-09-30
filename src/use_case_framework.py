@@ -18,6 +18,7 @@ class ProcessingMode(Enum):
     """Processing modes for different use case patterns."""
     REALTIME = "realtime"  # Individual requests (Health Quiz)
     BATCH = "batch"        # Bulk processing (Product Classification)
+    DOCUMENT_GENERATION = "document_generation"  # Document refinement (Taxonomy, Quiz, Protocol generation)
 
 
 @dataclass
@@ -161,6 +162,100 @@ class RealtimeUseCase(UseCase):
     def process_request(self, input_data: Dict[str, Any]) -> UseCaseResult:
         """Process a single request in real-time."""
         pass
+
+
+class DocumentGenerationUseCase(UseCase):
+    """Base class for document generation/refinement use cases."""
+
+    def get_processing_mode(self) -> ProcessingMode:
+        return ProcessingMode.DOCUMENT_GENERATION
+
+    @abstractmethod
+    def load_source_document(self, path: Path) -> Dict[str, Any]:
+        """Load and parse source document."""
+        pass
+
+    @abstractmethod
+    def validate_generated_document(self, content: str) -> tuple[bool, str]:
+        """
+        Validate the generated document structure/format.
+
+        Returns:
+            (is_valid, error_message)
+        """
+        pass
+
+    @abstractmethod
+    def format_generation_prompt(self, source_doc: Dict[str, Any], instructions: str) -> str:
+        """Create the LLM prompt for document generation."""
+        pass
+
+    @abstractmethod
+    def save_generated_document(self, content: str, output_path: Path):
+        """Save the generated document in proper format."""
+        pass
+
+    def process_request(self, input_data: Dict[str, Any]) -> UseCaseResult:
+        """Process a document generation request."""
+        start_time = datetime.now()
+
+        try:
+            # Extract input parameters
+            source_path = Path(input_data.get("source_document_path"))
+            instructions = input_data.get("instructions", "")
+            output_path = Path(input_data.get("output_path", "generated_document.xml"))
+
+            # Load source document
+            source_doc = self.load_source_document(source_path)
+
+            # Format prompt
+            prompt = self.format_generation_prompt(source_doc, instructions)
+
+            # Generate document via LLM
+            messages = [{"role": "user", "content": prompt}]
+            response = self.llm_client.complete_sync(messages)
+
+            # Clean response (remove markdown code blocks)
+            cleaned_response = response.strip()
+            if cleaned_response.startswith('```'):
+                lines = cleaned_response.split('\n')
+                cleaned_response = '\n'.join(lines[1:-1]) if len(lines) > 2 else cleaned_response
+
+            # Validate generated document
+            is_valid, error_msg = self.validate_generated_document(cleaned_response)
+            if not is_valid:
+                return self.create_result(
+                    success=False,
+                    data={"generated_content": cleaned_response},
+                    metadata={"error": f"Validation failed: {error_msg}"},
+                    processing_time=(datetime.now() - start_time).total_seconds()
+                )
+
+            # Save generated document
+            self.save_generated_document(cleaned_response, output_path)
+
+            # Return success result
+            return self.create_result(
+                success=True,
+                data={
+                    "generated_content": cleaned_response,
+                    "output_path": str(output_path),
+                    "source_path": str(source_path)
+                },
+                metadata={
+                    "instructions": instructions,
+                    "validation_passed": True
+                },
+                processing_time=(datetime.now() - start_time).total_seconds()
+            )
+
+        except Exception as e:
+            return self.create_result(
+                success=False,
+                data={},
+                metadata={"error": str(e), "error_type": type(e).__name__},
+                processing_time=(datetime.now() - start_time).total_seconds()
+            )
 
 
 class UseCaseRegistry:

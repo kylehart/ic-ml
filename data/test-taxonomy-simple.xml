@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<taxonomy version="1.0" namespace="test">
+    <!-- Simple test taxonomy -->
+    <taxon slug="immune-support" type="primary" hierarchical="true">
+        <title>Immune Support</title>
+        <sub-title>Natural Defenses</sub-title>
+        <description>Products that support healthy immune system function</description>
+
+        <meta>
+            <chebi-roles>immunomodulator,antioxidant</chebi-roles>
+        </meta>
+
+        <taxon slug="daily-immune" type="subcategory">
+            <title>Daily Immune Maintenance</title>
+            <description>Foundational immune support for everyday wellness</description>
+        </taxon>
+    </taxon>
+
+    <taxon slug="digestive-health" type="primary" hierarchical="true">
+        <title>Digestive Health</title>
+        <sub-title>Gut Wellness</sub-title>
+        <description>Products supporting healthy digestion</description>
+
+        <meta>
+            <chebi-roles>digestive_aid</chebi-roles>
+        </meta>
+
+        <taxon slug="general-digestive" type="subcategory">
+            <title>General Digestive Support</title>
+            <description>Broad-spectrum digestive aids</description>
+        </taxon>
+    </taxon>
+</taxonomy>

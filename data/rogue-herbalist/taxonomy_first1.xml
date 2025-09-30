@@ -1,0 +1,34 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<taxonomy version="1.0" namespace="rogue-herbalist">
+    <taxon slug="immune-support" type="primary" hierarchical="true">
+        <title>Immune Support &amp; Infection Resistance</title>
+        <sub-title>Natural Defenses &amp; Seasonal Wellness</sub-title>
+        <description>Products that support healthy immune system function and resistance to infections</description>
+        <meta>
+            <chebi-roles>immunomodulator,antioxidant,antimicrobial</chebi-roles>
+            <npclassifier>beta-glucans,phenolic_compounds,polysaccharides</npclassifier>
+            <chpa-category>immune_support</chpa-category>
+            <fda-claim>Supports immune system function</fda-claim>
+        </meta>
+        <taxon slug="daily-immune" type="subcategory">
+            <title>Daily Immune Maintenance</title>
+            <description>Foundational immune support for everyday wellness. Products designed for consistent, long-term use to maintain healthy immune system function, build resilience, and support the body's natural defense mechanisms throughout the year.</description>
+        </taxon>
+        <taxon slug="seasonal-support" type="subcategory">
+            <title>Seasonal &amp; Cold/Flu Support</title>
+            <description>Targeted support during cold and flu season or at the first sign of illness. Fast-acting formulations to boost immune response, reduce symptom duration, and help the body fight off seasonal challenges and upper respiratory infections.</description>
+        </taxon>
+        <taxon slug="antiviral-herbs" type="subcategory">
+            <title>Antiviral &amp; Antibacterial Herbs</title>
+            <description>Potent antimicrobial botanicals with documented antiviral and antibacterial properties. Natural alternatives to support the body's ability to resist and fight various pathogens, including viruses, bacteria, and other microorganisms.</description>
+        </taxon>
+        <taxon slug="mushroom-immune" type="subcategory">
+            <title>Mushroom Immune Complexes</title>
+            <description>Medicinal mushroom formulations rich in beta-glucans and immunomodulating compounds. Includes reishi, turkey tail, shiitake, and other fungi known for deep immune support, cancer prevention, and overall vitality enhancement.</description>
+        </taxon>
+        <taxon slug="childrens-immune" type="subcategory">
+            <title>Children's Immune Support</title>
+            <description>Gentle, kid-friendly immune support formulations with age-appropriate dosing. Tasty syrups, gummies, and chewables designed to support developing immune systems, reduce sick days, and keep children healthy during school and play.</description>
+        </taxon>
+    </taxon>
+</taxonomy>

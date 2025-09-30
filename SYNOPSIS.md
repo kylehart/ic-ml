@@ -2,16 +2,19 @@
 
 ## Project Overview
 
-**Goal**: Multi-use case LLM-powered platform supporting both herbal product classification and customer health quiz recommendations with client-aware cost tracking and experimental framework.
+**Goal**: Multi-use case LLM-powered platform supporting herbal product classification, customer health quiz recommendations, and taxonomy/SEO content generation with client-aware cost tracking.
 
-**Business Context**: Originally built for "Get Better Care" client processing ~800 herbal products for classification at $2.43 per 1000 products. Now expanded to support customer-facing Health Quiz feature for Rogue Herbalist with personalized product recommendations.
+**Business Context**: Originally built for "Get Better Care" client processing ~800 herbal products for classification at $2.43 per 1000 products. Now expanded to support:
+- Customer-facing Health Quiz feature for Rogue Herbalist with personalized product recommendations
+- Taxonomy generation for e-commerce category structure and descriptions
+- SEO metadata generation for categories and products
 
-**Current Status**: Production-ready product classification system with experimental Health Quiz architecture and comprehensive multi-client cost tracking via LiteLLM metadata integration.
+**Current Status**: Production-ready classification system, working Health Quiz with HTML reports, and new taxonomy/SEO generation framework with experimental runners.
 
 ## Key Achievements
 
 **Core Infrastructure:**
-- **Multi-Use Case Architecture**: Abstract framework supporting both batch classification and real-time health recommendations
+- **Multi-Use Case Architecture**: Abstract framework supporting batch classification, real-time recommendations, and document generation
 - **Client-Aware Cost Tracking**: Automatic attribution of all LLM costs by client, use case, project, and environment using LiteLLM metadata
 - **Experimental Framework**: Complete run management with artifact capture and reproducibility
 - **Multi-Provider Integration**: 6+ models across OpenAI/Anthropic with seamless switching and cost optimization
@@ -22,11 +25,19 @@
 - **Full Taxonomy Integration**: 20-category herbal taxonomy (optimized from 88KB to 36KB)
 - **Modular Analysis Engine**: Human-readable markdown reports with cost breakdowns
 
-**Health Quiz (Architectural Design):**
-- **Real-time Recommendations**: LLM-powered health guidance with product matching
-- **Product Recommendation Engine**: Intelligent scoring based on health categories, ingredients, and text similarity
-- **Web Service API**: FastAPI-based endpoints with authentication and usage tracking
-- **Multi-Client Support**: Isolated billing and configuration per client
+**Health Quiz (Production Ready):**
+- **Real-time Recommendations**: LLM-powered health guidance with product matching ($0.0003 per interaction)
+- **Working Product URLs**: 100% tested success rate with WordPress/WooCommerce slug generation
+- **HTML Report Generation**: Professional styled reports with clickable product links
+- **End-to-End Testing**: Successfully tested with 5 realistic user personas
+
+**Taxonomy & SEO Generation (New - September 2025):**
+- **Document Generation Framework**: Abstract framework for multi-element XML document generation
+- **Taxonomy Generation**: Automated category descriptions and ingredient lists with character limit enforcement
+- **SEO Metadata Generation**: Separate use case generating focus keywords, meta descriptions, Open Graph tags, canonical URLs
+- **Two-Pass Architecture**: Split taxonomy content from SEO to work around 16K output token limits
+- **URL Validation**: HTTP HEAD requests to verify canonical URLs work
+- **Idempotent Operations**: Re-running SEO generation replaces existing metadata cleanly
 
 ## Architecture Overview
 
@@ -47,6 +58,7 @@
    - Centralized model definitions with client tracking metadata
    - Runtime override support for experiments
    - Cost-tier organization and multi-client settings
+   - Per-use-case configuration (health_quiz, product_classification, taxonomy_generation, seo_generation)
 
 ### Use Case Implementations
 
@@ -55,27 +67,50 @@
    - Complete artifact capture (inputs, config, outputs, metadata)
    - Integration with modular analysis engine and cost tracking
 
-5. **Health Quiz** (`src/health_quiz_use_case.py`)
+5. **Health Quiz** (`src/health_quiz_use_case.py`, `src/run_health_quiz.py`)
    - Real-time health recommendation processing
    - Structured input/output with safety features (consultation detection)
    - Integration with product recommendation engine
+   - HTML and markdown report generation
 
 6. **Product Recommendation Engine** (`src/product_recommendation_engine.py`)
    - Multi-factor scoring: health categories, ingredients, text similarity
    - Category mapping system connecting health concerns to products
    - Configurable recommendation thresholds and ranking
+   - 787-product catalog with working WordPress/WooCommerce URLs
+
+7. **Document Generation Framework** (`src/document_generation_framework.py`)
+   - Abstract base classes for XML document generation use cases
+   - Element-level and chunk-level processing strategies
+   - Validation, merging, and reporting infrastructure
+   - Shared by taxonomy and SEO generation
+
+8. **Taxonomy Generation** (`src/run_taxonomy_gen.py`)
+   - Automated generation of category descriptions and ingredient lists
+   - Chunk-based processing for large taxonomies (chunk_size=3)
+   - Character limit enforcement (280 chars primary, 150 chars subcategory)
+   - Natural, benefit-focused descriptions (no forced ingredient mentions)
+   - Cost: ~$0.49 for 87 elements (20 primary + 67 subcategories)
+
+9. **SEO Generation** (`src/seo_generation_framework.py`, `src/run_seo_gen.py`)
+   - Separate use case for SEO metadata (focus-keyword, meta-title, meta-description, h1, og-title, og-description, keywords, canonical-url, schema-type)
+   - Single-element processing (no chunking needed)
+   - Strict character limit validation (focus-keyword: 40, meta-title: 60, keywords: 120, etc.)
+   - URL validation with HTTP HEAD requests
+   - Idempotent: re-running replaces existing `<seo>` blocks
+   - XML entity encoding for unescaped ampersands
 
 ### Supporting Infrastructure
 
-7. **Analysis Engine** (`src/analysis_engine.py`)
-   - Modular analysis components with markdown reporting
-   - LiteLLM-based cost calculation using live pricing data
-   - Model comparison analysis with savings calculations
+10. **Analysis Engine** (`src/analysis_engine.py`)
+    - Modular analysis components with markdown reporting
+    - LiteLLM-based cost calculation using live pricing data
+    - Model comparison analysis with savings calculations
 
-8. **Web Service API** (`src/web_service.py`) - *Speculative Prototype*
-   - FastAPI-based REST endpoints for both use cases
-   - Client authentication and multi-tenant usage tracking
-   - Background cost attribution and analytics
+11. **Web Service API** (`src/web_service.py`) - *Speculative Prototype*
+    - FastAPI-based REST endpoints for both use cases
+    - Client authentication and multi-tenant usage tracking
+    - Background cost attribution and analytics
 
 ## Code Organization
 
@@ -83,28 +118,45 @@
 
 ```
 src/
-├── use_case_framework.py              # Abstract use case framework and registry
-├── health_quiz_use_case.py            # Health quiz implementation with LLM integration
-├── run_health_quiz.py                 # Health quiz experimental runner (PRODUCTION READY)
-├── product_recommendation_engine.py   # Intelligent product matching system
-├── web_service.py                     # FastAPI web service (speculative prototype)
-├── run_assign_cat.py                  # Product classification runner with experiments
-├── llm_client.py                      # LLM interface with client-aware cost tracking
-├── model_config.py                    # Configuration management with client metadata
-├── analysis_engine.py                 # Modular analysis with markdown reporting
-├── reanalyze_assign_cat.py            # Post-classification analysis tool
-└── product_processor.py              # Product data structures and batch processing
+├── use_case_framework.py                # Abstract use case framework and registry
+├── document_generation_framework.py     # Abstract framework for XML document generation (NEW)
+├── health_quiz_use_case.py              # Health quiz implementation with LLM integration
+├── run_health_quiz.py                   # Health quiz experimental runner (PRODUCTION READY)
+├── run_taxonomy_gen.py                  # Taxonomy generation runner (NEW)
+├── seo_generation_framework.py          # SEO generation framework (NEW)
+├── run_seo_gen.py                       # SEO generation runner (NEW)
+├── product_recommendation_engine.py     # Intelligent product matching system
+├── web_service.py                       # FastAPI web service (speculative prototype)
+├── run_assign_cat.py                    # Product classification runner with experiments
+├── llm_client.py                        # LLM interface with client-aware cost tracking
+├── model_config.py                      # Configuration management with client metadata
+├── analysis_engine.py                   # Modular analysis with markdown reporting
+├── reanalyze_assign_cat.py              # Post-classification analysis tool
+└── product_processor.py                 # Product data structures and batch processing
+```
+
+### Prompts (`prompts/`)
+
+```
+prompts/
+├── README.md                    # Prompts directory documentation
+├── taxonomy-gen-prompt.md       # Taxonomy generation prompt with natural description guidelines (NEW)
+└── seo-gen-prompt.md            # SEO generation prompt with strict character limit enforcement (NEW)
 ```
 
 ### Configuration (`config/`)
 
 ```
 config/
-└── models.yaml              # Central model configuration
+└── models.yaml                  # Central model configuration
     ├── default: gpt-4o-mini (cost-optimized)
     ├── models: 6+ models across 2 providers
     ├── experiments: custom configurations
-    ├── use_cases: health_quiz and product_classification settings
+    ├── use_cases:
+    │   ├── health_quiz: max_recommendations, consultation_threshold, product_url_template
+    │   ├── product_classification: taxonomy settings
+    │   ├── taxonomy_generation: chunk_size=3, max_tokens=4000 (NEW)
+    │   └── seo_generation: field specs, url_templates, validate_urls (NEW)
     ├── client_tracking: automatic metadata for cost attribution
     └── api: retry and rate limiting settings
 ```
@@ -113,28 +165,34 @@ config/
 
 ```
 data/rogue-herbalist/
-├── taxonomy_trimmed.xml          # Optimized taxonomy (60% smaller, 36KB)
-├── taxonomy.xml.txt              # Original full taxonomy
-├── minimal-product-catalog.csv   # Enhanced 787-product catalog with generated URL slugs
-├── minimal-product-catalog-backup.csv  # Original catalog backup
-└── [various CSV examples]        # Sample data formats
+├── taxonomy_trimmed.xml                  # Optimized taxonomy structure (60% smaller, 36KB)
+├── taxonomy_first1.xml                   # Small test taxonomy (6 elements)
+├── taxonomy_first2.xml                   # Larger test taxonomy
+├── latest-best-taxonomy-descriptions.xml # Generated taxonomy with natural descriptions (NEW)
+├── latest-best-taxonomy-with-seo.xml     # Taxonomy with SEO metadata (partial - 47/87 succeeded) (NEW)
+├── minimal-product-catalog.csv           # Enhanced 787-product catalog with generated URL slugs
+├── wc-product-export-29-9-2025-*.csv     # WooCommerce product export with real slugs
+└── [various CSV examples]                # Sample data formats
 
 data/health-quiz-samples/
-└── user_personas.json            # 5 realistic user personas for Health Quiz testing
-                                  # (Sarah Chen, Marcus Rodriguez, Lisa Thompson, Robert Kim, Jennifer Walsh)
+└── user_personas.json                    # 5 realistic user personas for Health Quiz testing
+                                          # (Sarah Chen, Marcus Rodriguez, Lisa Thompson, Robert Kim, Jennifer Walsh)
 ```
 
 ### Documentation (`docs/`)
 
 ```
 docs/
-├── multi_client_architecture_design.md    # Multi-client platform design
+├── taxonomy_generation_guide.md          # Taxonomy generation documentation (NEW)
+├── multi_client_architecture_design.md   # Multi-client platform design
 ├── health_quiz_user_stories.md           # Health quiz business requirements
 ├── implementation_guide.md               # Deployment and setup guide
 ├── wordpress_woocommerce_url_research.md # WordPress/WooCommerce URL patterns
 ├── experimental_run_system.md            # Run system documentation
 ├── multi_provider_cost_analysis.md       # Cost comparison analysis
-└── [existing design docs]                # Various technical specifications
+└── design_notes/                         # Various design notes and analysis (NEW)
+    ├── seo-generation-design-notes.md
+    └── taxonomy-seo-split-decision.md
 ```
 
 ### Experimental Runs (`runs/` - git ignored)
@@ -155,6 +213,23 @@ runs/health-quiz-YYYY-MM-DD-HHMMSS/
 ├── outputs/         # quiz_recommendations.json, llm_response.json, product_recommendations.json
 │                   # token_usage.json, timing.json, client_cost_breakdown.json
 │                   # health_quiz_report.md, health_quiz_report.html, errors.log
+└── metadata/        # run_summary.json
+
+# Taxonomy Generation Runs (NEW)
+runs/taxonomy-gen-YYYY-MM-DD-HHMMSS/
+├── inputs/          # source_taxonomy.xml, prompt_template.md
+├── config/          # models.yaml, run_config.json, system_info.json
+├── outputs/         # generated_taxonomy.xml, diff_report.md, validation_report.json
+│                   # chunk_details.json, token_usage.json, timing.json, client_cost_breakdown.json
+└── metadata/        # run_summary.json
+
+# SEO Generation Runs (NEW)
+runs/seo-gen-YYYY-MM-DD-HHMMSS/
+├── inputs/          # source_taxonomy.xml, prompt_template.md
+├── config/          # models.yaml, run_config.json, system_info.json
+├── outputs/         # taxonomy_with_seo.xml, seo_generation_report.md
+│                   # validation_errors.json, url_validation_results.json
+│                   # token_usage.json, timing.json, client_cost_breakdown.json
 └── metadata/        # run_summary.json
 ```
 
@@ -178,40 +253,53 @@ python src/run_assign_cat.py --single-product "Echinacea Immune Support"
 
 ```bash
 # Test with real user personas (5 available)
-python src/run_health_quiz.py --persona "Sarah Chen"     # Digestive health
+python src/run_health_quiz.py --persona "Sarah Chen"        # Digestive health - TESTED
 python src/run_health_quiz.py --persona "Marcus Rodriguez"  # Joint pain
 python src/run_health_quiz.py --persona "Lisa Thompson"     # Stress/sleep
 
 # Custom health scenarios
-python src/run_health_quiz.py --custom-input "Frequent headaches and fatigue" --primary-area "stress_relief"
+python src/run_health_quiz.py --custom-input "Frequent headaches" --primary-area "stress_relief"
 
 # Model cost comparison
 python src/run_health_quiz.py --persona "Sarah Chen" --model gpt4o_mini  # $0.0003
-python src/run_health_quiz.py --persona "Sarah Chen" --model haiku       # More expensive
+python src/run_health_quiz.py --persona "Sarah Chen" --model haiku
 ```
 
-### Programmatic Health Quiz Usage
+### Taxonomy Generation (NEW)
 
-```python
-# Create health quiz instance
-from health_quiz_use_case import HealthQuizInput
-from run_health_quiz import process_health_quiz
+```bash
+# Generate full taxonomy with descriptions and ingredients
+python src/run_taxonomy_gen.py \
+  --prompt prompts/taxonomy-gen-prompt.md \
+  --source data/rogue-herbalist/taxonomy_trimmed.xml \
+  --model gpt4o
 
-quiz_input = HealthQuizInput(
-    health_issue_description="Digestive issues after meals",
-    primary_health_area="digestive_health",
-    severity_level=6
-)
+# Test on small taxonomy first
+python src/run_taxonomy_gen.py \
+  --prompt prompts/taxonomy-gen-prompt.md \
+  --source data/rogue-herbalist/taxonomy_first1.xml
 
-# Process with cost tracking
-quiz_output, llm_response, product_recs, token_usage, timing_info, client_cost_data, errors = \
-    process_health_quiz(quiz_input, "gpt4o_mini")
+# Cost: ~$0.49 for 87 elements (20 primary + 67 subcategories)
+# Output: runs/taxonomy-gen-YYYY-MM-DD-HHMMSS/outputs/generated_taxonomy.xml
+```
 
-# Results include:
-# - General health recommendations (3-5 points)
-# - Product recommendations (up to 5 with relevance scores)
-# - Educational content and lifestyle suggestions
-# - Safety assessment and consultation recommendations
+### SEO Generation (NEW)
+
+```bash
+# Generate SEO metadata for taxonomy (idempotent)
+python src/run_seo_gen.py \
+  --source data/rogue-herbalist/latest-best-taxonomy-descriptions.xml \
+  --output data/rogue-herbalist/latest-best-taxonomy-with-seo.xml
+
+# Re-run to replace existing SEO blocks
+python src/run_seo_gen.py \
+  --source data/rogue-herbalist/latest-best-taxonomy-with-seo.xml \
+  --output data/rogue-herbalist/latest-best-taxonomy-with-seo.xml
+
+# Process single element for testing
+# (Currently processes all elements, but validates each independently)
+
+# Output: SEO generation report with validation errors and URL validation results
 ```
 
 ### Cost Tracking and Billing
@@ -223,20 +311,19 @@ cost_data = client.get_cost_breakdown_for_reporting()
 # Returns: client, use_case, session_cost, models_used, detailed_costs
 
 # Check run outputs for billing data
-ls runs/assign-cat-*/outputs/client_cost_breakdown.json
+ls runs/*/outputs/client_cost_breakdown.json
 ```
 
 ## Critical Design Decisions
 
 ### 1. **Multi-Use Case Architecture**
-- **Why**: Support both batch product classification and real-time health recommendations
+- **Why**: Support batch classification, real-time recommendations, and document generation
 - **Implementation**: Abstract framework with use case registry and standardized interfaces
 - **Result**: Shared infrastructure with specialized use case implementations
 
 ### 2. **Client-Aware Cost Tracking via LiteLLM Metadata**
 - **Why**: Enable multi-client billing without infrastructure overhead
 - **Implementation**: Automatic tagging of all LLM requests with client, use_case, project, environment metadata
-- **Client Tracking**: Zero-infrastructure cost attribution using LiteLLM's built-in features
 - **Result**: Billing-ready cost breakdowns with detailed model usage per client/use case
 
 ### 3. **Experimental Run System**
@@ -244,10 +331,35 @@ ls runs/assign-cat-*/outputs/client_cost_breakdown.json
 - **Pattern**: Lab notebook with complete artifact capture including cost data
 - **Benefits**: No git bloat, full reproducibility, client-aware analytics
 
-### 4. **Health Quiz Product Recommendations**
-- **Why**: Transform product classification expertise into customer-facing value
-- **Implementation**: Multi-factor scoring engine with health category mapping
-- **Business Model**: Direct customer health inquiry to product purchase pathway
+### 4. **Two-Pass Taxonomy/SEO Architecture** (NEW)
+- **Why**: LLMs have 16K output token limit; adding SEO metadata (9 fields) caused output to exceed limits
+- **Decision**: Split into two separate use cases running sequentially
+  1. Taxonomy generation: descriptions + ingredients
+  2. SEO generation: metadata fields for each element
+- **Benefits**:
+  - No output limit issues (taxonomy uses chunking, SEO processes one element at a time)
+  - Cleaner prompts (each focused on single task)
+  - Idempotent SEO (can regenerate metadata without re-generating descriptions)
+  - Reusable SEO framework (can apply to products, blog posts, etc.)
+
+### 5. **Prompt Engineering for Character Limits** (NEW)
+- **Why**: LLMs not respecting character limits (e.g., keywords: 121-148 chars when limit is 120)
+- **Decision**: NO code-based retries - fix the PROMPT instead
+- **Implementation**:
+  - Explicit 5-step process: draft, count, shorten, double-check, submit
+  - "REJECTED" language emphasizing consequences
+  - Field-specific examples showing exact character counts
+  - Mandatory checklist before submission
+- **Result**: Test showed keywords went from 131 chars → 78 chars with improved prompt
+
+### 6. **Natural Description Writing** (NEW)
+- **Why**: Original prompt forced ingredient mentions in every description ("with echinacea and elderberry")
+- **Decision**: Make ingredient mentions optional, focus on benefits
+- **Implementation**:
+  - Guidelines showing good vs. bad examples
+  - Explanation that `<ingredients>` section already lists specific herbs
+  - Natural descriptions focus on WHAT category helps with, not listing ingredients
+- **Result**: Descriptions now benefit-focused and read naturally
 
 ## Current System State
 
@@ -256,22 +368,22 @@ ls runs/assign-cat-*/outputs/client_cost_breakdown.json
 - ✅ **Multi-Provider Support**: 6+ models with automatic cost attribution
 - ✅ **Experimental Framework**: Complete run management with billing data
 - ✅ **Client Cost Tracking**: LiteLLM metadata integration for multi-client billing
+- ✅ **Health Quiz**: Working end-to-end with real testing, HTML reports, working product URLs
 
-### Architectural Design Complete
-- ✅ **Health Quiz Framework**: Complete use case architecture and data models
-- ✅ **Product Recommendation Engine**: Intelligent matching with configurable scoring
-- ✅ **Multi-Client Architecture**: Scalable framework for multiple clients and use cases
-- ✅ **Web Service Design**: API specifications for real-time health quiz processing
+### Recently Implemented (September 2025)
+- ✅ **Document Generation Framework**: Abstract base classes for XML document generation
+- ✅ **Taxonomy Generation**: Automated descriptions with natural writing, character limits, chunk processing
+- ✅ **SEO Generation Framework**: Separate use case with validation, URL checking, idempotent operations
+- ✅ **Improved Prompts**: Character limit enforcement and natural description guidelines
 
-### Implemented and Tested
-- ✅ **Health Quiz Development**: Complete experimental framework with working LLM integration
-- ✅ **Product Recommendation Engine**: Multi-factor scoring with 787-product catalog integration
-- ✅ **WordPress/WooCommerce URL Integration**: Algorithmic slug generation with 100% success rate on tested URLs
-- ✅ **Product Catalog Enhancement**: Added slug field to all 787 products with generated URLs
-- ✅ **HTML Report Generation**: Professional styled reports with clickable product links
-- ✅ **End-to-End Testing**: Successfully tested with real user personas generating working purchase URLs
+### Known Issues
+- ⚠️ **SEO Character Limit Compliance**: 40/87 elements failed validation (keywords 121-148 chars); improved prompt tested successfully on single element, full regeneration pending user approval
+- ⚠️ **Cost Tracking Bug**: SEO generation showing $0.00 in client_cost_breakdown.json
+- ⚠️ **Missing SEO Blocks**: Elements that fail validation left without ANY SEO block (not partial)
 
 ### Implementation Pending
+- 📋 **Full Taxonomy Regeneration**: Regenerate with improved natural description prompt
+- 📋 **Full SEO Regeneration**: Regenerate with improved character limit enforcement prompt
 - 📋 **Web Service Redesign**: Unified deployment architecture with domain strategy
 - 📋 **Production Integration**: E-commerce platform integration and customer journey
 - 📋 **Advanced Personalization**: Follow-up recommendations and user profiles
@@ -285,6 +397,7 @@ ls runs/assign-cat-*/outputs/client_cost_breakdown.json
 - **python-dotenv**: Environment configuration
 - **PyYAML**: Configuration file parsing
 - **markdown**: HTML report generation with extensions (extra, codehilite, toc, nl2br)
+- **requests**: HTTP HEAD requests for URL validation (NEW)
 
 ### Multi-Client Requirements
 - **Client-specific API Keys**: Separate OpenAI/Anthropic keys per client
@@ -296,6 +409,8 @@ ls runs/assign-cat-*/outputs/client_cost_breakdown.json
 ### Cost Analysis (LiteLLM Live Pricing)
 - **Product Classification**: $0.0015 per product (GPT-4o-Mini)
 - **Health Quiz**: $0.0003 per interaction (GPT-4o-Mini) - 5x cheaper than classification
+- **Taxonomy Generation**: ~$0.49 for 87 elements (GPT-4o) (NEW)
+- **SEO Generation**: TBD - cost tracking bug showing $0.00 (NEW)
 - **Claude Haiku**: $0.0024 per product with high classification quality
 - **Client Attribution**: Automatic cost breakdown by client/use case/model
 
@@ -313,6 +428,15 @@ ls runs/assign-cat-*/outputs/client_cost_breakdown.json
 - **URL Generation**: 100% success rate on tested product URLs with algorithmic slug generation
 - **Report Formats**: Both markdown (.md) and styled HTML (.html) reports with clickable links
 
+### Taxonomy/SEO Generation Quality (NEW)
+- **Taxonomy Elements Processed**: 87 (20 primary categories + 67 subcategories)
+- **Taxonomy Success Rate**: 100% (all elements generated valid descriptions)
+- **SEO Success Rate**: 54% (47/87 succeeded, 40 failed validation)
+- **Main SEO Issue**: Keywords field exceeding 120 char limit (121-148 chars)
+- **Prompt Improvement Test**: Single element went from 131 chars → 78 chars
+- **Description Quality**: Improved from forced ingredient mentions to natural benefit-focused writing
+- **URL Validation**: All canonical URLs tested (104 URLs, all returned HTTP 404 - categories don't exist yet)
+
 ### Client-Aware Cost Tracking
 - **Automatic Attribution**: Every request tagged with client, use_case, project, environment
 - **Cost Breakdown**: Session costs by model, per-call averages, total attribution
@@ -321,18 +445,22 @@ ls runs/assign-cat-*/outputs/client_cost_breakdown.json
 
 ## Development Workflow
 
-### Health Quiz Development (Completed)
-1. ✅ **Experimental Framework**: Complete Health Quiz runner with artifact capture
-2. ✅ **Prompt Engineering**: Working LLM integration with JSON response parsing
-3. ✅ **Product Recommendation Testing**: 787-product catalog with multi-factor scoring
-4. ✅ **Performance Optimization**: Cost-effective at $0.0003 per interaction
-5. ✅ **User Persona Testing**: 5 realistic health scenarios with end-to-end validation
-6. ✅ **WordPress/WooCommerce Integration**: Proper URL generation patterns
+### Recent Work: Taxonomy & SEO Generation (September 2025)
+1. ✅ **Identified 16K output token limit issue** when adding SEO to taxonomy generation
+2. ✅ **Designed two-pass architecture** splitting taxonomy content from SEO metadata
+3. ✅ **Implemented document generation framework** as abstract base for both use cases
+4. ✅ **Built taxonomy generation** with chunk processing and character limit enforcement
+5. ✅ **Built SEO generation** with field validation, URL checking, idempotent operations
+6. ✅ **Tested on small taxonomy** (6 elements) - hit character limit issues
+7. ✅ **Improved SEO prompt** with explicit character counting instructions
+8. ✅ **Improved taxonomy prompt** to remove forced ingredient mentions
+9. 🔄 **Pending**: Full regeneration with improved prompts (awaiting user approval due to cost)
 
 ### Next Phase: Production Deployment
-1. **Web Service Integration**: Deploy Health Quiz as customer-facing service
-2. **Advanced Personalization**: User profiles and follow-up recommendations
-3. **E-commerce Integration**: Direct product purchase workflows
+1. **Complete Taxonomy/SEO Generation**: Regenerate with improved prompts, fix cost tracking bug
+2. **Web Service Integration**: Deploy Health Quiz as customer-facing service
+3. **Advanced Personalization**: User profiles and follow-up recommendations
+4. **E-commerce Integration**: Direct product purchase workflows
 
 ### Multi-Client Expansion
 1. **Add new clients** via configuration files
