@@ -395,6 +395,12 @@ async def formbricks_webhook(request: Request, background_tasks: BackgroundTasks
             "lu5l0u7myjxy8b8to0zaix8m": "66+"
         }
 
+        # Reverse mappings for URL prefilling (primary area)
+        AREA_TO_CHOICE_ID = {v: k for k, v in PRIMARY_AREA_CHOICES.items()}
+
+        # Reverse mappings for URL prefilling (age range)
+        AGE_TO_CHOICE_ID = {v: k for k, v in AGE_RANGE_CHOICES.items()}
+
         # Parse answers - Formbricks format: {questionId: value}
         for question_id, value in answers.items():
             logger.info(f"Processing question: {question_id} = {value}")
@@ -530,13 +536,23 @@ async def process_health_quiz_webhook(email: str, health_issue: str,
         quiz_output, llm_response, product_recs, token_usage, timing_info, client_cost_data, errors = \
             process_health_quiz(quiz_input, model_override=None)
 
-        # Generate HTML report
+        # Generate HTML report with revision URL
+        user_data = {
+            "email": email,
+            "health_issue": health_issue,
+            "primary_area": primary_area,
+            "severity": severity,
+            "tried_already": tried_already,
+            "age_range": age_range,
+            "lifestyle": lifestyle
+        }
         html_report = generate_html_report_from_results(
             quiz_output=quiz_output,
             product_recommendations=product_recs,
             timing_info=timing_info,
             email=email,
-            token=token
+            token=token,
+            user_data=user_data
         )
 
         # Store results
@@ -1047,12 +1063,91 @@ async def lookup_results_by_token(token: str):
         )
 
 
+def generate_prefilled_form_url(email: str, health_issue: str,
+                               primary_area: Optional[str], severity: int,
+                               tried_already: Optional[str], age_range: Optional[str],
+                               lifestyle: Optional[str]) -> str:
+    """
+    Generate Formbricks form URL with all user answers prefilled for revision.
+
+    This creates a stateless revision link - all user data is in the URL itself.
+    Works in emails, saved HTML files, weeks/months later - no server memory required.
+
+    Formbricks form URL: https://app.formbricks.com/s/cmf5homcz0p1kww010hzezjjp
+    """
+    from urllib.parse import urlencode, quote
+
+    # Formbricks question IDs
+    EMAIL_QUESTION_ID = "d9klpkum9vi8x9vkunhu63fn"
+    HEALTH_ISSUE_QUESTION_ID = "dc185mu0h2xzutpzfgq8eyjy"
+    PRIMARY_AREA_QUESTION_ID = "ty1zv10pffpxh2a2bymi2wz7"
+    SEVERITY_QUESTION_ID = "iht7n48iwkoc1jc8ubnzrqi7"
+    TRIED_ALREADY_QUESTION_ID = "ud6nnuhrgf9trqwe8j3kibii"
+    AGE_RANGE_QUESTION_ID = "yru7w3e402yk8vpf1dfbw0tr"
+    LIFESTYLE_QUESTION_ID = "pr4jtzy9epmquvwdksj9tctb"
+
+    # Reverse mappings for choice IDs
+    AREA_TO_CHOICE_ID = {
+        "Digestive Health": "k7ly7nx8lvgwedl1yctb215y",
+        "Immune Support": "xugvsda3meo6onr84icgen6j",
+        "Stress & Anxiety": "qir7u9yy7eh9rqad1jvgh41e",
+        "Sleep Issues": "mn3195wdsqv6qf80tt299v2q",
+        "Joint & Muscle Pain": "jhs5ehsljo52rrd9yuxbw7td",
+        "Energy & Vitality": "zhu8gde20tnv7talgv5ruec8",
+        "Women's Health": "xlzt05zhync9v1ysegm4a80c",
+        "Men's Health": "m3jjnnug2s1iwtf1lo0l6uip",
+        "Other": "other"
+    }
+
+    AGE_TO_CHOICE_ID = {
+        "18-25": "owv82s8m0kumnrp08j8gaqhu",
+        "26-35": "nults2ndbrn6bovvs4ce03ax",
+        "36-45": "u9fy0mtyjddkzrkhruh0682p",
+        "46-55": "e7drxvgsjys4vewrmq5qvkoy",
+        "56-65": "l9xn0kf9c8rbndzgghthsr73",
+        "66+": "lu5l0u7myjxy8b8to0zaix8m"
+    }
+
+    # Build query parameters - only include non-None values
+    params = {}
+
+    if email:
+        params[EMAIL_QUESTION_ID] = email
+
+    if health_issue:
+        params[HEALTH_ISSUE_QUESTION_ID] = health_issue
+
+    if primary_area and primary_area in AREA_TO_CHOICE_ID:
+        # Must use choice ID, not display text
+        params[PRIMARY_AREA_QUESTION_ID] = AREA_TO_CHOICE_ID[primary_area]
+
+    if severity is not None:
+        params[SEVERITY_QUESTION_ID] = str(severity)
+
+    if tried_already:
+        params[TRIED_ALREADY_QUESTION_ID] = tried_already
+
+    if age_range and age_range in AGE_TO_CHOICE_ID:
+        # Must use choice ID, not display text
+        params[AGE_RANGE_QUESTION_ID] = AGE_TO_CHOICE_ID[age_range]
+
+    if lifestyle:
+        params[LIFESTYLE_QUESTION_ID] = lifestyle
+
+    # Build URL with properly encoded parameters
+    base_url = "https://app.formbricks.com/s/cmf5homcz0p1kww010hzezjjp"
+    query_string = urlencode(params, quote_via=quote)
+
+    return f"{base_url}?{query_string}"
+
+
 def generate_html_report_from_results(quiz_output: Dict[str, Any],
                                       product_recommendations: List[Dict[str, Any]],
                                       timing_info: Dict[str, Any],
                                       email: str,
-                                      token: Optional[str] = None) -> str:
-    """Generate HTML report from quiz results with optional token-based link."""
+                                      token: Optional[str] = None,
+                                      user_data: Optional[Dict[str, Any]] = None) -> str:
+    """Generate HTML report from quiz results with optional token-based link and revision URL."""
 
     # Build product recommendations HTML
     products_html = ""
@@ -1089,6 +1184,36 @@ def generate_html_report_from_results(quiz_output: Dict[str, Any],
         <div class="warning-box">
             <h3>⚠️ Professional Consultation Recommended</h3>
             <p>Based on your responses, we recommend consulting with a healthcare professional for additional guidance and personalized care.</p>
+        </div>
+        """
+
+    # Generate revision URL if user data is provided
+    revision_button_html = ""
+    if user_data:
+        revision_url = generate_prefilled_form_url(
+            email=user_data.get("email", email),
+            health_issue=user_data.get("health_issue", ""),
+            primary_area=user_data.get("primary_area"),
+            severity=user_data.get("severity", 5),
+            tried_already=user_data.get("tried_already"),
+            age_range=user_data.get("age_range"),
+            lifestyle=user_data.get("lifestyle")
+        )
+        revision_button_html = f"""
+        <div style="text-align: center; margin-top: 30px; padding: 20px; background: #f8f9fa; border-radius: 8px;">
+            <p style="margin-bottom: 15px; color: #666; font-size: 16px;">
+                Want to explore different recommendations?
+            </p>
+            <a href="{revision_url}"
+               style="display: inline-block; padding: 15px 30px;
+                      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                      color: white; text-decoration: none; border-radius: 8px;
+                      font-weight: 600; font-size: 16px; transition: transform 0.2s;">
+                🔄 Revise My Answers & Get Updated Recommendations
+            </a>
+            <p style="margin-top: 10px; color: #999; font-size: 14px;">
+                Your previous answers will be pre-filled for easy editing
+            </p>
         </div>
         """
 
@@ -1242,6 +1367,8 @@ def generate_html_report_from_results(quiz_output: Dict[str, Any],
                 {educational_html}
             </ul>
         </div>
+
+        {revision_button_html}
 
         <div class="footer">
             <p>These recommendations are for educational purposes only and are not medical advice.</p>
