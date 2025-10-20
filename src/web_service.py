@@ -359,13 +359,13 @@ async def formbricks_webhook(request: Request, background_tasks: BackgroundTasks
             return {"status": "ignored", "event": event}
 
         # Extract response data
-        response_data = data.get("response", {})
-        response_id = response_data.get("id")
+        # Note: Formbricks payload structure is payload["data"]["id"] and payload["data"]["data"]
+        # NOT payload["data"]["response"]["id"] - there is no "response" nesting
+        response_id = data.get("id")
         logger.info(f"Response ID: {response_id}")
 
         # Map Formbricks question IDs to our fields
-        # Note: These will need to be updated based on actual Formbricks question IDs
-        answers = response_data.get("data", {})
+        answers = data.get("data", {})
         logger.info(f"Answers received: {json.dumps(answers, indent=2)}")
 
         # Extract email (required field)
@@ -413,10 +413,15 @@ async def formbricks_webhook(request: Request, background_tasks: BackgroundTasks
         for question_id, value in answers.items():
             logger.info(f"Processing question: {question_id} = {value}")
 
-            # Email field (might be nested with firstName)
+            # Email field (might be nested with firstName or in an array)
             if question_id == EMAIL_QUESTION_ID:
-                # Handle both formats: string or object with email field
-                if isinstance(value, dict):
+                # Handle multiple formats: string, object with email field, or array
+                if isinstance(value, list):
+                    # Array format: ["", "", "email@example.com", "", ""]
+                    # Find the non-empty string
+                    email = next((item for item in value if item and isinstance(item, str) and "@" in item), None)
+                    logger.info(f"✓ Found email (array): {email}")
+                elif isinstance(value, dict):
                     email = value.get("email") or value.get("Email")
                     first_name = value.get("firstName") or value.get("FirstName")
                     logger.info(f"✓ Found email (nested): {email}, firstName: {first_name}")
