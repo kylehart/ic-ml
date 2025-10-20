@@ -402,9 +402,14 @@ ls runs/*/outputs/client_cost_breakdown.json
 
 ### Recently Implemented (October 2025)
 - ✅ **Railway Deployment**: Dockerfile, railway.json, automatic GitHub deployments
-- ✅ **Formbricks Integration**: Webhook endpoint for form submissions
+- ✅ **Formbricks Integration**: Webhook endpoint with exact question ID mapping for all 7 form fields
+- ✅ **Formbricks Payload Parsing**: Array email handling, correct JSON paths, choice ID translation
 - ✅ **Resend Email Service**: HTML email delivery (onboarding@resend.dev for testing, no-reply@instruction.coach for production)
 - ✅ **Email-Based Results Lookup**: SHA-256 hashing, 24hr expiration, auto-retry polling
+- ✅ **Error Handling**: Proper JSONResponse returns for 404/500 errors
+- ✅ **Model Configuration**: Using aliases (gpt4o_mini) instead of full names for consistency
+- ✅ **Railway CLI Integration**: Real-time log monitoring and debugging capabilities
+- ✅ **End-to-End Verification**: Full flow working from form submission → LLM → email → results page
 - ✅ **MVP Documentation**: Complete deployment guide and quick-start guide
 
 ### Recently Implemented (September 2025)
@@ -414,16 +419,26 @@ ls runs/*/outputs/client_cost_breakdown.json
 - ✅ **Improved Prompts**: Character limit enforcement and natural description guidelines
 
 ### Known Issues
-- ⚠️ **Product Classification Multi-Assignment**: 1.2% of products (9/761) get duplicate category assignments - mostly bugs (exact duplicates, same category ±subcategory), refactoring plan in TODO.md
-- ⚠️ **SEO Character Limit Compliance**: 40/87 elements failed validation (keywords 121-148 chars); improved prompt tested successfully on single element, full regeneration pending user approval
+
+**Health Quiz MVP (October 2025):**
+- ⚠️ **Resend Domain Verification**: `instruction.coach` domain not verified - currently using `onboarding@resend.dev` for testing
+- ⚠️ **0 Product Recommendations Bug**: Product recommendation engine returns 0 matches (should return 5) - needs debugging
+- ⚠️ **Email Double-Entry UX**: User enters email twice (form + results page) - token-based redirect infrastructure exists but not implemented
+
+**Product Classification:**
+- ⚠️ **Multi-Assignment**: 1.2% of products (9/761) get duplicate category assignments - mostly bugs (exact duplicates, same category ±subcategory), refactoring plan in TODO.md
+
+**SEO Generation:**
+- ⚠️ **Character Limit Compliance**: 40/87 elements failed validation (keywords 121-148 chars); improved prompt tested successfully on single element, full regeneration pending user approval
 - ⚠️ **Cost Tracking Bug**: SEO generation showing $0.00 in client_cost_breakdown.json
 - ⚠️ **Missing SEO Blocks**: Elements that fail validation left without ANY SEO block (not partial)
 
 ### Implementation Pending
 - 📋 **Full Taxonomy Regeneration**: Regenerate with improved natural description prompt
 - 📋 **Full SEO Regeneration**: Regenerate with improved character limit enforcement prompt
-- 📋 **Web Service Redesign**: Unified deployment architecture with domain strategy
-- 📋 **Production Integration**: E-commerce platform integration and customer journey
+- 📋 **Verify Resend Domain**: Add and verify `instruction.coach` domain in Resend Dashboard for production email delivery
+- 📋 **Fix Product Recommendations**: Debug why product engine returns 0 matches for valid health queries
+- 📋 **Token-Based Results**: Update Formbricks redirect to use `/results/{token}` instead of email lookup
 - 📋 **Advanced Personalization**: Follow-up recommendations and user profiles
 
 ## Technical Dependencies
@@ -491,6 +506,23 @@ ls runs/*/outputs/client_cost_breakdown.json
 - **Zero Infrastructure**: Uses LiteLLM's built-in metadata and cost calculation features
 
 ## Development Workflow
+
+### Recent Work: Health Quiz MVP Debugging (October 2025)
+1. ✅ **Fixed Formbricks webhook payload parsing** - Corrected JSON path from `data["response"]["id"]` to `data["id"]`
+2. ✅ **Added array email handling** - Extract email from Formbricks array format `["", "", "email", "", ""]`
+3. ✅ **Fixed error handlers** - Changed 404/500 handlers to return `JSONResponse` instead of dict (was causing 500 errors)
+4. ✅ **Fixed model configuration** - Changed model names from full names (`openai/gpt-4o-mini`) to aliases (`gpt4o_mini`)
+5. ✅ **Mapped all 7 Formbricks question IDs** - Email, health issue, primary area, severity, tried already, age range, lifestyle
+6. ✅ **Added choice ID mappings** - Translated Formbricks internal IDs to readable names for dropdowns
+7. ✅ **Set up Railway CLI monitoring** - Linked project and service for real-time log streaming
+8. ✅ **Fixed Resend email sender** - Changed from unverified `no-response@instruction.coach` to `onboarding@resend.dev` (testing)
+9. ✅ **Verified end-to-end flow** - Webhook → LLM processing → Email sending → Results lookup all working
+10. 🔄 **Identified issues**: 0 product recommendations bug, email double-entry UX, domain verification needed
+
+**Debugging Tools Used:**
+- Railway CLI for log streaming: `railway logs --follow`
+- Resend API for email status: `curl https://api.resend.com/emails`
+- Railway variables management: `railway variables --set`
 
 ### Recent Work: Taxonomy & SEO Generation (September 2025)
 1. ✅ **Identified 16K output token limit issue** when adding SEO to taxonomy generation
