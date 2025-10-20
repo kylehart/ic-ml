@@ -932,18 +932,26 @@ async def results_page_token_lookup(token: str):
                             message.style.display = 'block';
                             emailLookupFallback.style.display = 'block';
                         }}
+                    }} else if (data.status === 'not_found') {{
+                        // Token not found - might be waiting for webhook to arrive (race condition)
+                        // Retry for first 15 seconds to give webhook time to arrive
+                        retryCount++;
+                        if (retryCount < 5) {{
+                            // First 15 seconds: keep waiting for webhook
+                            setTimeout(loadResults, 3000);
+                        }} else {{
+                            // After 15 seconds, truly not found or expired
+                            loadingState.style.display = 'none';
+                            message.className = 'message error';
+                            message.textContent = 'Results not found or have expired (24 hour limit). Please complete the quiz again or check your email.';
+                            message.style.display = 'block';
+                            emailLookupFallback.style.display = 'block';
+                        }}
                     }} else if (data.status === 'failed') {{
                         // Processing failed
                         loadingState.style.display = 'none';
                         message.className = 'message error';
                         message.textContent = 'An error occurred while processing your quiz. Please contact support or try again.';
-                        message.style.display = 'block';
-                        emailLookupFallback.style.display = 'block';
-                    }} else if (data.status === 'not_found') {{
-                        // Token not found or expired
-                        loadingState.style.display = 'none';
-                        message.className = 'message error';
-                        message.textContent = 'Results not found or have expired (24 hour limit). Please complete the quiz again or check your email.';
                         message.style.display = 'block';
                         emailLookupFallback.style.display = 'block';
                     }} else {{
