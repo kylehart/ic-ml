@@ -377,20 +377,55 @@ async def formbricks_webhook(request: Request, background_tasks: BackgroundTasks
         age_range = None
         lifestyle = None
 
+        # Exact question ID mapping for this Formbricks form
+        EMAIL_QUESTION_ID = "d9klpkum9vi8x9vkunhu63fn"
+        HEALTH_ISSUE_QUESTION_ID = "dc185mu0h2xzutpzfgq8eyjy"
+        PRIMARY_AREA_QUESTION_ID = "ty1zv10pffpxh2a2bymi2wz7"
+
+        # Map primary area choice IDs to readable names
+        PRIMARY_AREA_CHOICES = {
+            "k7ly7nx8lvgwedl1yctb215y": "Digestive Health",
+            "xugvsda3meo6onr84icgen6j": "Immune Support",
+            "qir7u9yy7eh9rqad1jvgh41e": "Stress & Anxiety",
+            "mn3195wdsqv6qf80tt299v2q": "Sleep Issues",
+            "jhs5ehsljo52rrd9yuxbw7td": "Joint & Muscle Pain",
+            "zhu8gde20tnv7talgv5ruec8": "Energy & Vitality",
+            "xlzt05zhync9v1ysegm4a80c": "Women's Health",
+            "m3jjnnug2s1iwtf1lo0l6uip": "Men's Health",
+            "other": "Other"
+        }
+
         # Parse answers - Formbricks format: {questionId: value}
         for question_id, value in answers.items():
             logger.info(f"Processing question: {question_id} = {value}")
-            # Map based on question ID or question text
-            # This is a simplified mapping - adjust based on actual Formbricks setup
-            if "email" in question_id.lower():
-                email = value
-                logger.info(f"✓ Found email: {email}")
-            elif "health" in question_id.lower() or "issue" in question_id.lower():
+
+            # Email field (might be nested with firstName)
+            if question_id == EMAIL_QUESTION_ID:
+                # Handle both formats: string or object with email field
+                if isinstance(value, dict):
+                    email = value.get("email") or value.get("Email")
+                    first_name = value.get("firstName") or value.get("FirstName")
+                    logger.info(f"✓ Found email (nested): {email}, firstName: {first_name}")
+                else:
+                    email = value
+                    logger.info(f"✓ Found email (string): {email}")
+
+            # Health issue description
+            elif question_id == HEALTH_ISSUE_QUESTION_ID:
                 health_issue = value
-                logger.info(f"✓ Found health issue: {health_issue[:50]}...")
-            elif "primary" in question_id.lower() or "area" in question_id.lower():
-                primary_area = value
-                logger.info(f"✓ Found primary area: {primary_area}")
+                logger.info(f"✓ Found health issue: {health_issue[:50] if health_issue else 'None'}...")
+
+            # Primary health area (choice ID needs mapping)
+            elif question_id == PRIMARY_AREA_QUESTION_ID:
+                # Value might be a choice ID that needs mapping
+                if value in PRIMARY_AREA_CHOICES:
+                    primary_area = PRIMARY_AREA_CHOICES[value]
+                    logger.info(f"✓ Found primary area (mapped from {value}): {primary_area}")
+                else:
+                    primary_area = value  # Use as-is if not in mapping
+                    logger.info(f"✓ Found primary area (direct): {primary_area}")
+
+            # Optional fields with keyword matching (for future questions)
             elif "severity" in question_id.lower():
                 try:
                     severity = int(value)
@@ -400,13 +435,13 @@ async def formbricks_webhook(request: Request, background_tasks: BackgroundTasks
                     logger.warning(f"Could not parse severity: {value}, using default: 5")
             elif "tried" in question_id.lower():
                 tried_already = value
-                logger.info(f"✓ Found tried already: {tried_already[:50]}...")
+                logger.info(f"✓ Found tried already: {tried_already[:50] if tried_already else 'None'}...")
             elif "age" in question_id.lower():
                 age_range = value
                 logger.info(f"✓ Found age range: {age_range}")
             elif "lifestyle" in question_id.lower():
                 lifestyle = value
-                logger.info(f"✓ Found lifestyle: {lifestyle[:50]}...")
+                logger.info(f"✓ Found lifestyle: {lifestyle[:50] if lifestyle else 'None'}...")
 
         if not email:
             logger.error("❌ No email found in webhook payload")
