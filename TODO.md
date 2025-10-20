@@ -30,6 +30,30 @@
 - **Solution**: Update Formbricks ending card redirect to use token URL: `/results/{token}`
 - **Files**: Update `src/web_service.py` results page endpoint to support token-based lookup
 
+### Low Priority (Future Enhancements)
+
+**Add Formal Unit Test Suite**
+- **Status**: Currently only integration tests via CLI runners
+- **Recommendation**: Add pytest-based unit tests for core modules
+- **Priority**: After MVP stabilizes
+- **Coverage Targets**:
+  - `llm_client.py`: Cost tracking and metadata
+  - `product_recommendation_engine.py`: Scoring algorithms
+  - `health_quiz_use_case.py`: Business logic
+  - `web_service.py`: API endpoints
+
+**Complete Admin Endpoints**
+- **Status**: `/api/v1/admin/clients` lacks authentication enforcement
+- **Current**: Placeholder comment "In production, this would require admin authentication"
+- **Solution**: Add proper admin role checking before production use
+- **Files**: `src/web_service.py` lines ~1208
+
+**Implement Usage Statistics Database**
+- **Status**: `/api/v1/usage/{client_id}` returns mock data
+- **Current**: Comment "In production, this would query a usage database"
+- **Solution**: Connect to PostgreSQL or similar for real usage tracking
+- **Files**: `src/web_service.py` lines ~1181
+
 ## Product Classification
 
 ### Refactor Multi-assignment

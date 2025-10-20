@@ -7,7 +7,7 @@ with real-time processing, client authentication, and usage tracking.
 MVP: Formbricks webhook integration with email-based results lookup
 """
 
-from fastapi import FastAPI, HTTPException, Depends, BackgroundTasks, Request, Form
+from fastapi import FastAPI, HTTPException, Depends, BackgroundTasks, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from fastapi.responses import HTMLResponse, JSONResponse
@@ -16,7 +16,6 @@ from typing import Dict, List, Any, Optional
 import uvicorn
 from datetime import datetime, timedelta
 import logging
-import asyncio
 import hashlib
 import json
 from pathlib import Path
@@ -110,19 +109,6 @@ class QuizResultsStorage:
             return None
 
         return result
-
-    def cleanup_expired(self):
-        """Remove expired results."""
-        now = datetime.now()
-        expired_keys = [
-            key for key, value in self.results.items()
-            if now - datetime.fromisoformat(value["timestamp"]) > timedelta(hours=self.ttl_hours)
-        ]
-        for key in expired_keys:
-            del self.results[key]
-
-        if expired_keys:
-            logger.info(f"Cleaned up {len(expired_keys)} expired results")
 
 
 # Resend Email Integration
