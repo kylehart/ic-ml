@@ -1241,22 +1241,28 @@ async def rate_limit_middleware(request, call_next):
 @app.exception_handler(404)
 async def not_found_handler(request, exc):
     """Handle 404 errors."""
-    return {
-        "success": False,
-        "error": "Endpoint not found",
-        "timestamp": datetime.now().isoformat()
-    }
+    return JSONResponse(
+        status_code=404,
+        content={
+            "success": False,
+            "error": "Endpoint not found",
+            "timestamp": datetime.now().isoformat()
+        }
+    )
 
 
 @app.exception_handler(500)
 async def internal_error_handler(request, exc):
     """Handle 500 errors."""
     logger.error(f"Internal server error: {str(exc)}")
-    return {
-        "success": False,
-        "error": "Internal server error",
-        "timestamp": datetime.now().isoformat()
-    }
+    return JSONResponse(
+        status_code=500,
+        content={
+            "success": False,
+            "error": "Internal server error",
+            "timestamp": datetime.now().isoformat()
+        }
+    )
 
 
 # Main entry point
