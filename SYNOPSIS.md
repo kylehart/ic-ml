@@ -23,6 +23,10 @@
 - **Batch Processing Optimization**: 20x speed improvement (3.2s vs 84s for 10 products)
 - **Cost-Effective Classification**: $0.0015 per product using GPT-4o-Mini with full taxonomy
 - **Full Taxonomy Integration**: 20-category herbal taxonomy (optimized from 88KB to 36KB)
+- **Post-Processing Validation (NEW - October 2025)**: 100% valid slugs (from 2.8% error rate) with automatic hierarchy resolution
+  - Simplified LLM task: single `best_slug` output instead of category/subcategory pairs
+  - Automatic parent category detection and insertion for subcategories
+  - Fuzzy matching and title-to-slug mapping for LLM hallucination correction
 - **Modular Analysis Engine**: Human-readable markdown reports with cost breakdowns
 
 **Health Quiz (Production Ready):**
@@ -377,6 +381,7 @@ ls runs/*/outputs/client_cost_breakdown.json
 - ✅ **Improved Prompts**: Character limit enforcement and natural description guidelines
 
 ### Known Issues
+- ⚠️ **Product Classification Multi-Assignment**: 1.2% of products (9/761) get duplicate category assignments - mostly bugs (exact duplicates, same category ±subcategory), refactoring plan in TODO.md
 - ⚠️ **SEO Character Limit Compliance**: 40/87 elements failed validation (keywords 121-148 chars); improved prompt tested successfully on single element, full regeneration pending user approval
 - ⚠️ **Cost Tracking Bug**: SEO generation showing $0.00 in client_cost_breakdown.json
 - ⚠️ **Missing SEO Blocks**: Elements that fail validation left without ANY SEO block (not partial)

@@ -3,23 +3,148 @@ Web Service API for Multi-Use Case LLM Platform
 
 Provides REST API endpoints for health quiz and product classification use cases
 with real-time processing, client authentication, and usage tracking.
+
+MVP: Formbricks webhook integration with email-based results lookup
 """
 
-from fastapi import FastAPI, HTTPException, Depends, BackgroundTasks
+from fastapi import FastAPI, HTTPException, Depends, BackgroundTasks, Request, Form
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
-from pydantic import BaseModel, Field
+from fastapi.responses import HTMLResponse, JSONResponse
+from pydantic import BaseModel, Field, EmailStr
 from typing import Dict, List, Any, Optional
 import uvicorn
-from datetime import datetime
+from datetime import datetime, timedelta
 import logging
 import asyncio
+import hashlib
+import json
+from pathlib import Path
+import os
 
 from use_case_framework import UseCaseManager, use_case_registry
 from health_quiz_use_case import HealthQuizInput, HealthQuizOutput
 
 
+# Configure logging
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
+
+
+# In-Memory Storage for Quiz Results (MVP)
+class QuizResultsStorage:
+    """Simple in-memory storage for quiz results using email hash as key."""
+
+    def __init__(self):
+        self.results = {}  # {email_hash: {status, data, timestamp, html_report}}
+        self.ttl_hours = 24  # Results expire after 24 hours
+
+    def _hash_email(self, email: str) -> str:
+        """Create a secure hash of email for privacy."""
+        return hashlib.sha256(email.lower().strip().encode()).hexdigest()
+
+    def store_result(self, email: str, status: str, data: Dict[str, Any] = None,
+                    html_report: str = None):
+        """Store quiz result by email hash."""
+        email_hash = self._hash_email(email)
+        self.results[email_hash] = {
+            "status": status,
+            "data": data,
+            "html_report": html_report,
+            "timestamp": datetime.now().isoformat(),
+            "email": email  # Store for email sending
+        }
+        logger.info(f"Stored result for email hash {email_hash[:8]}... with status: {status}")
+
+    def get_result(self, email: str) -> Optional[Dict[str, Any]]:
+        """Retrieve quiz result by email."""
+        email_hash = self._hash_email(email)
+        result = self.results.get(email_hash)
+
+        if not result:
+            return None
+
+        # Check if result has expired
+        result_time = datetime.fromisoformat(result["timestamp"])
+        if datetime.now() - result_time > timedelta(hours=self.ttl_hours):
+            del self.results[email_hash]
+            return None
+
+        return result
+
+    def cleanup_expired(self):
+        """Remove expired results."""
+        now = datetime.now()
+        expired_keys = [
+            key for key, value in self.results.items()
+            if now - datetime.fromisoformat(value["timestamp"]) > timedelta(hours=self.ttl_hours)
+        ]
+        for key in expired_keys:
+            del self.results[key]
+
+        if expired_keys:
+            logger.info(f"Cleaned up {len(expired_keys)} expired results")
+
+
+# Resend Email Integration
+class ResendEmailService:
+    """Email service using Resend API."""
+
+    def __init__(self):
+        self.api_key = os.getenv("RESEND_API_KEY")
+        self.from_email = os.getenv("RESEND_FROM_EMAIL", "health-quiz@yourdomain.com")
+        self.enabled = bool(self.api_key)
+
+        if not self.enabled:
+            logger.warning("RESEND_API_KEY not set - email sending disabled")
+
+    async def send_health_quiz_results(self, to_email: str, html_content: str,
+                                      subject: str = "Your Health Quiz Results"):
+        """Send health quiz results via email using Resend."""
+        if not self.enabled:
+            logger.warning(f"Email sending disabled - would have sent to {to_email}")
+            return False
+
+        try:
+            import httpx
+
+            async with httpx.AsyncClient() as client:
+                response = await client.post(
+                    "https://api.resend.com/emails",
+                    headers={
+                        "Authorization": f"Bearer {self.api_key}",
+                        "Content-Type": "application/json"
+                    },
+                    json={
+                        "from": self.from_email,
+                        "to": [to_email],
+                        "subject": subject,
+                        "html": html_content
+                    }
+                )
+
+                if response.status_code == 200:
+                    logger.info(f"Email sent successfully to {to_email}")
+                    return True
+                else:
+                    logger.error(f"Failed to send email: {response.status_code} - {response.text}")
+                    return False
+
+        except Exception as e:
+            logger.error(f"Error sending email: {e}")
+            return False
+
+
 # API Models
+class FormbricksWebhookPayload(BaseModel):
+    """Formbricks webhook payload model."""
+    event: str
+    data: Dict[str, Any]
+
+
+class ResultsLookupRequest(BaseModel):
+    """Request model for looking up results by email."""
+    email: EmailStr
 class HealthQuizRequest(BaseModel):
     """Request model for health quiz API."""
     health_issue_description: str = Field(..., min_length=10, max_length=2000,
@@ -157,7 +282,8 @@ app.add_middleware(
 # Initialize components
 auth = ClientAuth()
 use_case_manager = UseCaseManager(use_case_registry)
-logger = logging.getLogger(__name__)
+results_storage = QuizResultsStorage()
+email_service = ResendEmailService()
 
 
 # Health check endpoint
@@ -170,6 +296,605 @@ async def health_check():
         version="1.0.0",
         use_cases=use_case_registry.list_use_cases()
     )
+
+
+# Formbricks Webhook Integration (MVP)
+@app.post("/api/v1/webhook/formbricks")
+async def formbricks_webhook(request: Request, background_tasks: BackgroundTasks):
+    """
+    Webhook endpoint for Formbricks form submissions.
+    Processes health quiz submissions and stores results by email.
+    """
+    try:
+        payload = await request.json()
+        logger.info(f"Received Formbricks webhook: {payload.get('event')}")
+
+        # Extract form data from Formbricks payload
+        event = payload.get("event")
+        data = payload.get("data", {})
+
+        if event != "responseFinished":
+            logger.info(f"Ignoring event: {event}")
+            return {"status": "ignored", "event": event}
+
+        # Extract response data
+        response_data = data.get("response", {})
+        response_id = response_data.get("id")
+
+        # Map Formbricks question IDs to our fields
+        # Note: These will need to be updated based on actual Formbricks question IDs
+        answers = response_data.get("data", {})
+
+        # Extract email (required field)
+        email = None
+        health_issue = None
+        primary_area = None
+        severity = 5
+        tried_already = None
+        age_range = None
+        lifestyle = None
+
+        # Parse answers - Formbricks format: {questionId: value}
+        for question_id, value in answers.items():
+            # Map based on question ID or question text
+            # This is a simplified mapping - adjust based on actual Formbricks setup
+            if "email" in question_id.lower():
+                email = value
+            elif "health" in question_id.lower() or "issue" in question_id.lower():
+                health_issue = value
+            elif "primary" in question_id.lower() or "area" in question_id.lower():
+                primary_area = value
+            elif "severity" in question_id.lower():
+                try:
+                    severity = int(value)
+                except (ValueError, TypeError):
+                    severity = 5
+            elif "tried" in question_id.lower():
+                tried_already = value
+            elif "age" in question_id.lower():
+                age_range = value
+            elif "lifestyle" in question_id.lower():
+                lifestyle = value
+
+        if not email:
+            logger.error("No email found in webhook payload")
+            return {"status": "error", "message": "Email is required"}
+
+        if not health_issue:
+            logger.error("No health issue description found in webhook payload")
+            return {"status": "error", "message": "Health issue description is required"}
+
+        # Store initial status as processing
+        results_storage.store_result(email, status="processing")
+
+        # Process quiz in background
+        background_tasks.add_task(
+            process_health_quiz_webhook,
+            email=email,
+            health_issue=health_issue,
+            primary_area=primary_area,
+            severity=severity,
+            tried_already=tried_already,
+            age_range=age_range,
+            lifestyle=lifestyle
+        )
+
+        logger.info(f"Queued health quiz processing for {email}")
+
+        return {
+            "status": "accepted",
+            "message": "Health quiz processing started",
+            "response_id": response_id
+        }
+
+    except Exception as e:
+        logger.error(f"Error processing webhook: {e}", exc_info=True)
+        return JSONResponse(
+            status_code=500,
+            content={"status": "error", "message": str(e)}
+        )
+
+
+async def process_health_quiz_webhook(email: str, health_issue: str,
+                                     primary_area: Optional[str],
+                                     severity: int,
+                                     tried_already: Optional[str],
+                                     age_range: Optional[str],
+                                     lifestyle: Optional[str]):
+    """Background task to process health quiz and generate results."""
+    try:
+        logger.info(f"Processing health quiz for {email}")
+
+        # Import processing function from run_health_quiz
+        from run_health_quiz import process_health_quiz
+
+        # Create quiz input
+        quiz_input = HealthQuizInput(
+            health_issue_description=health_issue,
+            tried_already=tried_already,
+            primary_health_area=primary_area,
+            severity_level=severity,
+            age_range=age_range,
+            lifestyle_factors=lifestyle
+        )
+
+        # Process quiz
+        quiz_output, llm_response, product_recs, token_usage, timing_info, client_cost_data, errors = \
+            process_health_quiz(quiz_input, model_override=None)
+
+        # Generate HTML report
+        html_report = generate_html_report_from_results(
+            quiz_output=quiz_output,
+            product_recommendations=product_recs,
+            timing_info=timing_info,
+            email=email
+        )
+
+        # Store results
+        results_storage.store_result(
+            email=email,
+            status="completed",
+            data={
+                "quiz_output": quiz_output,
+                "product_recommendations": product_recs,
+                "timing_info": timing_info,
+                "cost": client_cost_data
+            },
+            html_report=html_report
+        )
+
+        # Send email with results
+        await email_service.send_health_quiz_results(
+            to_email=email,
+            html_content=html_report,
+            subject="Your Personalized Health Quiz Results from Rogue Herbalist"
+        )
+
+        logger.info(f"Successfully processed health quiz for {email}")
+
+    except Exception as e:
+        logger.error(f"Error processing health quiz: {e}", exc_info=True)
+        results_storage.store_result(
+            email=email,
+            status="failed",
+            data={"error": str(e)}
+        )
+
+
+@app.get("/results", response_class=HTMLResponse)
+async def results_page():
+    """Serve HTML page for looking up quiz results by email."""
+    html_content = """
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Your Health Quiz Results - Rogue Herbalist</title>
+        <style>
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+            body {
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                min-height: 100vh;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                padding: 20px;
+            }
+            .container {
+                background: white;
+                padding: 40px;
+                border-radius: 12px;
+                box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+                max-width: 500px;
+                width: 100%;
+            }
+            h1 {
+                color: #333;
+                margin-bottom: 10px;
+                font-size: 28px;
+            }
+            .subtitle {
+                color: #666;
+                margin-bottom: 30px;
+                font-size: 16px;
+            }
+            label {
+                display: block;
+                margin-bottom: 8px;
+                color: #555;
+                font-weight: 500;
+            }
+            input[type="email"] {
+                width: 100%;
+                padding: 12px;
+                border: 2px solid #e0e0e0;
+                border-radius: 6px;
+                font-size: 16px;
+                transition: border-color 0.3s;
+            }
+            input[type="email"]:focus {
+                outline: none;
+                border-color: #667eea;
+            }
+            button {
+                width: 100%;
+                padding: 14px;
+                margin-top: 20px;
+                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                color: white;
+                border: none;
+                border-radius: 6px;
+                font-size: 16px;
+                font-weight: 600;
+                cursor: pointer;
+                transition: transform 0.2s, box-shadow 0.2s;
+            }
+            button:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+            }
+            button:active {
+                transform: translateY(0);
+            }
+            .message {
+                margin-top: 20px;
+                padding: 12px;
+                border-radius: 6px;
+                display: none;
+            }
+            .message.success {
+                background: #d4edda;
+                color: #155724;
+                border: 1px solid #c3e6cb;
+            }
+            .message.error {
+                background: #f8d7da;
+                color: #721c24;
+                border: 1px solid #f5c6cb;
+            }
+            .message.info {
+                background: #d1ecf1;
+                color: #0c5460;
+                border: 1px solid #bee5eb;
+            }
+            .loader {
+                display: none;
+                margin: 20px auto;
+                border: 4px solid #f3f3f3;
+                border-top: 4px solid #667eea;
+                border-radius: 50%;
+                width: 40px;
+                height: 40px;
+                animation: spin 1s linear infinite;
+            }
+            @keyframes spin {
+                0% { transform: rotate(0deg); }
+                100% { transform: rotate(360deg); }
+            }
+            #resultsContainer {
+                margin-top: 30px;
+                display: none;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <h1>Health Quiz Results</h1>
+            <p class="subtitle">Enter your email to view your personalized recommendations</p>
+
+            <form id="lookupForm">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" name="email" required
+                       placeholder="your.email@example.com">
+                <button type="submit">View My Results</button>
+            </form>
+
+            <div class="loader" id="loader"></div>
+            <div class="message" id="message"></div>
+            <div id="resultsContainer"></div>
+        </div>
+
+        <script>
+            const form = document.getElementById('lookupForm');
+            const loader = document.getElementById('loader');
+            const message = document.getElementById('message');
+            const resultsContainer = document.getElementById('resultsContainer');
+
+            form.addEventListener('submit', async (e) => {
+                e.preventDefault();
+
+                const email = document.getElementById('email').value;
+
+                // Show loader
+                loader.style.display = 'block';
+                message.style.display = 'none';
+                resultsContainer.style.display = 'none';
+
+                try {
+                    const response = await fetch('/api/v1/results/lookup', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({ email })
+                    });
+
+                    const data = await response.json();
+                    loader.style.display = 'none';
+
+                    if (data.status === 'completed') {
+                        // Show results
+                        resultsContainer.innerHTML = data.html_report;
+                        resultsContainer.style.display = 'block';
+                    } else if (data.status === 'processing') {
+                        message.className = 'message info';
+                        message.textContent = 'Your results are still being processed. Please wait a moment and try again.';
+                        message.style.display = 'block';
+
+                        // Auto-retry after 3 seconds
+                        setTimeout(() => form.requestSubmit(), 3000);
+                    } else if (data.status === 'not_found') {
+                        message.className = 'message error';
+                        message.textContent = 'No results found for this email. Please check your email address or complete the quiz first.';
+                        message.style.display = 'block';
+                    } else {
+                        message.className = 'message error';
+                        message.textContent = 'An error occurred. Please try again.';
+                        message.style.display = 'block';
+                    }
+                } catch (error) {
+                    loader.style.display = 'none';
+                    message.className = 'message error';
+                    message.textContent = 'Connection error. Please try again.';
+                    message.style.display = 'block';
+                }
+            });
+        </script>
+    </body>
+    </html>
+    """
+    return HTMLResponse(content=html_content)
+
+
+@app.post("/api/v1/results/lookup")
+async def lookup_results(request: ResultsLookupRequest):
+    """Look up quiz results by email."""
+    try:
+        email = request.email
+        result = results_storage.get_result(email)
+
+        if not result:
+            return {
+                "status": "not_found",
+                "message": "No results found for this email"
+            }
+
+        return {
+            "status": result["status"],
+            "html_report": result.get("html_report"),
+            "data": result.get("data"),
+            "timestamp": result.get("timestamp")
+        }
+
+    except Exception as e:
+        logger.error(f"Error looking up results: {e}")
+        return JSONResponse(
+            status_code=500,
+            content={"status": "error", "message": str(e)}
+        )
+
+
+def generate_html_report_from_results(quiz_output: Dict[str, Any],
+                                      product_recommendations: List[Dict[str, Any]],
+                                      timing_info: Dict[str, Any],
+                                      email: str) -> str:
+    """Generate HTML report from quiz results."""
+
+    # Build product recommendations HTML
+    products_html = ""
+    for i, product in enumerate(product_recommendations, 1):
+        products_html += f"""
+        <div class="product-card">
+            <h3>{i}. {product.get('title', 'Unknown Product')}</h3>
+            <div class="relevance-score">Relevance: {product.get('relevance_score', 0):.0%}</div>
+            <p><strong>Category:</strong> {product.get('category', 'Unknown')}</p>
+            <p><strong>Why we recommend this:</strong> {product.get('rationale', 'No rationale provided')}</p>
+            <p><strong>Key Ingredients:</strong> {', '.join(product.get('ingredient_highlights', []))}</p>
+            <a href="{product.get('purchase_link', '#')}" class="purchase-btn" target="_blank">
+                View Product Details
+            </a>
+        </div>
+        """
+
+    # Build recommendations HTML
+    recommendations_html = ""
+    for advice in quiz_output.get("general_recommendations", []):
+        recommendations_html += f"<li>{advice}</li>\n"
+
+    lifestyle_html = ""
+    for suggestion in quiz_output.get("lifestyle_suggestions", []):
+        lifestyle_html += f"<li>{suggestion}</li>\n"
+
+    educational_html = ""
+    for content in quiz_output.get("educational_content", []):
+        educational_html += f"<li>{content}</li>\n"
+
+    consultation_warning = ""
+    if quiz_output.get("consultation_recommended"):
+        consultation_warning = """
+        <div class="warning-box">
+            <h3>⚠️ Professional Consultation Recommended</h3>
+            <p>Based on your responses, we recommend consulting with a healthcare professional for additional guidance and personalized care.</p>
+        </div>
+        """
+
+    html_template = f"""
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Your Health Quiz Results - Rogue Herbalist</title>
+        <style>
+            body {{
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+                line-height: 1.6;
+                color: #333;
+                max-width: 800px;
+                margin: 0 auto;
+                padding: 20px;
+                background-color: #f8f9fa;
+            }}
+            .header {{
+                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                color: white;
+                padding: 30px;
+                border-radius: 8px;
+                margin-bottom: 30px;
+                text-align: center;
+            }}
+            .header h1 {{
+                margin: 0;
+                font-size: 32px;
+            }}
+            .section {{
+                background: white;
+                padding: 25px;
+                margin-bottom: 20px;
+                border-radius: 8px;
+                box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            }}
+            h2 {{
+                color: #667eea;
+                border-bottom: 2px solid #667eea;
+                padding-bottom: 10px;
+                margin-top: 0;
+            }}
+            h3 {{
+                color: #555;
+                margin-top: 20px;
+            }}
+            ul {{
+                padding-left: 20px;
+            }}
+            li {{
+                margin-bottom: 12px;
+            }}
+            .product-card {{
+                background: #f8f9fa;
+                border-left: 4px solid #28a745;
+                padding: 20px;
+                margin: 20px 0;
+                border-radius: 0 8px 8px 0;
+            }}
+            .product-card h3 {{
+                margin-top: 0;
+                color: #333;
+            }}
+            .relevance-score {{
+                background: #28a745;
+                color: white;
+                padding: 4px 12px;
+                border-radius: 12px;
+                font-size: 14px;
+                font-weight: bold;
+                display: inline-block;
+                margin-bottom: 10px;
+            }}
+            .purchase-btn {{
+                display: inline-block;
+                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                color: white;
+                padding: 10px 20px;
+                text-decoration: none;
+                border-radius: 6px;
+                margin-top: 10px;
+                font-weight: 600;
+                transition: transform 0.2s;
+            }}
+            .purchase-btn:hover {{
+                transform: translateY(-2px);
+            }}
+            .warning-box {{
+                background: #fff3cd;
+                border: 2px solid #ffc107;
+                padding: 20px;
+                border-radius: 8px;
+                margin: 20px 0;
+            }}
+            .warning-box h3 {{
+                color: #856404;
+                margin-top: 0;
+            }}
+            .footer {{
+                text-align: center;
+                padding: 20px;
+                color: #666;
+                font-size: 14px;
+            }}
+            .confidence-badge {{
+                background: #e9ecef;
+                padding: 8px 16px;
+                border-radius: 20px;
+                display: inline-block;
+                margin: 10px 0;
+            }}
+        </style>
+    </head>
+    <body>
+        <div class="header">
+            <h1>🌿 Your Personalized Health Recommendations</h1>
+            <p>From Rogue Herbalist</p>
+        </div>
+
+        {consultation_warning}
+
+        <div class="section">
+            <h2>General Health Recommendations</h2>
+            <ul>
+                {recommendations_html}
+            </ul>
+            <div class="confidence-badge">
+                Confidence Level: {quiz_output.get('confidence_score', 0):.0%}
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Lifestyle Suggestions</h2>
+            <ul>
+                {lifestyle_html}
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2>Recommended Products for You</h2>
+            <p>Based on your health needs, we've selected {len(product_recommendations)} products that may help:</p>
+            {products_html}
+        </div>
+
+        <div class="section">
+            <h2>Learn More</h2>
+            <ul>
+                {educational_html}
+            </ul>
+        </div>
+
+        <div class="footer">
+            <p>These recommendations are for educational purposes only and are not medical advice.</p>
+            <p>Always consult with a healthcare professional before starting any new health regimen.</p>
+            <p><small>Results generated in {timing_info.get('total_duration_seconds', 0):.1f} seconds</small></p>
+        </div>
+    </body>
+    </html>
+    """
+
+    return html_template
 
 
 # Health Quiz endpoints

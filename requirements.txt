@@ -1,3 +1,18 @@
+# Core LLM dependencies
 litellm>=1.30.3
 python-dotenv>=1.0.0
 pyyaml>=6.0.0
+
+# Web service dependencies
+fastapi>=0.104.0
+uvicorn[standard]>=0.24.0
+pydantic[email]>=2.4.0
+
+# HTTP client for Resend email API
+httpx>=0.25.0
+
+# Markdown processing for HTML reports (optional but recommended)
+markdown>=3.5.0
+
+# Data processing
+pandas>=2.0.0

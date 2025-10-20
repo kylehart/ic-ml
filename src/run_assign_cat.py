@@ -124,27 +124,65 @@ class RunManager:
                     token_usage: Dict[str, Any],
                     timing_info: Dict[str, Any],
                     errors: List[str] = None,
-                    client_cost_data: Optional[Dict[str, Any]] = None):
-        """Save all run outputs."""
+                    client_cost_data: Optional[Dict[str, Any]] = None,
+                    validation_report: Optional[Dict[str, Any]] = None,
+                    raw_classifications: Optional[List[Dict[str, Any]]] = None):
+        """Save all run outputs including validation report and separate unassigned products."""
 
-        # Save main results as CSV (standard category_assignment format)
         import csv
-        with open(self.run_dir / "outputs" / "classifications.csv", "w", newline="") as f:
-            if classifications:
-                # Use exact field order from original category_assignment.csv
-                fieldnames = ["taxonomy_slug", "category_slug", "sub_category_slug", "tag", "product_id"]
-                writer = csv.DictWriter(f, fieldnames=fieldnames, extrasaction='ignore')
-                writer.writeheader()
-                writer.writerows(classifications)
 
-        # Save detailed results with additional debugging fields
-        with open(self.run_dir / "outputs" / "classifications_detailed.csv", "w", newline="") as f:
-            if classifications:
-                # Remove raw_response and model_used fields as requested
-                detailed_fieldnames = ["taxonomy_slug", "category_slug", "sub_category_slug", "tag", "product_id", "title"]
-                writer = csv.DictWriter(f, fieldnames=detailed_fieldnames, extrasaction='ignore')
-                writer.writeheader()
-                writer.writerows(classifications)
+        # Separate assigned from unassigned products
+        assigned = []
+        unassigned = []
+
+        for c in classifications:
+            cat_slug = c.get('category_slug', '').strip()
+            subcat_slug = c.get('sub_category_slug', '').strip()
+
+            # Product is unassigned if both category and subcategory are empty
+            if not cat_slug and not subcat_slug:
+                unassigned.append(c)
+            else:
+                assigned.append(c)
+
+        # Save assigned products only (main output)
+        with open(self.run_dir / "outputs" / "classifications.csv", "w", newline="") as f:
+            # Use exact field order from original category_assignment.csv
+            fieldnames = ["taxonomy_slug", "category_slug", "sub_category_slug", "tag", "product_id"]
+            writer = csv.DictWriter(f, fieldnames=fieldnames, extrasaction='ignore')
+            writer.writeheader()
+            writer.writerows(assigned)
+
+        # Save unassigned products separately
+        with open(self.run_dir / "outputs" / "unassigned_products.csv", "w", newline="") as f:
+            fieldnames = ["product_id", "title", "slug", "reason"]
+            writer = csv.DictWriter(f, fieldnames=fieldnames, extrasaction='ignore')
+            writer.writeheader()
+
+            for c in unassigned:
+                # Determine reason from validation report if available
+                reason = "no_category_assigned"
+                if validation_report:
+                    for correction in validation_report.get('corrections', []):
+                        if correction.get('product_id') == c.get('product_id'):
+                            reason = correction.get('reason', 'no_category_assigned')
+                            break
+
+                writer.writerow({
+                    'product_id': c.get('product_id', ''),
+                    'title': c.get('title', ''),
+                    'slug': c.get('slug', ''),
+                    'reason': reason
+                })
+
+        # Update validation report with unassigned stats
+        if validation_report:
+            validation_report['assigned_count'] = len(assigned)
+            validation_report['unassigned_count'] = len(unassigned)
+            validation_report['unassigned_product_ids'] = [c.get('product_id') for c in unassigned]
+
+            with open(self.run_dir / "outputs" / "validation_report.json", "w") as f:
+                json.dump(validation_report, f, indent=2)
 
         # Save token usage
         with open(self.run_dir / "outputs" / "token_usage.json", "w") as f:
@@ -197,7 +235,7 @@ class RunManager:
         with open(self.run_dir / "outputs" / "combined_analysis.json", "w") as f:
             json.dump(analysis_results, f, indent=2)
 
-        print(f"📤 Outputs saved: {len(classifications)} classifications")
+        print(f"📤 Outputs saved: {len(assigned)} assigned, {len(unassigned)} unassigned")
 
 
     def finalize_run(self):
@@ -219,20 +257,316 @@ class RunManager:
 
         print(f"✅ Run completed in {duration:.1f}s: {self.run_dir}")
 
+def validate_and_correct_slugs(classifications: List[Dict[str, Any]],
+                               taxonomy_slugs: set,
+                               taxonomy_tree) -> tuple:
+    """
+    Post-process classifications to validate and correct slugs.
+
+    Uses fuzzy matching and hierarchical validation to auto-correct common LLM hallucinations.
+    Returns corrected classifications and validation report.
+    """
+    from difflib import get_close_matches
+
+    corrected = []
+    validation_report = {
+        "total": len(classifications),
+        "valid_category": 0,
+        "valid_subcategory": 0,
+        "corrected_category": 0,
+        "corrected_subcategory": 0,
+        "invalid_category": 0,
+        "invalid_subcategory": 0,
+        "hierarchy_corrections": 0,
+        "corrections": []
+    }
+
+    # Build hierarchical mappings
+    primary_categories = set()
+    subcategories = set()
+    subcategory_to_parent = {}  # subcategory -> primary category
+    title_to_slug = {}
+
+    # Parse taxonomy structure
+    for primary in taxonomy_tree.findall('.//taxon[@type="primary"]'):
+        primary_slug = primary.get('slug')
+        if primary_slug:
+            primary_categories.add(primary_slug)
+
+            # Get primary title
+            title_elem = primary.find('title')
+            if title_elem is not None and title_elem.text:
+                title_slug = title_elem.text.lower().replace("'", "").replace(" ", "-").replace("&", "").strip()
+                title_to_slug[title_slug] = primary_slug
+
+            # Find subcategories under this primary
+            for subcategory in primary.findall('.//taxon[@type="subcategory"]'):
+                subcat_slug = subcategory.get('slug')
+                if subcat_slug:
+                    subcategories.add(subcat_slug)
+                    subcategory_to_parent[subcat_slug] = primary_slug
+
+                    # Get subcategory title
+                    sub_title_elem = subcategory.find('title')
+                    if sub_title_elem is not None and sub_title_elem.text:
+                        sub_title_slug = sub_title_elem.text.lower().replace("'", "").replace(" ", "-").replace("&", "").strip()
+                        title_to_slug[sub_title_slug] = subcat_slug
+
+    for c in classifications:
+        corrected_c = c.copy()
+
+        # NEW APPROACH: Handle best_slug from LLM and determine hierarchy automatically
+        best_slug = c.get('best_slug', '').strip()
+
+        if best_slug:
+            # Determine if it's a primary category or subcategory
+            if best_slug in primary_categories:
+                # It's a primary category - use it directly
+                corrected_c['category_slug'] = best_slug
+                corrected_c['sub_category_slug'] = ''
+                validation_report['valid_category'] += 1
+            elif best_slug in subcategories:
+                # It's a subcategory - automatically add parent
+                parent_slug = subcategory_to_parent.get(best_slug)
+                if parent_slug:
+                    corrected_c['category_slug'] = parent_slug
+                    corrected_c['sub_category_slug'] = best_slug
+                    validation_report['valid_category'] += 1
+                    validation_report['valid_subcategory'] += 1
+                else:
+                    # Subcategory without parent - shouldn't happen but handle it
+                    corrected_c['category_slug'] = ''
+                    corrected_c['sub_category_slug'] = ''
+                    validation_report['invalid_category'] += 1
+                    validation_report['corrections'].append({
+                        'product_id': c['product_id'],
+                        'field': 'best_slug',
+                        'old': best_slug,
+                        'new': '',
+                        'reason': 'subcategory_without_parent'
+                    })
+            elif best_slug in title_to_slug:
+                # Try title-to-slug mapping
+                corrected_slug = title_to_slug[best_slug]
+                if corrected_slug in primary_categories:
+                    corrected_c['category_slug'] = corrected_slug
+                    corrected_c['sub_category_slug'] = ''
+                elif corrected_slug in subcategories:
+                    parent_slug = subcategory_to_parent.get(corrected_slug)
+                    corrected_c['category_slug'] = parent_slug if parent_slug else ''
+                    corrected_c['sub_category_slug'] = corrected_slug
+                validation_report['corrected_category'] += 1
+                validation_report['corrections'].append({
+                    'product_id': c['product_id'],
+                    'field': 'best_slug',
+                    'old': best_slug,
+                    'new': corrected_slug,
+                    'reason': 'title_to_slug_mapping'
+                })
+            else:
+                # Try fuzzy matching
+                matches = get_close_matches(best_slug, taxonomy_slugs, n=1, cutoff=0.8)
+                if matches:
+                    corrected_slug = matches[0]
+                    if corrected_slug in primary_categories:
+                        corrected_c['category_slug'] = corrected_slug
+                        corrected_c['sub_category_slug'] = ''
+                    elif corrected_slug in subcategories:
+                        parent_slug = subcategory_to_parent.get(corrected_slug)
+                        corrected_c['category_slug'] = parent_slug if parent_slug else ''
+                        corrected_c['sub_category_slug'] = corrected_slug
+                    validation_report['corrected_category'] += 1
+                    validation_report['corrections'].append({
+                        'product_id': c['product_id'],
+                        'field': 'best_slug',
+                        'old': best_slug,
+                        'new': corrected_slug,
+                        'reason': 'fuzzy_match'
+                    })
+                else:
+                    # No match found
+                    corrected_c['category_slug'] = ''
+                    corrected_c['sub_category_slug'] = ''
+                    validation_report['invalid_category'] += 1
+                    validation_report['corrections'].append({
+                        'product_id': c['product_id'],
+                        'field': 'best_slug',
+                        'old': best_slug,
+                        'new': '',
+                        'reason': 'no_match_found'
+                    })
+
+        # OLD APPROACH (for backward compatibility if category_slug/sub_category_slug are set)
+        # This handles cases where old format data exists
+        cat_slug = corrected_c.get('category_slug', '').strip()
+        subcat_slug = corrected_c.get('sub_category_slug', '').strip()
+
+        if cat_slug and not best_slug:  # Only process old format if best_slug wasn't set
+            # Check if it's a valid primary category
+            if cat_slug in primary_categories:
+                validation_report['valid_category'] += 1
+            elif cat_slug in subcategories:
+                # Hierarchy violation: subcategory in category position
+                # Auto-correct by moving to subcategory and setting correct parent
+                parent_slug = subcategory_to_parent.get(cat_slug)
+                if parent_slug:
+                    corrected_c['category_slug'] = parent_slug
+                    corrected_c['sub_category_slug'] = cat_slug
+                    validation_report['hierarchy_corrections'] += 1
+                    validation_report['corrections'].append({
+                        'product_id': c['product_id'],
+                        'field': 'hierarchy',
+                        'old': f"category={cat_slug}, subcategory={subcat_slug}",
+                        'new': f"category={parent_slug}, subcategory={cat_slug}",
+                        'reason': 'subcategory_in_category_position'
+                    })
+                else:
+                    # No parent found, clear it
+                    corrected_c['category_slug'] = ''
+                    validation_report['invalid_category'] += 1
+                    validation_report['corrections'].append({
+                        'product_id': c['product_id'],
+                        'field': 'category_slug',
+                        'old': cat_slug,
+                        'new': '',
+                        'reason': 'subcategory_without_parent'
+                    })
+            elif cat_slug in taxonomy_slugs:
+                # Valid slug but wrong type (shouldn't happen with our structure)
+                validation_report['valid_category'] += 1
+            else:
+                # Try to auto-correct
+                # 1. Check title-to-slug mapping
+                if cat_slug in title_to_slug:
+                    old_slug = cat_slug
+                    corrected_c['category_slug'] = title_to_slug[cat_slug]
+                    validation_report['corrected_category'] += 1
+                    validation_report['corrections'].append({
+                        'product_id': c['product_id'],
+                        'field': 'category_slug',
+                        'old': old_slug,
+                        'new': title_to_slug[cat_slug],
+                        'reason': 'title_to_slug_mapping'
+                    })
+                else:
+                    # 2. Try fuzzy matching
+                    matches = get_close_matches(cat_slug, taxonomy_slugs, n=1, cutoff=0.8)
+                    if matches:
+                        old_slug = cat_slug
+                        corrected_c['category_slug'] = matches[0]
+                        validation_report['corrected_category'] += 1
+                        validation_report['corrections'].append({
+                            'product_id': c['product_id'],
+                            'field': 'category_slug',
+                            'old': old_slug,
+                            'new': matches[0],
+                            'reason': 'fuzzy_match'
+                        })
+                    else:
+                        # 3. Can't auto-correct, leave empty
+                        old_slug = cat_slug
+                        corrected_c['category_slug'] = ''
+                        validation_report['invalid_category'] += 1
+                        validation_report['corrections'].append({
+                            'product_id': c['product_id'],
+                            'field': 'category_slug',
+                            'old': old_slug,
+                            'new': '',
+                            'reason': 'no_match_found'
+                        })
+
+        # Validate and correct subcategory slug (use the potentially updated subcat_slug)
+        subcat_slug = corrected_c.get('sub_category_slug', '').strip()
+        if subcat_slug:
+            # Check if it's a valid subcategory
+            if subcat_slug in subcategories:
+                validation_report['valid_subcategory'] += 1
+            elif subcat_slug in primary_categories:
+                # Hierarchy violation: primary category in subcategory position
+                # This is unusual - clear it
+                corrected_c['sub_category_slug'] = ''
+                validation_report['invalid_subcategory'] += 1
+                validation_report['corrections'].append({
+                    'product_id': c['product_id'],
+                    'field': 'sub_category_slug',
+                    'old': subcat_slug,
+                    'new': '',
+                    'reason': 'primary_category_in_subcategory_position'
+                })
+            elif subcat_slug in taxonomy_slugs:
+                # Valid slug but wrong type
+                validation_report['valid_subcategory'] += 1
+            else:
+                # Try to auto-correct
+                if subcat_slug in title_to_slug:
+                    old_slug = subcat_slug
+                    corrected_c['sub_category_slug'] = title_to_slug[subcat_slug]
+                    validation_report['corrected_subcategory'] += 1
+                    validation_report['corrections'].append({
+                        'product_id': c['product_id'],
+                        'field': 'sub_category_slug',
+                        'old': old_slug,
+                        'new': title_to_slug[subcat_slug],
+                        'reason': 'title_to_slug_mapping'
+                    })
+                else:
+                    matches = get_close_matches(subcat_slug, taxonomy_slugs, n=1, cutoff=0.8)
+                    if matches:
+                        old_slug = subcat_slug
+                        corrected_c['sub_category_slug'] = matches[0]
+                        validation_report['corrected_subcategory'] += 1
+                        validation_report['corrections'].append({
+                            'product_id': c['product_id'],
+                            'field': 'sub_category_slug',
+                            'old': old_slug,
+                            'new': matches[0],
+                            'reason': 'fuzzy_match'
+                        })
+                    else:
+                        old_slug = subcat_slug
+                        corrected_c['sub_category_slug'] = ''
+                        validation_report['invalid_subcategory'] += 1
+                        validation_report['corrections'].append({
+                            'product_id': c['product_id'],
+                            'field': 'sub_category_slug',
+                            'old': old_slug,
+                            'new': '',
+                            'reason': 'no_match_found'
+                        })
+
+        corrected.append(corrected_c)
+
+    return corrected, validation_report
+
 def classify_products(products: List[Product],
                      model_override: Optional[str] = None,
-                     batch_size: int = 10) -> tuple:
-    """Main classification logic with batch processing."""
+                     batch_size: int = 10,
+                     taxonomy_path: str = "data/rogue-herbalist/taxonomy_trimmed.xml") -> tuple:
+    """Main classification logic with batch processing and post-processing validation."""
 
     client = LLMClient(model_override)
 
     # Load taxonomy for classification
-    taxonomy_path = Path("data/rogue-herbalist/taxonomy_trimmed.xml")
+    taxonomy_path = Path(taxonomy_path)
 
     # Read taxonomy content for prompt
     taxonomy_content = ""
+    valid_slugs = []
     if taxonomy_path.exists():
         taxonomy_content = taxonomy_path.read_text()
+
+        # Extract all valid slugs from taxonomy
+        import xml.etree.ElementTree as ET
+        tree = ET.parse(taxonomy_path)
+        root = tree.getroot()
+
+        for taxon in root.findall('.//taxon'):
+            slug = taxon.get('slug')
+            if slug:
+                valid_slugs.append(slug)
+
+        valid_slugs.sort()
+        valid_slugs_str = ", ".join(valid_slugs)
 
     # Define prompt templates for batch processing
     system_prompt = f"""You are a herbal product classifier. Use the following taxonomy to classify products into health categories.
@@ -240,14 +574,38 @@ def classify_products(products: List[Product],
 TAXONOMY:
 {taxonomy_content}
 
-Return classifications in CSV format: category_slug,subcategory_slug,product_id
+VALID SLUGS - You MUST use ONLY these exact strings:
+{valid_slugs_str}
+
+CRITICAL RULES:
+1. Use ONLY slugs from the VALID SLUGS list above
+2. Copy the slug EXACTLY - character-for-character
+3. DO NOT modify, abbreviate, or create new slugs
+4. DO NOT convert titles to slugs
+5. Pick the MOST SPECIFIC slug that matches the product
+6. DO NOT use product IDs as slugs
+
+YOUR TASK (SIMPLIFIED):
+- Find the single MOST SPECIFIC slug from the taxonomy that best matches each product
+- Don't worry about parent/child relationships - just pick the best match
+- The system will automatically add parent categories if needed
+
+EXAMPLES:
+✓ mood-balance,1234         (system will add parent: stress-mood-anxiety)
+✓ mushroom-immune,5678      (system will add parent: immune-support)
+✓ digestive-support,9012    (system will add parent: gut-health)
+✓ immune-support,2345       (already a primary, no parent needed)
+
+Return classifications in CSV format: best_slug,product_id
 One line per product, no explanations."""
 
     batch_prompt_template = """Classify these {count} products based on the taxonomy provided:
 
 {products_text}
 
-Return exactly {count} lines in CSV format: category_slug,subcategory_slug,product_id
+REMINDER: Pick the MOST SPECIFIC slug for each product. Use ONLY exact slugs from the VALID SLUGS list.
+
+Return exactly {count} lines in CSV format: best_slug,product_id
 Match the product_id from each product. No headers, no explanations."""
 
     # Store prompt templates for snapshotting
@@ -286,7 +644,7 @@ Match the product_id from each product. No headers, no explanations."""
             # Get batch classification
             response = client.complete_sync(messages)
 
-            # Parse batch response
+            # Parse batch response (new format: best_slug,product_id)
             lines = response.strip().split('\n')
 
             for j, line in enumerate(lines[:len(batch)]):  # Only process expected number of lines
@@ -294,12 +652,17 @@ Match the product_id from each product. No headers, no explanations."""
                     product = batch[j]
                     parts = line.strip().split(',')
 
+                    # New format: just the best matching slug
+                    # Post-processing will determine if it's primary/subcategory and fill in parent
+                    best_slug = parts[0].strip() if len(parts) > 0 else ""
+
                     classification = {
                         "taxonomy_slug": "health-areas",  # Standard taxonomy
-                        "category_slug": parts[0].strip() if len(parts) > 0 else "",
-                        "sub_category_slug": parts[1].strip() if len(parts) > 1 else "",
+                        "best_slug": best_slug,  # Store LLM's choice temporarily
+                        "category_slug": "",  # Will be filled by post-processing
+                        "sub_category_slug": "",  # Will be filled by post-processing
                         "tag": "",  # Empty tag field as per original format
-                        "product_id": parts[2].strip() if len(parts) > 2 else product.id,
+                        "product_id": parts[1].strip() if len(parts) > 1 else product.id,
                         # Additional fields for debugging/analysis
                         "title": product.title,
                         "slug": product.slug or "",  # Product slug from WooCommerce
@@ -308,7 +671,7 @@ Match the product_id from each product. No headers, no explanations."""
                     }
 
                     classifications.append(classification)
-                    print(f"✅ {product.id}: {parts[0] if parts else 'parse_error'}")
+                    print(f"✅ {product.id}: {best_slug if best_slug else 'parse_error'}")
 
             print(f"  Batch {i//batch_size + 1}: Processed {len(batch)} products")
 
@@ -320,7 +683,8 @@ Match the product_id from each product. No headers, no explanations."""
             for product in batch:
                 classifications.append({
                     "taxonomy_slug": "health-areas",
-                    "category_slug": "error",
+                    "best_slug": "error",
+                    "category_slug": "",
                     "sub_category_slug": "",
                     "tag": "",
                     "product_id": product.id,
@@ -331,6 +695,35 @@ Match the product_id from each product. No headers, no explanations."""
                 })
 
     end_time = time.time()
+
+    # Post-process: validate and correct slugs
+    print("\n🔍 Validating and correcting slugs...")
+
+    # Extract taxonomy slugs for validation
+    import xml.etree.ElementTree as ET
+    tree = ET.parse(taxonomy_path)
+    root = tree.getroot()
+    taxonomy_slugs = set()
+    for taxon in root.findall('.//taxon'):
+        slug = taxon.get('slug')
+        if slug:
+            taxonomy_slugs.add(slug)
+
+    # Save raw classifications before correction
+    raw_classifications = [c.copy() for c in classifications]
+
+    # Validate and correct
+    classifications, validation_report = validate_and_correct_slugs(
+        classifications,
+        taxonomy_slugs,
+        root
+    )
+
+    print(f"   Total: {validation_report['total']}")
+    print(f"   Valid: {validation_report['valid_category']} categories, {validation_report['valid_subcategory']} subcategories")
+    print(f"   Auto-corrected: {validation_report['corrected_category']} categories, {validation_report['corrected_subcategory']} subcategories")
+    print(f"   Hierarchy corrections: {validation_report['hierarchy_corrections']}")
+    print(f"   Invalid (cleared): {validation_report['invalid_category']} categories, {validation_report['invalid_subcategory']} subcategories")
 
     # Get final token usage and cost data from client
     token_usage = client.get_usage_stats()
@@ -343,7 +736,7 @@ Match the product_id from each product. No headers, no explanations."""
         "average_time_per_product": (end_time - start_time) / len(products) if products else 0
     }
 
-    return classifications, token_usage, timing_info, errors, prompt_templates, taxonomy_path, client_cost_data
+    return classifications, token_usage, timing_info, errors, prompt_templates, taxonomy_path, client_cost_data, validation_report, raw_classifications
 
 def main():
     """Main CLI entry point."""
@@ -352,6 +745,7 @@ def main():
     parser.add_argument("--input", help="Input CSV file with products")
     parser.add_argument("--single-product", help="Single product title for quick test")
     parser.add_argument("--batch-size", type=int, default=10, help="Batch size for processing (default: 10)")
+    parser.add_argument("--taxonomy", default="data/rogue-herbalist/taxonomy_trimmed.xml", help="Taxonomy XML file path (default: data/rogue-herbalist/taxonomy_trimmed.xml)")
 
     args = parser.parse_args()
 
@@ -393,8 +787,8 @@ def main():
         print(f"   Batch size: {args.batch_size}")
 
         # Run classification
-        classifications, token_usage, timing_info, errors, prompt_templates, taxonomy_path, client_cost_data = classify_products(
-            products, args.model, args.batch_size
+        classifications, token_usage, timing_info, errors, prompt_templates, taxonomy_path, client_cost_data, validation_report, raw_classifications = classify_products(
+            products, args.model, args.batch_size, args.taxonomy
         )
 
         # Snapshot everything
@@ -404,12 +798,19 @@ def main():
             batch_size=args.batch_size,
             input_source=args.input or args.single_product or "default_test"
         )
-        run_manager.save_outputs(classifications, token_usage, timing_info, errors, client_cost_data)
+        run_manager.save_outputs(classifications, token_usage, timing_info, errors, client_cost_data, validation_report, raw_classifications)
         run_manager.finalize_run()
+
+        # Calculate assigned/unassigned counts for summary
+        assigned_count = sum(1 for c in classifications
+                           if c.get('category_slug', '').strip() or c.get('sub_category_slug', '').strip())
+        unassigned_count = len(classifications) - assigned_count
 
         # Print summary
         print(f"\n📊 Run Summary:")
         print(f"   Products processed: {len(classifications)}")
+        print(f"   ✅ Assigned: {assigned_count}")
+        print(f"   ⚠️  Unassigned: {unassigned_count}")
         print(f"   Errors: {len(errors)}")
         print(f"   Duration: {timing_info['total_duration_seconds']:.1f}s")
         print(f"   Run directory: {run_manager.run_dir}")

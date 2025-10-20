@@ -1,573 +1,1712 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <taxonomy version="1.0" namespace="rogue-herbalist">
 
-    <!-- 1. Immune Support & Infection Resistance -->
-    <taxon slug="immune-support" type="primary" hierarchical="true">
-        <title>Immune Support &amp; Infection Resistance</title>
-        <sub-title>Natural Defenses &amp; Seasonal Wellness</sub-title>
-        <description>Products that support healthy immune system function and resistance to infections</description>
+<taxon slug="immune-support" type="primary" hierarchical="true">
+  <title>Immune Support &amp; Infection Resistance</title>
+  <sub-title>Natural Defenses &amp; Seasonal Wellness</sub-title>
+  <description>Strengthen your body's natural defenses during seasonal changes and times of increased exposure. Support daily resilience and overall wellness with time-tested botanicals and modern nutritional support.</description>
 
-        <meta>
-            <chebi-roles>immunomodulator,antioxidant,antimicrobial</chebi-roles>
-            <npclassifier>beta-glucans,phenolic_compounds,polysaccharides</npclassifier>
-            <chpa-category>immune_support</chpa-category>
-            <fda-claim>Supports immune system function</fda-claim>
-        </meta>
+  <meta>
+    <chebi-roles>immunomodulator,antioxidant,antimicrobial</chebi-roles>
+    <npclassifier>beta-glucans,phenolic_compounds,polysaccharides</npclassifier>
+    <chpa-category>immune_support</chpa-category>
+    <fda-claim>Supports immune system function</fda-claim>
+  </meta>
 
-        <!-- Subcategories -->
-        <taxon slug="daily-immune" type="subcategory">
-            <title>Daily Immune Maintenance</title>
-            <description>Foundational immune support for everyday wellness. Products designed for consistent, long-term use to maintain healthy immune system function, build resilience, and support the body's natural defense mechanisms throughout the year.</description>
-        </taxon>
-        <taxon slug="seasonal-support" type="subcategory">
-            <title>Seasonal &amp; Cold/Flu Support</title>
-            <description>Targeted support during cold and flu season or at the first sign of illness. Fast-acting formulations to boost immune response, reduce symptom duration, and help the body fight off seasonal challenges and upper respiratory infections.</description>
-        </taxon>
-        <taxon slug="antiviral-herbs" type="subcategory">
-            <title>Antiviral &amp; Antibacterial Herbs</title>
-            <description>Potent antimicrobial botanicals with documented antiviral and antibacterial properties. Natural alternatives to support the body's ability to resist and fight various pathogens, including viruses, bacteria, and other microorganisms.</description>
-        </taxon>
-        <taxon slug="mushroom-immune" type="subcategory">
-            <title>Mushroom Immune Complexes</title>
-            <description>Medicinal mushroom formulations rich in beta-glucans and immunomodulating compounds. Includes reishi, turkey tail, shiitake, and other fungi known for deep immune support, cancer prevention, and overall vitality enhancement.</description>
-        </taxon>
-        <taxon slug="childrens-immune" type="subcategory">
-            <title>Children's Immune Support</title>
-            <description>Gentle, kid-friendly immune support formulations with age-appropriate dosing. Tasty syrups, gummies, and chewables designed to support developing immune systems, reduce sick days, and keep children healthy during school and play.</description>
-        </taxon>
+  <ingredients>
+    <common>
+      <item>Echinacea (Echinacea purpurea)</item>
+      <item>Elderberry (Sambucus canadensis)</item>
+      <item>Astragalus (Astragalus membranaceus)</item>
+      <item>Reishi (Ganoderma lucidum)</item>
+      <item>Turkey tail (Trametes versicolor)</item>
+      <item>Vitamin C</item>
+      <item>Zinc</item>
+      <item>Garlic (Allium sativum)</item>
+    </common>
+    <other>
+      <item>Cat's claw (Uncaria tomentosa)</item>
+      <item>Andrographis (Andrographis paniculata)</item>
+      <item>Cordyceps (Cordyceps sinensis)</item>
+    </other>
+  </ingredients>
+
+  <taxon slug="daily-immune" type="subcategory">
+    <title>Daily Immune Maintenance</title>
+    <description>Build lasting immune resilience with gentle, daily support for year-round wellness and vitality.</description>
+
+    <ingredients>
+      <common>
+        <item>Reishi (Ganoderma lucidum)</item>
+        <item>Astragalus (Astragalus membranaceus)</item>
+        <item>Vitamin D3</item>
+      </common>
+      <other>
+        <item>Maitake (Grifola frondosa)</item>
+      </other>
+    </ingredients>
+  </taxon>
+<taxon slug="daily-immune" type="subcategory">
+      <title>Daily Immune Maintenance</title>
+      <description>Build lasting immune resilience with gentle, daily support for year-round wellness and vitality.</description>
+      <ingredients>
+        <common>
+          <item>Reishi (Ganoderma lucidum)</item>
+          <item>Astragalus (Astragalus membranaceus)</item>
+          <item>Vitamin D3</item>
+        </common>
+        <other>
+          <item>Maitake (Grifola frondosa)</item>
+        </other>
+      </ingredients>
+    </taxon>
+    <taxon slug="seasonal-support" type="subcategory">
+      <title>Seasonal &amp; Cold/Flu Support</title>
+      <description>Boost your immune response during cold and flu season with fast-acting botanicals to reduce symptoms and support recovery.</description>
+      <ingredients>
+        <common>
+          <item>Elderberry (Sambucus canadensis)</item>
+          <item>Echinacea (Echinacea purpurea)</item>
+          <item>Vitamin C</item>
+          <item>Zinc</item>
+        </common>
+        <other>
+          <item>Andrographis (Andrographis paniculata)</item>
+          <item>Olive leaf (Olea europaea)</item>
+        </other>
+      </ingredients>
+    </taxon>
+    <taxon slug="antiviral-herbs" type="subcategory">
+    <title>Antiviral &amp; Antibacterial Herbs</title>
+    <description>Potent botanicals that support the body's ability to resist pathogens, including viruses and bacteria.</description>
+
+    <ingredients>
+      <common>
+        <item>Echinacea (Echinacea purpurea)</item>
+        <item>Garlic (Allium sativum)</item>
+        <item>Olive leaf (Olea europaea)</item>
+        <item>Oregano (Origanum vulgare)</item>
+        <item>Thyme (Thymus vulgaris)</item>
+        <item>Ginger (Zingiber officinale)</item>
+      </common>
+      <other>
+        <item>Licorice root (Glycyrrhiza glabra)</item>
+        <item>Neem (Azadirachta indica)</item>
+        <item>Usnea (Usnea barbata)</item>
+      </other>
+    </ingredients>
+  </taxon>
+    <taxon slug="mushroom-immune" type="subcategory">
+    <title>Mushroom Immune Complexes</title>
+    <description>Formulations with mushrooms like reishi and shiitake, known for immune support and vitality enhancement.</description>
+
+    <ingredients>
+      <common>
+        <item>Reishi (Ganoderma lucidum)</item>
+        <item>Shiitake (Lentinula edodes)</item>
+        <item>Turkey tail (Trametes versicolor)</item>
+        <item>Maitake (Grifola frondosa)</item>
+        <item>Cordyceps (Cordyceps sinensis)</item>
+        <item>Chaga (Inonotus obliquus)</item>
+      </common>
+      <other>
+        <item>Agaricus (Agaricus blazei)</item>
+        <item>Lion's mane (Hericium erinaceus)</item>
+        <item>Enokitake (Flammulina velutipes)</item>
+      </other>
+    </ingredients>
+  </taxon>
+    <taxon slug="childrens-immune" type="subcategory">
+      <title>Children's Immune Support</title>
+      <description>Gentle, kid-friendly formulations to support developing immune systems and reduce sick days.</description>
+      <ingredients>
+        <common>
+          <item>Elderberry (Sambucus canadensis)</item>
+          <item>Vitamin C</item>
+          <item>Zinc</item>
+          <item>Echinacea (Echinacea purpurea)</item>
+        </common>
+        <other>
+          <item>Astragalus (Astragalus membranaceus)</item>
+          <item>Propolis</item>
+        </other>
+      </ingredients>
+    </taxon>
     </taxon>
 
-    <!-- 2. Gut Health & Digestion -->
-    <taxon slug="gut-health" type="primary" hierarchical="true">
-        <title>Gut Health &amp; Digestion</title>
-        <sub-title>Digestive Comfort &amp; Microbiome Balance</sub-title>
-        <description>Products supporting healthy digestion and gut microbiome</description>
+<taxon slug="gut-health" type="primary" hierarchical="true">
+    <title>Gut Health &amp; Digestion</title>
+    <sub-title>Digestive Comfort &amp; Microbiome Balance</sub-title>
+    <description>Promote digestive comfort and balance your gut microbiome with natural aids. Support healthy digestion and overall gut function for daily wellness.</description>
 
-        <meta>
-            <chebi-roles>digestive_aid,hepatoprotectant,prebiotic,probiotic</chebi-roles>
-            <npclassifier>iridoids,sesquiterpene_lactones,oligosaccharides</npclassifier>
-            <chpa-category>digestive_health</chpa-category>
-            <fda-claim>Supports healthy digestion and gut function</fda-claim>
-        </meta>
+    <meta>
+        <chebi-roles>digestive_aid,hepatoprotectant,prebiotic,probiotic</chebi-roles>
+        <npclassifier>iridoids,sesquiterpene_lactones,oligosaccharides</npclassifier>
+        <chpa-category>digestive_health</chpa-category>
+        <fda-claim>Supports healthy digestion and gut function</fda-claim>
+    </meta>
 
-        <taxon slug="digestive-support" type="subcategory">
-            <title>General Digestive Support</title>
-            <description>Broad-spectrum digestive aids for overall gut health, including enzymes, bitters, and gentle herbs that support digestion, reduce bloating, and improve nutrient absorption for everyday digestive comfort.</description>
-        </taxon>
-        <taxon slug="digestive-bitters" type="subcategory">
-            <title>Digestive Bitters &amp; Stimulants</title>
-            <description>Traditional bitter herbs that stimulate digestive juices, improve appetite, and enhance the body's natural digestive processes. Includes artichoke, dandelion, gentian, and other classic digestive tonics.</description>
-        </taxon>
-        <taxon slug="probiotic-support" type="subcategory">
-            <title>Probiotic &amp; Prebiotic Support</title>
-            <description>Beneficial bacteria and their supporting nutrients to maintain healthy gut microbiome balance, improve immune function, and support overall digestive wellness through targeted microbial therapy.</description>
-        </taxon>
-        <taxon slug="stomach-acid" type="subcategory">
-            <title>Stomach Acid &amp; Enzyme Support</title>
-            <description>Natural support for healthy stomach acid production and digestive enzyme function, addressing low stomach acid, improving protein digestion, and supporting optimal nutrient breakdown and absorption.</description>
-        </taxon>
+    <ingredients>
+        <common>
+            <item>Ginger (Zingiber officinale)</item>
+            <item>Peppermint (Mentha piperita)</item>
+            <item>Fennel (Foeniculum vulgare)</item>
+            <item>Chamomile (Matricaria chamomilla)</item>
+            <item>Licorice (Glycyrrhiza glabra)</item>
+            <item>Probiotics</item>
+            <item>Prebiotics</item>
+            <item>Turmeric (Curcuma longa)</item>
+        </common>
+        <other>
+            <item>Slippery Elm (Ulmus rubra)</item>
+            <item>Marshmallow Root (Althaea officinalis)</item>
+            <item>Artichoke Leaf (Cynara scolymus)</item>
+        </other>
+    </ingredients>
+<taxon slug="digestive-support" type="subcategory">
+    <title>General Digestive Support</title>
+    <description>Broad-spectrum aids for gut health, reducing bloating and enhancing nutrient absorption.</description>
+
+    <ingredients>
+      <common>
+        <item>Ginger (Zingiber officinale)</item>
+        <item>Peppermint (Mentha piperita)</item>
+        <item>Fennel (Foeniculum vulgare)</item>
+        <item>Chamomile (Matricaria chamomilla)</item>
+      </common>
+      <other>
+        <item>Slippery Elm (Ulmus rubra)</item>
+      </other>
+    </ingredients>
+  </taxon>
+    <taxon slug="digestive-bitters" type="subcategory">
+    <title>Digestive Bitters &amp; Stimulants</title>
+    <description>Stimulate digestive juices and enhance appetite with traditional bitters like artichoke and gentian.</description>
+
+    <ingredients>
+      <common>
+        <item>Artichoke (Cynara scolymus)</item>
+        <item>Dandelion (Taraxacum officinale)</item>
+        <item>Gentian (Gentiana lutea)</item>
+        <item>Milk Thistle (Silybum marianum)</item>
+      </common>
+      <other>
+        <item>Angelica (Angelica archangelica)</item>
+      </other>
+    </ingredients>
+  </taxon>
+    <taxon slug="probiotic-support" type="subcategory">
+    <title>Probiotic &amp; Prebiotic Support</title>
+    <description>Maintain gut balance and support digestion with beneficial bacteria and nutrients.</description>
+
+    <ingredients>
+      <common>
+        <item>Lactobacillus acidophilus</item>
+        <item>Bifidobacterium bifidum</item>
+        <item>Inulin</item>
+        <item>Fructooligosaccharides (FOS)</item>
+      </common>
+      <other>
+        <item>Galactooligosaccharides (GOS)</item>
+      </other>
+    </ingredients>
+  </taxon>
+    <taxon slug="stomach-acid" type="subcategory">
+    <title>Stomach Acid &amp; Enzyme Support</title>
+    <description>Enhance digestion with natural support for stomach acid and enzyme function.</description>
+
+    <ingredients>
+      <common>
+        <item>Betaine HCl</item>
+        <item>Pepsin</item>
+        <item>Papain</item>
+        <item>Bromelain</item>
+      </common>
+      <other>
+        <item>Gentian Root (Gentiana lutea)</item>
+      </other>
+    </ingredients>
+  </taxon>
     </taxon>
 
-    <!-- 3. Stress, Mood & Anxiety -->
-    <taxon slug="stress-mood-anxiety" type="primary" hierarchical="true">
-        <title>Stress, Mood &amp; Anxiety</title>
-        <sub-title>Emotional Balance &amp; Mental Resilience</sub-title>
-        <description>Natural support for stress management and emotional well-being</description>
+<taxon slug="stress-mood-anxiety" type="primary" hierarchical="true">
+    <title>Stress, Mood &amp; Anxiety</title>
+    <sub-title>Emotional Balance &amp; Mental Resilience</sub-title>
+    <description>Enhance emotional well-being and manage stress with natural botanicals. Promote mental resilience and balance during challenging times.</description>
 
-        <meta>
-            <chebi-roles>anxiolytic,adaptogen,neuroprotective,antidepressant</chebi-roles>
-            <npclassifier>alkaloids,saponins,phenolic_glycosides</npclassifier>
-            <chpa-category>mood_support</chpa-category>
-            <fda-claim>Supports emotional well-being and stress management</fda-claim>
-        </meta>
+    <meta>
+        <chebi-roles>anxiolytic,adaptogen,neuroprotective,antidepressant</chebi-roles>
+        <npclassifier>alkaloids,saponins,phenolic_glycosides</npclassifier>
+        <chpa-category>mood_support</chpa-category>
+        <fda-claim>Supports emotional well-being and stress management</fda-claim>
+    </meta>
 
-        <taxon slug="stress-anxiety-relief" type="subcategory">
-            <title>Stress &amp; Anxiety Relief</title>
-            <description>Fast-acting herbs for acute stress and anxiety, including passionflower, kava, and other nervines that provide immediate calming effects and help manage everyday stressors and anxious feelings.</description>
-        </taxon>
-        <taxon slug="adaptogenic-support" type="subcategory">
-            <title>Adaptogenic Support</title>
-            <description>Adaptogenic herbs that help the body better cope with chronic stress, build resilience, and maintain balance during challenging times. Includes ashwagandha, rhodiola, and other stress-modulating botanicals.</description>
-        </taxon>
-        <taxon slug="mood-balance" type="subcategory">
-            <title>Mood Balance &amp; Depression Support</title>
-            <description>Natural mood enhancers and emotional stabilizers, including St. John's wort, saffron, and other herbs traditionally used to support positive mood, emotional stability, and mental clarity.</description>
-        </taxon>
+    <ingredients>
+        <common>
+            <item>Ashwagandha (Withania somnifera)</item>
+            <item>Rhodiola (Rhodiola rosea)</item>
+            <item>St. John's Wort (Hypericum perforatum)</item>
+            <item>Passionflower (Passiflora incarnata)</item>
+            <item>Chamomile (Matricaria chamomilla)</item>
+            <item>Lemon Balm (Melissa officinalis)</item>
+            <item>Valerian (Valeriana officinalis)</item>
+            <item>Lavender (Lavandula angustifolia)</item>
+        </common>
+        <other>
+            <item>Holy Basil (Ocimum sanctum)</item>
+            <item>Skullcap (Scutellaria lateriflora)</item>
+            <item>Saffron (Crocus sativus)</item>
+        </other>
+    </ingredients>
+
+<taxon slug="stress-anxiety-relief" type="subcategory">
+    <title>Stress &amp; Anxiety Relief</title>
+    <description>Fast-acting herbs for acute stress and anxiety, providing immediate calming effects and helping manage everyday stressors.</description>
+
+    <ingredients>
+      <common>
+        <item>Passionflower (Passiflora incarnata)</item>
+        <item>Kava (Piper methysticum)</item>
+        <item>Valerian (Valeriana officinalis)</item>
+        <item>Lemon balm (Melissa officinalis)</item>
+      </common>
+      <other>
+        <item>Skullcap (Scutellaria lateriflora)</item>
+        <item>Blue vervain (Verbena hastata)</item>
+      </other>
+    </ingredients>
+  </taxon>
+    <taxon slug="adaptogenic-support" type="subcategory">
+    <title>Adaptogenic Support</title>
+    <description>Adaptogenic herbs help the body cope with chronic stress, build resilience, and maintain balance during challenging times.</description>
+
+    <ingredients>
+      <common>
+        <item>Ashwagandha (Withania somnifera)</item>
+        <item>Rhodiola (Rhodiola rosea)</item>
+        <item>Holy basil (Ocimum sanctum)</item>
+        <item>Schisandra (Schisandra chinensis)</item>
+      </common>
+      <other>
+        <item>Eleuthero (Eleutherococcus senticosus)</item>
+        <item>Maca (Lepidium meyenii)</item>
+      </other>
+    </ingredients>
+  </taxon>
+    <taxon slug="mood-balance" type="subcategory">
+      <title>Mood Balance &amp; Depression Support</title>
+      <description>Promote a positive mood and emotional stability with traditional herbs like St. John's wort and saffron.</description>
+      <ingredients>
+        <common>
+          <item>St. John's Wort (Hypericum perforatum)</item>
+          <item>Saffron (Crocus sativus)</item>
+          <item>5-HTP</item>
+        </common>
+        <other>
+          <item>Ginkgo Biloba</item>
+        </other>
+      </ingredients>
+    </taxon>
     </taxon>
 
-    <!-- 4. Sleep & Relaxation -->
-    <taxon slug="sleep-relaxation" type="primary" hierarchical="true">
-        <title>Sleep &amp; Relaxation</title>
-        <sub-title>Restorative Rest &amp; Deep Sleep</sub-title>
-        <description>Natural sleep aids and relaxation support</description>
+<taxon slug="sleep-relaxation" type="primary" hierarchical="true">
+  <title>Sleep &amp; Relaxation</title>
+  <sub-title>Restorative Rest &amp; Deep Sleep</sub-title>
+  <description>Enhance your sleep quality and relaxation with natural aids that promote restful nights and calm days. Support healthy sleep patterns and relaxation.</description>
 
-        <meta>
-            <chebi-roles>sedative,hypnotic,muscle_relaxant,anxiolytic</chebi-roles>
-            <npclassifier>valepotriates,monoterpenes,flavonoids</npclassifier>
-            <chpa-category>sleep_support</chpa-category>
-            <fda-claim>Supports healthy sleep patterns and relaxation</fda-claim>
-        </meta>
+  <meta>
+    <chebi-roles>sedative,hypnotic,muscle_relaxant,anxiolytic</chebi-roles>
+    <npclassifier>valepotriates,monoterpenes,flavonoids</npclassifier>
+    <chpa-category>sleep_support</chpa-category>
+    <fda-claim>Supports healthy sleep patterns and relaxation</fda-claim>
+  </meta>
 
-        <taxon slug="sleep-quality-patterns" type="subcategory">
-            <title>Sleep Quality &amp; Patterns</title>
-            <description>Herbs and nutrients that improve overall sleep quality, help establish healthy sleep patterns, and support the body's natural circadian rhythms for more restorative and consistent sleep.</description>
-        </taxon>
-        <taxon slug="sleep-support" type="subcategory">
-            <title>General Sleep Support</title>
-            <description>Gentle sleep aids for occasional sleeplessness, including valerian, chamomile, and other traditional sleep herbs that promote relaxation and help with falling asleep naturally.</description>
-        </taxon>
-        <taxon slug="deep-sleep" type="subcategory">
-            <title>Deep Sleep &amp; Recovery</title>
-            <description>Potent formulations for profound sleep support, muscle relaxation, and overnight recovery. Includes stronger sedative herbs and combinations for those with chronic sleep challenges.</description>
-        </taxon>
+  <ingredients>
+    <common>
+      <item>Valerian (Valeriana officinalis)</item>
+      <item>Chamomile (Matricaria chamomilla)</item>
+      <item>Lavender (Lavandula angustifolia)</item>
+      <item>Passionflower (Passiflora incarnata)</item>
+      <item>Lemon Balm (Melissa officinalis)</item>
+      <item>Hops (Humulus lupulus)</item>
+    </common>
+    <other>
+      <item>Ashwagandha (Withania somnifera)</item>
+      <item>California Poppy (Eschscholzia californica)</item>
+      <item>Skullcap (Scutellaria lateriflora)</item>
+    </other>
+  </ingredients>
+
+<taxon slug="sleep-quality-patterns" type="subcategory">
+    <title>Sleep Quality &amp; Patterns</title>
+    <description>Improve sleep quality and establish healthy patterns with herbs that support natural circadian rhythms for restorative rest.</description>
+    
+    <ingredients>
+      <common>
+        <item>Chamomile (Matricaria chamomilla)</item>
+        <item>Lavender (Lavandula angustifolia)</item>
+        <item>Melatonin</item>
+      </common>
+      <other>
+        <item>California poppy (Eschscholzia californica)</item>
+      </other>
+    </ingredients>
+  </taxon>
+    <taxon slug="sleep-support" type="subcategory">
+    <title>General Sleep Support</title>
+    <description>Gentle aids for occasional sleeplessness, promoting relaxation and natural sleep onset with traditional herbs.</description>
+    
+    <ingredients>
+      <common>
+        <item>Valerian (Valeriana officinalis)</item>
+        <item>Passionflower (Passiflora incarnata)</item>
+        <item>Lemon balm (Melissa officinalis)</item>
+      </common>
+      <other>
+        <item>Skullcap (Scutellaria lateriflora)</item>
+      </other>
+    </ingredients>
+  </taxon>
+    <taxon slug="deep-sleep" type="subcategory">
+    <title>Deep Sleep &amp; Recovery</title>
+    <description>Potent formulations for profound sleep support and overnight recovery. Ideal for those with chronic sleep challenges.</description>
+
+    <ingredients>
+      <common>
+        <item>Valerian (Valeriana officinalis)</item>
+        <item>Hops (Humulus lupulus)</item>
+        <item>Passionflower (Passiflora incarnata)</item>
+      </common>
+      <other>
+        <item>California Poppy (Eschscholzia californica)</item>
+      </other>
+    </ingredients>
+  </taxon>
     </taxon>
 
-    <!-- 5. Energy & Vitality -->
-    <taxon slug="energy-vitality" type="primary" hierarchical="true">
-        <title>Energy &amp; Vitality</title>
-        <sub-title>Natural Energy &amp; Endurance</sub-title>
-        <description>Natural energy boosters and vitality enhancers</description>
+<taxon slug="energy-vitality" type="primary" hierarchical="true">
+  <title>Energy &amp; Vitality</title>
+  <sub-title>Natural Energy &amp; Endurance</sub-title>
+  <description>Boost your energy levels and enhance vitality with natural stimulants and adaptogens. Support endurance and mental clarity for an active lifestyle.</description>
 
-        <meta>
-            <chebi-roles>stimulant,adaptogen,ergogenic,nootropic</chebi-roles>
-            <npclassifier>caffeine,ginsenosides,withanolides</npclassifier>
-            <chpa-category>energy_support</chpa-category>
-            <fda-claim>Supports natural energy and vitality</fda-claim>
-        </meta>
+  <meta>
+    <chebi-roles>stimulant,adaptogen,ergogenic,nootropic</chebi-roles>
+    <npclassifier>caffeine,ginsenosides,withanolides</npclassifier>
+    <chpa-category>energy_support</chpa-category>
+    <fda-claim>Supports natural energy and vitality</fda-claim>
+  </meta>
 
-        <taxon slug="daily-energy-support" type="subcategory">
-            <title>Daily Energy Support</title>
-            <description>Sustainable energy support for everyday vitality without the crash. Includes gentle stimulants, B-vitamins, and adaptogenic herbs that provide steady energy throughout the day.</description>
-        </taxon>
-        <taxon slug="physical-performance" type="subcategory">
-            <title>Physical Performance &amp; Endurance</title>
-            <description>Athletic performance enhancers and endurance boosters, including cordyceps, rhodiola, and other herbs that support physical stamina, workout recovery, and athletic achievement.</description>
-        </taxon>
-        <taxon slug="mental-clarity" type="subcategory">
-            <title>Mental Clarity &amp; Focus</title>
-            <description>Cognitive enhancers and mental energy boosters that improve focus, concentration, and mental stamina. Includes nootropic herbs and nutrients for enhanced brain function and productivity.</description>
-        </taxon>
-        <taxon slug="adrenal-support" type="subcategory">
-            <title>Adrenal Support</title>
-            <description>Targeted support for adrenal health and energy production, addressing adrenal fatigue and supporting the body's natural stress response and energy regulation systems.</description>
-        </taxon>
+  <ingredients>
+    <common>
+      <item>Ginseng (Panax ginseng)</item>
+      <item>Rhodiola (Rhodiola rosea)</item>
+      <item>Guarana (Paullinia cupana)</item>
+      <item>Ashwagandha (Withania somnifera)</item>
+      <item>Green Tea (Camellia sinensis)</item>
+      <item>Maca (Lepidium meyenii)</item>
+      <item>Cordyceps (Cordyceps sinensis)</item>
+      <item>Vitamin B12</item>
+    </common>
+    <other>
+      <item>Schisandra (Schisandra chinensis)</item>
+      <item>Eleuthero (Eleutherococcus senticosus)</item>
+      <item>Yerba Mate (Ilex paraguariensis)</item>
+    </other>
+  </ingredients>
+
+<taxon slug="daily-energy-support" type="subcategory">
+    <title>Daily Energy Support</title>
+    <description>Sustain energy levels daily with gentle stimulants and adaptogens for consistent vitality.</description>
+
+    <ingredients>
+      <common>
+        <item>Green Tea (Camellia sinensis)</item>
+        <item>Vitamin B12</item>
+        <item>Ashwagandha (Withania somnifera)</item>
+      </common>
+      <other>
+        <item>Schisandra (Schisandra chinensis)</item>
+      </other>
+    </ingredients>
+  </taxon>
+    <taxon slug="physical-performance" type="subcategory">
+    <title>Physical Performance &amp; Endurance</title>
+    <description>Enhance stamina and recovery with herbs like cordyceps and rhodiola for peak physical performance.</description>
+
+    <ingredients>
+      <common>
+        <item>Cordyceps (Cordyceps sinensis)</item>
+        <item>Rhodiola (Rhodiola rosea)</item>
+        <item>Ginseng (Panax ginseng)</item>
+      </common>
+      <other>
+        <item>Maca (Lepidium meyenii)</item>
+      </other>
+    </ingredients>
+  </taxon>
+    <taxon slug="mental-clarity" type="subcategory">
+    <title>Mental Clarity &amp; Focus</title>
+    <description>Enhance focus and concentration with cognitive boosters. Support mental stamina and productivity with nootropic herbs.</description>
+
+    <ingredients>
+      <common>
+        <item>Bacopa (Bacopa monnieri)</item>
+        <item>Ginkgo Biloba</item>
+        <item>L-Theanine</item>
+        <item>Gotu Kola (Centella asiatica)</item>
+        <item>Panax Ginseng</item>
+      </common>
+      <other>
+        <item>Huperzine A</item>
+        <item>Vinpocetine</item>
+      </other>
+    </ingredients>
+  </taxon>
+    <taxon slug="adrenal-support" type="subcategory">
+    <title>Adrenal Support</title>
+    <description>Support adrenal health and energy regulation. Address fatigue and enhance stress response with targeted botanicals.</description>
+
+    <ingredients>
+      <common>
+        <item>Ashwagandha (Withania somnifera)</item>
+        <item>Licorice Root (Glycyrrhiza glabra)</item>
+        <item>Rhodiola (Rhodiola rosea)</item>
+        <item>Holy Basil (Ocimum sanctum)</item>
+        <item>Vitamin C</item>
+      </common>
+      <other>
+        <item>Schisandra (Schisandra chinensis)</item>
+        <item>Siberian Ginseng (Eleutherococcus senticosus)</item>
+      </other>
+    </ingredients>
+  </taxon>
     </taxon>
 
-    <!-- 6. Cardiovascular Health -->
-    <taxon slug="cardiovascular-health" type="primary" hierarchical="true">
-        <title>Cardiovascular Health</title>
-        <sub-title>Heart Health &amp; Circulation</sub-title>
-        <description>Natural support for heart health and circulation</description>
+<taxon slug="cardiovascular-health" type="primary" hierarchical="true">
+  <title>Cardiovascular Health</title>
+  <sub-title>Heart Health &amp; Circulation</sub-title>
+  <description>Enhance heart health and promote optimal circulation with natural botanicals. Support your cardiovascular system for overall vitality and wellness.</description>
 
-        <meta>
-            <chebi-roles>cardioprotective,vasodilator,antithrombotic,antioxidant</chebi-roles>
-            <npclassifier>flavonoids,cardiac_glycosides,omega_fatty_acids</npclassifier>
-            <chpa-category>cardiovascular_support</chpa-category>
-            <fda-claim>Supports cardiovascular health and circulation</fda-claim>
-        </meta>
+  <meta>
+    <chebi-roles>cardioprotective,vasodilator,antithrombotic,antioxidant</chebi-roles>
+    <npclassifier>flavonoids,cardiac_glycosides,omega_fatty_acids</npclassifier>
+    <chpa-category>cardiovascular_support</chpa-category>
+    <fda-claim>Supports cardiovascular health and circulation</fda-claim>
+  </meta>
 
-        <taxon slug="heart-rhythm" type="subcategory">
-            <title>Heart Rhythm &amp; Function</title>
-            <description>Herbs and nutrients that support healthy heart rhythm, cardiac muscle function, and overall heart health, including hawthorn, coenzyme Q10, and other cardiovascular tonics.</description>
-        </taxon>
-        <taxon slug="blood-pressure" type="subcategory">
-            <title>Blood Pressure Support</title>
-            <description>Natural support for healthy blood pressure levels within normal range, including herbs and nutrients that promote vascular health and healthy circulation patterns.</description>
-        </taxon>
-        <taxon slug="circulation" type="subcategory">
-            <title>Circulation &amp; Vascular Health</title>
-            <description>Herbs that improve circulation, strengthen blood vessels, and support healthy vascular function, including ginkgo, horse chestnut, and other circulation-enhancing botanicals.</description>
-        </taxon>
-        <taxon slug="cholesterol-support" type="subcategory">
-            <title>Cholesterol &amp; Lipid Support</title>
-            <description>Natural support for healthy cholesterol levels and lipid metabolism, including red yeast rice, artichoke, and other herbs that promote cardiovascular wellness.</description>
-        </taxon>
+  <ingredients>
+    <common>
+      <item>Hawthorn (Crataegus monogyna)</item>
+      <item>Garlic (Allium sativum)</item>
+      <item>Omega-3 fatty acids</item>
+      <item>Coenzyme Q10</item>
+      <item>Ginkgo biloba</item>
+      <item>Resveratrol</item>
+      <item>Green tea (Camellia sinensis)</item>
+      <item>Turmeric (Curcuma longa)</item>
+    </common>
+    <other>
+      <item>Arjuna (Terminalia arjuna)</item>
+      <item>Motherwort (Leonurus cardiaca)</item>
+      <item>Olive leaf (Olea europaea)</item>
+    </other>
+  </ingredients>
+
+<taxon slug="heart-rhythm" type="subcategory">
+      <title>Heart Rhythm &amp; Function</title>
+      <description>Support healthy heart rhythm and cardiac function with herbs and nutrients like hawthorn and CoQ10.</description>
+      <ingredients>
+        <common>
+          <item>Hawthorn (Crataegus monogyna)</item>
+          <item>Coenzyme Q10</item>
+          <item>Magnesium</item>
+          <item>Omega-3 fatty acids</item>
+        </common>
+        <other>
+          <item>Motherwort (Leonurus cardiaca)</item>
+        </other>
+      </ingredients>
+    </taxon>
+    <taxon slug="blood-pressure" type="subcategory">
+      <title>Blood Pressure Support</title>
+      <description>Maintain healthy blood pressure with herbs and nutrients that support vascular health and circulation.</description>
+      <ingredients>
+        <common>
+          <item>Garlic (Allium sativum)</item>
+          <item>Hawthorn (Crataegus monogyna)</item>
+          <item>Omega-3 fatty acids</item>
+          <item>Magnesium</item>
+        </common>
+        <other>
+          <item>Olive leaf (Olea europaea)</item>
+        </other>
+      </ingredients>
+    </taxon>
+    <taxon slug="circulation" type="subcategory">
+      <title>Circulation &amp; Vascular Health</title>
+      <description>Enhance circulation and vascular health with botanicals that support blood flow and vessel strength.</description>
+      <ingredients>
+        <common>
+          <item>Ginkgo biloba</item>
+          <item>Horse chestnut (Aesculus hippocastanum)</item>
+          <item>Cayenne (Capsicum annuum)</item>
+        </common>
+        <other>
+          <item>Butcher's broom (Ruscus aculeatus)</item>
+        </other>
+      </ingredients>
+    </taxon>
+    <taxon slug="cholesterol-support" type="subcategory">
+      <title>Cholesterol &amp; Lipid Support</title>
+      <description>Maintain healthy cholesterol levels and lipid metabolism with supportive herbs and nutrients.</description>
+      <ingredients>
+        <common>
+          <item>Red yeast rice (Monascus purpureus)</item>
+          <item>Artichoke (Cynara scolymus)</item>
+          <item>Niacin</item>
+        </common>
+        <other>
+          <item>Policosanol</item>
+        </other>
+      </ingredients>
+    </taxon>
     </taxon>
 
-    <!-- 7. Pain & Inflammation -->
-    <taxon slug="pain-inflammation" type="primary" hierarchical="true">
-        <title>Pain &amp; Inflammation</title>
-        <sub-title>Natural Pain Relief &amp; Anti-Inflammatory Support</sub-title>
-        <description>Natural pain relief and inflammation support</description>
+<taxon slug="pain-inflammation" type="primary" hierarchical="true">
+  <title>Pain &amp; Inflammation</title>
+  <sub-title>Natural Pain Relief &amp; Anti-Inflammatory Support</sub-title>
+  <description>Ease discomfort and support mobility with natural botanicals that help reduce inflammation and promote joint health. Enhance daily comfort with time-tested herbs.</description>
 
-        <meta>
-            <chebi-roles>anti-inflammatory,analgesic,antioxidant,cox_inhibitor</chebi-roles>
-            <npclassifier>curcuminoids,salicylates,boswellic_acids</npclassifier>
-            <chpa-category>pain_relief</chpa-category>
-            <fda-claim>Supports comfort and mobility</fda-claim>
-        </meta>
+  <meta>
+    <chebi-roles>anti-inflammatory,analgesic,antioxidant,cox_inhibitor</chebi-roles>
+    <npclassifier>curcuminoids,salicylates,boswellic_acids</npclassifier>
+    <chpa-category>pain_relief</chpa-category>
+    <fda-claim>Supports comfort and mobility</fda-claim>
+  </meta>
 
-        <taxon slug="joint-arthritis" type="subcategory">
-            <title>Joint &amp; Arthritis Support</title>
-            <description>Targeted support for joint health, mobility, and arthritis discomfort, including turmeric, boswellia, and other anti-inflammatory herbs that promote joint comfort and flexibility.</description>
-        </taxon>
-        <taxon slug="general-inflammation" type="subcategory">
-            <title>General Inflammation Support</title>
-            <description>Broad-spectrum anti-inflammatory herbs and nutrients that help manage systemic inflammation and support the body's natural healing processes throughout the body.</description>
-        </taxon>
-        <taxon slug="muscle-recovery" type="subcategory">
-            <title>Muscle Recovery &amp; Sports Injuries</title>
-            <description>Natural support for muscle recovery, sports injuries, and exercise-related discomfort, including arnica, willow bark, and other herbs that promote healing and reduce soreness.</description>
-        </taxon>
+  <ingredients>
+    <common>
+      <item>Turmeric (Curcuma longa)</item>
+      <item>Willow Bark (Salix alba)</item>
+      <item>Ginger (Zingiber officinale)</item>
+      <item>Boswellia (Boswellia serrata)</item>
+      <item>Devil's Claw (Harpagophytum procumbens)</item>
+      <item>Capsaicin</item>
+      <item>Omega-3 Fatty Acids</item>
+    </common>
+    <other>
+      <item>Cat's Claw (Uncaria tomentosa)</item>
+      <item>Feverfew (Tanacetum parthenium)</item>
+      <item>St. John's Wort (Hypericum perforatum)</item>
+    </other>
+  </ingredients>
+
+<taxon slug="joint-arthritis" type="subcategory">
+    <title>Joint &amp; Arthritis Support</title>
+    <description>Enhance joint comfort and flexibility with targeted herbs like turmeric and boswellia for arthritis relief.</description>
+
+    <ingredients>
+      <common>
+        <item>Turmeric (Curcuma longa)</item>
+        <item>Boswellia (Boswellia serrata)</item>
+        <item>Glucosamine</item>
+        <item>Chondroitin</item>
+      </common>
+      <other>
+        <item>MSM (Methylsulfonylmethane)</item>
+      </other>
+    </ingredients>
+  </taxon>
+    <taxon slug="general-inflammation" type="subcategory">
+    <title>General Inflammation Support</title>
+    <description>Manage systemic inflammation with broad-spectrum herbs and nutrients that support natural healing.</description>
+
+    <ingredients>
+      <common>
+        <item>Ginger (Zingiber officinale)</item>
+        <item>Omega-3 Fatty Acids</item>
+        <item>Curcumin</item>
+      </common>
+      <other>
+        <item>Green Tea (Camellia sinensis)</item>
+      </other>
+    </ingredients>
+  </taxon>
+    <taxon slug="muscle-recovery" type="subcategory">
+      <title>Muscle Recovery &amp; Sports Injuries</title>
+      <description>Support muscle recovery and reduce soreness with herbs that promote healing and comfort after physical activity.</description>
+      <ingredients>
+        <common>
+          <item>Arnica (Arnica montana)</item>
+          <item>Willow Bark (Salix alba)</item>
+          <item>Turmeric (Curcuma longa)</item>
+        </common>
+        <other>
+          <item>Comfrey (Symphytum officinale)</item>
+          <item>Devil's Claw (Harpagophytum procumbens)</item>
+        </other>
+      </ingredients>
+    </taxon>
     </taxon>
 
-    <!-- 8. Focus, Memory & Cognition -->
-    <taxon slug="focus-memory-cognition" type="primary" hierarchical="true">
-        <title>Focus, Memory &amp; Cognition</title>
-        <sub-title>Brain Health &amp; Mental Performance</sub-title>
-        <description>Natural cognitive enhancement and brain health support</description>
+<taxon slug="focus-memory-cognition" type="primary" hierarchical="true">
+  <title>Focus, Memory &amp; Cognition</title>
+  <sub-title>Brain Health &amp; Mental Performance</sub-title>
+  <description>Enhance mental clarity and support brain health with natural nootropics. Boost focus and memory for improved cognitive performance.</description>
 
-        <meta>
-            <chebi-roles>nootropic,neuroprotective,cholinesterase_inhibitor,antioxidant</chebi-roles>
-            <npclassifier>ginkgolides,bacosides,huperzine</npclassifier>
-            <chpa-category>cognitive_support</chpa-category>
-            <fda-claim>Supports cognitive function and mental clarity</fda-claim>
-        </meta>
+  <meta>
+    <chebi-roles>nootropic,neuroprotective,cholinesterase_inhibitor,antioxidant</chebi-roles>
+    <npclassifier>ginkgolides,bacosides,huperzine</npclassifier>
+    <chpa-category>cognitive_support</chpa-category>
+    <fda-claim>Supports cognitive function and mental clarity</fda-claim>
+  </meta>
 
-        <taxon slug="memory-enhancement" type="subcategory">
-            <title>Memory Enhancement</title>
-            <description>Herbs and nutrients that support memory formation, recall, and retention, including ginkgo, bacopa, and other traditional memory-enhancing botanicals.</description>
-        </taxon>
-        <taxon slug="cognitive-support" type="subcategory">
-            <title>General Cognitive Support</title>
-            <description>Broad-spectrum brain health support for overall cognitive function, mental clarity, and neurological wellness throughout life stages.</description>
-        </taxon>
-        <taxon slug="brain-health" type="subcategory">
-            <title>Brain Health &amp; Neuroprotection</title>
-            <description>Neuroprotective herbs and nutrients that support long-term brain health, protect against cognitive decline, and promote healthy aging of the nervous system.</description>
-        </taxon>
+  <ingredients>
+    <common>
+      <item>Ginkgo biloba</item>
+      <item>Bacopa monnieri</item>
+      <item>Huperzine A</item>
+      <item>Rhodiola rosea</item>
+      <item>Panax ginseng</item>
+      <item>Omega-3 fatty acids</item>
+      <item>Vitamin B12</item>
+    </common>
+    <other>
+      <item>Gotu kola (Centella asiatica)</item>
+      <item>Schisandra chinensis</item>
+      <item>Rosemary (Rosmarinus officinalis)</item>
+    </other>
+  </ingredients>
+
+<taxon slug="memory-enhancement" type="subcategory">
+    <title>Memory Enhancement</title>
+    <description>Boost memory formation and recall with traditional botanicals like ginkgo and bacopa.</description>
+
+    <ingredients>
+      <common>
+        <item>Ginkgo biloba</item>
+        <item>Bacopa monnieri</item>
+        <item>Huperzine A</item>
+      </common>
+      <other>
+        <item>Gotu kola (Centella asiatica)</item>
+      </other>
+    </ingredients>
+  </taxon>
+    <taxon slug="cognitive-support" type="subcategory">
+    <title>General Cognitive Support</title>
+    <description>Support overall brain health and mental clarity with a broad spectrum of nutrients.</description>
+
+    <ingredients>
+      <common>
+        <item>Rhodiola rosea</item>
+        <item>Panax ginseng</item>
+        <item>Omega-3 fatty acids</item>
+      </common>
+      <other>
+        <item>Schisandra chinensis</item>
+      </other>
+    </ingredients>
+  </taxon>
+    <taxon slug="brain-health" type="subcategory">
+      <title>Brain Health &amp; Neuroprotection</title>
+      <description>Support long-term brain health and protect against cognitive decline with neuroprotective herbs and nutrients.</description>
+      <ingredients>
+        <common>
+          <item>Ginkgo biloba</item>
+          <item>Omega-3 fatty acids</item>
+          <item>Vitamin E</item>
+        </common>
+        <other>
+          <item>Turmeric (Curcuma longa)</item>
+        </other>
+      </ingredients>
+    </taxon>
     </taxon>
 
-    <!-- 9. Skin, Hair & Nails -->
-    <taxon slug="skin-hair-nails" type="primary" hierarchical="true">
-        <title>Skin, Hair &amp; Nails</title>
-        <sub-title>Beauty &amp; Dermatological Support</sub-title>
-        <description>Natural beauty and skin health support</description>
+<taxon slug="skin-hair-nails" type="primary" hierarchical="true">
+  <title>Skin, Hair &amp; Nails</title>
+  <sub-title>Beauty &amp; Dermatological Support</sub-title>
+  <description>Enhance your natural beauty with botanicals that support skin elasticity, hair strength, and nail health. Promote a radiant appearance with antioxidant-rich herbs.</description>
 
-        <meta>
-            <chebi-roles>antioxidant,anti-inflammatory,antimicrobial,wound_healing</chebi-roles>
-            <npclassifier>carotenoids,anthocyanins,silicic_acid</npclassifier>
-            <chpa-category>beauty_support</chpa-category>
-            <fda-claim>Supports healthy skin, hair, and nails</fda-claim>
-        </meta>
+  <meta>
+    <chebi-roles>antioxidant,anti-inflammatory,antimicrobial,wound_healing</chebi-roles>
+    <npclassifier>carotenoids,anthocyanins,silicic_acid</npclassifier>
+    <chpa-category>beauty_support</chpa-category>
+    <fda-claim>Supports healthy skin, hair, and nails</fda-claim>
+  </meta>
 
-        <taxon slug="clear-skin" type="subcategory">
-            <title>Clear Skin &amp; Acne Support</title>
-            <description>Natural support for clear, healthy skin and acne management, including burdock, nettle, and other blood-purifying herbs that promote skin clarity from within.</description>
-        </taxon>
-        <taxon slug="anti-aging" type="subcategory">
-            <title>Anti-Aging &amp; Skin Repair</title>
-            <description>Antioxidant-rich herbs and nutrients that support skin repair, reduce signs of aging, and promote youthful, radiant skin through collagen support and cellular protection.</description>
-        </taxon>
-        <taxon slug="hair-growth" type="subcategory">
-            <title>Hair Growth &amp; Strength</title>
-            <description>Nutrients and herbs that support healthy hair growth, prevent hair loss, and promote strong, lustrous hair, including saw palmetto, horsetail, and other hair-supporting botanicals.</description>
-        </taxon>
-        <taxon slug="nail-strength" type="subcategory">
-            <title>Nail Strength &amp; Health</title>
-            <description>Minerals and herbs that support strong, healthy nails, prevent brittleness, and promote optimal nail growth and appearance.</description>
-        </taxon>
+  <ingredients>
+    <common>
+      <item>Biotin</item>
+      <item>Horsetail (Equisetum arvense)</item>
+      <item>Collagen</item>
+      <item>Vitamin E</item>
+      <item>Vitamin C</item>
+      <item>Omega-3 fatty acids</item>
+      <item>Silica</item>
+      <item>Zinc</item>
+    </common>
+    <other>
+      <item>Gotu Kola (Centella asiatica)</item>
+      <item>Sea Buckthorn (Hippophae rhamnoides)</item>
+      <item>Rosehip (Rosa canina)</item>
+    </other>
+  </ingredients>
+
+<taxon slug="clear-skin" type="subcategory">
+    <title>Clear Skin &amp; Acne Support</title>
+    <description>Support clear, healthy skin with herbs that purify and balance from within, promoting a blemish-free complexion.</description>
+
+    <ingredients>
+      <common>
+        <item>Burdock (Arctium lappa)</item>
+        <item>Nettle (Urtica dioica)</item>
+        <item>Green Tea (Camellia sinensis)</item>
+        <item>Turmeric (Curcuma longa)</item>
+      </common>
+      <other>
+        <item>Neem (Azadirachta indica)</item>
+        <item>Calendula (Calendula officinalis)</item>
+      </other>
+    </ingredients>
+  </taxon>
+    <taxon slug="anti-aging" type="subcategory">
+    <title>Anti-Aging &amp; Skin Repair</title>
+    <description>Revitalize your skin with antioxidants that support repair and reduce aging signs, promoting youthful radiance.</description>
+
+    <ingredients>
+      <common>
+        <item>Resveratrol</item>
+        <item>Coenzyme Q10</item>
+        <item>Vitamin A</item>
+        <item>Grape Seed Extract</item>
+      </common>
+      <other>
+        <item>Schisandra (Schisandra chinensis)</item>
+        <item>Ginseng (Panax ginseng)</item>
+      </other>
+    </ingredients>
+  </taxon>
+    <taxon slug="hair-growth" type="subcategory">
+      <title>Hair Growth &amp; Strength</title>
+      <description>Support healthy hair growth and strength with botanicals that nourish and protect your hair.</description>
+      <ingredients>
+        <common>
+          <item>Saw Palmetto (Serenoa repens)</item>
+          <item>Horsetail (Equisetum arvense)</item>
+          <item>Biotin</item>
+          <item>Collagen</item>
+        </common>
+        <other>
+          <item>Fo-Ti (Polygonum multiflorum)</item>
+          <item>Nettle (Urtica dioica)</item>
+        </other>
+      </ingredients>
+    </taxon>
+    <taxon slug="nail-strength" type="subcategory">
+      <title>Nail Strength &amp; Health</title>
+      <description>Promote strong, healthy nails with minerals and herbs that prevent brittleness and support growth.</description>
+      <ingredients>
+        <common>
+          <item>Silica</item>
+          <item>Biotin</item>
+          <item>Zinc</item>
+          <item>Vitamin E</item>
+        </common>
+        <other>
+          <item>Horsetail (Equisetum arvense)</item>
+          <item>MSM (Methylsulfonylmethane)</item>
+        </other>
+      </ingredients>
+    </taxon>
     </taxon>
 
-    <!-- 10. Bone, Joint & Musculoskeletal -->
-    <taxon slug="bone-joint-musculoskeletal" type="primary" hierarchical="true">
-        <title>Bone, Joint &amp; Musculoskeletal</title>
-        <sub-title>Structural Support &amp; Mobility</sub-title>
-        <description>Support for bones, joints, and musculoskeletal health</description>
+<taxon slug="bone-joint-musculoskeletal" type="primary" hierarchical="true">
+  <title>Bone, Joint &amp; Musculoskeletal</title>
+  <sub-title>Structural Support &amp; Mobility</sub-title>
+  <description>Enhance mobility and maintain strong bones and joints with targeted support. Promote flexibility and comfort with traditional and modern solutions.</description>
 
-        <meta>
-            <chebi-roles>bone_remodeling,anti-inflammatory,analgesic,chondroprotective</chebi-roles>
-            <npclassifier>isoflavones,glucosamine,chondroitin</npclassifier>
-            <chpa-category>bone_joint_support</chpa-category>
-            <fda-claim>Supports bone and joint health</fda-claim>
-        </meta>
+  <meta>
+    <chebi-roles>bone_remodeling,anti-inflammatory,analgesic,chondroprotective</chebi-roles>
+    <npclassifier>isoflavones,glucosamine,chondroitin</npclassifier>
+    <chpa-category>bone_joint_support</chpa-category>
+    <fda-claim>Supports bone and joint health</fda-claim>
+  </meta>
 
-        <taxon slug="bone-density" type="subcategory">
-            <title>Bone Density &amp; Osteoporosis Support</title>
-            <description>Calcium, vitamin D, and other bone-building nutrients that support healthy bone density, prevent bone loss, and maintain skeletal strength throughout life.</description>
-        </taxon>
-        <taxon slug="joint-mobility" type="subcategory">
-            <title>Joint Mobility &amp; Flexibility</title>
-            <description>Herbs and nutrients that maintain joint flexibility, reduce stiffness, and support healthy range of motion, including glucosamine, chondroitin, and anti-inflammatory botanicals.</description>
-        </taxon>
-        <taxon slug="muscle-support" type="subcategory">
-            <title>Muscle Support &amp; Recovery</title>
-            <description>Protein, amino acids, and herbs that support muscle health, recovery, and strength, particularly beneficial for active individuals and aging adults.</description>
-        </taxon>
+  <ingredients>
+    <common>
+      <item>Glucosamine</item>
+      <item>Chondroitin</item>
+      <item>Turmeric (Curcuma longa)</item>
+      <item>Boswellia (Boswellia serrata)</item>
+      <item>Calcium</item>
+      <item>Vitamin D</item>
+      <item>MSM (Methylsulfonylmethane)</item>
+      <item>Hyaluronic Acid</item>
+    </common>
+    <other>
+      <item>Devil's Claw (Harpagophytum procumbens)</item>
+      <item>Willow Bark (Salix alba)</item>
+      <item>Cat's Claw (Uncaria tomentosa)</item>
+    </other>
+  </ingredients>
+
+<taxon slug="bone-density" type="subcategory">
+    <title>Bone Density &amp; Osteoporosis Support</title>
+    <description>Maintain strong bones with essential nutrients that support density and prevent loss.</description>
+
+    <ingredients>
+      <common>
+        <item>Calcium</item>
+        <item>Vitamin D</item>
+        <item>Magnesium</item>
+        <item>Vitamin K2</item>
+        <item>Boron</item>
+      </common>
+      <other>
+        <item>Red Clover (Trifolium pratense)</item>
+      </other>
+    </ingredients>
+  </taxon>
+    <taxon slug="joint-mobility" type="subcategory">
+    <title>Joint Mobility &amp; Flexibility</title>
+    <description>Support joint flexibility and reduce stiffness with anti-inflammatory herbs and nutrients.</description>
+
+    <ingredients>
+      <common>
+        <item>Glucosamine</item>
+        <item>Chondroitin</item>
+        <item>MSM (Methylsulfonylmethane)</item>
+        <item>Turmeric (Curcuma longa)</item>
+        <item>Boswellia (Boswellia serrata)</item>
+      </common>
+      <other>
+        <item>Devil's Claw (Harpagophytum procumbens)</item>
+        <item>Ginger (Zingiber officinale)</item>
+      </other>
+    </ingredients>
+  </taxon>
+    <taxon slug="muscle-support" type="subcategory">
+      <title>Muscle Support &amp; Recovery</title>
+      <description>Boost muscle recovery and strength with proteins and herbs, ideal for active lifestyles and aging adults.</description>
+      <ingredients>
+        <common>
+          <item>Whey Protein</item>
+          <item>Branched-Chain Amino Acids (BCAAs)</item>
+          <item>Creatine</item>
+          <item>Ashwagandha (Withania somnifera)</item>
+          <item>Magnesium</item>
+        </common>
+        <other>
+          <item>Rhodiola (Rhodiola rosea)</item>
+          <item>Ginseng (Panax ginseng)</item>
+        </other>
+      </ingredients>
+    </taxon>
     </taxon>
 
-    <!-- 11. Women's Health -->
-    <taxon slug="womens-health" type="primary" hierarchical="true">
-        <title>Women's Health</title>
-        <sub-title>Feminine Wellness &amp; Hormonal Balance</sub-title>
-        <description>Natural support for women's unique health needs</description>
+<taxon slug="womens-health" type="primary" hierarchical="true">
+  <title>Women's Health</title>
+  <sub-title>Feminine Wellness &amp; Hormonal Balance</sub-title>
+  <description>Support your unique health needs with natural solutions for hormonal balance, menstrual comfort, and overall feminine wellness.</description>
 
-        <meta>
-            <chebi-roles>phytoestrogen,hormone_modulator,uterine_tonic,galactagogue</chebi-roles>
-            <npclassifier>isoflavones,triterpene_saponins,essential_oils</npclassifier>
-            <chpa-category>womens_health</chpa-category>
-            <fda-claim>Supports women's health and hormonal balance</fda-claim>
-        </meta>
+  <meta>
+    <chebi-roles>phytoestrogen,hormone_modulator,uterine_tonic,galactagogue</chebi-roles>
+    <npclassifier>isoflavones,triterpene_saponins,essential_oils</npclassifier>
+    <chpa-category>womens_health</chpa-category>
+    <fda-claim>Supports women's health and hormonal balance</fda-claim>
+  </meta>
 
-        <taxon slug="menstrual-support" type="subcategory">
-            <title>Menstrual Support &amp; PMS Relief</title>
-            <description>Herbs that support healthy menstrual cycles, reduce PMS symptoms, and promote hormonal balance, including chasteberry, dong quai, and other traditional women's herbs.</description>
-        </taxon>
-        <taxon slug="menopause-hot-flashes" type="subcategory">
-            <title>Menopause &amp; Hot Flash Support</title>
-            <description>Natural support for menopausal symptoms, hot flashes, and hormonal changes, including black cohosh, red clover, and other phytoestrogen-rich botanicals.</description>
-        </taxon>
-        <taxon slug="fertility-support" type="subcategory">
-            <title>Fertility &amp; Reproductive Support</title>
-            <description>Herbs and nutrients that support female fertility, reproductive health, and preconception wellness, including maca, vitex, and other fertility-enhancing botanicals.</description>
-        </taxon>
-        <taxon slug="pregnancy-lactation" type="subcategory">
-            <title>Pregnancy &amp; Lactation Support</title>
-            <description>Safe, gentle herbs and nutrients for pregnancy support, morning sickness relief, and lactation enhancement, including red raspberry leaf and other pregnancy-safe botanicals.</description>
-        </taxon>
+  <ingredients>
+    <common>
+      <item>Black Cohosh (Actaea racemosa)</item>
+      <item>Red Clover (Trifolium pratense)</item>
+      <item>Chaste Tree (Vitex agnus-castus)</item>
+      <item>Dong Quai (Angelica sinensis)</item>
+      <item>Evening Primrose Oil</item>
+      <item>Fenugreek (Trigonella foenum-graecum)</item>
+      <item>Ginger (Zingiber officinale)</item>
+      <item>Raspberry Leaf (Rubus idaeus)</item>
+    </common>
+    <other>
+      <item>Shatavari (Asparagus racemosus)</item>
+      <item>Wild Yam (Dioscorea villosa)</item>
+      <item>Motherwort (Leonurus cardiaca)</item>
+    </other>
+  </ingredients>
+
+<taxon slug="menstrual-support" type="subcategory">
+    <title>Menstrual Support &amp; PMS Relief</title>
+    <description>Ease menstrual discomfort and balance hormones with traditional botanicals for cycle support.</description>
+
+    <ingredients>
+      <common>
+        <item>Chasteberry (Vitex agnus-castus)</item>
+        <item>Dong Quai (Angelica sinensis)</item>
+        <item>Ginger (Zingiber officinale)</item>
+      </common>
+      <other>
+        <item>Raspberry Leaf (Rubus idaeus)</item>
+      </other>
+    </ingredients>
+  </taxon>
+    <taxon slug="menopause-hot-flashes" type="subcategory">
+    <title>Menopause &amp; Hot Flash Support</title>
+    <description>Find relief from menopausal symptoms and hot flashes with phytoestrogen-rich botanicals.</description>
+
+    <ingredients>
+      <common>
+        <item>Black Cohosh (Actaea racemosa)</item>
+        <item>Red Clover (Trifolium pratense)</item>
+        <item>Evening Primrose Oil</item>
+      </common>
+      <other>
+        <item>Shatavari (Asparagus racemosus)</item>
+      </other>
+    </ingredients>
+  </taxon>
+    <taxon slug="fertility-support" type="subcategory">
+    <title>Fertility &amp; Reproductive Support</title>
+    <description>Enhance fertility and reproductive health with botanicals like maca and vitex for preconception wellness.</description>
+
+    <ingredients>
+      <common>
+        <item>Maca (Lepidium meyenii)</item>
+        <item>Vitex (Vitex agnus-castus)</item>
+        <item>Red Clover (Trifolium pratense)</item>
+        <item>Dong Quai (Angelica sinensis)</item>
+      </common>
+      <other>
+        <item>Tribulus (Tribulus terrestris)</item>
+        <item>Damiana (Turnera diffusa)</item>
+      </other>
+    </ingredients>
+  </taxon>
+    <taxon slug="pregnancy-lactation" type="subcategory">
+    <title>Pregnancy &amp; Lactation Support</title>
+    <description>Gentle herbs for pregnancy support and lactation, including red raspberry leaf for safe nourishment.</description>
+
+    <ingredients>
+      <common>
+        <item>Red Raspberry Leaf (Rubus idaeus)</item>
+        <item>Fenugreek (Trigonella foenum-graecum)</item>
+        <item>Ginger (Zingiber officinale)</item>
+        <item>Fennel (Foeniculum vulgare)</item>
+      </common>
+      <other>
+        <item>Nettle (Urtica dioica)</item>
+        <item>Alfalfa (Medicago sativa)</item>
+      </other>
+    </ingredients>
+  </taxon>
     </taxon>
 
-    <!-- 12. Men's Health -->
-    <taxon slug="mens-health" type="primary" hierarchical="true">
-        <title>Men's Health</title>
-        <sub-title>Masculine Vitality &amp; Wellness</sub-title>
-        <description>Natural support for men's unique health needs</description>
+<taxon slug="mens-health" type="primary" hierarchical="true">
+  <title>Men's Health</title>
+  <sub-title>Masculine Vitality &amp; Wellness</sub-title>
+  <description>Enhance vitality and support overall wellness with natural solutions tailored to men's unique health needs. Promote energy, stamina, and hormonal balance.</description>
 
-        <meta>
-            <chebi-roles>testosterone_support,alpha_reductase_inhibitor,adaptogen,aphrodisiac</chebi-roles>
-            <npclassifier>steroidal_saponins,fatty_acids,withanolides</npclassifier>
-            <chpa-category>mens_health</chpa-category>
-            <fda-claim>Supports men's health and vitality</fda-claim>
-        </meta>
+  <meta>
+    <chebi-roles>testosterone_support,alpha_reductase_inhibitor,adaptogen,aphrodisiac</chebi-roles>
+    <npclassifier>steroidal_saponins,fatty_acids,withanolides</npclassifier>
+    <chpa-category>mens_health</chpa-category>
+    <fda-claim>Supports men's health and vitality</fda-claim>
+  </meta>
 
-        <taxon slug="prostate-health" type="subcategory">
-            <title>Prostate Health</title>
-            <description>Natural support for prostate health and urinary function, including saw palmetto, pygeum, and other herbs traditionally used for men's urological wellness.</description>
-        </taxon>
-        <taxon slug="testosterone-support" type="subcategory">
-            <title>Testosterone &amp; Hormone Support</title>
-            <description>Herbs and nutrients that support healthy testosterone levels, hormonal balance, and masculine vitality, including ashwagandha, fenugreek, and other male tonics.</description>
-        </taxon>
-        <taxon slug="male-vitality" type="subcategory">
-            <title>Male Vitality &amp; Performance</title>
-            <description>Natural support for male energy, stamina, and overall vitality, including maca, ginseng, and other herbs traditionally used to enhance masculine wellness.</description>
-        </taxon>
+  <ingredients>
+    <common>
+      <item>Tribulus (Tribulus terrestris)</item>
+      <item>Ginseng (Panax ginseng)</item>
+      <item>Maca (Lepidium meyenii)</item>
+      <item>Saw Palmetto (Serenoa repens)</item>
+      <item>Ashwagandha (Withania somnifera)</item>
+      <item>Fenugreek (Trigonella foenum-graecum)</item>
+      <item>Zinc</item>
+      <item>Vitamin D</item>
+    </common>
+    <other>
+      <item>Horny Goat Weed (Epimedium)</item>
+      <item>Muira Puama (Ptychopetalum olacoides)</item>
+      <item>Shilajit</item>
+    </other>
+  </ingredients>
+
+<taxon slug="prostate-health" type="subcategory">
+    <title>Prostate Health</title>
+    <description>Support prostate health and urinary function with traditional herbs for men's urological wellness.</description>
+
+    <ingredients>
+      <common>
+        <item>Saw Palmetto (Serenoa repens)</item>
+        <item>Pygeum (Prunus africana)</item>
+        <item>Beta-Sitosterol</item>
+        <item>Pumpkin Seed (Cucurbita pepo)</item>
+        <item>Nettle Root (Urtica dioica)</item>
+      </common>
+      <other>
+        <item>Rye Grass Pollen (Secale cereale)</item>
+        <item>Stinging Nettle (Urtica dioica)</item>
+      </other>
+    </ingredients>
+  </taxon>
+    <taxon slug="testosterone-support" type="subcategory">
+    <title>Testosterone &amp; Hormone Support</title>
+    <description>Boost testosterone levels and hormonal balance with male tonics like ashwagandha and fenugreek.</description>
+
+    <ingredients>
+      <common>
+        <item>Ashwagandha (Withania somnifera)</item>
+        <item>Fenugreek (Trigonella foenum-graecum)</item>
+        <item>Tribulus (Tribulus terrestris)</item>
+        <item>Maca (Lepidium meyenii)</item>
+        <item>Zinc</item>
+      </common>
+      <other>
+        <item>Horny Goat Weed (Epimedium)</item>
+        <item>Longjack (Eurycoma longifolia)</item>
+      </other>
+    </ingredients>
+  </taxon>
+    <taxon slug="male-vitality" type="subcategory">
+    <title>Male Vitality &amp; Performance</title>
+    <description>Boost energy and stamina with herbs like maca and ginseng, traditionally used to enhance male vitality and performance.</description>
+
+    <ingredients>
+      <common>
+        <item>Maca (Lepidium meyenii)</item>
+        <item>Ginseng (Panax ginseng)</item>
+        <item>Tribulus (Tribulus terrestris)</item>
+        <item>Ashwagandha (Withania somnifera)</item>
+      </common>
+      <other>
+        <item>Muira Puama (Ptychopetalum olacoides)</item>
+        <item>Horny Goat Weed (Epimedium)</item>
+      </other>
+    </ingredients>
+  </taxon>
     </taxon>
 
-    <!-- 13. Liver & Detoxification -->
-    <taxon slug="liver-detoxification" type="primary" hierarchical="true">
-        <title>Liver &amp; Detoxification</title>
-        <sub-title>Cleansing &amp; Liver Support</sub-title>
-        <description>Natural liver support and detoxification</description>
+<taxon slug="liver-detoxification" type="primary" hierarchical="true">
+  <title>Liver &amp; Detoxification</title>
+  <sub-title>Cleansing &amp; Liver Support</sub-title>
+  <description>Enhance your body's natural detoxification processes and support liver health with traditional herbs and modern nutrients. Promote overall vitality and well-being.</description>
 
-        <meta>
-            <chebi-roles>hepatoprotective,detoxifying,cholagogue,antioxidant</chebi-roles>
-            <npclassifier>silymarin,artichoke_acids,sulfur_compounds</npclassifier>
-            <chpa-category>liver_support</chpa-category>
-            <fda-claim>Supports liver health and detoxification</fda-claim>
-        </meta>
+  <meta>
+    <chebi-roles>hepatoprotective,detoxifying,cholagogue,antioxidant</chebi-roles>
+    <npclassifier>silymarin,artichoke_acids,sulfur_compounds</npclassifier>
+    <chpa-category>liver_support</chpa-category>
+    <fda-claim>Supports liver health and detoxification</fda-claim>
+  </meta>
 
-        <taxon slug="daily-liver" type="subcategory">
-            <title>Daily Liver Support</title>
-            <description>Gentle liver tonics for everyday liver health and function, including milk thistle, dandelion, and other hepatoprotective herbs that support optimal liver wellness.</description>
-        </taxon>
-        <taxon slug="detox-cleanse" type="subcategory">
-            <title>Detox &amp; Cleanse Programs</title>
-            <description>Comprehensive detoxification support and cleansing protocols, including herbs and nutrients that support the body's natural detoxification pathways and elimination processes.</description>
-        </taxon>
-        <taxon slug="heavy-metal" type="subcategory">
-            <title>Heavy Metal &amp; Toxin Support</title>
-            <description>Specialized support for heavy metal detoxification and environmental toxin elimination, including chelating agents and protective antioxidants.</description>
-        </taxon>
+  <ingredients>
+    <common>
+      <item>Milk Thistle (Silybum marianum)</item>
+      <item>Dandelion Root (Taraxacum officinale)</item>
+      <item>Artichoke (Cynara scolymus)</item>
+      <item>Turmeric (Curcuma longa)</item>
+      <item>Schisandra (Schisandra chinensis)</item>
+      <item>Ginger (Zingiber officinale)</item>
+      <item>Garlic (Allium sativum)</item>
+    </common>
+    <other>
+      <item>Burdock Root (Arctium lappa)</item>
+      <item>Yellow Dock (Rumex crispus)</item>
+      <item>Chanca Piedra (Phyllanthus niruri)</item>
+    </other>
+  </ingredients>
+
+<taxon slug="daily-liver" type="subcategory">
+    <title>Daily Liver Support</title>
+    <description>Maintain liver health with daily tonics that promote optimal function and protection.</description>
+
+    <ingredients>
+      <common>
+        <item>Milk Thistle (Silybum marianum)</item>
+        <item>Dandelion (Taraxacum officinale)</item>
+        <item>Schisandra (Schisandra chinensis)</item>
+      </common>
+      <other>
+        <item>Yellow Dock (Rumex crispus)</item>
+      </other>
+    </ingredients>
+  </taxon>
+    <taxon slug="detox-cleanse" type="subcategory">
+    <title>Detox &amp; Cleanse Programs</title>
+    <description>Support detox pathways with comprehensive cleansing protocols for enhanced elimination.</description>
+
+    <ingredients>
+      <common>
+        <item>Artichoke (Cynara scolymus)</item>
+        <item>Turmeric (Curcuma longa)</item>
+        <item>Ginger (Zingiber officinale)</item>
+      </common>
+      <other>
+        <item>Burdock Root (Arctium lappa)</item>
+      </other>
+    </ingredients>
+  </taxon>
+    <taxon slug="heavy-metal" type="subcategory">
+    <title>Heavy Metal &amp; Toxin Support</title>
+    <description>Facilitate the removal of heavy metals and toxins with chelating agents and protective antioxidants for enhanced detoxification.</description>
+
+    <ingredients>
+      <common>
+        <item>Chlorella</item>
+        <item>Cilantro (Coriandrum sativum)</item>
+        <item>Spirulina</item>
+        <item>Alpha-lipoic acid</item>
+        <item>Garlic (Allium sativum)</item>
+      </common>
+      <other>
+        <item>Zeolite</item>
+        <item>Modified Citrus Pectin</item>
+      </other>
+    </ingredients>
+  </taxon>
     </taxon>
 
-    <!-- 14. Respiratory Health -->
-    <taxon slug="respiratory-health" type="primary" hierarchical="true">
-        <title>Respiratory Health</title>
-        <sub-title>Lung Function &amp; Breathing Support</sub-title>
-        <description>Natural support for respiratory health and lung function</description>
+<taxon slug="respiratory-health" type="primary" hierarchical="true">
+  <title>Respiratory Health</title>
+  <sub-title>Lung Function &amp; Breathing Support</sub-title>
+  <description>Enhance lung function and ease breathing with natural botanicals. Support respiratory health with herbs known for their soothing and clearing properties.</description>
 
-        <meta>
-            <chebi-roles>expectorant,bronchodilator,anti-inflammatory,antimicrobial</chebi-roles>
-            <npclassifier>essential_oils,saponins,mucilage</npclassifier>
-            <chpa-category>respiratory_support</chpa-category>
-            <fda-claim>Supports respiratory health and lung function</fda-claim>
-        </meta>
+  <meta>
+    <chebi-roles>expectorant,bronchodilator,anti-inflammatory,antimicrobial</chebi-roles>
+    <npclassifier>essential_oils,saponins,mucilage</npclassifier>
+    <chpa-category>respiratory_support</chpa-category>
+    <fda-claim>Supports respiratory health and lung function</fda-claim>
+  </meta>
 
-        <taxon slug="lung-support" type="subcategory">
-            <title>General Lung Support</title>
-            <description>Herbs that support overall lung health and respiratory function, including mullein, marshmallow root, and other traditional respiratory tonics.</description>
-        </taxon>
-        <taxon slug="cough-congestion" type="subcategory">
-            <title>Cough &amp; Congestion Relief</title>
-            <description>Natural expectorants and decongestants for cough relief and respiratory congestion, including ivy leaf, thyme, and other mucus-clearing herbs.</description>
-        </taxon>
-        <taxon slug="allergy-asthma" type="subcategory">
-            <title>Allergy &amp; Asthma Support</title>
-            <description>Natural support for respiratory allergies and asthma symptoms, including quercetin, butterbur, and other anti-inflammatory and antihistamine botanicals.</description>
-        </taxon>
+  <ingredients>
+    <common>
+      <item>Eucalyptus (Eucalyptus globulus)</item>
+      <item>Thyme (Thymus vulgaris)</item>
+      <item>Licorice root (Glycyrrhiza glabra)</item>
+      <item>Mullein (Verbascum thapsus)</item>
+      <item>Ginger (Zingiber officinale)</item>
+      <item>Peppermint (Mentha piperita)</item>
+    </common>
+    <other>
+      <item>Osha root (Ligusticum porteri)</item>
+      <item>Elecampane (Inula helenium)</item>
+      <item>Butterbur (Petasites hybridus)</item>
+    </other>
+  </ingredients>
+
+<taxon slug="lung-support" type="subcategory">
+    <title>General Lung Support</title>
+    <description>Promote lung health and respiratory function with traditional herbs for clear and easy breathing.</description>
+
+    <ingredients>
+      <common>
+        <item>Mullein (Verbascum thapsus)</item>
+        <item>Marshmallow root (Althaea officinalis)</item>
+        <item>Licorice root (Glycyrrhiza glabra)</item>
+      </common>
+      <other>
+        <item>Elecampane (Inula helenium)</item>
+      </other>
+    </ingredients>
+  </taxon>
+    <taxon slug="cough-congestion" type="subcategory">
+    <title>Cough &amp; Congestion Relief</title>
+    <description>Ease coughs and clear congestion with natural expectorants and decongestants for respiratory comfort.</description>
+
+    <ingredients>
+      <common>
+        <item>Ivy leaf (Hedera helix)</item>
+        <item>Thyme (Thymus vulgaris)</item>
+        <item>Eucalyptus (Eucalyptus globulus)</item>
+      </common>
+      <other>
+        <item>Coltsfoot (Tussilago farfara)</item>
+      </other>
+    </ingredients>
+  </taxon>
+    <taxon slug="allergy-asthma" type="subcategory">
+    <title>Allergy &amp; Asthma Support</title>
+    <description>Ease respiratory allergies and asthma symptoms with soothing botanicals and natural antihistamines.</description>
+
+    <ingredients>
+      <common>
+        <item>Quercetin</item>
+        <item>Butterbur (Petasites hybridus)</item>
+        <item>Stinging nettle (Urtica dioica)</item>
+        <item>Licorice root (Glycyrrhiza glabra)</item>
+        <item>Thyme (Thymus vulgaris)</item>
+      </common>
+      <other>
+        <item>Perilla (Perilla frutescens)</item>
+        <item>Baical skullcap (Scutellaria baicalensis)</item>
+      </other>
+    </ingredients>
+  </taxon>
     </taxon>
 
-    <!-- 15. Kidney & Urinary -->
-    <taxon slug="kidney-urinary" type="primary" hierarchical="true">
-        <title>Kidney &amp; Urinary</title>
-        <sub-title>Urological Health &amp; Kidney Support</sub-title>
-        <description>Natural support for kidney and urinary tract health</description>
+<taxon slug="kidney-urinary" type="primary" hierarchical="true">
+  <title>Kidney &amp; Urinary</title>
+  <sub-title>Urological Health &amp; Kidney Support</sub-title>
+  <description>Promote kidney function and urinary tract health with natural diuretics and antiseptics. Support overall urological wellness and comfort.</description>
 
-        <meta>
-            <chebi-roles>diuretic,antiseptic,anti-inflammatory,nephroprotective</chebi-roles>
-            <npclassifier>arbutin,cranberry_proanthocyanidins,potassium_salts</npclassifier>
-            <chpa-category>urinary_support</chpa-category>
-            <fda-claim>Supports urinary tract and kidney health</fda-claim>
-        </meta>
+  <meta>
+    <chebi-roles>diuretic,antiseptic,anti-inflammatory,nephroprotective</chebi-roles>
+    <npclassifier>arbutin,cranberry_proanthocyanidins,potassium_salts</npclassifier>
+    <chpa-category>urinary_support</chpa-category>
+    <fda-claim>Supports urinary tract and kidney health</fda-claim>
+  </meta>
 
-        <taxon slug="kidney-function" type="subcategory">
-            <title>Kidney Function &amp; Support</title>
-            <description>Herbs that support healthy kidney function and nephroprotection, including nettle, corn silk, and other traditional kidney tonics.</description>
-        </taxon>
-        <taxon slug="urinary-tract" type="subcategory">
-            <title>Urinary Tract Health</title>
-            <description>Natural support for urinary tract health and infection prevention, including cranberry, uva ursi, and other urinary antiseptic herbs.</description>
-        </taxon>
-        <taxon slug="bladder-support" type="subcategory">
-            <title>Bladder Support &amp; Control</title>
-            <description>Herbs and nutrients that support healthy bladder function, urinary control, and comfort, particularly beneficial for aging adults.</description>
-        </taxon>
+  <ingredients>
+    <common>
+      <item>Cranberry (Vaccinium macrocarpon)</item>
+      <item>Dandelion (Taraxacum officinale)</item>
+      <item>Horsetail (Equisetum arvense)</item>
+      <item>Nettle (Urtica dioica)</item>
+      <item>Uva Ursi (Arctostaphylos uva-ursi)</item>
+      <item>Parsley (Petroselinum crispum)</item>
+      <item>Juniper (Juniperus communis)</item>
+      <item>Goldenrod (Solidago virgaurea)</item>
+    </common>
+    <other>
+      <item>Chanca Piedra (Phyllanthus niruri)</item>
+      <item>Celery Seed (Apium graveolens)</item>
+      <item>Buchu (Agathosma betulina)</item>
+    </other>
+  </ingredients>
+
+<taxon slug="kidney-function" type="subcategory">
+    <title>Kidney Function &amp; Support</title>
+    <description>Enhance kidney function and protection with traditional tonics like nettle and corn silk.</description>
+
+    <ingredients>
+      <common>
+        <item>Nettle (Urtica dioica)</item>
+        <item>Corn Silk (Zea mays)</item>
+        <item>Dandelion (Taraxacum officinale)</item>
+      </common>
+      <other>
+        <item>Chanca Piedra (Phyllanthus niruri)</item>
+      </other>
+    </ingredients>
+  </taxon>
+    <taxon slug="urinary-tract" type="subcategory">
+    <title>Urinary Tract Health</title>
+    <description>Support urinary tract health and prevent infections with cranberry and uva ursi.</description>
+
+    <ingredients>
+      <common>
+        <item>Cranberry (Vaccinium macrocarpon)</item>
+        <item>Uva Ursi (Arctostaphylos uva-ursi)</item>
+        <item>Horsetail (Equisetum arvense)</item>
+      </common>
+      <other>
+        <item>Java Tea (Orthosiphon stamineus)</item>
+      </other>
+    </ingredients>
+  </taxon>
+    <taxon slug="bladder-support" type="subcategory">
+      <title>Bladder Support &amp; Control</title>
+      <description>Enhance bladder function and comfort with herbs that support urinary control, ideal for aging adults.</description>
+      <ingredients>
+        <common>
+          <item>Horsetail (Equisetum arvense)</item>
+          <item>Uva Ursi (Arctostaphylos uva-ursi)</item>
+          <item>Marshmallow root (Althaea officinalis)</item>
+        </common>
+        <other>
+          <item>Goldenrod (Solidago virgaurea)</item>
+        </other>
+      </ingredients>
+    </taxon>
     </taxon>
 
-    <!-- 16. Blood Sugar & Metabolism -->
-    <taxon slug="blood-sugar-metabolism" type="primary" hierarchical="true">
-        <title>Blood Sugar &amp; Metabolism</title>
-        <sub-title>Metabolic Health &amp; Blood Sugar Support</sub-title>
-        <description>Natural support for healthy blood sugar and metabolism</description>
+<taxon slug="blood-sugar-metabolism" type="primary" hierarchical="true">
+  <title>Blood Sugar &amp; Metabolism</title>
+  <sub-title>Metabolic Health &amp; Blood Sugar Support</sub-title>
+  <description>Support healthy blood sugar levels and metabolic function with natural botanicals. Enhance your body's ability to manage glucose and maintain energy balance.</description>
 
-        <meta>
-            <chebi-roles>hypoglycemic,insulin_sensitizer,metabolic_regulator,antioxidant</chebi-roles>
-            <npclassifier>chromium_compounds,alpha_lipoic_acid,gymnemic_acids</npclassifier>
-            <chpa-category>metabolic_support</chpa-category>
-            <fda-claim>Supports healthy blood sugar metabolism</fda-claim>
-        </meta>
+  <meta>
+    <chebi-roles>hypoglycemic,insulin_sensitizer,metabolic_regulator,antioxidant</chebi-roles>
+    <npclassifier>chromium_compounds,alpha_lipoic_acid,gymnemic_acids</npclassifier>
+    <chpa-category>metabolic_support</chpa-category>
+    <fda-claim>Supports healthy blood sugar metabolism</fda-claim>
+  </meta>
 
-        <taxon slug="blood-sugar-control" type="subcategory">
-            <title>Blood Sugar Control</title>
-            <description>Herbs and nutrients that support healthy blood sugar levels within normal range, including cinnamon, chromium, and other glucose-regulating compounds.</description>
-        </taxon>
-        <taxon slug="metabolic-support" type="subcategory">
-            <title>Metabolic Support &amp; Weight Management</title>
-            <description>Natural support for healthy metabolism, weight management, and metabolic function, including green tea, garcinia, and other metabolism-boosting herbs.</description>
-        </taxon>
-        <taxon slug="insulin-sensitivity" type="subcategory">
-            <title>Insulin Sensitivity Support</title>
-            <description>Herbs and nutrients that support healthy insulin sensitivity and glucose metabolism, including alpha-lipoic acid, bitter melon, and other insulin-supporting compounds.</description>
-        </taxon>
+  <ingredients>
+    <common>
+      <item>Cinnamon (Cinnamomum verum)</item>
+      <item>Chromium</item>
+      <item>Berberine</item>
+      <item>Gymnema (Gymnema sylvestre)</item>
+      <item>Alpha-lipoic acid</item>
+      <item>Bitter melon (Momordica charantia)</item>
+      <item>Fenugreek (Trigonella foenum-graecum)</item>
+    </common>
+    <other>
+      <item>Banaba (Lagerstroemia speciosa)</item>
+      <item>Holy basil (Ocimum sanctum)</item>
+      <item>Jiaogulan (Gynostemma pentaphyllum)</item>
+    </other>
+  </ingredients>
+
+<taxon slug="blood-sugar-control" type="subcategory">
+    <title>Blood Sugar Control</title>
+    <description>Maintain healthy blood sugar levels with herbs and nutrients that support glucose regulation.</description>
+
+    <ingredients>
+      <common>
+        <item>Cinnamon (Cinnamomum verum)</item>
+        <item>Chromium</item>
+        <item>Gymnema (Gymnema sylvestre)</item>
+      </common>
+      <other>
+        <item>Banaba (Lagerstroemia speciosa)</item>
+      </other>
+    </ingredients>
+  </taxon>
+    <taxon slug="metabolic-support" type="subcategory">
+    <title>Metabolic Support &amp; Weight Management</title>
+    <description>Boost metabolism and support weight management with natural herbs and nutrients.</description>
+
+    <ingredients>
+      <common>
+        <item>Green tea (Camellia sinensis)</item>
+        <item>Garcinia (Garcinia cambogia)</item>
+        <item>Cayenne (Capsicum annuum)</item>
+      </common>
+      <other>
+        <item>Yerba mate (Ilex paraguariensis)</item>
+      </other>
+    </ingredients>
+  </taxon>
+    <taxon slug="insulin-sensitivity" type="subcategory">
+    <title>Insulin Sensitivity Support</title>
+    <description>Enhance insulin sensitivity and glucose metabolism with targeted herbs and nutrients for balanced energy.</description>
+
+    <ingredients>
+      <common>
+        <item>Alpha-lipoic acid</item>
+        <item>Bitter melon (Momordica charantia)</item>
+        <item>Cinnamon (Cinnamomum verum)</item>
+        <item>Chromium</item>
+      </common>
+      <other>
+        <item>Fenugreek (Trigonella foenum-graecum)</item>
+        <item>Banaba (Lagerstroemia speciosa)</item>
+      </other>
+    </ingredients>
+  </taxon>
     </taxon>
 
-    <!-- 17. Allergy & Histamine -->
-    <taxon slug="allergy-histamine" type="primary" hierarchical="true">
-        <title>Allergy &amp; Histamine</title>
-        <sub-title>Immune Balance &amp; Histamine Support</sub-title>
-        <description>Natural support for allergies and histamine regulation</description>
+<taxon slug="allergy-histamine" type="primary" hierarchical="true">
+  <title>Allergy &amp; Histamine</title>
+  <sub-title>Immune Balance &amp; Histamine Support</sub-title>
+  <description>Find relief from seasonal allergies and support histamine regulation with natural botanicals. Enhance your body's response to environmental factors.</description>
 
-        <meta>
-            <chebi-roles>antihistamine,anti-inflammatory,immune_modulator,mast_cell_stabilizer</chebi-roles>
-            <npclassifier>quercetin,vitamin_c,bromelain</npclassifier>
-            <chpa-category>allergy_support</chpa-category>
-            <fda-claim>Supports healthy immune response to environmental factors</fda-claim>
-        </meta>
+  <meta>
+    <chebi-roles>antihistamine,anti-inflammatory,immune_modulator,mast_cell_stabilizer</chebi-roles>
+    <npclassifier>quercetin,vitamin_c,bromelain</npclassifier>
+    <chpa-category>allergy_support</chpa-category>
+    <fda-claim>Supports healthy immune response to environmental factors</fda-claim>
+  </meta>
 
-        <taxon slug="seasonal-allergies" type="subcategory">
-            <title>Seasonal Allergies</title>
-            <description>Natural support for seasonal allergy symptoms, including hay fever, pollen allergies, and environmental sensitivities, featuring quercetin, butterbur, and other antihistamine herbs.</description>
-        </taxon>
-        <taxon slug="food-sensitivities" type="subcategory">
-            <title>Food Sensitivities &amp; Intolerances</title>
-            <description>Support for food sensitivities and digestive intolerances, including enzymes and herbs that help the body process problematic foods and reduce inflammatory responses.</description>
-        </taxon>
-        <taxon slug="histamine-regulation" type="subcategory">
-            <title>Histamine Regulation</title>
-            <description>Specialized support for histamine intolerance and regulation, including DAO enzymes and histamine-reducing compounds for those with histamine sensitivity.</description>
-        </taxon>
+  <ingredients>
+    <common>
+      <item>Quercetin</item>
+      <item>Vitamin C</item>
+      <item>Bromelain</item>
+      <item>Stinging Nettle (Urtica dioica)</item>
+      <item>Butterbur (Petasites hybridus)</item>
+      <item>Turmeric (Curcuma longa)</item>
+      <item>Licorice Root (Glycyrrhiza glabra)</item>
+      <item>Green Tea (Camellia sinensis)</item>
+    </common>
+    <other>
+      <item>Perilla (Perilla frutescens)</item>
+      <item>Black Seed (Nigella sativa)</item>
+      <item>Baical Skullcap (Scutellaria baicalensis)</item>
+    </other>
+  </ingredients>
+
+<taxon slug="seasonal-allergies" type="subcategory">
+    <title>Seasonal Allergies</title>
+    <description>Ease seasonal allergy symptoms with natural antihistamines and immune support for hay fever and pollen sensitivities.</description>
+
+    <ingredients>
+      <common>
+        <item>Quercetin</item>
+        <item>Butterbur (Petasites hybridus)</item>
+        <item>Stinging Nettle (Urtica dioica)</item>
+      </common>
+      <other>
+        <item>Perilla (Perilla frutescens)</item>
+      </other>
+    </ingredients>
+  </taxon>
+    <taxon slug="food-sensitivities" type="subcategory">
+    <title>Food Sensitivities &amp; Intolerances</title>
+    <description>Support digestion and reduce inflammation with enzymes and herbs that help process problematic foods.</description>
+
+    <ingredients>
+      <common>
+        <item>Bromelain</item>
+        <item>Ginger (Zingiber officinale)</item>
+        <item>Papain</item>
+      </common>
+      <other>
+        <item>Artichoke (Cynara scolymus)</item>
+      </other>
+    </ingredients>
+  </taxon>
+    <taxon slug="histamine-regulation" type="subcategory">
+    <title>Histamine Regulation</title>
+    <description>Support histamine balance with targeted compounds and enzymes for those with sensitivity.</description>
+
+    <ingredients>
+      <common>
+        <item>Quercetin</item>
+        <item>Vitamin C</item>
+        <item>DAO Enzyme</item>
+      </common>
+      <other>
+        <item>Butterbur (Petasites hybridus)</item>
+      </other>
+    </ingredients>
+  </taxon>
     </taxon>
 
-    <!-- 18. Healthy Aging -->
-    <taxon slug="healthy-aging" type="primary" hierarchical="true">
-        <title>Healthy Aging</title>
-        <sub-title>Longevity &amp; Age-Related Support</sub-title>
-        <description>Natural support for healthy aging and longevity</description>
+<taxon slug="healthy-aging" type="primary" hierarchical="true">
+  <title>Healthy Aging</title>
+  <sub-title>Longevity &amp; Age-Related Support</sub-title>
+  <description>Promote vitality and longevity with natural support for healthy aging. Enhance cellular function and protect against age-related decline.</description>
 
-        <meta>
-            <chebi-roles>antioxidant,anti-aging,neuroprotective,cardioprotective</chebi-roles>
-            <npclassifier>resveratrol,coenzyme_q10,telomerase_activators</npclassifier>
-            <chpa-category>anti_aging</chpa-category>
-            <fda-claim>Supports healthy aging and cellular function</fda-claim>
-        </meta>
+  <meta>
+    <chebi-roles>antioxidant,anti-aging,neuroprotective,cardioprotective</chebi-roles>
+    <npclassifier>resveratrol,coenzyme_q10,telomerase_activators</npclassifier>
+    <chpa-category>anti_aging</chpa-category>
+    <fda-claim>Supports healthy aging and cellular function</fda-claim>
+  </meta>
 
-        <taxon slug="cellular-health" type="subcategory">
-            <title>Cellular Health &amp; Antioxidants</title>
-            <description>Powerful antioxidants and cellular protective compounds that support healthy aging at the cellular level, including resveratrol, CoQ10, and other anti-aging nutrients.</description>
-        </taxon>
-        <taxon slug="longevity-support" type="subcategory">
-            <title>Longevity &amp; Life Extension</title>
-            <description>Cutting-edge compounds and traditional longevity herbs that support healthy lifespan and age-related cellular function, including sirtuins activators and longevity botanicals.</description>
-        </taxon>
-        <taxon slug="age-related-decline" type="subcategory">
-            <title>Age-Related Decline Prevention</title>
-            <description>Natural support for preventing and managing age-related decline in various body systems, including cognitive, cardiovascular, and metabolic health maintenance.</description>
-        </taxon>
+  <ingredients>
+    <common>
+      <item>Resveratrol</item>
+      <item>Coenzyme Q10</item>
+      <item>Curcumin</item>
+      <item>Ginkgo biloba</item>
+      <item>Green tea extract</item>
+      <item>Omega-3 fatty acids</item>
+      <item>Vitamin E</item>
+      <item>Alpha-lipoic acid</item>
+    </common>
+    <other>
+      <item>Gotu kola (Centella asiatica)</item>
+      <item>Rhodiola rosea</item>
+      <item>Schisandra (Schisandra chinensis)</item>
+    </other>
+  </ingredients>
+
+<taxon slug="cellular-health" type="subcategory">
+    <title>Cellular Health &amp; Antioxidants</title>
+    <description>Boost cellular vitality with antioxidants that protect and rejuvenate, supporting healthy aging at the cellular level.</description>
+
+    <ingredients>
+      <common>
+        <item>Resveratrol</item>
+        <item>Coenzyme Q10</item>
+        <item>Curcumin</item>
+        <item>Vitamin E</item>
+        <item>Alpha-lipoic acid</item>
+      </common>
+      <other>
+        <item>Astaxanthin</item>
+        <item>Quercetin</item>
+      </other>
+    </ingredients>
+  </taxon>
+    <taxon slug="longevity-support" type="subcategory">
+    <title>Longevity &amp; Life Extension</title>
+    <description>Explore longevity with herbs and compounds that support a healthy lifespan and age-related cellular function.</description>
+
+    <ingredients>
+      <common>
+        <item>Resveratrol</item>
+        <item>Ginkgo biloba</item>
+        <item>Omega-3 fatty acids</item>
+        <item>Green tea extract</item>
+      </common>
+      <other>
+        <item>Rhodiola rosea</item>
+        <item>Schisandra (Schisandra chinensis)</item>
+      </other>
+    </ingredients>
+  </taxon>
+    <taxon slug="age-related-decline" type="subcategory">
+    <title>Age-Related Decline Prevention</title>
+    <description>Support cognitive, cardiovascular, and metabolic health to manage age-related decline naturally.</description>
+
+    <ingredients>
+      <common>
+        <item>Ginkgo biloba</item>
+        <item>Omega-3 fatty acids</item>
+        <item>Curcumin</item>
+      </common>
+      <other>
+        <item>Gotu kola</item>
+      </other>
+    </ingredients>
+  </taxon>
     </taxon>
 
-    <!-- 19. Eye & Vision -->
-    <taxon slug="eye-vision" type="primary" hierarchical="true">
-        <title>Eye &amp; Vision</title>
-        <sub-title>Ocular Health &amp; Visual Support</sub-title>
-        <description>Natural support for eye health and vision</description>
+<taxon slug="eye-vision" type="primary" hierarchical="true">
+  <title>Eye &amp; Vision</title>
+  <sub-title>Ocular Health &amp; Visual Support</sub-title>
+  <description>Enhance your eye health and maintain clear vision with natural antioxidants and protective botanicals. Support visual acuity and reduce eye strain.</description>
 
-        <meta>
-            <chebi-roles>antioxidant,anti-inflammatory,photoprotective,vasodilator</chebi-roles>
-            <npclassifier>carotenoids,anthocyanins,lutein</npclassifier>
-            <chpa-category>eye_support</chpa-category>
-            <fda-claim>Supports healthy vision and eye function</fda-claim>
-        </meta>
+  <meta>
+    <chebi-roles>antioxidant,anti-inflammatory,photoprotective,vasodilator</chebi-roles>
+    <npclassifier>carotenoids,anthocyanins,lutein</npclassifier>
+    <chpa-category>eye_support</chpa-category>
+    <fda-claim>Supports healthy vision and eye function</fda-claim>
+  </meta>
 
-        <taxon slug="macular-support" type="subcategory">
-            <title>Macular Health &amp; AMD Prevention</title>
-            <description>Targeted support for macular health and age-related macular degeneration prevention, including lutein, zeaxanthin, and other eye-protective carotenoids.</description>
-        </taxon>
-        <taxon slug="general-eye-health" type="subcategory">
-            <title>General Eye Health</title>
-            <description>Comprehensive eye health support with antioxidants and nutrients that protect against eye strain, support visual function, and maintain overall ocular wellness.</description>
-        </taxon>
-        <taxon slug="age-vision" type="subcategory">
-            <title>Age-Related Vision Support</title>
-            <description>Natural support for age-related vision changes, including presbyopia, dry eyes, and other common vision issues that develop with aging.</description>
-        </taxon>
+  <ingredients>
+    <common>
+      <item>Lutein</item>
+      <item>Zeaxanthin</item>
+      <item>Bilberry (Vaccinium myrtillus)</item>
+      <item>Ginkgo biloba</item>
+      <item>Vitamin A</item>
+      <item>Vitamin C</item>
+      <item>Zinc</item>
+      <item>Omega-3 fatty acids</item>
+    </common>
+    <other>
+      <item>Astaxanthin</item>
+      <item>Marigold (Tagetes erecta)</item>
+      <item>Eyebright (Euphrasia officinalis)</item>
+    </other>
+  </ingredients>
+
+<taxon slug="macular-support" type="subcategory">
+    <title>Macular Health &amp; AMD Prevention</title>
+    <description>Support macular health and prevent age-related degeneration with protective carotenoids like lutein and zeaxanthin.</description>
+
+    <ingredients>
+      <common>
+        <item>Lutein</item>
+        <item>Zeaxanthin</item>
+        <item>Vitamin E</item>
+      </common>
+      <other>
+        <item>Astaxanthin</item>
+      </other>
+    </ingredients>
+  </taxon>
+    <taxon slug="general-eye-health" type="subcategory">
+    <title>General Eye Health</title>
+    <description>Maintain overall eye wellness with antioxidants and nutrients that reduce strain and support visual function.</description>
+
+    <ingredients>
+      <common>
+        <item>Bilberry (Vaccinium myrtillus)</item>
+        <item>Vitamin A</item>
+        <item>Omega-3 fatty acids</item>
+      </common>
+      <other>
+        <item>Eyebright (Euphrasia officinalis)</item>
+      </other>
+    </ingredients>
+  </taxon>
+    <taxon slug="age-vision" type="subcategory">
+    <title>Age-Related Vision Support</title>
+    <description>Support for age-related vision changes, promoting eye comfort and clarity as you age.</description>
+
+    <ingredients>
+      <common>
+        <item>Lutein</item>
+        <item>Zeaxanthin</item>
+        <item>Omega-3 fatty acids</item>
+      </common>
+      <other>
+        <item>Astaxanthin</item>
+      </other>
+    </ingredients>
+  </taxon>
     </taxon>
 
-    <!-- 20. Oral Health -->
-    <taxon slug="oral-health" type="primary" hierarchical="true">
-        <title>Oral Health</title>
-        <sub-title>Dental &amp; Gum Health</sub-title>
-        <description>Natural support for oral and dental health</description>
+<taxon slug="oral-health" type="primary" hierarchical="true">
+  <title>Oral Health</title>
+  <sub-title>Dental &amp; Gum Health</sub-title>
+  <description>Promote healthy teeth and gums with natural botanicals that support oral hygiene and fresh breath. Maintain dental health with gentle, effective care.</description>
 
-        <meta>
-            <chebi-roles>antimicrobial,anti-inflammatory,astringent,remineralizing</chebi-roles>
-            <npclassifier>tannins,essential_oils,fluoride_compounds</npclassifier>
-            <chpa-category>oral_health</chpa-category>
-            <fda-claim>Supports oral and dental health</fda-claim>
-        </meta>
+  <meta>
+    <chebi-roles>antimicrobial,anti-inflammatory,astringent,remineralizing</chebi-roles>
+    <npclassifier>tannins,essential_oils,fluoride_compounds</npclassifier>
+    <chpa-category>oral_health</chpa-category>
+    <fda-claim>Supports oral and dental health</fda-claim>
+  </meta>
 
-        <taxon slug="gum-health" type="subcategory">
-            <title>Gum Health &amp; Periodontal Support</title>
-            <description>Natural support for healthy gums and periodontal health, including anti-inflammatory and antimicrobial herbs that promote gum wellness and prevent oral infections.</description>
-        </taxon>
-        <taxon slug="tooth-enamel" type="subcategory">
-            <title>Tooth Enamel &amp; Cavity Prevention</title>
-            <description>Minerals and compounds that support tooth enamel strength, cavity prevention, and overall dental health, including calcium, fluoride, and remineralizing agents.</description>
-        </taxon>
-        <taxon slug="oral-hygiene" type="subcategory">
-            <title>Oral Hygiene &amp; Fresh Breath</title>
-            <description>Natural support for oral hygiene, fresh breath, and overall mouth health, including antimicrobial herbs and compounds that promote oral cleanliness.</description>
-        </taxon>
+  <ingredients>
+    <common>
+      <item>Tea Tree Oil (Melaleuca alternifolia)</item>
+      <item>Clove (Syzygium aromaticum)</item>
+      <item>Neem (Azadirachta indica)</item>
+      <item>Green Tea (Camellia sinensis)</item>
+      <item>Licorice Root (Glycyrrhiza glabra)</item>
+      <item>Myrrh (Commiphora myrrha)</item>
+      <item>Spearmint (Mentha spicata)</item>
+      <item>Fluoride</item>
+    </common>
+    <other>
+      <item>Miswak (Salvadora persica)</item>
+      <item>Propolis</item>
+      <item>Horsetail (Equisetum arvense)</item>
+    </other>
+  </ingredients>
+
+<taxon slug="gum-health" type="subcategory">
+    <title>Gum Health &amp; Periodontal Support</title>
+    <description>Support healthy gums with anti-inflammatory and antimicrobial herbs that promote gum wellness and prevent oral infections.</description>
+
+    <ingredients>
+      <common>
+        <item>Tea Tree Oil (Melaleuca alternifolia)</item>
+        <item>Clove (Syzygium aromaticum)</item>
+        <item>Neem (Azadirachta indica)</item>
+      </common>
+      <other>
+        <item>Propolis</item>
+      </other>
+    </ingredients>
+  </taxon>
+    <taxon slug="tooth-enamel" type="subcategory">
+    <title>Tooth Enamel &amp; Cavity Prevention</title>
+    <description>Strengthen tooth enamel and prevent cavities with minerals and compounds like calcium and fluoride.</description>
+
+    <ingredients>
+      <common>
+        <item>Calcium</item>
+        <item>Fluoride</item>
+        <item>Green Tea (Camellia sinensis)</item>
+      </common>
+      <other>
+        <item>Horsetail (Equisetum arvense)</item>
+      </other>
+    </ingredients>
+  </taxon>
+    <taxon slug="oral-hygiene" type="subcategory">
+      <title>Oral Hygiene &amp; Fresh Breath</title>
+      <description>Maintain fresh breath and oral cleanliness with natural antimicrobial herbs.</description>
+      <ingredients>
+        <common>
+          <item>Tea Tree Oil (Melaleuca alternifolia)</item>
+          <item>Clove (Syzygium aromaticum)</item>
+          <item>Spearmint (Mentha spicata)</item>
+        </common>
+        <other>
+          <item>Miswak (Salvadora persica)</item>
+        </other>
+      </ingredients>
+    </taxon>
     </taxon>
 
 </taxonomy>
