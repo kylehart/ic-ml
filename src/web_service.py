@@ -381,6 +381,10 @@ async def formbricks_webhook(request: Request, background_tasks: BackgroundTasks
         EMAIL_QUESTION_ID = "d9klpkum9vi8x9vkunhu63fn"
         HEALTH_ISSUE_QUESTION_ID = "dc185mu0h2xzutpzfgq8eyjy"
         PRIMARY_AREA_QUESTION_ID = "ty1zv10pffpxh2a2bymi2wz7"
+        SEVERITY_QUESTION_ID = "iht7n48iwkoc1jc8ubnzrqi7"
+        TRIED_ALREADY_QUESTION_ID = "ud6nnuhrgf9trqwe8j3kibii"
+        AGE_RANGE_QUESTION_ID = "yru7w3e402yk8vpf1dfbw0tr"
+        LIFESTYLE_QUESTION_ID = "pr4jtzy9epmquvwdksj9tctb"
 
         # Map primary area choice IDs to readable names
         PRIMARY_AREA_CHOICES = {
@@ -393,6 +397,16 @@ async def formbricks_webhook(request: Request, background_tasks: BackgroundTasks
             "xlzt05zhync9v1ysegm4a80c": "Women's Health",
             "m3jjnnug2s1iwtf1lo0l6uip": "Men's Health",
             "other": "Other"
+        }
+
+        # Map age range choice IDs to readable names
+        AGE_RANGE_CHOICES = {
+            "owv82s8m0kumnrp08j8gaqhu": "18-25",
+            "nults2ndbrn6bovvs4ce03ax": "26-35",
+            "u9fy0mtyjddkzrkhruh0682p": "36-45",
+            "e7drxvgsjys4vewrmq5qvkoy": "46-55",
+            "l9xn0kf9c8rbndzgghthsr73": "56-65",
+            "lu5l0u7myjxy8b8to0zaix8m": "66+"
         }
 
         # Parse answers - Formbricks format: {questionId: value}
@@ -425,21 +439,31 @@ async def formbricks_webhook(request: Request, background_tasks: BackgroundTasks
                     primary_area = value  # Use as-is if not in mapping
                     logger.info(f"✓ Found primary area (direct): {primary_area}")
 
-            # Optional fields with keyword matching (for future questions)
-            elif "severity" in question_id.lower():
+            # Severity rating (1-10)
+            elif question_id == SEVERITY_QUESTION_ID:
                 try:
                     severity = int(value)
                     logger.info(f"✓ Found severity: {severity}")
                 except (ValueError, TypeError):
                     severity = 5
                     logger.warning(f"Could not parse severity: {value}, using default: 5")
-            elif "tried" in question_id.lower():
+
+            # What have you tried already
+            elif question_id == TRIED_ALREADY_QUESTION_ID:
                 tried_already = value
                 logger.info(f"✓ Found tried already: {tried_already[:50] if tried_already else 'None'}...")
-            elif "age" in question_id.lower():
-                age_range = value
-                logger.info(f"✓ Found age range: {age_range}")
-            elif "lifestyle" in question_id.lower():
+
+            # Age range (choice ID needs mapping)
+            elif question_id == AGE_RANGE_QUESTION_ID:
+                if value in AGE_RANGE_CHOICES:
+                    age_range = AGE_RANGE_CHOICES[value]
+                    logger.info(f"✓ Found age range (mapped from {value}): {age_range}")
+                else:
+                    age_range = value
+                    logger.info(f"✓ Found age range (direct): {age_range}")
+
+            # Lifestyle factors
+            elif question_id == LIFESTYLE_QUESTION_ID:
                 lifestyle = value
                 logger.info(f"✓ Found lifestyle: {lifestyle[:50] if lifestyle else 'None'}...")
 
