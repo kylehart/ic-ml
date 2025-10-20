@@ -33,41 +33,80 @@ logger = logging.getLogger(__name__)
 
 # In-Memory Storage for Quiz Results (MVP)
 class QuizResultsStorage:
-    """Simple in-memory storage for quiz results using email hash as key."""
+    """Simple in-memory storage for quiz results using both email hash and token."""
 
     def __init__(self):
-        self.results = {}  # {email_hash: {status, data, timestamp, html_report}}
+        self.results_by_email = {}  # {email_hash: {status, data, timestamp, html_report, token}}
+        self.results_by_token = {}  # {token: email_hash} - for quick token lookup
         self.ttl_hours = 24  # Results expire after 24 hours
 
     def _hash_email(self, email: str) -> str:
         """Create a secure hash of email for privacy."""
         return hashlib.sha256(email.lower().strip().encode()).hexdigest()
 
-    def store_result(self, email: str, status: str, data: Dict[str, Any] = None,
-                    html_report: str = None):
-        """Store quiz result by email hash."""
+    def store_result(self, email: str, status: str, token: str = None,
+                    data: Dict[str, Any] = None, html_report: str = None):
+        """Store quiz result by email hash and optional token."""
         email_hash = self._hash_email(email)
-        self.results[email_hash] = {
+
+        result_data = {
             "status": status,
             "data": data,
             "html_report": html_report,
             "timestamp": datetime.now().isoformat(),
-            "email": email  # Store for email sending
+            "email": email,  # Store for email sending
+            "token": token
         }
-        logger.info(f"Stored result for email hash {email_hash[:8]}... with status: {status}")
 
-    def get_result(self, email: str) -> Optional[Dict[str, Any]]:
+        self.results_by_email[email_hash] = result_data
+
+        # Also store by token for direct access
+        if token:
+            self.results_by_token[token] = email_hash
+            logger.info(f"Stored result for email hash {email_hash[:8]}... with status: {status}, token: {token[:8]}...")
+        else:
+            logger.info(f"Stored result for email hash {email_hash[:8]}... with status: {status}")
+
+    def get_result_by_email(self, email: str) -> Optional[Dict[str, Any]]:
         """Retrieve quiz result by email."""
         email_hash = self._hash_email(email)
-        result = self.results.get(email_hash)
+        result = self.results_by_email.get(email_hash)
 
         if not result:
+            logger.warning(f"No result found for email hash {email_hash[:8]}...")
             return None
 
         # Check if result has expired
         result_time = datetime.fromisoformat(result["timestamp"])
         if datetime.now() - result_time > timedelta(hours=self.ttl_hours):
-            del self.results[email_hash]
+            logger.info(f"Result expired for email hash {email_hash[:8]}...")
+            del self.results_by_email[email_hash]
+            if result.get("token"):
+                del self.results_by_token[result["token"]]
+            return None
+
+        return result
+
+    def get_result_by_token(self, token: str) -> Optional[Dict[str, Any]]:
+        """Retrieve quiz result by token."""
+        email_hash = self.results_by_token.get(token)
+
+        if not email_hash:
+            logger.warning(f"No result found for token {token[:8]}...")
+            return None
+
+        result = self.results_by_email.get(email_hash)
+
+        if not result:
+            logger.warning(f"Token {token[:8]}... found but no email result")
+            return None
+
+        # Check if result has expired
+        result_time = datetime.fromisoformat(result["timestamp"])
+        if datetime.now() - result_time > timedelta(hours=self.ttl_hours):
+            logger.info(f"Result expired for token {token[:8]}...")
+            del self.results_by_email[email_hash]
+            del self.results_by_token[token]
             return None
 
         return result
@@ -307,7 +346,9 @@ async def formbricks_webhook(request: Request, background_tasks: BackgroundTasks
     """
     try:
         payload = await request.json()
-        logger.info(f"Received Formbricks webhook: {payload.get('event')}")
+        logger.info(f"=== WEBHOOK RECEIVED ===")
+        logger.info(f"Event: {payload.get('event')}")
+        logger.info(f"Full payload: {json.dumps(payload, indent=2)}")
 
         # Extract form data from Formbricks payload
         event = payload.get("event")
@@ -320,10 +361,12 @@ async def formbricks_webhook(request: Request, background_tasks: BackgroundTasks
         # Extract response data
         response_data = data.get("response", {})
         response_id = response_data.get("id")
+        logger.info(f"Response ID: {response_id}")
 
         # Map Formbricks question IDs to our fields
         # Note: These will need to be updated based on actual Formbricks question IDs
         answers = response_data.get("data", {})
+        logger.info(f"Answers received: {json.dumps(answers, indent=2)}")
 
         # Extract email (required field)
         email = None
@@ -336,36 +379,49 @@ async def formbricks_webhook(request: Request, background_tasks: BackgroundTasks
 
         # Parse answers - Formbricks format: {questionId: value}
         for question_id, value in answers.items():
+            logger.info(f"Processing question: {question_id} = {value}")
             # Map based on question ID or question text
             # This is a simplified mapping - adjust based on actual Formbricks setup
             if "email" in question_id.lower():
                 email = value
+                logger.info(f"✓ Found email: {email}")
             elif "health" in question_id.lower() or "issue" in question_id.lower():
                 health_issue = value
+                logger.info(f"✓ Found health issue: {health_issue[:50]}...")
             elif "primary" in question_id.lower() or "area" in question_id.lower():
                 primary_area = value
+                logger.info(f"✓ Found primary area: {primary_area}")
             elif "severity" in question_id.lower():
                 try:
                     severity = int(value)
+                    logger.info(f"✓ Found severity: {severity}")
                 except (ValueError, TypeError):
                     severity = 5
+                    logger.warning(f"Could not parse severity: {value}, using default: 5")
             elif "tried" in question_id.lower():
                 tried_already = value
+                logger.info(f"✓ Found tried already: {tried_already[:50]}...")
             elif "age" in question_id.lower():
                 age_range = value
+                logger.info(f"✓ Found age range: {age_range}")
             elif "lifestyle" in question_id.lower():
                 lifestyle = value
+                logger.info(f"✓ Found lifestyle: {lifestyle[:50]}...")
 
         if not email:
-            logger.error("No email found in webhook payload")
+            logger.error("❌ No email found in webhook payload")
+            logger.error(f"Available question IDs: {list(answers.keys())}")
             return {"status": "error", "message": "Email is required"}
 
         if not health_issue:
-            logger.error("No health issue description found in webhook payload")
+            logger.error("❌ No health issue description found in webhook payload")
+            logger.error(f"Available question IDs: {list(answers.keys())}")
             return {"status": "error", "message": "Health issue description is required"}
 
-        # Store initial status as processing
-        results_storage.store_result(email, status="processing")
+        logger.info(f"✅ Successfully extracted data for email: {email}")
+
+        # Store initial status as processing with response_id as token
+        results_storage.store_result(email, status="processing", token=response_id)
 
         # Process quiz in background
         background_tasks.add_task(
@@ -376,7 +432,8 @@ async def formbricks_webhook(request: Request, background_tasks: BackgroundTasks
             severity=severity,
             tried_already=tried_already,
             age_range=age_range,
-            lifestyle=lifestyle
+            lifestyle=lifestyle,
+            token=response_id
         )
 
         logger.info(f"Queued health quiz processing for {email}")
@@ -400,10 +457,11 @@ async def process_health_quiz_webhook(email: str, health_issue: str,
                                      severity: int,
                                      tried_already: Optional[str],
                                      age_range: Optional[str],
-                                     lifestyle: Optional[str]):
+                                     lifestyle: Optional[str],
+                                     token: str):
     """Background task to process health quiz and generate results."""
     try:
-        logger.info(f"Processing health quiz for {email}")
+        logger.info(f"🔄 Processing health quiz for {email} (token: {token[:8]}...)")
 
         # Import processing function from run_health_quiz
         from run_health_quiz import process_health_quiz
@@ -434,6 +492,7 @@ async def process_health_quiz_webhook(email: str, health_issue: str,
         results_storage.store_result(
             email=email,
             status="completed",
+            token=token,
             data={
                 "quiz_output": quiz_output,
                 "product_recommendations": product_recs,
@@ -450,13 +509,14 @@ async def process_health_quiz_webhook(email: str, health_issue: str,
             subject="Your Personalized Health Quiz Results from Rogue Herbalist"
         )
 
-        logger.info(f"Successfully processed health quiz for {email}")
+        logger.info(f"✅ Successfully processed health quiz for {email} (token: {token[:8]}...)")
 
     except Exception as e:
-        logger.error(f"Error processing health quiz: {e}", exc_info=True)
+        logger.error(f"❌ Error processing health quiz: {e}", exc_info=True)
         results_storage.store_result(
             email=email,
             status="failed",
+            token=token,
             data={"error": str(e)}
         )
 
@@ -667,14 +727,20 @@ async def lookup_results(request: ResultsLookupRequest):
     """Look up quiz results by email."""
     try:
         email = request.email
-        result = results_storage.get_result(email)
+        logger.info(f"🔍 Looking up results for email: {email}")
+
+        result = results_storage.get_result_by_email(email)
 
         if not result:
+            logger.warning(f"❌ No results found for email: {email}")
+            logger.info(f"Current storage has {len(results_storage.results_by_email)} email entries")
+            logger.info(f"Current storage has {len(results_storage.results_by_token)} token entries")
             return {
                 "status": "not_found",
                 "message": "No results found for this email"
             }
 
+        logger.info(f"✅ Found result for email: {email}, status: {result['status']}")
         return {
             "status": result["status"],
             "html_report": result.get("html_report"),
@@ -683,7 +749,7 @@ async def lookup_results(request: ResultsLookupRequest):
         }
 
     except Exception as e:
-        logger.error(f"Error looking up results: {e}")
+        logger.error(f"❌ Error looking up results: {e}", exc_info=True)
         return JSONResponse(
             status_code=500,
             content={"status": "error", "message": str(e)}

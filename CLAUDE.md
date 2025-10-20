@@ -60,7 +60,10 @@ ngrok http 8000
 
 # Deploy to Railway (automatic from GitHub)
 # 1. Connect GitHub repo to Railway
-# 2. Add environment variables (OPENAI_API_KEY, RESEND_API_KEY, RESEND_FROM_EMAIL)
+# 2. Add environment variables:
+#    - OPENAI_API_KEY (or ANTHROPIC_API_KEY)
+#    - RESEND_API_KEY
+#    - RESEND_FROM_EMAIL=onboarding@resend.dev (testing) or no-reply@instruction.coach (production)
 # 3. Railway auto-deploys from Dockerfile
 
 # KEY ENDPOINTS:

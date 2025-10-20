@@ -46,7 +46,7 @@ cp .env.example .env
 # Edit .env with your keys:
 # - OPENAI_API_KEY=sk-...
 # - RESEND_API_KEY=re_...
-# - RESEND_FROM_EMAIL=health-quiz@yourdomain.com
+# - RESEND_FROM_EMAIL=onboarding@resend.dev  (testing) or no-reply@instruction.coach (production)
 ```
 
 ### 2. Test Locally
@@ -78,7 +78,7 @@ railway link
 railway up
 railway variables set OPENAI_API_KEY=sk-...
 railway variables set RESEND_API_KEY=re_...
-railway variables set RESEND_FROM_EMAIL=health-quiz@yourdomain.com
+railway variables set RESEND_FROM_EMAIL=onboarding@resend.dev  # Testing; use no-reply@instruction.coach for production
 ```
 
 Your app will be live at: `https://your-app.up.railway.app`
@@ -154,9 +154,10 @@ ic-ml/
 ### Required
 
 ```bash
-OPENAI_API_KEY=sk-...        # Or ANTHROPIC_API_KEY
-RESEND_API_KEY=re_...        # For email delivery
-RESEND_FROM_EMAIL=quiz@...   # Sender email address
+OPENAI_API_KEY=sk-...                     # Or ANTHROPIC_API_KEY
+RESEND_API_KEY=re_...                     # For email delivery
+RESEND_FROM_EMAIL=onboarding@resend.dev   # Testing: onboarding@resend.dev
+                                           # Production: no-reply@instruction.coach
 ```
 
 ### Optional

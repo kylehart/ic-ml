@@ -39,29 +39,48 @@ User enters email → Views personalized health recommendations
 
 ### Step 1: Connect GitHub Repository
 
-1. Go to [railway.app](https://railway.app) and sign in with GitHub
-KH:  need to commit to GitHub first. 
+1. Go to [railway.app](https://railway.app) and sign in with GitHub (assumes up-to-date)
 2. Click "New Project" → "Deploy from GitHub repo"
 3. Select your `ic-ml` repository
 4. Railway will automatically detect the `Dockerfile` and `railway.json`
 
 ### Step 2: Configure Environment Variables
 
-In Railway dashboard, go to Variables tab and add:
+**How to Access Variables Tab:**
+
+1. After connecting your GitHub repo, Railway creates a project
+2. **Click on your project** from the Railway dashboard
+3. **Click on the service card** (shows your GitHub repo name)
+4. **Click the "Variables" tab** in the top navigation
+   - You'll see tabs: Deployments | Metrics | **Variables** | Settings | Logs
+
+**Add These Environment Variables:**
+
+Using the **"RAW Editor"** button (recommended for bulk paste):
 
 ```bash
 # Required - LLM API Key (choose one)
 OPENAI_API_KEY=sk-your-openai-key-here
 
-# Or use Anthropic
+# Or use Anthropic instead
 ANTHROPIC_API_KEY=sk-ant-your-anthropic-key-here
 
-# Resend Email Service (highly recommended)
+# Resend Email Service (highly recommended for email delivery)
 RESEND_API_KEY=re_your-resend-key-here
-RESEND_FROM_EMAIL=health-quiz@yourdomain.com
+RESEND_FROM_EMAIL=onboarding@resend.dev  # Testing: use onboarding@resend.dev
+                                          # Production: use no-reply@instruction.coach
 
-# Railway automatically provides PORT
+# Railway automatically provides PORT - don't add this manually
 ```
+
+**Or Add One by One:**
+- Click **"+ New Variable"**
+- Enter variable name (e.g., `OPENAI_API_KEY`)
+- Paste your actual API key value
+- Click **"Add"**
+- Repeat for each variable
+
+**💡 Tip:** You only need ONE LLM API key (either OpenAI OR Anthropic, not both)
 
 ### Step 3: Deploy
 
@@ -80,11 +99,43 @@ RESEND_FROM_EMAIL=health-quiz@yourdomain.com
 }
 ```
 
-### Step 4: Note Your Railway URL
+### Step 4: Find and Copy Your Railway URL
 
-Save your Railway URL - you'll need it for Formbricks configuration.
+**Where to Find Your Public URL:**
 
-**Example:** `https://ic-ml-production.up.railway.app`
+1. **From the service view** (where you just added variables)
+2. **Look at the top section** of the service card - you'll see:
+   - Service name
+   - **Deployment status** (Building... → Deployed)
+   - **Settings icon** (⚙️)
+
+3. **Click the "Settings" tab** (top navigation)
+
+4. **Scroll down to "Networking" section**
+   - You'll see **"Public Networking"**
+   - Click **"Generate Domain"** if no domain exists yet
+   - Railway will create a URL like: `your-service-name.up.railway.app`
+
+5. **Copy the full URL** - it will look like:
+   - `https://ic-ml-production.up.railway.app` [exactly this URL]
+   - `https://web-production-abc123.up.railway.app`
+
+**Alternative Method - From Deployments Tab:**
+
+1. Click the **"Deployments"** tab
+2. Click on the most recent **successful deployment** (green checkmark)
+3. Look for **"View Logs"** button - next to it you'll see the URL
+4. Or scroll down in the deployment details to see **"Domains"**
+
+**⚠️ Important:**
+- The URL won't be available until the first deployment **completes successfully**
+- Look for green "Deployed" status (not "Building" or "Failed")
+- If no domain shows, click **"Generate Domain"** in Settings → Networking
+
+**Save this URL - you'll need it for:**
+- Testing the `/health` endpoint
+- Configuring Formbricks webhook
+- Setting up the redirect URL
 
 ---
 
@@ -96,24 +147,69 @@ Save your Railway URL - you'll need it for Formbricks configuration.
 2. Navigate to API Keys → Create API Key
 3. Copy the key (starts with `re_`)
 
-### Step 2: Verify Domain (Optional for Production)
+### Step 2: Configure Sender Email Address
 
-For testing, you can send from `onboarding@resend.dev`
+**For Testing (MVP):**
+- Use Resend's test email: `onboarding@resend.dev`
+- No domain verification required
+- Perfect for development and initial testing
+- Set in Railway: `RESEND_FROM_EMAIL=onboarding@resend.dev`
 
-For production:
-1. Add your domain in Resend dashboard
-2. Add DNS records (SPF, DKIM, DMARC)
-3. Update `RESEND_FROM_EMAIL` to use your domain
+**For Production:**
+- Use verified domain: `instruction.coach`
+- Recommended sender: `no-reply@instruction.coach`
+- Domain verification steps:
+  1. Add your domain in Resend dashboard
+  2. Add DNS records (SPF, DKIM, DMARC)
+  3. Wait for verification (usually 5-10 minutes)
+  4. Update Railway: `RESEND_FROM_EMAIL=no-reply@instruction.coach`
 
-### Step 3: Update Railway Environment
+### Step 3: Add Environment Variables to Railway
 
-Add to Railway Variables:
-```bash
-RESEND_API_KEY=re_your-actual-key-here
-RESEND_FROM_EMAIL=health-quiz@yourdomain.com
-```
+**Navigation (Free Plan):**
 
-Redeploy Railway after adding these.
+1. **From Railway Dashboard** - You should see your deployed project card
+2. **Click on your project card** (named `ic-ml` or similar)
+3. **You'll see your service** - Click on the service card (usually shows "Web Service" or your repo name)
+4. **Look for the top navigation tabs:**
+   - Deployments
+   - Metrics
+   - **Variables** ← Click this tab
+   - Settings
+   - Logs
+
+5. **In the Variables tab:**
+   - Click **"+ New Variable"** button (or **"RAW Editor"** for bulk paste)
+
+**Option A: Add Variables One by One**
+   - Click **"+ New Variable"**
+   - **Variable Name:** `RESEND_API_KEY`
+   - **Value:** `re_your-actual-key-here` (paste your real Resend key)
+   - Click **"Add"**
+   - Repeat for `RESEND_FROM_EMAIL`
+
+**Option B: Use RAW Editor (Faster)**
+   - Click **"RAW Editor"** button (top right of Variables section)
+   - Paste these lines (use testing email for MVP):
+   ```bash
+   RESEND_API_KEY=re_your-actual-key-here
+   RESEND_FROM_EMAIL=onboarding@resend.dev
+   ```
+   - For production, update to:
+   ```bash
+   RESEND_FROM_EMAIL=no-reply@instruction.coach
+   ```
+   - Click **"Update Variables"**
+
+6. **Railway will automatically redeploy** when you save variables
+   - Watch the **Deployments** tab to see the new deployment build
+   - Wait ~2-3 minutes for redeploy to complete
+   - Verify at `/health` endpoint again
+
+**⚠️ Common Navigation Issues:**
+- Can't find Variables tab? Make sure you clicked **into the service**, not just the project
+- Variables not showing? Refresh the page
+- Changes not applying? Check the Deployments tab to ensure redeploy triggered
 
 ---
 
@@ -327,7 +423,7 @@ cd /Users/kylehart/Documents/dev/repos/all/ic-ml
 # Set environment variables
 export OPENAI_API_KEY=your-key
 export RESEND_API_KEY=your-resend-key
-export RESEND_FROM_EMAIL=health-quiz@yourdomain.com
+export RESEND_FROM_EMAIL=onboarding@resend.dev  # Testing email
 
 # Start server
 uvicorn src.web_service:app --reload --port 8000
@@ -392,7 +488,7 @@ Now you can test locally with Formbricks sending real webhooks!
 - [ ] Test complete flow 5+ times with different emails
 - [ ] Verify email delivery works
 - [ ] Test on mobile devices
-- [ ] Update `RESEND_FROM_EMAIL` to your verified domain
+- [ ] Update `RESEND_FROM_EMAIL` from `onboarding@resend.dev` to `no-reply@instruction.coach` (production)
 - [ ] Set up Railway alerts for errors
 - [ ] Add Railway auto-scaling if expecting high traffic
 - [ ] Consider adding PostgreSQL for persistent storage
@@ -468,9 +564,10 @@ Now you can test locally with Formbricks sending real webhooks!
 
 ```bash
 # Required for all deployments
-OPENAI_API_KEY=sk-...              # Or ANTHROPIC_API_KEY
-RESEND_API_KEY=re_...              # For email delivery
-RESEND_FROM_EMAIL=quiz@domain.com  # Sender address
+OPENAI_API_KEY=sk-...                      # Or ANTHROPIC_API_KEY
+RESEND_API_KEY=re_...                      # For email delivery
+RESEND_FROM_EMAIL=onboarding@resend.dev    # Testing: onboarding@resend.dev
+                                            # Production: no-reply@instruction.coach
 
 # Optional
 PORT=8000                          # Railway provides this

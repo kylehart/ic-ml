@@ -9,7 +9,7 @@
 - Taxonomy generation for e-commerce category structure and descriptions
 - SEO metadata generation for categories and products
 
-**Current Status**: Production-ready classification system, working Health Quiz with HTML reports, and new taxonomy/SEO generation framework with experimental runners.
+**Current Status**: Production-ready classification system, **deployed Health Quiz MVP** on Railway with Formbricks integration and Resend email delivery, and taxonomy/SEO generation framework with experimental runners.
 
 ## Key Achievements
 
@@ -34,6 +34,15 @@
 - **Working Product URLs**: 100% tested success rate with WordPress/WooCommerce slug generation
 - **HTML Report Generation**: Professional styled reports with clickable product links
 - **End-to-End Testing**: Successfully tested with 5 realistic user personas
+
+**Health Quiz MVP Deployment (NEW - October 2025):**
+- **Railway Deployment**: Containerized FastAPI service with automatic GitHub deployments
+- **Formbricks Integration**: Webhook-based form submission handling with email-based results lookup
+- **Resend Email Service**: HTML email delivery using `onboarding@resend.dev` (testing) or `no-reply@instruction.coach` (production)
+- **Email-Based Results**: SHA-256 hashed email storage with 24-hour expiration for privacy
+- **Auto-Retry Polling**: Results page automatically retries every 3 seconds during LLM processing
+- **In-Memory Storage**: MVP uses in-memory dict, upgrade path to PostgreSQL documented
+- **Cost-Effective**: $0/month on free tiers (Railway $5 credit, Resend 3000 emails/month, Formbricks unlimited)
 
 **Taxonomy & SEO Generation (New - September 2025):**
 - **Document Generation Framework**: Abstract framework for multi-element XML document generation
@@ -111,10 +120,12 @@
     - LiteLLM-based cost calculation using live pricing data
     - Model comparison analysis with savings calculations
 
-11. **Web Service API** (`src/web_service.py`) - *Speculative Prototype*
-    - FastAPI-based REST endpoints for both use cases
-    - Client authentication and multi-tenant usage tracking
-    - Background cost attribution and analytics
+11. **Web Service API** (`src/web_service.py`) - *Production MVP*
+    - FastAPI-based REST endpoints for Health Quiz (Formbricks webhook, results lookup)
+    - In-memory storage with email hashing for privacy
+    - Resend email integration for HTML report delivery
+    - Background task processing for non-blocking webhook responses
+    - Deployed on Railway with automatic GitHub integration
 
 ## Code Organization
 
@@ -130,7 +141,7 @@ src/
 ├── seo_generation_framework.py          # SEO generation framework (NEW)
 ├── run_seo_gen.py                       # SEO generation runner (NEW)
 ├── product_recommendation_engine.py     # Intelligent product matching system
-├── web_service.py                       # FastAPI web service (speculative prototype)
+├── web_service.py                       # FastAPI web service (PRODUCTION MVP - Railway deployed)
 ├── run_assign_cat.py                    # Product classification runner with experiments
 ├── llm_client.py                        # LLM interface with client-aware cost tracking
 ├── model_config.py                      # Configuration management with client metadata
@@ -165,6 +176,19 @@ config/
     └── api: retry and rate limiting settings
 ```
 
+### Deployment Files (NEW - October 2025)
+
+```
+.
+├── Dockerfile                       # Railway deployment container configuration
+├── railway.json                     # Railway service configuration with health checks
+├── requirements.txt                 # Python dependencies (FastAPI, Resend, httpx, etc.)
+├── .env.example                     # Environment variables template with Resend config
+├── MVP_QUICKSTART.md                # Quick deployment guide (5 steps, 2 hours)
+└── docs/
+    └── railway_formbricks_deployment_guide.md  # Complete deployment guide (Railway + Formbricks + Resend)
+```
+
 ### Data (`data/`)
 
 ```
@@ -187,14 +211,15 @@ data/health-quiz-samples/
 
 ```
 docs/
-├── taxonomy_generation_guide.md          # Taxonomy generation documentation (NEW)
-├── multi_client_architecture_design.md   # Multi-client platform design
-├── health_quiz_user_stories.md           # Health quiz business requirements
-├── implementation_guide.md               # Deployment and setup guide
-├── wordpress_woocommerce_url_research.md # WordPress/WooCommerce URL patterns
-├── experimental_run_system.md            # Run system documentation
-├── multi_provider_cost_analysis.md       # Cost comparison analysis
-└── design_notes/                         # Various design notes and analysis (NEW)
+├── railway_formbricks_deployment_guide.md  # Complete MVP deployment guide (Railway + Formbricks + Resend) (NEW)
+├── taxonomy_generation_guide.md            # Taxonomy generation documentation
+├── multi_client_architecture_design.md     # Multi-client platform design
+├── health_quiz_user_stories.md             # Health quiz business requirements
+├── implementation_guide.md                 # Original deployment and setup guide
+├── wordpress_woocommerce_url_research.md   # WordPress/WooCommerce URL patterns
+├── experimental_run_system.md              # Run system documentation
+├── multi_provider_cost_analysis.md         # Cost comparison analysis
+└── design_notes/                           # Various design notes and analysis
     ├── seo-generation-design-notes.md
     └── taxonomy-seo-split-decision.md
 ```
@@ -373,6 +398,14 @@ ls runs/*/outputs/client_cost_breakdown.json
 - ✅ **Experimental Framework**: Complete run management with billing data
 - ✅ **Client Cost Tracking**: LiteLLM metadata integration for multi-client billing
 - ✅ **Health Quiz**: Working end-to-end with real testing, HTML reports, working product URLs
+- ✅ **Health Quiz MVP**: Deployed on Railway with Formbricks + Resend integration (October 2025)
+
+### Recently Implemented (October 2025)
+- ✅ **Railway Deployment**: Dockerfile, railway.json, automatic GitHub deployments
+- ✅ **Formbricks Integration**: Webhook endpoint for form submissions
+- ✅ **Resend Email Service**: HTML email delivery (onboarding@resend.dev for testing, no-reply@instruction.coach for production)
+- ✅ **Email-Based Results Lookup**: SHA-256 hashing, 24hr expiration, auto-retry polling
+- ✅ **MVP Documentation**: Complete deployment guide and quick-start guide
 
 ### Recently Implemented (September 2025)
 - ✅ **Document Generation Framework**: Abstract base classes for XML document generation
@@ -397,17 +430,26 @@ ls runs/*/outputs/client_cost_breakdown.json
 
 ### Core Libraries
 - **litellm**: Multi-provider LLM interface with built-in cost tracking and metadata support
-- **fastapi**: Web framework for API endpoints (speculative prototype)
-- **pydantic**: Data validation and serialization
+- **fastapi**: Web framework for API endpoints (Production MVP)
+- **uvicorn**: ASGI server for FastAPI deployment
+- **pydantic**: Data validation and serialization (including EmailStr for email validation)
 - **python-dotenv**: Environment configuration
 - **PyYAML**: Configuration file parsing
 - **markdown**: HTML report generation with extensions (extra, codehilite, toc, nl2br)
-- **requests**: HTTP HEAD requests for URL validation (NEW)
+- **httpx**: Async HTTP client for Resend email API (NEW)
+- **pandas**: Data processing for product catalogs
 
 ### Multi-Client Requirements
 - **Client-specific API Keys**: Separate OpenAI/Anthropic keys per client
 - **Cost Attribution**: Automatic tagging via LiteLLM metadata
 - **Configuration Management**: Per-client settings and use case permissions
+
+### Deployment Infrastructure (NEW - October 2025)
+- **Railway**: Containerized deployment with automatic GitHub integration
+- **Formbricks**: Form builder with webhook integration
+- **Resend**: Email delivery service (3000 emails/month free tier)
+- **Docker**: Containerization for consistent deployment
+- **ngrok**: Local webhook testing during development
 
 ## Quality Metrics & Performance
 
