@@ -132,7 +132,9 @@ class CategoryMatcher:
         """Get health benefits for an ingredient."""
         ingredient_lower = ingredient.lower().replace('_', ' ')
         for key, benefits in self.ingredient_benefits.items():
-            if key in ingredient_lower or ingredient_lower in key:
+            # Normalize the key as well to handle underscore mismatches
+            key_normalized = key.lower().replace('_', ' ')
+            if key_normalized in ingredient_lower or ingredient_lower in key_normalized:
                 return benefits
         return []
 
