@@ -2,7 +2,7 @@
 # Central configuration for all model usage across the project
 
 default:
-  model: "openai/gpt-4o-mini"  # Primary working model - maximum cost optimization
+  model: "gpt4o_mini"  # Primary working model - maximum cost optimization
   max_tokens: 1000
   temperature: 0.0  # Deterministic for consistent classification
 
@@ -82,14 +82,14 @@ api:
 # Use case specific configurations
 use_cases:
   product_classification:
-    default_model: "openai/gpt-4o-mini"
+    default_model: "gpt4o_mini"
     max_tokens: 1000
     temperature: 0.0
     batch_size: 10
     retry_on_parse_error: true
 
   health_quiz:
-    default_model: "openai/gpt-4o-mini"  # Same as product classification for cost
+    default_model: "gpt4o_mini"  # Same as product classification for cost
     max_tokens: 1000
     temperature: 0.0  # Deterministic for medical consistency
     max_recommendations: 5
