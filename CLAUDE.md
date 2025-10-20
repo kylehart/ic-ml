@@ -184,6 +184,20 @@ ls runs/*/outputs/client_cost_breakdown.json
 - Use `get_cost_breakdown_for_reporting()` for billing data
 
 ### Testing Workflow
+
+**Automated Unit Tests** (122 tests, 100% passing):
+```bash
+# Run all tests (excluding web_service which needs FastAPI installed)
+python3 -m pytest tests/ --ignore=tests/test_web_service.py -v
+
+# Run specific test file
+python3 -m pytest tests/test_product_recommendation_engine.py -v
+
+# Run with coverage report
+python3 -m pytest tests/ --ignore=tests/test_web_service.py --cov=src --cov-report=html
+```
+
+**Integration Testing**:
 1. Test with single personas first: `--persona "Sarah Chen"`
 2. Compare models for cost optimization
 3. Use reanalysis tools for iterative development

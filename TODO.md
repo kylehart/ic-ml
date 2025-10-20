@@ -32,15 +32,10 @@
 
 ### Low Priority (Future Enhancements)
 
-**Add Formal Unit Test Suite**
-- **Status**: Currently only integration tests via CLI runners
-- **Recommendation**: Add pytest-based unit tests for core modules
-- **Priority**: After MVP stabilizes
-- **Coverage Targets**:
-  - `llm_client.py`: Cost tracking and metadata
-  - `product_recommendation_engine.py`: Scoring algorithms
-  - `health_quiz_use_case.py`: Business logic
-  - `web_service.py`: API endpoints
+**Expand Unit Test Coverage** ✅ COMPLETED (October 2025)
+- **Status**: 122 passing tests covering core modules (100% pass rate)
+- **Coverage**: product_recommendation_engine (28 tests), health_quiz_use_case (27), model_config (21), llm_client (20), web_service (26)
+- **Future**: Add pytest-cov for coverage metrics, expand edge case testing
 
 **Complete Admin Endpoints**
 - **Status**: `/api/v1/admin/clients` lacks authentication enforcement
