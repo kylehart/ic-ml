@@ -117,7 +117,7 @@ class ResendEmailService:
 
     def __init__(self):
         self.api_key = os.getenv("RESEND_API_KEY")
-        self.from_email = os.getenv("RESEND_FROM_EMAIL", "noreply@instruction.coach")
+        self.from_email = os.getenv("RESEND_FROM_EMAIL", "Rogue Herbalist Health Quiz <noreply@instruction.coach>")
         self.enabled = bool(self.api_key)
 
         if not self.enabled:
