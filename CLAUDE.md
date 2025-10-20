@@ -63,7 +63,7 @@ ngrok http 8000
 # 2. Add environment variables:
 #    - OPENAI_API_KEY (or ANTHROPIC_API_KEY)
 #    - RESEND_API_KEY
-#    - RESEND_FROM_EMAIL=onboarding@resend.dev (testing) or no-reply@instruction.coach (production)
+#    - RESEND_FROM_EMAIL=noreply@instruction.coach (production - domain verified)
 # 3. Railway auto-deploys from Dockerfile
 
 # KEY ENDPOINTS:

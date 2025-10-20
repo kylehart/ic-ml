@@ -4,16 +4,15 @@
 
 ### High Priority
 
-**Verify instruction.coach Domain with Resend**
-- **Status**: Blocking production email delivery
-- **Current**: Using `onboarding@resend.dev` (testing email)
-- **Needed**: Verify `instruction.coach` domain in Resend Dashboard
-- **Steps**:
-  1. Go to [Resend Dashboard → Domains](https://resend.com/domains)
-  2. Add `instruction.coach` domain
-  3. Configure DNS records (SPF, DKIM, DMARC)
-  4. Verify domain
-  5. Update Railway variable: `RESEND_FROM_EMAIL=no-reply@instruction.coach`
+**Verify instruction.coach Domain with Resend** ✅ COMPLETED (October 2025)
+- **Status**: Domain verified and production email active
+- **Implementation**:
+  - Domain `instruction.coach` verified in Resend Dashboard with DNS records (SPF, DKIM, DMARC)
+  - Updated default email in `src/web_service.py` to `noreply@instruction.coach`
+  - Updated `.env.example` to reflect production email
+  - Updated all documentation (CLAUDE.md, SYNOPSIS.md) to remove testing email references
+- **Production Ready**: All emails now sent from `noreply@instruction.coach`
+- **Next Steps**: Update Railway environment variable if still set to testing email
 
 **Investigate 0 Product Recommendations Bug**
 - **Status**: LLM processing works, but product engine returns 0 matches
@@ -24,11 +23,16 @@
 
 ### Medium Priority
 
-**Fix Email Double-Entry UX**
-- **Status**: Token-based storage infrastructure exists but not used in redirect
-- **Current**: User enters email in form, then again on results page
-- **Solution**: Update Formbricks ending card redirect to use token URL: `/results/{token}`
-- **Files**: Update `src/web_service.py` results page endpoint to support token-based lookup
+**Fix Email Double-Entry UX** ✅ COMPLETED (October 2025)
+- **Status**: Token-based redirect fully implemented with auto-refresh
+- **Implementation**:
+  - New endpoint: `GET /results/{token}` with auto-loading and 3-second retry polling
+  - API endpoint: `GET /api/v1/results/lookup/token/{token}` for JSON responses
+  - Email HTML template includes "View results online" link with token
+  - Comprehensive unit tests added (8 new test cases)
+  - Fallback email lookup still available at `/results`
+- **Next Steps**: Configure Formbricks form to redirect to `https://ic-ml-production.up.railway.app/results/{responseId}`
+- **Files Updated**: `src/web_service.py` (lines 575-971, 1008-1038), `tests/test_web_service.py` (lines 539-706)
 
 ### Low Priority (Future Enhancements)
 

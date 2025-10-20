@@ -65,10 +65,9 @@ OPENAI_API_KEY=sk-your-openai-key-here
 # Or use Anthropic instead
 ANTHROPIC_API_KEY=sk-ant-your-anthropic-key-here
 
-# Resend Email Service (highly recommended for email delivery)
+# Resend Email Service (required for email delivery)
 RESEND_API_KEY=re_your-resend-key-here
-RESEND_FROM_EMAIL=onboarding@resend.dev  # Testing: use onboarding@resend.dev
-                                          # Production: use no-reply@instruction.coach
+RESEND_FROM_EMAIL=noreply@instruction.coach  # Production (verified domain)
 
 # Railway automatically provides PORT - don't add this manually
 ```
@@ -149,20 +148,15 @@ RESEND_FROM_EMAIL=onboarding@resend.dev  # Testing: use onboarding@resend.dev
 
 ### Step 2: Configure Sender Email Address
 
-**For Testing (MVP):**
-- Use Resend's test email: `onboarding@resend.dev`
-- No domain verification required
-- Perfect for development and initial testing
-- Set in Railway: `RESEND_FROM_EMAIL=onboarding@resend.dev`
+**Production Ready (October 2025):**
+- ✅ Domain `instruction.coach` verified with Resend
+- ✅ DNS records configured (SPF, DKIM, DMARC)
+- ✅ Production sender: `noreply@instruction.coach`
+- Set in Railway: `RESEND_FROM_EMAIL=noreply@instruction.coach`
 
-**For Production:**
-- Use verified domain: `instruction.coach`
-- Recommended sender: `no-reply@instruction.coach`
-- Domain verification steps:
-  1. Add your domain in Resend dashboard
-  2. Add DNS records (SPF, DKIM, DMARC)
-  3. Wait for verification (usually 5-10 minutes)
-  4. Update Railway: `RESEND_FROM_EMAIL=no-reply@instruction.coach`
+**For Testing/Development:**
+- Use Resend's test email: `onboarding@resend.dev` (no domain verification required)
+- Set in Railway: `RESEND_FROM_EMAIL=onboarding@resend.dev`
 
 ### Step 3: Add Environment Variables to Railway
 
@@ -190,14 +184,14 @@ RESEND_FROM_EMAIL=onboarding@resend.dev  # Testing: use onboarding@resend.dev
 
 **Option B: Use RAW Editor (Faster)**
    - Click **"RAW Editor"** button (top right of Variables section)
-   - Paste these lines (use testing email for MVP):
+   - Paste these lines (production ready):
    ```bash
    RESEND_API_KEY=re_your-actual-key-here
-   RESEND_FROM_EMAIL=onboarding@resend.dev
+   RESEND_FROM_EMAIL=noreply@instruction.coach
    ```
-   - For production, update to:
+   - For testing/development:
    ```bash
-   RESEND_FROM_EMAIL=no-reply@instruction.coach
+   RESEND_FROM_EMAIL=onboarding@resend.dev
    ```
    - Click **"Update Variables"**
 
@@ -423,7 +417,7 @@ cd /Users/kylehart/Documents/dev/repos/all/ic-ml
 # Set environment variables
 export OPENAI_API_KEY=your-key
 export RESEND_API_KEY=your-resend-key
-export RESEND_FROM_EMAIL=onboarding@resend.dev  # Testing email
+export RESEND_FROM_EMAIL=noreply@instruction.coach  # Production email (or use onboarding@resend.dev for testing)
 
 # Start server
 uvicorn src.web_service:app --reload --port 8000
@@ -488,7 +482,7 @@ Now you can test locally with Formbricks sending real webhooks!
 - [ ] Test complete flow 5+ times with different emails
 - [ ] Verify email delivery works
 - [ ] Test on mobile devices
-- [ ] Update `RESEND_FROM_EMAIL` from `onboarding@resend.dev` to `no-reply@instruction.coach` (production)
+- [x] ✅ Updated `RESEND_FROM_EMAIL` to `noreply@instruction.coach` (production verified)
 - [ ] Set up Railway alerts for errors
 - [ ] Add Railway auto-scaling if expecting high traffic
 - [ ] Consider adding PostgreSQL for persistent storage
@@ -566,8 +560,8 @@ Now you can test locally with Formbricks sending real webhooks!
 # Required for all deployments
 OPENAI_API_KEY=sk-...                      # Or ANTHROPIC_API_KEY
 RESEND_API_KEY=re_...                      # For email delivery
-RESEND_FROM_EMAIL=onboarding@resend.dev    # Testing: onboarding@resend.dev
-                                            # Production: no-reply@instruction.coach
+RESEND_FROM_EMAIL=noreply@instruction.coach  # Production (verified domain)
+                                             # Testing: onboarding@resend.dev
 
 # Optional
 PORT=8000                          # Railway provides this

@@ -534,3 +534,173 @@ class TestWebhookEmailExtraction:
 
         # Should process successfully
         assert response.status_code == 200
+
+
+class TestTokenBasedResultsLookup:
+    """Test token-based results lookup functionality."""
+
+    def test_token_results_page_returns_html(self, test_client):
+        """Test GET /results/{token} returns HTML page."""
+        response = test_client.get("/results/test-token-123")
+
+        assert response.status_code == 200
+        assert "text/html" in response.headers["content-type"]
+        assert "Analyzing Your Health Needs" in response.text
+        assert "test-token-123" in response.text
+
+    def test_lookup_results_by_token_found_completed(self, test_client):
+        """Test GET /api/v1/results/lookup/token/{token} finds completed results."""
+        from src.web_service import results_storage
+
+        token = "test-token-completed-123"
+        email = "test-completed@example.com"
+
+        results_storage.store_result(
+            email=email,
+            status="completed",
+            token=token,
+            data={"test": "data"},
+            html_report="<html>Test Report</html>"
+        )
+
+        response = test_client.get(f"/api/v1/results/lookup/token/{token}")
+
+        assert response.status_code == 200
+        data = response.json()
+        assert data["status"] == "completed"
+        assert data["html_report"] == "<html>Test Report</html>"
+
+    def test_lookup_results_by_token_processing(self, test_client):
+        """Test token lookup returns processing status."""
+        from src.web_service import results_storage
+
+        token = "test-token-processing-456"
+        email = "processing-token@example.com"
+
+        results_storage.store_result(
+            email=email,
+            status="processing",
+            token=token
+        )
+
+        response = test_client.get(f"/api/v1/results/lookup/token/{token}")
+
+        assert response.status_code == 200
+        data = response.json()
+        assert data["status"] == "processing"
+
+    def test_lookup_results_by_token_failed(self, test_client):
+        """Test token lookup returns failed status."""
+        from src.web_service import results_storage
+
+        token = "test-token-failed-789"
+        email = "failed-token@example.com"
+
+        results_storage.store_result(
+            email=email,
+            status="failed",
+            token=token,
+            data={"error": "Something went wrong"}
+        )
+
+        response = test_client.get(f"/api/v1/results/lookup/token/{token}")
+
+        assert response.status_code == 200
+        data = response.json()
+        assert data["status"] == "failed"
+
+    def test_lookup_results_by_token_not_found(self, test_client):
+        """Test token lookup for non-existent token."""
+        response = test_client.get("/api/v1/results/lookup/token/nonexistent-token-xyz")
+
+        assert response.status_code == 200
+        data = response.json()
+        assert data["status"] == "not_found"
+
+    def test_token_and_email_both_work(self, test_client):
+        """Test that results can be accessed by both token and email."""
+        from src.web_service import results_storage
+
+        token = "test-token-both-access"
+        email = "both-access@example.com"
+
+        results_storage.store_result(
+            email=email,
+            status="completed",
+            token=token,
+            data={"test": "data"},
+            html_report="<html>Dual Access Report</html>"
+        )
+
+        # Test token access
+        token_response = test_client.get(f"/api/v1/results/lookup/token/{token}")
+        assert token_response.status_code == 200
+        assert token_response.json()["status"] == "completed"
+
+        # Test email access
+        email_response = test_client.post(
+            "/api/v1/results/lookup",
+            json={"email": email}
+        )
+        assert email_response.status_code == 200
+        assert email_response.json()["status"] == "completed"
+
+        # Both should return same data
+        assert token_response.json()["html_report"] == email_response.json()["html_report"]
+
+    def test_html_report_includes_token_link(self):
+        """Test that HTML report includes token-based link when token provided."""
+        from src.web_service import generate_html_report_from_results
+
+        quiz_output = {
+            "general_recommendations": ["Advice 1"],
+            "lifestyle_suggestions": ["Suggestion 1"],
+            "educational_content": ["Content 1"],
+            "confidence_score": 0.85,
+            "consultation_recommended": False
+        }
+
+        product_recommendations = []
+        timing_info = {"total_duration_seconds": 2.5}
+        email = "test@example.com"
+        token = "test-token-in-email-123"
+
+        html = generate_html_report_from_results(
+            quiz_output=quiz_output,
+            product_recommendations=product_recommendations,
+            timing_info=timing_info,
+            email=email,
+            token=token
+        )
+
+        # Check that token link is included
+        assert token in html
+        assert "View results online" in html
+        assert "ic-ml-production.up.railway.app/results/" in html
+
+    def test_html_report_without_token_link(self):
+        """Test that HTML report works without token."""
+        from src.web_service import generate_html_report_from_results
+
+        quiz_output = {
+            "general_recommendations": ["Advice 1"],
+            "lifestyle_suggestions": ["Suggestion 1"],
+            "educational_content": ["Content 1"],
+            "confidence_score": 0.85,
+            "consultation_recommended": False
+        }
+
+        product_recommendations = []
+        timing_info = {"total_duration_seconds": 2.5}
+        email = "test@example.com"
+
+        html = generate_html_report_from_results(
+            quiz_output=quiz_output,
+            product_recommendations=product_recommendations,
+            timing_info=timing_info,
+            email=email,
+            token=None  # No token
+        )
+
+        # Check that link is NOT included
+        assert "View results online" not in html

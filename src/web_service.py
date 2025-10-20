@@ -117,7 +117,7 @@ class ResendEmailService:
 
     def __init__(self):
         self.api_key = os.getenv("RESEND_API_KEY")
-        self.from_email = os.getenv("RESEND_FROM_EMAIL", "health-quiz@yourdomain.com")
+        self.from_email = os.getenv("RESEND_FROM_EMAIL", "noreply@instruction.coach")
         self.enabled = bool(self.api_key)
 
         if not self.enabled:
@@ -535,7 +535,8 @@ async def process_health_quiz_webhook(email: str, health_issue: str,
             quiz_output=quiz_output,
             product_recommendations=product_recs,
             timing_info=timing_info,
-            email=email
+            email=email,
+            token=token
         )
 
         # Store results
@@ -572,8 +573,8 @@ async def process_health_quiz_webhook(email: str, health_issue: str,
 
 
 @app.get("/results", response_class=HTMLResponse)
-async def results_page():
-    """Serve HTML page for looking up quiz results by email."""
+async def results_page_email_lookup():
+    """Serve HTML page for looking up quiz results by email (fallback method)."""
     html_content = """
     <!DOCTYPE html>
     <html lang="en">
@@ -772,6 +773,205 @@ async def results_page():
     return HTMLResponse(content=html_content)
 
 
+@app.get("/results/{token}", response_class=HTMLResponse)
+async def results_page_token_lookup(token: str):
+    """Serve HTML page that auto-loads quiz results by token."""
+    html_content = f"""
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Your Health Quiz Results - Rogue Herbalist</title>
+        <style>
+            * {{
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }}
+            body {{
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                min-height: 100vh;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                padding: 20px;
+            }}
+            .container {{
+                background: white;
+                padding: 40px;
+                border-radius: 12px;
+                box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+                max-width: 800px;
+                width: 100%;
+            }}
+            h1 {{
+                color: #333;
+                margin-bottom: 10px;
+                font-size: 28px;
+                text-align: center;
+            }}
+            .subtitle {{
+                color: #666;
+                margin-bottom: 30px;
+                font-size: 16px;
+                text-align: center;
+            }}
+            .loading-state {{
+                text-align: center;
+                padding: 40px 20px;
+            }}
+            .loading-icon {{
+                font-size: 48px;
+                margin-bottom: 20px;
+                animation: pulse 2s ease-in-out infinite;
+            }}
+            @keyframes pulse {{
+                0%, 100% {{ opacity: 1; }}
+                50% {{ opacity: 0.5; }}
+            }}
+            .loader {{
+                display: inline-block;
+                margin: 20px auto;
+                border: 4px solid #f3f3f3;
+                border-top: 4px solid #667eea;
+                border-radius: 50%;
+                width: 50px;
+                height: 50px;
+                animation: spin 1s linear infinite;
+            }}
+            @keyframes spin {{
+                0% {{ transform: rotate(0deg); }}
+                100% {{ transform: rotate(360deg); }}
+            }}
+            .message {{
+                margin-top: 20px;
+                padding: 12px;
+                border-radius: 6px;
+                display: none;
+            }}
+            .message.error {{
+                background: #f8d7da;
+                color: #721c24;
+                border: 1px solid #f5c6cb;
+            }}
+            .message.info {{
+                background: #d1ecf1;
+                color: #0c5460;
+                border: 1px solid #bee5eb;
+            }}
+            #resultsContainer {{
+                margin-top: 20px;
+                display: none;
+            }}
+            .email-lookup-link {{
+                text-align: center;
+                margin-top: 20px;
+                padding: 15px;
+                background: #f8f9fa;
+                border-radius: 6px;
+            }}
+            .email-lookup-link a {{
+                color: #667eea;
+                text-decoration: none;
+                font-weight: 600;
+            }}
+            .email-lookup-link a:hover {{
+                text-decoration: underline;
+            }}
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <div id="loadingState" class="loading-state">
+                <div class="loading-icon">🌿</div>
+                <h1>Analyzing Your Health Needs...</h1>
+                <p class="subtitle">Generating personalized recommendations</p>
+                <div class="loader"></div>
+                <p style="color: #666; margin-top: 20px;">This usually takes 6-8 seconds</p>
+            </div>
+
+            <div class="message" id="message"></div>
+            <div id="resultsContainer"></div>
+
+            <div id="emailLookupFallback" class="email-lookup-link" style="display: none;">
+                <p>Can't find your results? <a href="/results">Look up by email instead</a></p>
+            </div>
+        </div>
+
+        <script>
+            const token = "{token}";
+            const loadingState = document.getElementById('loadingState');
+            const message = document.getElementById('message');
+            const resultsContainer = document.getElementById('resultsContainer');
+            const emailLookupFallback = document.getElementById('emailLookupFallback');
+            let retryCount = 0;
+            const maxRetries = 20; // 20 retries × 3 seconds = 60 seconds max
+
+            async function loadResults() {{
+                try {{
+                    const response = await fetch(`/api/v1/results/lookup/token/${{token}}`);
+                    const data = await response.json();
+
+                    if (data.status === 'completed') {{
+                        // Hide loading, show results
+                        loadingState.style.display = 'none';
+                        resultsContainer.innerHTML = data.html_report;
+                        resultsContainer.style.display = 'block';
+                    }} else if (data.status === 'processing') {{
+                        // Still processing, retry after 3 seconds
+                        retryCount++;
+                        if (retryCount < maxRetries) {{
+                            setTimeout(loadResults, 3000);
+                        }} else {{
+                            // Max retries exceeded
+                            loadingState.style.display = 'none';
+                            message.className = 'message error';
+                            message.textContent = 'Processing is taking longer than expected. Please check your email for results or try again later.';
+                            message.style.display = 'block';
+                            emailLookupFallback.style.display = 'block';
+                        }}
+                    }} else if (data.status === 'failed') {{
+                        // Processing failed
+                        loadingState.style.display = 'none';
+                        message.className = 'message error';
+                        message.textContent = 'An error occurred while processing your quiz. Please contact support or try again.';
+                        message.style.display = 'block';
+                        emailLookupFallback.style.display = 'block';
+                    }} else if (data.status === 'not_found') {{
+                        // Token not found or expired
+                        loadingState.style.display = 'none';
+                        message.className = 'message error';
+                        message.textContent = 'Results not found or have expired (24 hour limit). Please complete the quiz again or check your email.';
+                        message.style.display = 'block';
+                        emailLookupFallback.style.display = 'block';
+                    }} else {{
+                        // Unknown status
+                        loadingState.style.display = 'none';
+                        message.className = 'message error';
+                        message.textContent = 'Unexpected error. Please try again.';
+                        message.style.display = 'block';
+                        emailLookupFallback.style.display = 'block';
+                    }}
+                }} catch (error) {{
+                    loadingState.style.display = 'none';
+                    message.className = 'message error';
+                    message.textContent = 'Connection error. Please check your internet connection and try again.';
+                    message.style.display = 'block';
+                    emailLookupFallback.style.display = 'block';
+                }}
+            }}
+
+            // Start loading results immediately
+            loadResults();
+        </script>
+    </body>
+    </html>
+    """
+    return HTMLResponse(content=html_content)
+
+
 @app.post("/api/v1/results/lookup")
 async def lookup_results(request: ResultsLookupRequest):
     """Look up quiz results by email."""
@@ -806,11 +1006,45 @@ async def lookup_results(request: ResultsLookupRequest):
         )
 
 
+@app.get("/api/v1/results/lookup/token/{token}")
+async def lookup_results_by_token(token: str):
+    """Look up quiz results by token (response ID from Formbricks)."""
+    try:
+        logger.info(f"🔍 Looking up results for token: {token[:8]}...")
+
+        result = results_storage.get_result_by_token(token)
+
+        if not result:
+            logger.warning(f"❌ No results found for token: {token[:8]}...")
+            logger.info(f"Current storage has {len(results_storage.results_by_email)} email entries")
+            logger.info(f"Current storage has {len(results_storage.results_by_token)} token entries")
+            return {
+                "status": "not_found",
+                "message": "No results found for this token"
+            }
+
+        logger.info(f"✅ Found result for token: {token[:8]}..., status: {result['status']}")
+        return {
+            "status": result["status"],
+            "html_report": result.get("html_report"),
+            "data": result.get("data"),
+            "timestamp": result.get("timestamp")
+        }
+
+    except Exception as e:
+        logger.error(f"❌ Error looking up results by token: {e}", exc_info=True)
+        return JSONResponse(
+            status_code=500,
+            content={"status": "error", "message": str(e)}
+        )
+
+
 def generate_html_report_from_results(quiz_output: Dict[str, Any],
                                       product_recommendations: List[Dict[str, Any]],
                                       timing_info: Dict[str, Any],
-                                      email: str) -> str:
-    """Generate HTML report from quiz results."""
+                                      email: str,
+                                      token: Optional[str] = None) -> str:
+    """Generate HTML report from quiz results with optional token-based link."""
 
     # Build product recommendations HTML
     products_html = ""
@@ -1005,6 +1239,7 @@ def generate_html_report_from_results(quiz_output: Dict[str, Any],
             <p>These recommendations are for educational purposes only and are not medical advice.</p>
             <p>Always consult with a healthcare professional before starting any new health regimen.</p>
             <p><small>Results generated in {timing_info.get('total_duration_seconds', 0):.1f} seconds</small></p>
+            {f'<p style="margin-top: 15px;"><a href="https://ic-ml-production.up.railway.app/results/{token}" style="color: #667eea; text-decoration: none; font-weight: 600;">View results online →</a></p>' if token else ''}
         </div>
     </body>
     </html>

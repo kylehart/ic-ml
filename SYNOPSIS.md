@@ -37,9 +37,9 @@
 
 **Health Quiz MVP Deployment (October 2025):**
 - **Railway Deployment**: Containerized FastAPI service with automatic GitHub deployments
-- **Formbricks Integration**: Webhook-based form submission handling with email-based results lookup
-- **Resend Email Service**: HTML email delivery using `onboarding@resend.dev` (testing) or `no-reply@instruction.coach` (production)
-- **Email-Based Results**: SHA-256 hashed email storage with 24-hour expiration for privacy
+- **Formbricks Integration**: Webhook-based form submission handling with token-based auto-loading results
+- **Resend Email Service**: HTML email delivery using `noreply@instruction.coach` (production - verified domain)
+- **Token-Based Results**: Response ID tokens with auto-refresh polling and 24-hour expiration for privacy
 - **Auto-Retry Polling**: Results page automatically retries every 3 seconds during LLM processing
 - **In-Memory Storage**: MVP uses in-memory dict, upgrade path to PostgreSQL documented
 - **Cost-Effective**: $0/month on free tiers (Railway $5 credit, Resend 3000 emails/month, Formbricks unlimited)
@@ -364,7 +364,7 @@ ngrok http 8000
 # 2. Add environment variables:
 #    - OPENAI_API_KEY (or ANTHROPIC_API_KEY)
 #    - RESEND_API_KEY
-#    - RESEND_FROM_EMAIL=onboarding@resend.dev (testing) or no-reply@instruction.coach (production)
+#    - RESEND_FROM_EMAIL=noreply@instruction.coach (production - verified domain)
 # 3. Railway auto-deploys from Dockerfile
 
 # KEY ENDPOINTS:
@@ -479,7 +479,7 @@ railway variables --set KEY=VALUE
 - ✅ **Railway Deployment**: Dockerfile, railway.json, automatic GitHub deployments
 - ✅ **Formbricks Integration**: Webhook endpoint with exact question ID mapping for all 7 form fields
 - ✅ **Formbricks Payload Parsing**: Array email handling, correct JSON paths, choice ID translation
-- ✅ **Resend Email Service**: HTML email delivery (onboarding@resend.dev for testing, no-reply@instruction.coach for production)
+- ✅ **Resend Email Service**: HTML email delivery using noreply@instruction.coach (production - verified domain)
 - ✅ **Email-Based Results Lookup**: SHA-256 hashing, 24hr expiration, auto-retry polling
 - ✅ **Error Handling**: Proper JSONResponse returns for 404/500 errors
 - ✅ **Model Configuration**: Using aliases (gpt4o_mini) instead of full names for consistency
@@ -501,9 +501,7 @@ railway variables --set KEY=VALUE
 ### Known Issues
 
 **Health Quiz MVP (October 2025):**
-- ⚠️ **Resend Domain Verification**: `instruction.coach` domain not verified - currently using `onboarding@resend.dev` for testing
 - ⚠️ **0 Product Recommendations Bug**: Product recommendation engine returns 0 matches (should return 5) - needs debugging
-- ⚠️ **Email Double-Entry UX**: User enters email twice (form + results page) - token-based redirect infrastructure exists but not implemented
 
 **Product Classification:**
 - ⚠️ **Multi-Assignment**: 1.2% of products (9/761) get duplicate category assignments - mostly bugs (exact duplicates, same category ±subcategory), refactoring plan in TODO.md
@@ -514,9 +512,8 @@ railway variables --set KEY=VALUE
 - ⚠️ **Missing SEO Blocks**: Elements that fail validation left without ANY SEO block (not partial)
 
 ### Implementation Pending
-- 📋 **Verify Resend Domain**: Add and verify `instruction.coach` domain in Resend Dashboard for production email delivery
 - 📋 **Fix Product Recommendations**: Debug why product engine returns 0 matches for valid health queries
-- 📋 **Token-Based Results**: Update Formbricks redirect to use `/results/{token}` instead of email lookup
+- 📋 **Configure Formbricks Redirect**: Update Formbricks form ending to redirect to `/results/{{responseId}}`
 - 📋 **Full Taxonomy Regeneration**: Regenerate with improved natural description prompt
 - 📋 **Full SEO Regeneration**: Regenerate with improved character limit enforcement prompt
 - 📋 **Unit Test Suite**: Add pytest-based tests for core modules (LLM client, recommendation engine, use cases)
@@ -611,7 +608,9 @@ railway variables --set KEY=VALUE
 7. ✅ **Set up Railway CLI monitoring** - Linked project and service for real-time log streaming
 8. ✅ **Fixed Resend email sender** - Changed from unverified `no-response@instruction.coach` to `onboarding@resend.dev` (testing)
 9. ✅ **Verified end-to-end flow** - Webhook → LLM processing → Email sending → Results lookup all working
-10. 🔄 **Identified issues**: 0 product recommendations bug, email double-entry UX, domain verification needed
+10. ✅ **Domain verification completed** - `instruction.coach` verified with Resend, now using `noreply@instruction.coach` for production
+11. ✅ **Token-based redirect implemented** - Eliminated email double-entry with auto-refresh results page
+12. 🔄 **Remaining issue**: 0 product recommendations bug needs debugging
 
 **Debugging Tools Used:**
 - Railway CLI for log streaming: `railway logs --follow`
