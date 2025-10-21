@@ -1338,11 +1338,27 @@ def generate_prefilled_form_url(email: str, health_issue: str,
         params[HEALTH_ISSUE_QUESTION_ID] = health_issue
 
     if primary_areas:
-        # Formbricks multiselect prefill: pass array as comma-separated string
-        # Note: Formbricks multiselect prefilling behavior may require special formatting
-        # Testing needed to confirm exact format
-        params[PRIMARY_AREA_QUESTION_ID] = ",".join(primary_areas)
-        logger.info(f"🔗 Prefilling {len(primary_areas)} primary areas: {primary_areas}")
+        # Formbricks multiselect prefill: convert internal format back to display names
+        # Internal format: ["digestive_health", "energy_vitality"]
+        # Display format: ["Digestive Health", "Energy & Vitality"]
+        INTERNAL_TO_DISPLAY = {
+            "digestive_health": "Digestive Health",
+            "immune_support": "Immune Support",
+            "stress_relief": "Stress & Anxiety",
+            "sleep_support": "Sleep Issues",
+            "joint_health": "Joint & Muscle Pain",
+            "energy_vitality": "Energy & Vitality",
+            "women_health": "Women's Health",
+            "men_health": "Men's Health",
+            "other": "Other"
+        }
+
+        # Convert to display names
+        display_names = [INTERNAL_TO_DISPLAY.get(area, area) for area in primary_areas]
+
+        # Formbricks multiselect expects comma-separated display names
+        params[PRIMARY_AREA_QUESTION_ID] = ",".join(display_names)
+        logger.info(f"🔗 Prefilling {len(primary_areas)} primary areas: {display_names}")
 
     if severity is not None:
         params[SEVERITY_QUESTION_ID] = str(severity)
