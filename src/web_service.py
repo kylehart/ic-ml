@@ -1130,15 +1130,19 @@ def generate_prefilled_form_url(email: str, health_issue: str,
     # Build query parameters - only include non-None values
     params = {}
 
+    # NOTE: Email field is type "contactInfo" which does NOT support prefilling yet
+    # See: https://github.com/formbricks/formbricks/issues/4969
+    # Leaving this here for when Formbricks adds support
     if email:
         params[EMAIL_QUESTION_ID] = email
 
     if health_issue:
         params[HEALTH_ISSUE_QUESTION_ID] = health_issue
 
-    if primary_area and primary_area in AREA_TO_CHOICE_ID:
-        # Must use choice ID, not display text
-        params[PRIMARY_AREA_QUESTION_ID] = AREA_TO_CHOICE_ID[primary_area]
+    if primary_area:
+        # Formbricks prefill expects display text, NOT choice ID
+        # The string must exactly match the label in the form
+        params[PRIMARY_AREA_QUESTION_ID] = primary_area
 
     if severity is not None:
         params[SEVERITY_QUESTION_ID] = str(severity)
@@ -1146,9 +1150,10 @@ def generate_prefilled_form_url(email: str, health_issue: str,
     if tried_already:
         params[TRIED_ALREADY_QUESTION_ID] = tried_already
 
-    if age_range and age_range in AGE_TO_CHOICE_ID:
-        # Must use choice ID, not display text
-        params[AGE_RANGE_QUESTION_ID] = AGE_TO_CHOICE_ID[age_range]
+    if age_range:
+        # Formbricks prefill expects display text, NOT choice ID
+        # The string must exactly match the label in the form
+        params[AGE_RANGE_QUESTION_ID] = age_range
 
     if lifestyle:
         params[LIFESTYLE_QUESTION_ID] = lifestyle
