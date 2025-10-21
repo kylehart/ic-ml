@@ -1647,7 +1647,6 @@ def generate_html_report_from_results(quiz_output: Dict[str, Any],
         <div class="header">
             <img src="https://rogueherbalist.com/wp-content/uploads/2020/04/RogueSIGN.jpg" alt="Rogue Herbalist">
             <h1>🌿 Your Personalized Health Recommendations</h1>
-            <p>From Rogue Herbalist</p>
         </div>
 
         {consultation_warning}
