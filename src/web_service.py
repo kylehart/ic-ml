@@ -357,7 +357,7 @@ async def formbricks_webhook(request: Request, background_tasks: BackgroundTasks
         # Extract email (required field)
         email = None
         health_issue = None
-        primary_area = None
+        primary_areas = []  # Multiple choice: list of area choice IDs or names
         severity = 5
         tried_already = None
         age_range = None
@@ -365,9 +365,10 @@ async def formbricks_webhook(request: Request, background_tasks: BackgroundTasks
 
         # Exact question ID mapping for this Formbricks form
         # Updated: October 21, 2025 - Changed from contactInfo to openText with email validation
+        # Updated: October 21, 2025 - Changed PRIMARY_AREA from single to multiselect (returns array)
         EMAIL_QUESTION_ID = "y4t3q9ctov2dn6qdon1kdbrq"  # openText (inputType: email) - supports prefilling!
         HEALTH_ISSUE_QUESTION_ID = "dc185mu0h2xzutpzfgq8eyjy"
-        PRIMARY_AREA_QUESTION_ID = "ty1zv10pffpxh2a2bymi2wz7"
+        PRIMARY_AREA_QUESTION_ID = "ty1zv10pffpxh2a2bymi2wz7"  # multiselect (returns array of choice IDs)
         SEVERITY_QUESTION_ID = "iht7n48iwkoc1jc8ubnzrqi7"
         TRIED_ALREADY_QUESTION_ID = "ud6nnuhrgf9trqwe8j3kibii"
         AGE_RANGE_QUESTION_ID = "yru7w3e402yk8vpf1dfbw0tr"
@@ -416,15 +417,46 @@ async def formbricks_webhook(request: Request, background_tasks: BackgroundTasks
                 health_issue = value
                 logger.info(f"✓ Found health issue: {health_issue[:50] if health_issue else 'None'}...")
 
-            # Primary health area (choice ID needs mapping)
+            # Primary health areas (multiselect - value is array)
             elif question_id == PRIMARY_AREA_QUESTION_ID:
-                # Value might be a choice ID that needs mapping
-                if value in PRIMARY_AREA_CHOICES:
-                    primary_area = PRIMARY_AREA_CHOICES[value]
-                    logger.info(f"✓ Found primary area (mapped from {value}): {primary_area}")
+                # Formbricks multiselect returns an array
+                # Values can be either choice IDs OR display names (Formbricks behavior varies)
+                if isinstance(value, list):
+                    # Create reverse mapping from display names to our internal format
+                    DISPLAY_NAME_TO_INTERNAL = {
+                        "Digestive Health": "digestive_health",
+                        "Immune Support": "immune_support",
+                        "Stress & Anxiety": "stress_relief",
+                        "Sleep Issues": "sleep_support",
+                        "Joint & Muscle Pain": "joint_health",
+                        "Energy & Vitality": "energy_vitality",
+                        "Women's Health": "women_health",
+                        "Men's Health": "men_health",
+                        "Other": "other"
+                    }
+
+                    for item in value:
+                        # Try choice ID mapping first
+                        if item in PRIMARY_AREA_CHOICES:
+                            mapped_area = PRIMARY_AREA_CHOICES[item]
+                            # Convert display name to internal format
+                            internal_name = DISPLAY_NAME_TO_INTERNAL.get(mapped_area, mapped_area.lower().replace(" ", "_").replace("&", "and"))
+                            primary_areas.append(internal_name)
+                            logger.info(f"✓ Found primary area (from choice ID {item}): {internal_name}")
+                        # Try display name mapping
+                        elif item in DISPLAY_NAME_TO_INTERNAL:
+                            internal_name = DISPLAY_NAME_TO_INTERNAL[item]
+                            primary_areas.append(internal_name)
+                            logger.info(f"✓ Found primary area (from display name '{item}'): {internal_name}")
+                        # Use as-is (already in internal format)
+                        else:
+                            primary_areas.append(item)
+                            logger.info(f"✓ Found primary area (direct): {item}")
+                    logger.info(f"✓ Total primary areas selected: {len(primary_areas)}")
                 else:
-                    primary_area = value  # Use as-is if not in mapping
-                    logger.info(f"✓ Found primary area (direct): {primary_area}")
+                    # Fallback for legacy single choice (shouldn't happen with new form)
+                    logger.warning(f"⚠️ Expected array for multiselect but got single value: {value}")
+                    primary_areas = [value]
 
             # Severity rating (1-10)
             elif question_id == SEVERITY_QUESTION_ID:
@@ -474,7 +506,7 @@ async def formbricks_webhook(request: Request, background_tasks: BackgroundTasks
             process_health_quiz_webhook,
             email=email,
             health_issue=health_issue,
-            primary_area=primary_area,
+            primary_areas=primary_areas,  # Now a list of areas
             severity=severity,
             tried_already=tried_already,
             age_range=age_range,
@@ -499,7 +531,7 @@ async def formbricks_webhook(request: Request, background_tasks: BackgroundTasks
 
 
 async def process_health_quiz_webhook(email: str, health_issue: str,
-                                     primary_area: Optional[str],
+                                     primary_areas: Optional[List[str]],  # Now a list
                                      severity: int,
                                      tried_already: Optional[str],
                                      age_range: Optional[str],
@@ -508,30 +540,40 @@ async def process_health_quiz_webhook(email: str, health_issue: str,
     """Background task to process health quiz and generate results."""
     try:
         logger.info(f"🔄 Processing health quiz for {email} (token: {token[:8]}...)")
+        logger.info(f"   Primary areas selected: {primary_areas}")
 
         # Import framework components
         from health_quiz_use_case import HealthQuizUseCase
         from use_case_framework import UseCaseConfig, ProcessingMode
+        from model_config import ModelConfig
         import time
 
         # Create quiz input
         quiz_input_dict = {
             "health_issue_description": health_issue,
             "tried_already": tried_already,
-            "primary_health_area": primary_area,
+            "primary_health_areas": primary_areas,  # New: list of areas
             "severity_level": severity,
             "age_range": age_range,
             "lifestyle_factors": lifestyle
         }
 
-        # Initialize use case with config
+        # Load configuration from models.yaml (same as CLI runner)
+        model_config = ModelConfig()
+        health_quiz_config = model_config.use_case_configs.get('health_quiz', {})
+
+        # Initialize use case with proper config including max_recommendations, min_relevance_score
         use_case_config = UseCaseConfig(
             client_id="rogue_herbalist",
             use_case_name="health_quiz",
             model_config="gpt4o_mini",  # Default model
             processing_mode=ProcessingMode.REALTIME,
-            custom_settings={}
+            custom_settings=health_quiz_config  # ✅ Pass actual config from models.yaml
         )
+
+        # ✅ CRITICAL: Set use_case_config attribute for ProductRecommendationEngine
+        use_case_config.use_case_config = health_quiz_config
+
         use_case = HealthQuizUseCase(config=use_case_config)
 
         # Manually inject LLM client (framework doesn't automatically do this when instantiating directly)
@@ -577,7 +619,7 @@ async def process_health_quiz_webhook(email: str, health_issue: str,
         user_data = {
             "email": email,
             "health_issue": health_issue,
-            "primary_area": primary_area,
+            "primary_areas": primary_areas,  # List of areas
             "severity": severity,
             "tried_already": tried_already,
             "age_range": age_range,
@@ -1230,7 +1272,7 @@ async def lookup_results_by_token(token: str):
 
 
 def generate_prefilled_form_url(email: str, health_issue: str,
-                               primary_area: Optional[str], severity: int,
+                               primary_areas: Optional[List[str]], severity: int,
                                tried_already: Optional[str], age_range: Optional[str],
                                lifestyle: Optional[str]) -> str:
     """
@@ -1247,7 +1289,7 @@ def generate_prefilled_form_url(email: str, health_issue: str,
     logger.info(f"📝 generate_prefilled_form_url called with:")
     logger.info(f"  email: {email}")
     logger.info(f"  health_issue: {health_issue[:100] if health_issue else 'None'}...")
-    logger.info(f"  primary_area: {primary_area}")
+    logger.info(f"  primary_areas: {primary_areas}")  # Now a list
     logger.info(f"  severity: {severity}")
     logger.info(f"  tried_already: {tried_already[:50] if tried_already else 'None'}...")
     logger.info(f"  age_range: {age_range}")
@@ -1295,10 +1337,12 @@ def generate_prefilled_form_url(email: str, health_issue: str,
     if health_issue:
         params[HEALTH_ISSUE_QUESTION_ID] = health_issue
 
-    if primary_area:
-        # Formbricks prefill expects display text, NOT choice ID
-        # The string must exactly match the label in the form
-        params[PRIMARY_AREA_QUESTION_ID] = primary_area
+    if primary_areas:
+        # Formbricks multiselect prefill: pass array as comma-separated string
+        # Note: Formbricks multiselect prefilling behavior may require special formatting
+        # Testing needed to confirm exact format
+        params[PRIMARY_AREA_QUESTION_ID] = ",".join(primary_areas)
+        logger.info(f"🔗 Prefilling {len(primary_areas)} primary areas: {primary_areas}")
 
     if severity is not None:
         params[SEVERITY_QUESTION_ID] = str(severity)
@@ -1380,7 +1424,7 @@ def generate_html_report_from_results(quiz_output: Dict[str, Any],
         revision_url = generate_prefilled_form_url(
             email=user_data.get("email") or email,  # Ensure we have email
             health_issue=user_data.get("health_issue") or "",
-            primary_area=user_data.get("primary_area"),
+            primary_areas=user_data.get("primary_areas", []),  # List of areas
             severity=user_data.get("severity", 5),
             tried_already=user_data.get("tried_already"),
             age_range=user_data.get("age_range"),

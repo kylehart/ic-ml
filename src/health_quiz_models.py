@@ -14,14 +14,33 @@ class HealthQuizInput:
     """Input data structure for health quiz."""
     health_issue_description: str  # Free text description of health issue
     tried_already: Optional[str] = None  # What they've tried, outcomes
-    primary_health_area: Optional[str] = None  # From 20 categories
-    secondary_health_area: Optional[str] = None  # Optional second category
+    primary_health_areas: Optional[List[str]] = None  # Multiple choice: list of categories (Formbricks multiselect)
+
+    # Deprecated fields (kept for backward compatibility)
+    primary_health_area: Optional[str] = None  # Single category (legacy)
+    secondary_health_area: Optional[str] = None  # Removed from form, kept for old data
 
     # Optional fields for future expansion
     age_range: Optional[str] = None
     severity_level: Optional[int] = None  # 1-10 scale
     budget_preference: Optional[str] = None  # "low", "medium", "high"
     lifestyle_factors: Optional[str] = None  # Additional context
+
+    def __post_init__(self):
+        """Normalize primary_health_areas to always be a list."""
+        # If primary_health_areas is not set but primary_health_area is (legacy single choice)
+        if not self.primary_health_areas and self.primary_health_area:
+            self.primary_health_areas = [self.primary_health_area]
+
+        # If secondary_health_area is set (legacy), add it to primary_health_areas
+        if self.secondary_health_area and self.secondary_health_area not in (self.primary_health_areas or []):
+            if not self.primary_health_areas:
+                self.primary_health_areas = []
+            self.primary_health_areas.append(self.secondary_health_area)
+
+        # Ensure primary_health_areas is always a list (even if empty)
+        if self.primary_health_areas is None:
+            self.primary_health_areas = []
 
     def to_dict(self) -> Dict[str, Any]:
         """Convert to dictionary, filtering None values."""

@@ -41,13 +41,10 @@ class HealthQuizUseCase(RealtimeUseCase):
                 return False, "health_issue_description must be at least 10 characters"
 
             # Validate health categories if provided
-            if quiz_input.primary_health_area:
-                if quiz_input.primary_health_area not in self.taxonomy_categories:
-                    return False, f"Invalid primary_health_area: {quiz_input.primary_health_area}"
-
-            if quiz_input.secondary_health_area:
-                if quiz_input.secondary_health_area not in self.taxonomy_categories:
-                    return False, f"Invalid secondary_health_area: {quiz_input.secondary_health_area}"
+            if quiz_input.primary_health_areas:
+                for area in quiz_input.primary_health_areas:
+                    if area not in self.taxonomy_categories:
+                        return False, f"Invalid primary_health_area: {area}"
 
             # Validate severity level if provided
             if quiz_input.severity_level is not None:
@@ -95,8 +92,8 @@ class HealthQuizUseCase(RealtimeUseCase):
                 data=output.to_dict(),
                 metadata={
                     "input_summary": {
-                        "primary_area": quiz_input.primary_health_area,
-                        "secondary_area": quiz_input.secondary_health_area,
+                        "primary_areas": quiz_input.primary_health_areas,
+                        "areas_count": len(quiz_input.primary_health_areas) if quiz_input.primary_health_areas else 0,
                         "has_tried_something": bool(quiz_input.tried_already),
                     },
                     "recommendations_count": len(product_recommendations),
@@ -129,11 +126,12 @@ Health Issue: {quiz_input.health_issue_description}
         if quiz_input.tried_already:
             template += f"What they've tried before: {quiz_input.tried_already}\n\n"
 
-        if quiz_input.primary_health_area:
-            template += f"Primary health focus: {quiz_input.primary_health_area}\n"
-
-        if quiz_input.secondary_health_area:
-            template += f"Secondary health focus: {quiz_input.secondary_health_area}\n"
+        if quiz_input.primary_health_areas:
+            if len(quiz_input.primary_health_areas) == 1:
+                template += f"Primary health focus: {quiz_input.primary_health_areas[0]}\n"
+            else:
+                template += f"Primary health focuses: {', '.join(quiz_input.primary_health_areas)}\n"
+                template += f"(User selected {len(quiz_input.primary_health_areas)} related health areas)\n"
 
         if quiz_input.age_range:
             template += f"Age range: {quiz_input.age_range}\n"
@@ -275,8 +273,13 @@ Guidelines:
         """Generate educational content based on health areas."""
         content = []
 
-        if quiz_input.primary_health_area:
-            content.append(f"Learn more about {quiz_input.primary_health_area} and natural approaches")
+        if quiz_input.primary_health_areas:
+            if len(quiz_input.primary_health_areas) == 1:
+                content.append(f"Learn more about {quiz_input.primary_health_areas[0]} and natural approaches")
+            else:
+                # Multiple areas - mention all of them
+                areas_text = ", ".join(quiz_input.primary_health_areas)
+                content.append(f"Learn more about {areas_text} and natural approaches")
 
         # Add general wellness content
         content.extend([
@@ -289,12 +292,9 @@ Guidelines:
 
     def _extract_categories(self, quiz_input: HealthQuizInput) -> List[str]:
         """Extract health categories being addressed."""
-        categories = []
-        if quiz_input.primary_health_area:
-            categories.append(quiz_input.primary_health_area)
-        if quiz_input.secondary_health_area:
-            categories.append(quiz_input.secondary_health_area)
-        return categories
+        if quiz_input.primary_health_areas:
+            return list(quiz_input.primary_health_areas)  # Return copy of the list
+        return []
 
     def _calculate_confidence_score(self,
                                   quiz_input: HealthQuizInput,
@@ -303,8 +303,9 @@ Guidelines:
         score = 0.5  # Base score
 
         # Increase confidence with more information
-        if quiz_input.primary_health_area:
-            score += 0.2
+        if quiz_input.primary_health_areas:
+            # More areas selected = higher confidence in understanding user's needs
+            score += 0.15 + (0.05 * min(len(quiz_input.primary_health_areas), 3))
         if quiz_input.tried_already:
             score += 0.1
         if quiz_input.severity_level:

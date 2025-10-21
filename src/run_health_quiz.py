@@ -132,12 +132,21 @@ class HealthQuizRunner:
                 for error in errors:
                     f.write(f"{error}\n")
 
+        # Load quiz_input from inputs directory for report generation
+        quiz_input_data = {}
+        try:
+            with open(self.run_dir / "inputs" / "quiz_input.json", "r") as f:
+                quiz_input_data = json.load(f)
+        except:
+            pass
+
         # Generate markdown report
-        self.generate_markdown_report(quiz_output, llm_response, product_recommendations, timing_info)
+        self.generate_markdown_report(quiz_input_data, quiz_output, llm_response, product_recommendations, timing_info)
 
         print(f"📤 Outputs saved")
 
     def generate_markdown_report(self,
+                                quiz_input: Dict[str, Any],
                                 quiz_output: Dict[str, Any],
                                 llm_response: Dict[str, Any],
                                 product_recommendations: List[Dict[str, Any]],
@@ -151,6 +160,39 @@ class HealthQuizRunner:
 - **Date**: {self.start_time.strftime('%Y-%m-%d %H:%M:%S')}
 - **Processing Time**: {timing_info.get('total_duration_seconds', 0):.2f} seconds
 
+## Quiz Input
+
+"""
+        # Add quiz input fields
+        # Handle nested quiz_input structure
+        quiz_data = quiz_input.get('quiz_input', quiz_input)
+
+        if quiz_input.get('persona_name'):
+            report += f"**Persona**: {quiz_input['persona_name']}\n\n"
+
+        report += f"**Health Issue**: {quiz_data.get('health_issue_description', 'Not provided')}\n\n"
+
+        # Show primary_health_areas (new multiselect format)
+        if quiz_data.get('primary_health_areas'):
+            areas = quiz_data['primary_health_areas']
+            if len(areas) == 1:
+                report += f"**Primary Health Area**: {areas[0]}\n\n"
+            elif len(areas) > 1:
+                report += f"**Primary Health Areas**: {', '.join(areas)}\n\n"
+
+        if quiz_data.get('severity_level'):
+            report += f"**Severity Level**: {quiz_data['severity_level']}/10\n\n"
+
+        if quiz_data.get('tried_already'):
+            report += f"**What You've Tried**: {quiz_data['tried_already']}\n\n"
+
+        if quiz_data.get('age_range'):
+            report += f"**Age Range**: {quiz_data['age_range']}\n\n"
+
+        if quiz_data.get('lifestyle_factors'):
+            report += f"**Lifestyle Factors**: {quiz_data['lifestyle_factors']}\n\n"
+
+        report += """
 ## Health Recommendations
 
 ### General Health Advice
@@ -251,6 +293,19 @@ Based on your responses, we recommend consulting with a healthcare professional 
         a:hover {{ text-decoration: underline; }}
         ul {{ padding-left: 20px; }}
         li {{ margin-bottom: 8px; }}
+        p {{ margin: 10px 0; }}
+        strong {{ color: #2c5aa0; }}
+        .quiz-input {{
+            background: #e3f2fd;
+            border-left: 4px solid #2196f3;
+            padding: 15px 20px;
+            margin: 20px 0;
+            border-radius: 0 5px 5px 0;
+        }}
+        .quiz-input p {{
+            margin: 8px 0;
+            line-height: 1.8;
+        }}
         .warning {{
             background: #fff3cd;
             border: 1px solid #ffeaa7;
@@ -501,11 +556,13 @@ def load_persona(persona_name: str) -> tuple[HealthQuizInput, str]:
             quiz_data = user["quiz_submission"]
 
             # Convert to HealthQuizInput
+            # Support both new primary_health_areas (list) and legacy primary_health_area (string)
             quiz_input = HealthQuizInput(
                 health_issue_description=quiz_data["health_issue_description"],
                 tried_already=quiz_data.get("tried_already"),
-                primary_health_area=quiz_data.get("primary_health_area"),
-                secondary_health_area=quiz_data.get("secondary_health_area"),
+                primary_health_areas=quiz_data.get("primary_health_areas"),  # New: list of areas
+                primary_health_area=quiz_data.get("primary_health_area"),    # Legacy: single area (for __post_init__)
+                secondary_health_area=quiz_data.get("secondary_health_area"),  # Legacy: (for __post_init__)
                 age_range=quiz_data.get("age_range"),
                 severity_level=quiz_data.get("severity_level"),
                 budget_preference=quiz_data.get("budget_preference"),

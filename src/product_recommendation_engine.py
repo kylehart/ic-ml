@@ -182,10 +182,10 @@ class ProductScoringEngine:
         max_score = 10.0
 
         categories_to_check = []
-        if quiz_input.primary_health_area:
-            categories_to_check.append((quiz_input.primary_health_area, 1.0))  # Full weight
-        if quiz_input.secondary_health_area:
-            categories_to_check.append((quiz_input.secondary_health_area, 0.7))  # Reduced weight
+        if quiz_input.primary_health_areas:
+            # All primary areas get equal weight (no secondary area anymore)
+            for area in quiz_input.primary_health_areas:
+                categories_to_check.append((area, 1.0))
 
         for health_category, weight in categories_to_check:
             keywords = self.category_matcher.get_category_keywords(health_category)
@@ -220,11 +220,11 @@ class ProductScoringEngine:
         for ingredient in product.ingredients:
             benefits = self.category_matcher.get_ingredient_benefits(ingredient)
 
-            # Check against health areas
-            if quiz_input.primary_health_area and quiz_input.primary_health_area in benefits:
-                score += 3.0
-            if quiz_input.secondary_health_area and quiz_input.secondary_health_area in benefits:
-                score += 2.0
+            # Check against health areas - all primary areas get equal scoring
+            if quiz_input.primary_health_areas:
+                for area in quiz_input.primary_health_areas:
+                    if area in benefits:
+                        score += 3.0
 
             # Check against LLM herb recommendations
             for herb_category in llm_herbs:
@@ -389,12 +389,20 @@ class ProductRecommendationEngine:
         """Generate explanation for why product is recommended."""
         rationale_parts = []
 
-        # Category match rationale
-        if quiz_input.primary_health_area:
-            keywords = self.category_matcher.get_category_keywords(quiz_input.primary_health_area)
-            if any(keyword in product.title.lower() or keyword in product.description.lower()
-                   for keyword in keywords):
-                rationale_parts.append(f"Specifically formulated for {quiz_input.primary_health_area}")
+        # Category match rationale - check all primary areas
+        if quiz_input.primary_health_areas:
+            matched_areas = []
+            for area in quiz_input.primary_health_areas:
+                keywords = self.category_matcher.get_category_keywords(area)
+                if any(keyword in product.title.lower() or keyword in product.description.lower()
+                       for keyword in keywords):
+                    matched_areas.append(area)
+
+            if matched_areas:
+                if len(matched_areas) == 1:
+                    rationale_parts.append(f"Specifically formulated for {matched_areas[0]}")
+                else:
+                    rationale_parts.append(f"Addresses multiple health areas: {', '.join(matched_areas)}")
 
         # Ingredient rationale
         beneficial_ingredients = []
@@ -425,10 +433,12 @@ class ProductRecommendationEngine:
         for ingredient in product.ingredients:
             benefits = self.category_matcher.get_ingredient_benefits(ingredient)
             if benefits:
-                # Check if ingredient benefits match health areas
-                if (quiz_input.primary_health_area and quiz_input.primary_health_area in benefits) or \
-                   (quiz_input.secondary_health_area and quiz_input.secondary_health_area in benefits):
-                    key_ingredients.append(ingredient)
+                # Check if ingredient benefits match any primary health area
+                if quiz_input.primary_health_areas:
+                    for area in quiz_input.primary_health_areas:
+                        if area in benefits:
+                            key_ingredients.append(ingredient)
+                            break  # Don't add same ingredient twice
 
         # Return top 3 most relevant ingredients
         return key_ingredients[:3]
