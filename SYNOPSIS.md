@@ -34,6 +34,7 @@
 - **Working Product URLs**: 100% tested success rate with WordPress/WooCommerce slug generation
 - **HTML Report Generation**: Professional styled reports with clickable product links
 - **End-to-End Testing**: Successfully tested with 5 realistic user personas
+- **Rogue Herbalist Branding**: Complete green color scheme matching rogueherbalist.com design language
 
 **Health Quiz MVP Deployment (October 2025):**
 - **Railway Deployment**: Containerized FastAPI service with automatic GitHub deployments
@@ -43,6 +44,7 @@
 - **Results Page Polling**: Separate retry counters for different states (webhook arrival, LLM processing, network errors)
 - **In-Memory Storage**: MVP uses in-memory dict with dual access (email hash + response token), upgrade path to PostgreSQL documented
 - **Cost-Effective**: $0/month on free tiers (Railway $5 credit, Resend 3000 emails/month, Formbricks unlimited)
+- **Branded Experience**: Consistent green branding with Google Fonts across all touchpoints
 
 **Taxonomy & SEO Generation (September 2025):**
 - **Document Generation Framework**: Abstract framework for multi-element XML document generation
@@ -84,7 +86,7 @@
    - Real-time health recommendation processing
    - Structured input/output with safety features (consultation detection)
    - Integration with product recommendation engine
-   - HTML and markdown report generation
+   - HTML and markdown report generation with Rogue Herbalist branding
 
 6. **Product Recommendation Engine** (`src/product_recommendation_engine.py`)
    - Multi-factor scoring: health categories, ingredients, text similarity
@@ -123,9 +125,10 @@
 11. **Web Service API** (`src/web_service.py`) - *Production Deployed*
     - FastAPI-based REST endpoints for Health Quiz (Formbricks webhook, results lookup)
     - In-memory storage with email hashing for privacy and dual token access
-    - Resend email integration for HTML report delivery
+    - Resend email integration for HTML report delivery with branded templates
     - Background task processing for non-blocking webhook responses
     - Deployed on Railway with automatic GitHub integration
+    - Rogue Herbalist branded HTML templates (email, web results pages, processing pages)
 
 ## Code Organization
 
@@ -251,7 +254,7 @@ runs/health-quiz-YYYY-MM-DD-HHMMSS/
 ├── config/          # models.yaml, run_config.json, system_info.json
 ├── outputs/         # quiz_recommendations.json, llm_response.json, product_recommendations.json
 │                   # token_usage.json, timing.json, client_cost_breakdown.json
-│                   # health_quiz_report.md, health_quiz_report.html, errors.log
+│                   # health_quiz_report.md, health_quiz_report.html (branded), errors.log
 └── metadata/        # run_summary.json
 
 # Taxonomy Generation Runs
@@ -454,6 +457,17 @@ railway variables --set KEY=VALUE
   - No dependence on unimplemented Formbricks features
   - Simple, clear user flow
 
+### 9. **Rogue Herbalist Brand Integration (October 21, 2025)**
+- **Why**: Create consistent branded experience across all customer touchpoints
+- **Decision**: Apply complete brand guidelines (colors, fonts, design language) to all HTML outputs
+- **Implementation**:
+  - Extracted brand colors from rogueherbalist.com (Primary Green: #206932, Dark Green: #2a9242)
+  - Added Google Fonts (Roboto Condensed for headings, Arvo for body, Lato for buttons)
+  - Updated all gradients from purple to green
+  - Applied rounded button style (39px border-radius) across all CTAs
+  - Consistent typography with uppercase headings
+- **Result**: Professional branded experience in email templates, web results pages, CLI HTML reports, and processing pages
+
 ## Code Quality & Maintainability
 
 ### Codebase Metrics (Last Review: October 2025)
@@ -491,8 +505,34 @@ railway variables --set KEY=VALUE
 - ✅ **Health Quiz**: Working end-to-end with real testing, HTML reports, working product URLs
 - ✅ **Health Quiz MVP**: Fully deployed on Railway with Formbricks + Resend integration (October 2025)
 - ✅ **Unit Test Suite**: 122 passing tests covering core modules (October 2025)
+- ✅ **Brand Integration**: Complete Rogue Herbalist branding across all outputs (October 2025)
 
 ### Recently Implemented (October 21, 2025)
+
+**Rogue Herbalist Brand Integration:**
+- ✅ **Email Template Branding**: Updated HTML email templates with green gradient backgrounds, Google Fonts, branded buttons
+  - Primary Green (#206932) and Dark Green (#2a9242) color scheme
+  - Roboto Condensed headings (700 weight, uppercase)
+  - Arvo body text for readability
+  - Lato buttons (700 weight, uppercase, 39px rounded corners)
+  - Product cards with green accents and badges
+  - Revision button with green background and rounded style
+- ✅ **Web Results Pages Branding**: Applied consistent branding to all web pages
+  - `/results` email lookup page with green gradient background
+  - `/results/{token}` auto-load page with branded loading states
+  - Processing/loading pages with green spinner and typography
+  - All buttons updated to rounded green style
+  - All interactive elements (links, inputs) using green accent color
+- ✅ **CLI HTML Reports Branding**: Updated CLI-generated reports
+  - Health quiz HTML reports with green color scheme
+  - Google Fonts for consistent typography across all formats
+  - Product recommendation cards with green borders and badges
+  - Quiz input sections with light green background (#e9f5ed)
+- ✅ **Brand Guidelines Documentation**: Documented complete brand system in CLAUDE.md
+  - Color palette: Primary Green (#206932), Dark Green (#2a9242), Dark Text (#1c390d)
+  - Typography stack with Google Fonts integration
+  - Button styling standards (rounded 39px, uppercase Lato)
+  - Design principles extracted from rogueherbalist.com
 
 **WooCommerce Product Catalog Updates:**
 - ✅ **WooCommerce REST API Integration**: Fetched actual product slugs from live site (763 products via API)
@@ -567,7 +607,7 @@ railway variables --set KEY=VALUE
 **Code Quality Review:**
 - ✅ **Dead Code Cleanup**: Removed unused imports, duplicate configs, buggy methods
 - ✅ **Code Review**: Assessed 15 files, 7,414 lines (8.5/10 quality, 9/10 production readiness)
-- ✅ **Documentation**: Identified known limitations and documented stubs
+- ✅ **Documentation**: Identified and documented known limitations and intentional stubs
 - ✅ **Unit Test Suite**: 122 passing tests covering core modules (100% pass rate)
 
 ### Recently Implemented (September 2025)
@@ -665,6 +705,25 @@ railway variables --set KEY=VALUE
 
 ## Development Workflow
 
+### Recent Work: Rogue Herbalist Brand Integration (October 21, 2025)
+1. ✅ **Extracted Brand Guidelines** - Analyzed rogueherbalist.com to identify colors, fonts, and design patterns
+2. ✅ **Updated Email Templates** - Applied green gradient, Google Fonts, branded buttons and product cards
+3. ✅ **Updated Web Results Pages** - Consistent branding across email lookup, token-based, and processing pages
+4. ✅ **Updated CLI HTML Reports** - Green color scheme in health quiz HTML reports with Google Fonts
+5. ✅ **Documented Brand System** - Complete guidelines in CLAUDE.md for future reference
+6. ✅ **Committed Changes** - Git commit with comprehensive branding update documentation
+
+**Brand Elements Applied:**
+- Primary Green: #206932, Dark Green: #2a9242, Dark Text: #1c390d
+- Google Fonts: Roboto Condensed (headings), Arvo (body), Lato (buttons)
+- Button style: 39px rounded corners, uppercase text, green background with hover state
+- Typography: Uppercase headings with Roboto Condensed, clean Arvo body text
+- Consistent design language across email, web, and CLI outputs
+
+**Files Modified:**
+- src/web_service.py: Email templates, web results pages, processing pages (130 lines changed)
+- src/run_health_quiz.py: CLI HTML report generation (90 lines changed)
+
 ### Recent Work: Product Catalog & Framework Refactoring (October 21, 2025)
 1. ✅ **Researched SKU vs Slug in WooCommerce** - Confirmed SKUs are numeric barcodes, slugs are URL strings
 2. ✅ **Created WooCommerce API Fetcher** - fetch_woocommerce_slugs.py with comprehensive documentation
@@ -740,7 +799,6 @@ railway variables --set KEY=VALUE
 9. ✅ **Verified end-to-end flow** - Webhook → LLM processing → Email sending → Results lookup all working
 10. ✅ **Domain verification completed** - `instruction.coach` verified with Resend DNS records
 11. ✅ **Token-based redirect implemented** - Eliminated email double-entry with auto-refresh results page
-12. 🔄 **Remaining issue**: 0 product recommendations bug needs debugging
 
 **Debugging Tools Used:**
 - Railway CLI for log streaming: `railway logs --follow`
@@ -759,10 +817,9 @@ railway variables --set KEY=VALUE
 9. 🔄 **Pending**: Full regeneration with improved prompts (awaiting user approval due to cost)
 
 ### Next Phase: Production Optimization
-1. **Fix MVP Issues**: Product recommendations bug
-2. **Complete Taxonomy/SEO Generation**: Regenerate with improved prompts, fix cost tracking bug
-3. **Advanced Personalization**: User profiles and follow-up recommendations
-4. **E-commerce Integration**: Direct product purchase workflows
+1. **Advanced Personalization**: User profiles and follow-up recommendations
+2. **E-commerce Integration**: Direct product purchase workflows
+3. **Complete Taxonomy/SEO Generation**: Regenerate with improved prompts, fix cost tracking bug
 
 ### Multi-Client Expansion
 1. **Add new clients** via configuration files

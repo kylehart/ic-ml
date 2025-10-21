@@ -798,7 +798,7 @@ async def results_page_email_lookup(e: Optional[str] = None):
                 padding: 40px;
                 border-radius: 12px;
                 box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-                max-width: 500px;
+                max-width: 900px;
                 width: 100%;
             }
             .logo {
@@ -1021,7 +1021,7 @@ async def results_page_token_lookup(token: str):
                 padding: 40px;
                 border-radius: 12px;
                 box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-                max-width: 800px;
+                max-width: 900px;
                 width: 100%;
             }}
             h1 {{
