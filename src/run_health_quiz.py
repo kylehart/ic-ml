@@ -286,6 +286,14 @@ Based on your responses, we recommend consulting with a healthcare professional 
             border-radius: 8px;
             box-shadow: 0 2px 10px rgba(0,0,0,0.1);
         }}
+        .logo {{
+            text-align: center;
+            margin-bottom: 30px;
+        }}
+        .logo img {{
+            max-width: 200px;
+            height: auto;
+        }}
         h1 {{ color: #2c5aa0; border-bottom: 3px solid #2c5aa0; padding-bottom: 10px; }}
         h2 {{ color: #34495e; margin-top: 30px; }}
         h3 {{ color: #7f8c8d; }}
@@ -331,6 +339,9 @@ Based on your responses, we recommend consulting with a healthcare professional 
 </head>
 <body>
     <div class="container">
+        <div class="logo">
+            <img src="https://rogueherbalist.com/wp-content/uploads/2020/04/RogueSIGN.jpg" alt="Rogue Herbalist">
+        </div>
         {html_content}
     </div>
 </body>

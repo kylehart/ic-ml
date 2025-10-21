@@ -5,6 +5,13 @@ Multi-use case LLM platform supporting herbal product classification and health 
 
 **Current Status**: Production-ready classification system AND fully functional Health Quiz with working product URLs and HTML reports.
 
+## Client Branding
+
+**Rogue Herbalist Logo:**
+- URL: `https://rogueherbalist.com/wp-content/uploads/2020/04/RogueSIGN.jpg`
+- Usage: Email templates, HTML reports, web results pages
+- Format: JPEG image hosted on client's WordPress site
+
 ## Common Commands
 
 ### Product Classification (PRODUCTION - 100% Valid Output)

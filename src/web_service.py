@@ -786,10 +786,19 @@ async def results_page_email_lookup(e: Optional[str] = None):
                 max-width: 500px;
                 width: 100%;
             }
+            .logo {
+                text-align: center;
+                margin-bottom: 30px;
+            }
+            .logo img {
+                max-width: 200px;
+                height: auto;
+            }
             h1 {
                 color: #333;
                 margin-bottom: 10px;
                 font-size: 28px;
+                text-align: center;
             }
             .subtitle {
                 color: #666;
@@ -877,6 +886,9 @@ async def results_page_email_lookup(e: Optional[str] = None):
     </head>
     <body>
         <div class="container">
+            <div class="logo">
+                <img src="https://rogueherbalist.com/wp-content/uploads/2020/04/RogueSIGN.jpg" alt="Rogue Herbalist">
+            </div>
             <h1>Health Quiz Results</h1>
             <p class="subtitle">Your personalized recommendations are being sent to you by email. You may look at them immediately by entering your email address.</p>
 
@@ -1490,6 +1502,11 @@ def generate_html_report_from_results(quiz_output: Dict[str, Any],
                 margin-bottom: 30px;
                 text-align: center;
             }}
+            .header img {{
+                max-width: 200px;
+                height: auto;
+                margin-bottom: 20px;
+            }}
             .header h1 {{
                 margin: 0;
                 font-size: 32px;
@@ -1580,6 +1597,7 @@ def generate_html_report_from_results(quiz_output: Dict[str, Any],
     </head>
     <body>
         <div class="header">
+            <img src="https://rogueherbalist.com/wp-content/uploads/2020/04/RogueSIGN.jpg" alt="Rogue Herbalist">
             <h1>🌿 Your Personalized Health Recommendations</h1>
             <p>From Rogue Herbalist</p>
         </div>
