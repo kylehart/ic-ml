@@ -36,6 +36,27 @@
 
 ### Low Priority (Future Enhancements)
 
+**Redesign Health Quiz Prompt to be More Conversational** 📋 PLANNED (Future)
+- **Current**: Structured prompt with labeled sections (Health Issue:, Severity:, etc.)
+- **Proposed**: Narrative format that reads more naturally to the LLM
+- **Example**:
+  ```
+  "You're helping [firstName if available], a [age_range] person dealing with [primary_area].
+  They describe it as: '[health_issue]'.
+  They've tried [tried_already], but severity is still [severity]/10.
+  Their lifestyle: [lifestyle]"
+  ```
+- **Benefits**:
+  - More human context for LLM reasoning
+  - Better understanding of user's situation
+  - More empathetic recommendations
+- **Considerations**:
+  - Keep PII (email/name) out of LLM prompts (current policy)
+  - Maintain backward compatibility with framework
+  - A/B test to ensure quality doesn't degrade
+- **Files**: `src/health_quiz_use_case.py` (lines 172-234: `get_prompt_template()` method)
+- **Decision Date**: October 21, 2025 - deferred for future enhancement
+
 **Expand Unit Test Coverage** ✅ COMPLETED (October 2025)
 - **Status**: 122 passing tests covering core modules (100% pass rate)
 - **Coverage**: product_recommendation_engine (28 tests), health_quiz_use_case (27), model_config (21), llm_client (20), web_service (26)

@@ -12,6 +12,7 @@ from typing import Any, Dict, List, Optional, Tuple
 from pathlib import Path
 
 from use_case_framework import RealtimeUseCase, UseCaseResult, register_use_case
+from product_recommendation_engine import ProductRecommendationEngine
 
 
 @dataclass
@@ -272,58 +273,28 @@ Guidelines:
     def _find_relevant_products(self,
                               quiz_input: HealthQuizInput,
                               llm_recommendations: Dict[str, Any]) -> List[ProductRecommendation]:
-        """Find relevant products from catalog."""
-        # This is a simplified implementation
-        # In production, this would use sophisticated matching algorithms
+        """Find relevant products from catalog using ProductRecommendationEngine."""
+        # Initialize the product recommendation engine
+        # Use client_id from config, default to 'rogue_herbalist'
+        client_id = getattr(self.config, 'client_id', 'rogue_herbalist')
 
-        recommendations = []
+        # Get max_recommendations from use case config
+        max_recs = self.config.use_case_config.get('max_recommendations', 5) if hasattr(self.config, 'use_case_config') else 5
+        min_threshold = self.config.use_case_config.get('min_relevance_score', 0.3) if hasattr(self.config, 'use_case_config') else 0.3
 
-        # Extract relevant categories
-        categories = []
-        if quiz_input.primary_health_area:
-            categories.append(quiz_input.primary_health_area)
-        if quiz_input.secondary_health_area:
-            categories.append(quiz_input.secondary_health_area)
+        engine = ProductRecommendationEngine(
+            client_id=client_id,
+            catalog_path=None,  # Uses default catalog path
+            config=self.config.use_case_config if hasattr(self.config, 'use_case_config') else {}
+        )
 
-        # Add categories from LLM recommendations
-        herbal_categories = llm_recommendations.get("herbal_categories", [])
-
-        # Mock product recommendations
-        # In real implementation, this would query the actual product catalog
-        mock_products = [
-            ProductRecommendation(
-                product_id="RH-001",
-                title="Immune Support Blend",
-                description="Organic blend of echinacea, elderberry, and astragalus",
-                category="immune_support",
-                relevance_score=0.9,
-                purchase_link="https://rogueherbalist.com/products/immune-support-blend",
-                rationale="Excellent for general immune system support",
-                ingredient_highlights=["Echinacea", "Elderberry", "Astragalus"]
-            ),
-            ProductRecommendation(
-                product_id="RH-002",
-                title="Digestive Harmony Tea",
-                description="Soothing blend for digestive wellness",
-                category="digestive_health",
-                relevance_score=0.85,
-                purchase_link="https://rogueherbalist.com/products/digestive-harmony-tea",
-                rationale="Supports healthy digestion and reduces discomfort",
-                ingredient_highlights=["Ginger", "Peppermint", "Chamomile"]
-            )
-        ]
-
-        # Filter and score based on input
-        for product in mock_products:
-            if any(cat.lower() in product.category.lower() for cat in categories):
-                recommendations.append(product)
-            elif any(herb.lower() in product.description.lower() for herb in herbal_categories):
-                product.relevance_score *= 0.8  # Slightly lower score for partial matches
-                recommendations.append(product)
-
-        # Sort by relevance score and return top 5
-        recommendations.sort(key=lambda x: x.relevance_score, reverse=True)
-        return recommendations[:5]
+        # Get recommendations from engine
+        return engine.recommend_products(
+            quiz_input=quiz_input,
+            llm_context=llm_recommendations,
+            max_recommendations=max_recs,
+            min_score_threshold=min_threshold
+        )
 
     def _generate_educational_content(self, quiz_input: HealthQuizInput) -> List[str]:
         """Generate educational content based on health areas."""

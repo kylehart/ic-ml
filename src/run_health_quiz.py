@@ -314,7 +314,15 @@ Based on your responses, we recommend consulting with a healthcare professional 
 def process_health_quiz(quiz_input: HealthQuizInput,
                        model_override: Optional[str] = None,
                        use_case_config: Dict[str, Any] = None) -> tuple:
-    """Process health quiz with LLM and product recommendations."""
+    """
+    Process health quiz with LLM and product recommendations.
+
+    This function now wraps the HealthQuizUseCase framework for consistency.
+    Returns a 7-tuple for backward compatibility with CLI and existing code.
+
+    Returns:
+        tuple: (quiz_output, llm_response, product_recs_dict, token_usage, timing_info, client_cost_data, errors)
+    """
 
     # Load use case configuration
     if use_case_config is None:
@@ -322,199 +330,152 @@ def process_health_quiz(quiz_input: HealthQuizInput,
         full_config = config_manager._config
         use_case_config = full_config.get('use_cases', {}).get('health_quiz', {})
 
-    # Initialize LLM client with cheapest model by default
-    model = model_override or use_case_config.get('default_model', 'openai/gpt-4o-mini')
-    client = LLMClient(model)
+    # Determine model to use
+    model = model_override or use_case_config.get('default_model', 'gpt4o_mini')
 
-    # Create prompt for health recommendations
-    prompt = f"""You are a knowledgeable herbalist and wellness advisor for Rogue Herbalist.
+    # Import framework components
+    from health_quiz_use_case import HealthQuizUseCase
+    from model_config import UseCaseConfig
 
-A customer has provided the following health information:
+    # Initialize use case with config
+    config_obj = UseCaseConfig(
+        use_case_name="health_quiz",
+        model_config=model,
+        client_id="rogue_herbalist"
+    )
 
-Health Issue: {quiz_input.health_issue_description}
-What They've Tried: {quiz_input.tried_already or "Nothing specified"}
-Primary Health Area: {quiz_input.primary_health_area or "Not specified"}
-Secondary Health Area: {quiz_input.secondary_health_area or "None"}
-Severity Level: {quiz_input.severity_level or 5}/10
-Age Range: {quiz_input.age_range or "Not specified"}
-Lifestyle: {quiz_input.lifestyle_factors or "Not specified"}
+    # Add use_case_config to config object for ProductRecommendationEngine
+    config_obj.use_case_config = use_case_config
 
-Please provide personalized recommendations in the following JSON format:
-
-{{
-    "general_advice": [
-        "Evidence-based general health advice point 1",
-        "Evidence-based general health advice point 2",
-        "Evidence-based general health advice point 3"
-    ],
-    "herbal_categories": [
-        "Relevant herbal category 1 (e.g., adaptogenic herbs)",
-        "Relevant herbal category 2 (e.g., digestive herbs)"
-    ],
-    "lifestyle_suggestions": [
-        "Specific dietary suggestion",
-        "Exercise or movement suggestion",
-        "Stress management or sleep suggestion"
-    ],
-    "educational_points": [
-        "Educational fact about their condition",
-        "Information about natural approaches"
-    ],
-    "follow_up_questions": [
-        "Question to gather more information",
-        "Question about symptoms or triggers"
-    ],
-    "consultation_needed": false,
-    "confidence_level": 0.8,
-    "reasoning": "Brief explanation of why these recommendations are appropriate"
-}}
-
-Guidelines:
-- Provide evidence-based, safe recommendations
-- Be specific and actionable
-- Consider what they've already tried
-- Recommend professional consultation if severity is high (>7) or concerning symptoms
-- Focus on natural and herbal approaches
-- Do not diagnose medical conditions"""
+    use_case = HealthQuizUseCase(config=config_obj)
 
     start_time = time.time()
     errors = []
 
-    # Get LLM response with retry logic
-    messages = [{"role": "user", "content": prompt}]
+    # Process through framework
+    try:
+        result = use_case.process_request(quiz_input.to_dict())
 
-    # Get retry configuration
-    api_config = get_config_manager().get_api_config()
-    max_retries = api_config.get('retry_attempts', 3)
-
-    llm_response = None
-
-    for attempt in range(max_retries):
-        try:
-            response = client.complete_sync(messages)
-
-            # Debug: save raw response for troubleshooting
-            if attempt == 0:  # Save on first attempt
-                with open(f"debug_raw_response_{attempt}.txt", "w") as f:
-                    f.write(f"Response length: {len(response) if response else 0}\n")
-                    f.write(f"Response content: {repr(response)}\n")
-
-            # Clean response by removing markdown code blocks if present
-            cleaned_response = response.strip()
-            if cleaned_response.startswith('```json'):
-                cleaned_response = cleaned_response[7:]  # Remove ```json
-            if cleaned_response.endswith('```'):
-                cleaned_response = cleaned_response[:-3]  # Remove ```
-            cleaned_response = cleaned_response.strip()
-
-            # Parse JSON response
-            llm_response = json.loads(cleaned_response)
-            break  # Success, exit retry loop
-
-        except json.JSONDecodeError as e:
-            error_msg = f"Attempt {attempt + 1}: Failed to parse LLM JSON - {str(e)} | Raw response: {repr(response[:100]) if response else 'Empty'}"
-            print(f"⚠️  {error_msg}")
+        if not result.success:
+            # Framework returned failure
+            error_msg = result.metadata.get("error", "Unknown error")
             errors.append(error_msg)
 
-            if attempt == max_retries - 1:  # Last attempt
-                llm_response = {
-                    "general_advice": ["Unable to generate structured recommendations - please consult with a healthcare professional"],
-                    "herbal_categories": [],
-                    "lifestyle_suggestions": [],
-                    "educational_points": [],
-                    "follow_up_questions": [],
-                    "consultation_needed": True,
-                    "confidence_level": 0.2,
-                    "reasoning": "Failed to parse LLM response after multiple attempts"
-                }
+            # Return minimal valid 7-tuple on failure
+            quiz_output = {
+                "general_recommendations": ["An error occurred processing your quiz. Please try again."],
+                "lifestyle_suggestions": [],
+                "educational_content": [],
+                "follow_up_questions": [],
+                "consultation_recommended": True,
+                "confidence_score": 0.0,
+                "primary_categories_addressed": [],
+                "config_used": {"model": model, "error": error_msg}
+            }
 
-        except Exception as e:
-            error_msg = f"Attempt {attempt + 1}: LLM error - {str(e)}"
-            print(f"❌ {error_msg}")
-            errors.append(error_msg)
+            return (
+                quiz_output,
+                {"error": error_msg},  # llm_response
+                [],  # product_recs_dict
+                {},  # token_usage
+                {"total_duration_seconds": time.time() - start_time},  # timing_info
+                {},  # client_cost_data
+                errors  # errors
+            )
 
-            if attempt == max_retries - 1:  # Last attempt
-                llm_response = {
-                    "general_advice": ["System error - please try again later"],
-                    "herbal_categories": [],
-                    "lifestyle_suggestions": [],
-                    "educational_points": [],
-                    "follow_up_questions": [],
-                    "consultation_needed": True,
-                    "confidence_level": 0.0,
-                    "reasoning": f"System error after {max_retries} attempts: {str(e)}"
-                }
+        # Extract data from framework result
+        output_data = result.data
 
-    # Initialize product recommendation engine with config
-    recommendation_engine = ProductRecommendationEngine(
-        "rogue_herbalist",
-        catalog_path=Path("data/rogue-herbalist/minimal-product-catalog.csv"),
-        config=use_case_config
-    )
-
-    # Get product recommendations using config
-    max_recs = use_case_config.get('max_recommendations', 5)
-    min_score = use_case_config.get('min_relevance_score', 0.3)
-
-    product_recommendations = recommendation_engine.recommend_products(
-        quiz_input=quiz_input,
-        llm_context=llm_response,
-        max_recommendations=max_recs,
-        min_score_threshold=min_score
-    )
-
-    # Convert product recommendations to dict format
-    product_recs_dict = [
-        {
-            "product_id": p.product_id,
-            "title": p.title,
-            "description": p.description,
-            "category": p.category,
-            "relevance_score": p.relevance_score,
-            "purchase_link": p.purchase_link,
-            "rationale": p.rationale,
-            "ingredient_highlights": p.ingredient_highlights
+        # Build quiz_output (first element of tuple)
+        quiz_output = {
+            "general_recommendations": output_data.get("general_recommendations", []),
+            "lifestyle_suggestions": output_data.get("lifestyle_suggestions", []),
+            "educational_content": output_data.get("educational_content", []),
+            "follow_up_questions": output_data.get("follow_up_questions", []),
+            "consultation_recommended": output_data.get("consultation_recommended", False),
+            "confidence_score": output_data.get("confidence_score", 0.5),
+            "primary_categories_addressed": output_data.get("primary_categories_addressed", []),
+            "config_used": {
+                "model": model,
+                "max_recommendations": use_case_config.get('max_recommendations', 5),
+                "min_relevance_score": use_case_config.get('min_relevance_score', 0.3),
+                "consultation_threshold": use_case_config.get('consultation_threshold', 7)
+            }
         }
-        for p in product_recommendations
-    ]
 
-    # Check consultation threshold
-    consultation_threshold = use_case_config.get('consultation_threshold', 7)
-    consultation_needed = (
-        llm_response.get("consultation_needed", False) or
-        (quiz_input.severity_level and quiz_input.severity_level >= consultation_threshold)
-    )
+        # Extract product recommendations and convert to dict format
+        product_recs = output_data.get("specific_products", [])
+        product_recs_dict = [
+            {
+                "product_id": p.get("product_id", ""),
+                "title": p.get("title", ""),
+                "description": p.get("description", ""),
+                "category": p.get("category", ""),
+                "relevance_score": p.get("relevance_score", 0.0),
+                "purchase_link": p.get("purchase_link", ""),
+                "rationale": p.get("rationale", ""),
+                "ingredient_highlights": p.get("ingredient_highlights", [])
+            }
+            for p in product_recs
+        ]
 
-    # Build final output
-    quiz_output = {
-        "general_recommendations": llm_response.get("general_advice", []),
-        "lifestyle_suggestions": llm_response.get("lifestyle_suggestions", []),
-        "educational_content": llm_response.get("educational_points", []) if use_case_config.get('include_educational_content', True) else [],
-        "follow_up_questions": llm_response.get("follow_up_questions", []),
-        "consultation_recommended": consultation_needed,
-        "confidence_score": llm_response.get("confidence_level", 0.5),
-        "primary_categories_addressed": [quiz_input.primary_health_area] if quiz_input.primary_health_area else [],
-        "config_used": {
-            "model": model,
-            "max_recommendations": max_recs,
-            "min_relevance_score": min_score,
-            "consultation_threshold": consultation_threshold
+        # Build llm_response (second element - for compatibility)
+        # Framework doesn't expose raw LLM response, so we construct compatible dict
+        llm_response = {
+            "general_advice": output_data.get("general_recommendations", []),
+            "herbal_categories": [],  # Framework doesn't expose this separately
+            "lifestyle_suggestions": output_data.get("lifestyle_suggestions", []),
+            "educational_points": output_data.get("educational_content", []),
+            "follow_up_questions": output_data.get("follow_up_questions", []),
+            "consultation_needed": output_data.get("consultation_recommended", False),
+            "confidence_level": output_data.get("confidence_score", 0.5),
+            "reasoning": "Generated via HealthQuizUseCase framework"
         }
-    }
 
-    end_time = time.time()
+        end_time = time.time()
 
-    # Get token usage and cost data
-    token_usage = client.get_usage_stats()
-    client_cost_data = client.get_cost_breakdown_for_reporting()
+        # Get token usage and cost data from framework's LLM client
+        token_usage = {}
+        client_cost_data = {}
+        if hasattr(use_case, 'llm_client') and use_case.llm_client:
+            token_usage = use_case.llm_client.get_usage_stats()
+            client_cost_data = use_case.llm_client.get_cost_breakdown_for_reporting()
 
-    timing_info = {
-        "total_duration_seconds": end_time - start_time,
-        "llm_processing_time": end_time - start_time,
-        "recommendation_engine_time": 0.1  # Placeholder
-    }
+        timing_info = {
+            "total_duration_seconds": end_time - start_time,
+            "llm_processing_time": result.processing_time if hasattr(result, 'processing_time') else end_time - start_time,
+            "recommendation_engine_time": 0.0  # Not separately tracked by framework
+        }
 
-    return quiz_output, llm_response, product_recs_dict, token_usage, timing_info, client_cost_data, errors
+        return quiz_output, llm_response, product_recs_dict, token_usage, timing_info, client_cost_data, errors
+
+    except Exception as e:
+        # Unexpected error during framework processing
+        error_msg = f"Framework error: {str(e)}"
+        errors.append(error_msg)
+        print(f"❌ {error_msg}")
+
+        # Return minimal valid 7-tuple on exception
+        quiz_output = {
+            "general_recommendations": ["An unexpected error occurred. Please try again later."],
+            "lifestyle_suggestions": [],
+            "educational_content": [],
+            "follow_up_questions": [],
+            "consultation_recommended": True,
+            "confidence_score": 0.0,
+            "primary_categories_addressed": [],
+            "config_used": {"model": model, "error": error_msg}
+        }
+
+        return (
+            quiz_output,
+            {"error": error_msg},
+            [],
+            {},
+            {"total_duration_seconds": time.time() - start_time},
+            {},
+            errors
+        )
 
 
 def load_persona(persona_name: str) -> tuple[HealthQuizInput, str]:

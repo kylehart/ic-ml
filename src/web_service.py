@@ -509,22 +509,62 @@ async def process_health_quiz_webhook(email: str, health_issue: str,
     try:
         logger.info(f"🔄 Processing health quiz for {email} (token: {token[:8]}...)")
 
-        # Import processing function from run_health_quiz
-        from run_health_quiz import process_health_quiz
+        # Import framework components
+        from health_quiz_use_case import HealthQuizUseCase
+        from model_config import UseCaseConfig
+        import time
 
         # Create quiz input
-        quiz_input = HealthQuizInput(
-            health_issue_description=health_issue,
-            tried_already=tried_already,
-            primary_health_area=primary_area,
-            severity_level=severity,
-            age_range=age_range,
-            lifestyle_factors=lifestyle
-        )
+        quiz_input_dict = {
+            "health_issue_description": health_issue,
+            "tried_already": tried_already,
+            "primary_health_area": primary_area,
+            "severity_level": severity,
+            "age_range": age_range,
+            "lifestyle_factors": lifestyle
+        }
 
-        # Process quiz
-        quiz_output, llm_response, product_recs, token_usage, timing_info, client_cost_data, errors = \
-            process_health_quiz(quiz_input, model_override=None)
+        # Initialize use case with config
+        use_case_config = UseCaseConfig(
+            use_case_name="health_quiz",
+            model_config="gpt4o_mini",  # Default model
+            client_id="rogue_herbalist"
+        )
+        use_case = HealthQuizUseCase(config=use_case_config)
+
+        # Process through framework
+        start_time = time.time()
+        result = use_case.process_request(quiz_input_dict)
+        processing_time = time.time() - start_time
+
+        if not result.success:
+            # Framework returned failure
+            error_msg = result.metadata.get("error", "Unknown error")
+            logger.error(f"❌ Health quiz processing failed: {error_msg}")
+            raise Exception(error_msg)
+
+        # Extract results from framework output
+        output_data = result.data
+        quiz_output = {
+            "general_recommendations": output_data.get("general_recommendations", []),
+            "lifestyle_suggestions": output_data.get("lifestyle_suggestions", []),
+            "educational_content": output_data.get("educational_content", []),
+            "consultation_recommended": output_data.get("consultation_recommended", False)
+        }
+
+        # Convert product recommendations from dataclass objects to dicts
+        # (Framework returns list of ProductRecommendation objects in dict form already)
+        product_recs = output_data.get("specific_products", [])
+
+        timing_info = {
+            "total_time": processing_time,
+            "model_used": result.metadata.get("model_used", "gpt4o_mini")
+        }
+
+        # Get cost data from use case LLM client if available
+        client_cost_data = {}
+        if hasattr(use_case, 'llm_client') and use_case.llm_client:
+            client_cost_data = use_case.llm_client.get_cost_breakdown_for_reporting()
 
         # Generate HTML report with revision URL
         user_data = {
