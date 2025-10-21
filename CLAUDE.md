@@ -7,10 +7,38 @@ Multi-use case LLM platform supporting herbal product classification and health 
 
 ## Client Branding
 
-**Rogue Herbalist Logo:**
-- URL: `https://rogueherbalist.com/wp-content/uploads/2020/04/RogueSIGN.jpg`
-- Usage: Email templates, HTML reports, web results pages
-- Format: JPEG image hosted on client's WordPress site
+**Rogue Herbalist Logos:**
+
+1. **Primary Logo (Horizontal):**
+   - URL: `https://rogueherbalist.com/wp-content/uploads/2020/04/RogueSIGN.jpg`
+   - Usage: Email templates, HTML reports, web results pages (currently in use)
+   - Format: JPEG, horizontal orientation
+   - Best for: Headers, email banners
+
+2. **Alternate Logo (Vertical):**
+   - URL: `https://rogueherbalist.com/wp-content/uploads/2020/04/cropped-New-logo.jpg`
+   - Usage: Potential use for mobile layouts, sidebar branding, or social media
+   - Format: JPEG, vertical/poster orientation
+   - Best for: Narrow spaces, mobile apps, social sharing
+
+**Brand Colors (from rogueherbalist.com):**
+- **Primary Green**: `#206932` (buttons, links, calls-to-action)
+- **Dark Green**: `#2a9242` (hover states)
+- **Dark Text**: `#1c390d` (headings, body text)
+- **Dark Charcoal**: `#242d36` (footer, dark sections)
+- **Light Gray**: `#32373c` (button defaults)
+- **White**: `#ffffff` (backgrounds, cards)
+
+**Typography:**
+- **Headings**: "Roboto Condensed" (700 weight, uppercase)
+- **Body**: "Arvo" (400 weight)
+- **Navigation/Buttons**: "Lato" (14px, uppercase)
+
+**Design Style:**
+- Rounded buttons (`border-radius: 39px`)
+- Earthy, natural aesthetic
+- Generous whitespace
+- Professional yet approachable
 
 ## Common Commands
 
