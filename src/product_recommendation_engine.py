@@ -305,6 +305,10 @@ class ProductRecommendationEngine:
             if not product.in_stock:
                 continue
 
+            # Skip products without slugs (draft/private products)
+            if not product.slug or not product.slug.strip():
+                continue
+
             # Calculate relevance score
             score = self.scoring_engine.calculate_relevance_score(
                 product, quiz_input, llm_context
