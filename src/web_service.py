@@ -878,7 +878,7 @@ async def results_page_email_lookup(e: Optional[str] = None):
     <body>
         <div class="container">
             <h1>Health Quiz Results</h1>
-            <p class="subtitle">Enter your email to view your personalized recommendations</p>
+            <p class="subtitle">Your personalized recommendations are being sent to you by email. You may look at them immediately by entering your email address.</p>
 
             <form id="lookupForm">
                 <label for="email">Email Address</label>
