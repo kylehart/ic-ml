@@ -364,7 +364,8 @@ async def formbricks_webhook(request: Request, background_tasks: BackgroundTasks
         lifestyle = None
 
         # Exact question ID mapping for this Formbricks form
-        EMAIL_QUESTION_ID = "d9klpkum9vi8x9vkunhu63fn"
+        # Updated: October 21, 2025 - Changed from contactInfo to openText with email validation
+        EMAIL_QUESTION_ID = "y4t3q9ctov2dn6qdon1kdbrq"  # openText (inputType: email) - supports prefilling!
         HEALTH_ISSUE_QUESTION_ID = "dc185mu0h2xzutpzfgq8eyjy"
         PRIMARY_AREA_QUESTION_ID = "ty1zv10pffpxh2a2bymi2wz7"
         SEVERITY_QUESTION_ID = "iht7n48iwkoc1jc8ubnzrqi7"
@@ -405,21 +406,10 @@ async def formbricks_webhook(request: Request, background_tasks: BackgroundTasks
         for question_id, value in answers.items():
             logger.info(f"Processing question: {question_id} = {value}")
 
-            # Email field (might be nested with firstName or in an array)
+            # Email field (openText with inputType=email, simple string value)
             if question_id == EMAIL_QUESTION_ID:
-                # Handle multiple formats: string, object with email field, or array
-                if isinstance(value, list):
-                    # Array format: ["", "", "email@example.com", "", ""]
-                    # Find the non-empty string
-                    email = next((item for item in value if item and isinstance(item, str) and "@" in item), None)
-                    logger.info(f"✓ Found email (array): {email}")
-                elif isinstance(value, dict):
-                    email = value.get("email") or value.get("Email")
-                    first_name = value.get("firstName") or value.get("FirstName")
-                    logger.info(f"✓ Found email (nested): {email}, firstName: {first_name}")
-                else:
-                    email = value
-                    logger.info(f"✓ Found email (string): {email}")
+                email = value
+                logger.info(f"✓ Found email: {email}")
 
             # Health issue description
             elif question_id == HEALTH_ISSUE_QUESTION_ID:
@@ -1097,7 +1087,8 @@ def generate_prefilled_form_url(email: str, health_issue: str,
     logger.info(f"  lifestyle: {lifestyle[:50] if lifestyle else 'None'}...")
 
     # Formbricks question IDs
-    EMAIL_QUESTION_ID = "d9klpkum9vi8x9vkunhu63fn"
+    # Updated: October 21, 2025 - Changed from contactInfo to openText with email validation
+    EMAIL_QUESTION_ID = "y4t3q9ctov2dn6qdon1kdbrq"  # openText (inputType: email) - supports prefilling!
     HEALTH_ISSUE_QUESTION_ID = "dc185mu0h2xzutpzfgq8eyjy"
     PRIMARY_AREA_QUESTION_ID = "ty1zv10pffpxh2a2bymi2wz7"
     SEVERITY_QUESTION_ID = "iht7n48iwkoc1jc8ubnzrqi7"
@@ -1130,9 +1121,7 @@ def generate_prefilled_form_url(email: str, health_issue: str,
     # Build query parameters - only include non-None values
     params = {}
 
-    # NOTE: Email field is type "contactInfo" which does NOT support prefilling yet
-    # See: https://github.com/formbricks/formbricks/issues/4969
-    # Leaving this here for when Formbricks adds support
+    # Email field is now openText with inputType=email - prefilling works! ✅
     if email:
         params[EMAIL_QUESTION_ID] = email
 
