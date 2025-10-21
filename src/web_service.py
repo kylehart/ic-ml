@@ -560,7 +560,7 @@ async def process_health_quiz_webhook(email: str, health_issue: str,
 
         # Load configuration from models.yaml (same as CLI runner)
         model_config_manager = ModelConfigManager()
-        health_quiz_config = model_config_manager.use_case_configs.get('health_quiz', {})
+        health_quiz_config = model_config_manager._config.get('use_cases', {}).get('health_quiz', {})
 
         # Initialize use case with proper config including max_recommendations, min_relevance_score
         use_case_config = UseCaseConfig(
