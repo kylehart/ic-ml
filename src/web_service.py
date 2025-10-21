@@ -1077,6 +1077,16 @@ def generate_prefilled_form_url(email: str, health_issue: str,
     """
     from urllib.parse import urlencode, quote
 
+    # Log what we're receiving
+    logger.info(f"📝 generate_prefilled_form_url called with:")
+    logger.info(f"  email: {email}")
+    logger.info(f"  health_issue: {health_issue[:100] if health_issue else 'None'}...")
+    logger.info(f"  primary_area: {primary_area}")
+    logger.info(f"  severity: {severity}")
+    logger.info(f"  tried_already: {tried_already[:50] if tried_already else 'None'}...")
+    logger.info(f"  age_range: {age_range}")
+    logger.info(f"  lifestyle: {lifestyle[:50] if lifestyle else 'None'}...")
+
     # Formbricks question IDs
     EMAIL_QUESTION_ID = "d9klpkum9vi8x9vkunhu63fn"
     HEALTH_ISSUE_QUESTION_ID = "dc185mu0h2xzutpzfgq8eyjy"
@@ -1138,7 +1148,13 @@ def generate_prefilled_form_url(email: str, health_issue: str,
     base_url = "https://app.formbricks.com/s/cmf5homcz0p1kww010hzezjjp"
     query_string = urlencode(params, quote_via=quote)
 
-    return f"{base_url}?{query_string}"
+    logger.info(f"🔗 Built params dict with {len(params)} fields")
+    logger.info(f"🔗 Query string (first 300 chars): {query_string[:300]}")
+
+    final_url = f"{base_url}?{query_string}"
+    logger.info(f"🔗 Final URL length: {len(final_url)} chars")
+
+    return final_url
 
 
 def generate_html_report_from_results(quiz_output: Dict[str, Any],
@@ -1190,15 +1206,17 @@ def generate_html_report_from_results(quiz_output: Dict[str, Any],
     # Generate revision URL if user data is provided
     revision_button_html = ""
     if user_data:
+        logger.info(f"🔧 Generating prefill URL with user_data: {user_data}")
         revision_url = generate_prefilled_form_url(
-            email=user_data.get("email", email),
-            health_issue=user_data.get("health_issue", ""),
+            email=user_data.get("email") or email,  # Ensure we have email
+            health_issue=user_data.get("health_issue") or "",
             primary_area=user_data.get("primary_area"),
             severity=user_data.get("severity", 5),
             tried_already=user_data.get("tried_already"),
             age_range=user_data.get("age_range"),
             lifestyle=user_data.get("lifestyle")
         )
+        logger.info(f"✅ Generated prefill URL: {revision_url[:200]}...")
         revision_button_html = f"""
         <div style="text-align: center; margin-top: 30px; padding: 20px; background: #f8f9fa; border-radius: 8px;">
             <p style="margin-bottom: 15px; color: #666; font-size: 16px;">
