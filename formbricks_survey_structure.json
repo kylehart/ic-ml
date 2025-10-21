@@ -1,0 +1,339 @@
+{
+  "data": {
+    "id": "cmf5homcz0p1kww010hzezjjp",
+    "createdAt": "2025-09-04T14:16:18.227Z",
+    "updatedAt": "2025-10-20T21:15:14.300Z",
+    "name": "health-quiz",
+    "type": "link",
+    "environmentId": "cmf5hjgfq13pcyp01c8zzzlsk",
+    "createdBy": "cmf5hfw9c0d6lvm010ohwscr3",
+    "status": "inProgress",
+    "welcomeCard": {
+      "html": {
+        "default": "<p class=\"fb-editor-paragraph\" dir=\"ltr\"><span style=\"\">This is a prototype health quiz for Rogue Herbalist. </span><br><br><span style=\"\">You will be asked to enter an email address for delivery of the quiz results</span></p>"
+      },
+      "enabled": true,
+      "fileUrl": "",
+      "headline": {
+        "default": "Welcome!"
+      },
+      "buttonLabel": {
+        "default": "Next"
+      },
+      "timeToFinish": false,
+      "showResponseCount": false
+    },
+    "questions": [
+      {
+        "id": "d9klpkum9vi8x9vkunhu63fn",
+        "type": "contactInfo",
+        "email": {
+          "show": true,
+          "required": true,
+          "placeholder": {
+            "default": "Email"
+          }
+        },
+        "phone": {
+          "show": false,
+          "required": true,
+          "placeholder": {
+            "default": "Phone"
+          }
+        },
+        "company": {
+          "show": false,
+          "required": true,
+          "placeholder": {
+            "default": "Company"
+          }
+        },
+        "headline": {
+          "default": "What is your name and email address?"
+        },
+        "lastName": {
+          "show": false,
+          "required": true,
+          "placeholder": {
+            "default": "Last Name"
+          }
+        },
+        "required": true,
+        "firstName": {
+          "show": true,
+          "required": false,
+          "placeholder": {
+            "default": "First Name"
+          }
+        },
+        "subheader": {
+          "default": "Your email will be used to send you the quiz results.  Rogue Herbalist will be given this email for folllow-up, but you will not be automatically subscribed to anything.  Your name will be used to customize the report. "
+        },
+        "buttonLabel": {
+          "default": "Next"
+        },
+        "backButtonLabel": {
+          "default": "Back"
+        }
+      },
+      {
+        "id": "dc185mu0h2xzutpzfgq8eyjy",
+        "type": "openText",
+        "headline": {
+          "default": "Please describe your main health concern or issue"
+        },
+        "required": false,
+        "charLimit": {
+          "enabled": false
+        },
+        "inputType": "text",
+        "subheader": {
+          "default": "For example, \"I'm looking for something to improve mental clarity and attention\""
+        },
+        "longAnswer": true,
+        "buttonLabel": {
+          "default": "Next"
+        },
+        "placeholder": {
+          "default": "Type your answer here..."
+        },
+        "backButtonLabel": {
+          "default": "Back"
+        }
+      },
+      {
+        "id": "ty1zv10pffpxh2a2bymi2wz7",
+        "type": "multipleChoiceSingle",
+        "choices": [
+          {
+            "id": "k7ly7nx8lvgwedl1yctb215y",
+            "label": {
+              "default": "Digestive Health"
+            }
+          },
+          {
+            "id": "xugvsda3meo6onr84icgen6j",
+            "label": {
+              "default": "Immune Support"
+            }
+          },
+          {
+            "id": "qir7u9yy7eh9rqad1jvgh41e",
+            "label": {
+              "default": "Stress & Anxiety"
+            }
+          },
+          {
+            "id": "mn3195wdsqv6qf80tt299v2q",
+            "label": {
+              "default": "Sleep Issues"
+            }
+          },
+          {
+            "id": "jhs5ehsljo52rrd9yuxbw7td",
+            "label": {
+              "default": "Joint & Muscle Pain"
+            }
+          },
+          {
+            "id": "zhu8gde20tnv7talgv5ruec8",
+            "label": {
+              "default": "Energy & Vitality"
+            }
+          },
+          {
+            "id": "xlzt05zhync9v1ysegm4a80c",
+            "label": {
+              "default": "Women's Health"
+            }
+          },
+          {
+            "id": "m3jjnnug2s1iwtf1lo0l6uip",
+            "label": {
+              "default": "Men's Health"
+            }
+          },
+          {
+            "id": "other",
+            "label": {
+              "default": "Other"
+            }
+          }
+        ],
+        "headline": {
+          "default": "Which area best describes your primary health concern?"
+        },
+        "required": true,
+        "buttonLabel": {
+          "default": "Next"
+        },
+        "shuffleOption": "none",
+        "backButtonLabel": {
+          "default": "Back"
+        }
+      },
+      {
+        "id": "iht7n48iwkoc1jc8ubnzrqi7",
+        "type": "rating",
+        "range": 10,
+        "scale": "number",
+        "headline": {
+          "default": "On a scale of 1-10, how severe would you rate your concern?"
+        },
+        "required": true,
+        "lowerLabel": {
+          "default": "Very Mild"
+        },
+        "upperLabel": {
+          "default": "Very Severe"
+        },
+        "backButtonLabel": {
+          "default": "Back"
+        },
+        "isColorCodingEnabled": false
+      },
+      {
+        "id": "ud6nnuhrgf9trqwe8j3kibii",
+        "type": "openText",
+        "headline": {
+          "default": "What have you already tried for this issue?"
+        },
+        "required": true,
+        "charLimit": {
+          "enabled": false
+        },
+        "inputType": "text",
+        "subheader": {
+          "default": "e.g. I have used stimulants such as nicotine and caffeine, but I wanted to try something more natural"
+        },
+        "longAnswer": true,
+        "buttonLabel": {
+          "default": "Next"
+        },
+        "placeholder": {
+          "default": "Type your answer here..."
+        },
+        "backButtonLabel": {
+          "default": "Back"
+        }
+      },
+      {
+        "id": "yru7w3e402yk8vpf1dfbw0tr",
+        "type": "multipleChoiceSingle",
+        "choices": [
+          {
+            "id": "owv82s8m0kumnrp08j8gaqhu",
+            "label": {
+              "default": "18-25"
+            }
+          },
+          {
+            "id": "nults2ndbrn6bovvs4ce03ax",
+            "label": {
+              "default": "26-35"
+            }
+          },
+          {
+            "id": "u9fy0mtyjddkzrkhruh0682p",
+            "label": {
+              "default": "36-45"
+            }
+          },
+          {
+            "id": "e7drxvgsjys4vewrmq5qvkoy",
+            "label": {
+              "default": "46-55"
+            }
+          },
+          {
+            "id": "l9xn0kf9c8rbndzgghthsr73",
+            "label": {
+              "default": "56-65"
+            }
+          },
+          {
+            "id": "lu5l0u7myjxy8b8to0zaix8m",
+            "label": {
+              "default": "66+"
+            }
+          }
+        ],
+        "headline": {
+          "default": "What is your age range? "
+        },
+        "required": false,
+        "buttonLabel": {
+          "default": "Next"
+        },
+        "shuffleOption": "none",
+        "backButtonLabel": {
+          "default": "Back"
+        }
+      },
+      {
+        "id": "pr4jtzy9epmquvwdksj9tctb",
+        "type": "openText",
+        "headline": {
+          "default": "Any relevant lifestyle factors? (diet, exercise, stress levels, etc.)"
+        },
+        "required": false,
+        "charLimit": {
+          "enabled": false
+        },
+        "inputType": "text",
+        "longAnswer": true,
+        "buttonLabel": {
+          "default": "Next"
+        },
+        "placeholder": {
+          "default": "Type your answer here..."
+        },
+        "backButtonLabel": {
+          "default": "Back"
+        }
+      }
+    ],
+    "endings": [
+      {
+        "id": "th1conrmt0lvjubrmsx26nee",
+        "url": "https://ic-ml-production.up.railway.app/results/{{responseId}}",
+        "type": "redirectToUrl",
+        "label": "Health Quiz App"
+      }
+    ],
+    "hiddenFields": {
+      "enabled": true,
+      "fieldIds": []
+    },
+    "variables": [],
+    "displayOption": "displayOnce",
+    "recontactDays": null,
+    "displayLimit": null,
+    "autoClose": null,
+    "delay": 0,
+    "displayPercentage": null,
+    "autoComplete": null,
+    "isVerifyEmailEnabled": false,
+    "isSingleResponsePerEmailEnabled": false,
+    "isBackButtonHidden": false,
+    "redirectUrl": null,
+    "projectOverwrites": null,
+    "styling": null,
+    "surveyClosedMessage": null,
+    "singleUse": {
+      "enabled": false,
+      "isEncrypted": true
+    },
+    "pin": null,
+    "showLanguageSwitch": null,
+    "recaptcha": {
+      "enabled": false,
+      "threshold": 0.1
+    },
+    "metadata": {},
+    "languages": [],
+    "triggers": [],
+    "segment": null,
+    "followUps": []
+  }
+}
