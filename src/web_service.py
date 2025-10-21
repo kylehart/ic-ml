@@ -912,81 +912,115 @@ async def results_page_token_lookup(token: str):
             const message = document.getElementById('message');
             const resultsContainer = document.getElementById('resultsContainer');
             const emailLookupFallback = document.getElementById('emailLookupFallback');
-            let retryCount = 0;
-            let previousStatus = null;
-            const maxRetries = 40; // 40 retries × 3 seconds = 120 seconds max (2 minutes)
-            const maxNotFoundRetries = 10; // 10 retries × 3 seconds = 30 seconds for webhook arrival
+
+            // Separate counters for different states
+            let notFoundRetries = 0;
+            let processingRetries = 0;
+            let networkErrorRetries = 0;
+
+            const MAX_NOT_FOUND_RETRIES = 10;  // 30 seconds for webhook to arrive
+            const MAX_PROCESSING_RETRIES = 40;  // 120 seconds for processing
+            const MAX_NETWORK_ERROR_RETRIES = 5;  // 15 seconds for network recovery
+            const POLL_INTERVAL_MS = 3000;  // 3 seconds between polls
 
             async function loadResults() {{
                 try {{
+                    console.log(`Polling results for token: ${{token.substring(0, 8)}}...`);
                     const response = await fetch(`/api/v1/results/lookup/token/${{token}}`);
-                    const data = await response.json();
 
-                    // Reset counter if status changed (state transition)
-                    if (previousStatus && previousStatus !== data.status) {{
-                        console.log(`Status changed from ${{previousStatus}} to ${{data.status}}, resetting retry counter`);
-                        retryCount = 0;
+                    // Check if response is OK (200-299)
+                    if (!response.ok) {{
+                        console.error(`HTTP error! status: ${{response.status}}`);
+                        handleNetworkError(response.status);
+                        return;
                     }}
-                    previousStatus = data.status;
+
+                    const data = await response.json();
+                    console.log(`Received status: ${{data.status}}`);
+
+                    // Reset network error counter on successful response
+                    networkErrorRetries = 0;
 
                     if (data.status === 'completed') {{
-                        // Hide loading, show results
+                        console.log('✅ Results completed - displaying');
                         loadingState.style.display = 'none';
                         resultsContainer.innerHTML = data.html_report;
                         resultsContainer.style.display = 'block';
+
                     }} else if (data.status === 'processing') {{
-                        // Still processing, retry after 3 seconds
-                        retryCount++;
-                        if (retryCount < maxRetries) {{
-                            setTimeout(loadResults, 3000);
+                        console.log(`⏳ Still processing (retry ${{processingRetries + 1}}/${{MAX_PROCESSING_RETRIES}})`);
+                        processingRetries++;
+
+                        if (processingRetries < MAX_PROCESSING_RETRIES) {{
+                            setTimeout(loadResults, POLL_INTERVAL_MS);
                         }} else {{
-                            // Max retries exceeded
+                            console.error('❌ Processing timeout exceeded');
                             loadingState.style.display = 'none';
                             message.className = 'message error';
-                            message.textContent = 'Processing is taking longer than expected. Please check your email for results or try again later.';
+                            message.textContent = 'Processing is taking longer than expected. Your results will be emailed to you shortly.';
                             message.style.display = 'block';
                             emailLookupFallback.style.display = 'block';
                         }}
+
                     }} else if (data.status === 'not_found') {{
-                        // Token not found - might be waiting for webhook to arrive (race condition)
-                        // Retry for up to 30 seconds to give webhook time to arrive
-                        retryCount++;
-                        if (retryCount < maxNotFoundRetries) {{
-                            // Keep waiting for webhook (up to 30 seconds)
-                            setTimeout(loadResults, 3000);
+                        console.log(`🔍 Not found yet (retry ${{notFoundRetries + 1}}/${{MAX_NOT_FOUND_RETRIES}}) - waiting for webhook`);
+                        notFoundRetries++;
+
+                        if (notFoundRetries < MAX_NOT_FOUND_RETRIES) {{
+                            setTimeout(loadResults, POLL_INTERVAL_MS);
                         }} else {{
-                            // After 30 seconds, truly not found or expired
+                            console.error('❌ Not found timeout - webhook never arrived');
                             loadingState.style.display = 'none';
                             message.className = 'message error';
-                            message.textContent = 'Results not found or have expired (24 hour limit). Please complete the quiz again or check your email.';
+                            message.textContent = 'Results not found or have expired (24 hour limit). Please check your email for results.';
                             message.style.display = 'block';
                             emailLookupFallback.style.display = 'block';
                         }}
-                    }} else if (data.status === 'failed') {{
-                        // Processing failed
+
+                    }} else if (data.status === 'failed' || data.status === 'error') {{
+                        console.error(`❌ Processing failed: ${{data.message || 'Unknown error'}}`);
                         loadingState.style.display = 'none';
                         message.className = 'message error';
-                        message.textContent = 'An error occurred while processing your quiz. Please contact support or try again.';
+                        message.textContent = 'An error occurred while processing your quiz. Please check your email for results or contact support.';
                         message.style.display = 'block';
                         emailLookupFallback.style.display = 'block';
+
                     }} else {{
-                        // Unknown status
+                        console.error(`❌ Unknown status: ${{data.status}}`);
                         loadingState.style.display = 'none';
                         message.className = 'message error';
-                        message.textContent = 'Unexpected error. Please try again.';
+                        message.textContent = 'Unexpected error. Please check your email for results.';
                         message.style.display = 'block';
                         emailLookupFallback.style.display = 'block';
                     }}
+
                 }} catch (error) {{
+                    console.error('Network error:', error);
+                    handleNetworkError(error);
+                }}
+            }}
+
+            function handleNetworkError(error) {{
+                networkErrorRetries++;
+                console.log(`🌐 Network error (retry ${{networkErrorRetries}}/${{MAX_NETWORK_ERROR_RETRIES}}): ${{error}}`);
+
+                if (networkErrorRetries < MAX_NETWORK_ERROR_RETRIES) {{
+                    // Retry after delay - network might recover
+                    console.log(`Retrying in ${{POLL_INTERVAL_MS}}ms...`);
+                    setTimeout(loadResults, POLL_INTERVAL_MS);
+                }} else {{
+                    // Too many consecutive network errors - give up
+                    console.error('❌ Network error limit exceeded');
                     loadingState.style.display = 'none';
                     message.className = 'message error';
-                    message.textContent = 'Connection error. Please check your internet connection and try again.';
+                    message.textContent = 'Cannot reach server. Please check your internet connection and refresh the page, or check your email for results.';
                     message.style.display = 'block';
                     emailLookupFallback.style.display = 'block';
                 }}
             }}
 
             // Start loading results immediately
+            console.log('🚀 Starting results polling...');
             loadResults();
         </script>
     </body>
