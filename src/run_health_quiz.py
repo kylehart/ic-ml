@@ -270,11 +270,14 @@ Based on your responses, we recommend consulting with a healthcare professional 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Health Quiz Report - {self.run_id}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Arvo:wght@400;700&family=Lato:wght@400;700&family=Roboto+Condensed:wght@700&display=swap" rel="stylesheet">
     <style>
         body {{
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            font-family: 'Arvo', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             line-height: 1.6;
-            color: #333;
+            color: #1c390d;
             max-width: 800px;
             margin: 0 auto;
             padding: 20px;
@@ -294,18 +297,39 @@ Based on your responses, we recommend consulting with a healthcare professional 
             max-width: 200px;
             height: auto;
         }}
-        h1 {{ color: #2c5aa0; border-bottom: 3px solid #2c5aa0; padding-bottom: 10px; }}
-        h2 {{ color: #34495e; margin-top: 30px; }}
-        h3 {{ color: #7f8c8d; }}
-        a {{ color: #3498db; text-decoration: none; }}
+        h1 {{
+            color: #206932;
+            border-bottom: 3px solid #206932;
+            padding-bottom: 10px;
+            font-family: 'Roboto Condensed', sans-serif;
+            font-weight: 700;
+            text-transform: uppercase;
+        }}
+        h2 {{
+            color: #206932;
+            margin-top: 30px;
+            font-family: 'Roboto Condensed', sans-serif;
+            font-weight: 700;
+            text-transform: uppercase;
+        }}
+        h3 {{
+            color: #1c390d;
+            font-family: 'Roboto Condensed', sans-serif;
+            font-weight: 700;
+        }}
+        a {{
+            color: #206932;
+            text-decoration: none;
+            font-weight: 600;
+        }}
         a:hover {{ text-decoration: underline; }}
         ul {{ padding-left: 20px; }}
         li {{ margin-bottom: 8px; }}
         p {{ margin: 10px 0; }}
-        strong {{ color: #2c5aa0; }}
+        strong {{ color: #206932; }}
         .quiz-input {{
-            background: #e3f2fd;
-            border-left: 4px solid #2196f3;
+            background: #e9f5ed;
+            border-left: 4px solid #206932;
             padding: 15px 20px;
             margin: 20px 0;
             border-radius: 0 5px 5px 0;
@@ -323,13 +347,14 @@ Based on your responses, we recommend consulting with a healthcare professional 
         }}
         .product-recommendation {{
             background: #f8f9fa;
-            border-left: 4px solid #28a745;
+            border-left: 4px solid #206932;
             padding: 15px;
             margin: 15px 0;
             border-radius: 0 5px 5px 0;
         }}
         .relevance-score {{
-            background: #e9ecef;
+            background: #206932;
+            color: white;
             padding: 3px 8px;
             border-radius: 12px;
             font-size: 0.9em;

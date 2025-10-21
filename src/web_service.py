@@ -703,10 +703,13 @@ async def results_page_email_lookup(e: Optional[str] = None):
                     <meta name="viewport" content="width=device-width, initial-scale=1.0">
                     <title>Processing Your Results - Rogue Herbalist</title>
                     <meta http-equiv="refresh" content="5">
+                    <link rel="preconnect" href="https://fonts.googleapis.com">
+                    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+                    <link href="https://fonts.googleapis.com/css2?family=Arvo:wght@400;700&family=Roboto+Condensed:wght@700&display=swap" rel="stylesheet">
                     <style>
                         body {{
-                            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-                            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                            font-family: 'Arvo', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+                            background: linear-gradient(135deg, #206932 0%, #2a9242 100%);
                             min-height: 100vh;
                             display: flex;
                             align-items: center;
@@ -721,11 +724,20 @@ async def results_page_email_lookup(e: Optional[str] = None):
                             text-align: center;
                             max-width: 500px;
                         }}
-                        h1 {{ color: #333; margin-bottom: 20px; }}
-                        p {{ color: #666; margin-bottom: 20px; }}
+                        h1 {{
+                            color: #1c390d;
+                            margin-bottom: 20px;
+                            font-family: 'Roboto Condensed', sans-serif;
+                            font-weight: 700;
+                            text-transform: uppercase;
+                        }}
+                        p {{
+                            color: #1c390d;
+                            margin-bottom: 20px;
+                        }}
                         .loader {{
                             border: 4px solid #f3f3f3;
-                            border-top: 4px solid #667eea;
+                            border-top: 4px solid #206932;
                             border-radius: 50%;
                             width: 50px;
                             height: 50px;
@@ -763,6 +775,9 @@ async def results_page_email_lookup(e: Optional[str] = None):
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Your Health Quiz Results - Rogue Herbalist</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Arvo:wght@400;700&family=Lato:wght@400;700&family=Roboto+Condensed:wght@700&display=swap" rel="stylesheet">
         <style>
             * {
                 margin: 0;
@@ -770,8 +785,8 @@ async def results_page_email_lookup(e: Optional[str] = None):
                 box-sizing: border-box;
             }
             body {
-                font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                font-family: 'Arvo', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+                background: linear-gradient(135deg, #206932 0%, #2a9242 100%);
                 min-height: 100vh;
                 display: flex;
                 align-items: center;
@@ -795,15 +810,19 @@ async def results_page_email_lookup(e: Optional[str] = None):
                 height: auto;
             }
             h1 {
-                color: #333;
+                color: #1c390d;
                 margin-bottom: 10px;
                 font-size: 28px;
                 text-align: center;
+                font-family: 'Roboto Condensed', sans-serif;
+                font-weight: 700;
+                text-transform: uppercase;
             }
             .subtitle {
-                color: #666;
+                color: #1c390d;
                 margin-bottom: 30px;
                 font-size: 16px;
+                text-align: center;
             }
             label {
                 display: block;
@@ -821,24 +840,27 @@ async def results_page_email_lookup(e: Optional[str] = None):
             }
             input[type="email"]:focus {
                 outline: none;
-                border-color: #667eea;
+                border-color: #206932;
             }
             button {
                 width: 100%;
                 padding: 14px;
                 margin-top: 20px;
-                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                background: #206932;
                 color: white;
                 border: none;
-                border-radius: 6px;
-                font-size: 16px;
-                font-weight: 600;
+                border-radius: 39px;
+                font-family: 'Lato', sans-serif;
+                font-size: 14px;
+                font-weight: 700;
+                text-transform: uppercase;
+                letter-spacing: 0.5px;
                 cursor: pointer;
-                transition: transform 0.2s, box-shadow 0.2s;
+                transition: background 0.3s ease, transform 0.2s;
             }
             button:hover {
+                background: #2a9242;
                 transform: translateY(-2px);
-                box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
             }
             button:active {
                 transform: translateY(0);
@@ -868,7 +890,7 @@ async def results_page_email_lookup(e: Optional[str] = None):
                 display: none;
                 margin: 20px auto;
                 border: 4px solid #f3f3f3;
-                border-top: 4px solid #667eea;
+                border-top: 4px solid #206932;
                 border-radius: 50%;
                 width: 40px;
                 height: 40px;
@@ -976,6 +998,9 @@ async def results_page_token_lookup(token: str):
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Your Health Quiz Results - Rogue Herbalist</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Arvo:wght@400;700&family=Lato:wght@400;700&family=Roboto+Condensed:wght@700&display=swap" rel="stylesheet">
         <style>
             * {{
                 margin: 0;
@@ -983,8 +1008,8 @@ async def results_page_token_lookup(token: str):
                 box-sizing: border-box;
             }}
             body {{
-                font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                font-family: 'Arvo', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+                background: linear-gradient(135deg, #206932 0%, #2a9242 100%);
                 min-height: 100vh;
                 display: flex;
                 align-items: center;
@@ -1000,13 +1025,16 @@ async def results_page_token_lookup(token: str):
                 width: 100%;
             }}
             h1 {{
-                color: #333;
+                color: #1c390d;
                 margin-bottom: 10px;
                 font-size: 28px;
                 text-align: center;
+                font-family: 'Roboto Condensed', sans-serif;
+                font-weight: 700;
+                text-transform: uppercase;
             }}
             .subtitle {{
-                color: #666;
+                color: #1c390d;
                 margin-bottom: 30px;
                 font-size: 16px;
                 text-align: center;
@@ -1028,7 +1056,7 @@ async def results_page_token_lookup(token: str):
                 display: inline-block;
                 margin: 20px auto;
                 border: 4px solid #f3f3f3;
-                border-top: 4px solid #667eea;
+                border-top: 4px solid #206932;
                 border-radius: 50%;
                 width: 50px;
                 height: 50px;
@@ -1066,7 +1094,7 @@ async def results_page_token_lookup(token: str):
                 border-radius: 6px;
             }}
             .email-lookup-link a {{
-                color: #667eea;
+                color: #206932;
                 text-decoration: none;
                 font-weight: 600;
             }}
@@ -1461,17 +1489,18 @@ def generate_html_report_from_results(quiz_output: Dict[str, Any],
         logger.info(f"✅ Generated prefill URL: {revision_url[:200]}...")
         revision_button_html = f"""
         <div style="text-align: center; margin-top: 30px; padding: 20px; background: #f8f9fa; border-radius: 8px;">
-            <p style="margin-bottom: 15px; color: #666; font-size: 16px;">
+            <p style="margin-bottom: 15px; color: #1c390d; font-size: 16px; font-family: 'Arvo', serif;">
                 Want to explore different recommendations?
             </p>
             <a href="{revision_url}"
-               style="display: inline-block; padding: 15px 30px;
-                      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-                      color: white; text-decoration: none; border-radius: 8px;
-                      font-weight: 600; font-size: 16px; transition: transform 0.2s;">
+               style="display: inline-block; padding: 15px 35px;
+                      background: #206932; color: white; text-decoration: none;
+                      border-radius: 39px; font-family: 'Lato', sans-serif;
+                      font-weight: 700; font-size: 14px; text-transform: uppercase;
+                      letter-spacing: 0.5px; transition: background 0.3s ease;">
                 🔄 Revise My Answers & Get Updated Recommendations
             </a>
-            <p style="margin-top: 10px; color: #999; font-size: 14px;">
+            <p style="margin-top: 10px; color: #999; font-size: 14px; font-family: 'Arvo', serif;">
                 Your previous answers will be pre-filled for easy editing
             </p>
         </div>
@@ -1484,18 +1513,21 @@ def generate_html_report_from_results(quiz_output: Dict[str, Any],
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Your Health Quiz Results - Rogue Herbalist</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Arvo:wght@400;700&family=Lato:wght@400;700&family=Roboto+Condensed:wght@700&display=swap" rel="stylesheet">
         <style>
             body {{
-                font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+                font-family: 'Arvo', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
                 line-height: 1.6;
-                color: #333;
+                color: #1c390d;
                 max-width: 800px;
                 margin: 0 auto;
                 padding: 20px;
                 background-color: #f8f9fa;
             }}
             .header {{
-                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                background: linear-gradient(135deg, #206932 0%, #2a9242 100%);
                 color: white;
                 padding: 30px;
                 border-radius: 8px;
@@ -1510,6 +1542,9 @@ def generate_html_report_from_results(quiz_output: Dict[str, Any],
             .header h1 {{
                 margin: 0;
                 font-size: 32px;
+                font-family: 'Roboto Condensed', sans-serif;
+                font-weight: 700;
+                text-transform: uppercase;
             }}
             .section {{
                 background: white;
@@ -1519,14 +1554,18 @@ def generate_html_report_from_results(quiz_output: Dict[str, Any],
                 box-shadow: 0 2px 10px rgba(0,0,0,0.1);
             }}
             h2 {{
-                color: #667eea;
-                border-bottom: 2px solid #667eea;
+                color: #206932;
+                border-bottom: 2px solid #206932;
                 padding-bottom: 10px;
                 margin-top: 0;
+                font-family: 'Roboto Condensed', sans-serif;
+                font-weight: 700;
+                text-transform: uppercase;
             }}
             h3 {{
-                color: #555;
+                color: #1c390d;
                 margin-top: 20px;
+                font-family: 'Roboto Condensed', sans-serif;
             }}
             ul {{
                 padding-left: 20px;
@@ -1536,17 +1575,19 @@ def generate_html_report_from_results(quiz_output: Dict[str, Any],
             }}
             .product-card {{
                 background: #f8f9fa;
-                border-left: 4px solid #28a745;
+                border-left: 4px solid #206932;
                 padding: 20px;
                 margin: 20px 0;
                 border-radius: 0 8px 8px 0;
             }}
             .product-card h3 {{
                 margin-top: 0;
-                color: #333;
+                color: #1c390d;
+                font-family: 'Roboto Condensed', sans-serif;
+                font-weight: 700;
             }}
             .relevance-score {{
-                background: #28a745;
+                background: #206932;
                 color: white;
                 padding: 4px 12px;
                 border-radius: 12px;
@@ -1557,17 +1598,21 @@ def generate_html_report_from_results(quiz_output: Dict[str, Any],
             }}
             .purchase-btn {{
                 display: inline-block;
-                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                background: #206932;
                 color: white;
-                padding: 10px 20px;
+                padding: 12px 30px;
                 text-decoration: none;
-                border-radius: 6px;
+                border-radius: 39px;
                 margin-top: 10px;
-                font-weight: 600;
-                transition: transform 0.2s;
+                font-family: 'Lato', sans-serif;
+                font-size: 14px;
+                font-weight: 700;
+                text-transform: uppercase;
+                letter-spacing: 0.5px;
+                transition: background 0.3s ease;
             }}
             .purchase-btn:hover {{
-                transform: translateY(-2px);
+                background: #2a9242;
             }}
             .warning-box {{
                 background: #fff3cd;
@@ -1587,11 +1632,14 @@ def generate_html_report_from_results(quiz_output: Dict[str, Any],
                 font-size: 14px;
             }}
             .confidence-badge {{
-                background: #e9ecef;
+                background: #e9f5ed;
+                border: 1px solid #206932;
+                color: #206932;
                 padding: 8px 16px;
                 border-radius: 20px;
                 display: inline-block;
                 margin: 10px 0;
+                font-weight: 600;
             }}
         </style>
     </head>
@@ -1640,7 +1688,7 @@ def generate_html_report_from_results(quiz_output: Dict[str, Any],
             <p>These recommendations are for educational purposes only and are not medical advice.</p>
             <p>Always consult with a healthcare professional before starting any new health regimen.</p>
             <p><small>Results generated in {timing_info.get('total_duration_seconds', 0):.1f} seconds</small></p>
-            {f'<p style="margin-top: 15px;"><a href="https://ic-ml-production.up.railway.app/results/{token}" style="color: #667eea; text-decoration: none; font-weight: 600;">View results online →</a></p>' if token else ''}
+            {f'<p style="margin-top: 15px;"><a href="https://ic-ml-production.up.railway.app/results/{token}" style="color: #206932; text-decoration: none; font-weight: 600;">View results online →</a></p>' if token else ''}
         </div>
     </body>
     </html>
