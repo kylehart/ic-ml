@@ -579,8 +579,94 @@ async def process_health_quiz_webhook(email: str, health_issue: str,
 
 
 @app.get("/results", response_class=HTMLResponse)
-async def results_page_email_lookup():
-    """Serve HTML page for looking up quiz results by email (fallback method)."""
+async def results_page_email_lookup(e: Optional[str] = None):
+    """
+    Serve HTML page for looking up quiz results by email.
+
+    If ?e=email parameter is provided, auto-lookup results for that email.
+    This allows Formbricks redirect URLs with recall syntax like:
+    https://ic-ml-production.up.railway.app/results?e=@y4t3q9ctov2dn6qdon1kdbrq
+    """
+    # Log what we received for debugging Formbricks @ syntax
+    if e:
+        logger.info(f"📧 /results called with email parameter: {e}")
+        logger.info(f"📧 Email parameter length: {len(e)} chars")
+        logger.info(f"📧 Email parameter starts with @: {e.startswith('@')}")
+
+        # Check if this looks like an email address (not unexpanded @ syntax)
+        if "@" in e and not e.startswith("@") and "." in e:
+            logger.info(f"✅ Email parameter looks valid, attempting auto-lookup")
+            # Auto-lookup results and display them
+            result = results_storage.get_result_by_email(e)
+
+            if result and result["status"] == "completed":
+                logger.info(f"✅ Found completed results for email: {e}")
+                # Return the HTML report directly
+                return HTMLResponse(content=result.get("html_report", "Results not available"))
+            elif result and result["status"] == "processing":
+                logger.info(f"⏳ Results still processing for email: {e}")
+                # Show processing message with auto-refresh
+                return HTMLResponse(content=f"""
+                <!DOCTYPE html>
+                <html lang="en">
+                <head>
+                    <meta charset="UTF-8">
+                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                    <title>Processing Your Results - Rogue Herbalist</title>
+                    <meta http-equiv="refresh" content="5">
+                    <style>
+                        body {{
+                            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+                            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                            min-height: 100vh;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            padding: 20px;
+                        }}
+                        .container {{
+                            background: white;
+                            padding: 40px;
+                            border-radius: 12px;
+                            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+                            text-align: center;
+                            max-width: 500px;
+                        }}
+                        h1 {{ color: #333; margin-bottom: 20px; }}
+                        p {{ color: #666; margin-bottom: 20px; }}
+                        .loader {{
+                            border: 4px solid #f3f3f3;
+                            border-top: 4px solid #667eea;
+                            border-radius: 50%;
+                            width: 50px;
+                            height: 50px;
+                            animation: spin 1s linear infinite;
+                            margin: 20px auto;
+                        }}
+                        @keyframes spin {{
+                            0% {{ transform: rotate(0deg); }}
+                            100% {{ transform: rotate(360deg); }}
+                        }}
+                    </style>
+                </head>
+                <body>
+                    <div class="container">
+                        <h1>⏳ Processing Your Health Quiz</h1>
+                        <div class="loader"></div>
+                        <p>We're analyzing your responses and generating personalized recommendations.</p>
+                        <p>This page will auto-refresh in 5 seconds...</p>
+                    </div>
+                </body>
+                </html>
+                """)
+            else:
+                logger.warning(f"❌ No results found for email: {e}")
+                # Fall through to show email lookup form
+        else:
+            logger.warning(f"⚠️ Email parameter doesn't look valid (might be unexpanded @ syntax): {e}")
+            # Fall through to show email lookup form
+
+    # Default: show email lookup form
     html_content = """
     <!DOCTYPE html>
     <html lang="en">
