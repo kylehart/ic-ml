@@ -923,12 +923,21 @@ async def results_page_token_lookup(token: str):
             const resultsContainer = document.getElementById('resultsContainer');
             const emailLookupFallback = document.getElementById('emailLookupFallback');
             let retryCount = 0;
-            const maxRetries = 20; // 20 retries × 3 seconds = 60 seconds max
+            let previousStatus = null;
+            const maxRetries = 40; // 40 retries × 3 seconds = 120 seconds max (2 minutes)
+            const maxNotFoundRetries = 10; // 10 retries × 3 seconds = 30 seconds for webhook arrival
 
             async function loadResults() {{
                 try {{
                     const response = await fetch(`/api/v1/results/lookup/token/${{token}}`);
                     const data = await response.json();
+
+                    // Reset counter if status changed (state transition)
+                    if (previousStatus && previousStatus !== data.status) {{
+                        console.log(`Status changed from ${{previousStatus}} to ${{data.status}}, resetting retry counter`);
+                        retryCount = 0;
+                    }}
+                    previousStatus = data.status;
 
                     if (data.status === 'completed') {{
                         // Hide loading, show results
@@ -950,13 +959,13 @@ async def results_page_token_lookup(token: str):
                         }}
                     }} else if (data.status === 'not_found') {{
                         // Token not found - might be waiting for webhook to arrive (race condition)
-                        // Retry for first 15 seconds to give webhook time to arrive
+                        // Retry for up to 30 seconds to give webhook time to arrive
                         retryCount++;
-                        if (retryCount < 5) {{
-                            // First 15 seconds: keep waiting for webhook
+                        if (retryCount < maxNotFoundRetries) {{
+                            // Keep waiting for webhook (up to 30 seconds)
                             setTimeout(loadResults, 3000);
                         }} else {{
-                            // After 15 seconds, truly not found or expired
+                            // After 30 seconds, truly not found or expired
                             loadingState.style.display = 'none';
                             message.className = 'message error';
                             message.textContent = 'Results not found or have expired (24 hour limit). Please complete the quiz again or check your email.';
