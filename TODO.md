@@ -14,12 +14,33 @@
 - **Production Ready**: All emails now sent from `noreply@instruction.coach`
 - **Next Steps**: Update Railway environment variable if still set to testing email
 
-**Investigate 0 Product Recommendations Bug**
-- **Status**: LLM processing works, but product engine returns 0 matches
-- **Symptom**: Email shows "Based on your health needs, we've selected 0 products that may help"
-- **Test Case**: "Energy & Vitality" / mental clarity query
-- **Expected**: Should return 5 relevant products from 787-product catalog
-- **Next Steps**: Debug product recommendation engine scoring and matching logic
+**Investigate 0 Product Recommendations Bug** ✅ COMPLETED (October 2025)
+- **Status**: Fixed - two bugs identified and resolved
+- **Bug 1**: LLM JSON parsing failure (not using structured output)
+  - LLM wrapped JSON in markdown code fences (```json...```)
+  - Fixed by using `response_format={"type": "json_object"}`
+- **Bug 2**: Product catalog path mismatch (underscore vs hyphen)
+  - Code looked for `data/rogue_herbalist/` but directory is `data/rogue-herbalist/`
+  - Fixed by translating `client_id.replace('_', '-')`
+- **Result**: 0 → 5 product recommendations working
+- **Files**: `src/health_quiz_use_case.py:202-246`, `src/product_recommendation_engine.py:338-340`
+
+**Update Product Catalog with Correct WooCommerce Slugs** 📋 NEW (October 2025)
+- **Status**: Current catalog has incorrect slugs generating 404 URLs
+- **Issue**: Catalog Slug column doesn't match actual WooCommerce product URLs
+- **Example**:
+  - Catalog slug: `digestive-bitters-formula-2-oz`
+  - Generated URL: `https://rogueherbalist.com/product/digestive-bitters-formula-2-oz/` ❌ 404
+  - Actual WooCommerce URL: `https://rogueherbalist.com/product/digestive-bitters-formula-2oz-tincture/` ✅
+- **Root Cause**: WooCommerce export may not include actual slugs, or slugs changed after export
+- **Solution**: Re-export product catalog from WooCommerce or scrape actual product URLs from site
+- **Impact**: All 5 product recommendation URLs may be broken
+- **Priority**: High - breaks end-to-end user journey (recommendations → purchase)
+- **Files**: `data/rogue-herbalist/minimal-product-catalog.csv` (Slug column needs refresh)
+- **Next Steps**:
+  1. Download fresh WooCommerce product export with actual slugs
+  2. Or: Write scraper to match product IDs to actual URLs from live site
+  3. Verify all 787 product URLs are valid before deploying to production
 
 ### Medium Priority
 
