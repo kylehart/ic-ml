@@ -545,7 +545,7 @@ async def process_health_quiz_webhook(email: str, health_issue: str,
         # Import framework components
         from health_quiz_use_case import HealthQuizUseCase
         from use_case_framework import UseCaseConfig, ProcessingMode
-        from model_config import ModelConfig
+        from model_config import ModelConfigManager
         import time
 
         # Create quiz input
@@ -559,8 +559,8 @@ async def process_health_quiz_webhook(email: str, health_issue: str,
         }
 
         # Load configuration from models.yaml (same as CLI runner)
-        model_config = ModelConfig()
-        health_quiz_config = model_config.use_case_configs.get('health_quiz', {})
+        model_config_manager = ModelConfigManager()
+        health_quiz_config = model_config_manager.use_case_configs.get('health_quiz', {})
 
         # Initialize use case with proper config including max_recommendations, min_relevance_score
         use_case_config = UseCaseConfig(
