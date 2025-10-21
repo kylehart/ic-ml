@@ -179,7 +179,7 @@ Guidelines:
         return template
 
     def _generate_llm_recommendations(self, quiz_input: HealthQuizInput) -> Dict[str, Any]:
-        """Generate recommendations using LLM."""
+        """Generate recommendations using LLM with structured JSON output."""
         if not self.llm_client:
             # Fallback recommendations for testing
             return {
@@ -196,22 +196,53 @@ Guidelines:
             }
 
         prompt = self.get_prompt_template(quiz_input.to_dict())
-
         messages = [{"role": "user", "content": prompt}]
 
         try:
-            response = self.llm_client.complete_sync(messages)
-            # Parse JSON response
-            return json.loads(response)
+            # Use structured JSON output mode for reliable parsing
+            response = self.llm_client.complete_sync(
+                messages,
+                response_format={"type": "json_object"}
+            )
+
+            # Parse JSON response - should be clean JSON with response_format
+            parsed_response = json.loads(response)
+            return parsed_response
+
+        except json.JSONDecodeError as e:
+            # JSON parsing failed - try stripping markdown code fences as fallback
+            try:
+                cleaned_response = response.strip()
+                if cleaned_response.startswith('```'):
+                    # Remove markdown code fence
+                    lines = cleaned_response.split('\n')
+                    # Remove first line (```json or ```) and last line (```)
+                    if len(lines) > 2 and lines[-1].strip() == '```':
+                        cleaned_response = '\n'.join(lines[1:-1])
+
+                parsed_response = json.loads(cleaned_response)
+                return parsed_response
+
+            except Exception as fallback_error:
+                # Still couldn't parse - return minimal fallback
+                return {
+                    "general_advice": ["Consider consulting with a healthcare professional"],
+                    "herbal_categories": [],
+                    "lifestyle_suggestions": [],
+                    "follow_up_questions": [],
+                    "consultation_needed": True,
+                    "reasoning": f"JSON parsing error: {str(e)}. Fallback also failed: {str(fallback_error)}"
+                }
+
         except Exception as e:
-            # Return fallback on error
+            # Other error (API error, network error, etc.)
             return {
                 "general_advice": ["Consider consulting with a healthcare professional"],
                 "herbal_categories": [],
                 "lifestyle_suggestions": [],
                 "follow_up_questions": [],
                 "consultation_needed": True,
-                "reasoning": f"Error generating recommendations: {str(e)}"
+                "reasoning": f"LLM API error: {str(e)}"
             }
 
     def _find_relevant_products(self,

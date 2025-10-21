@@ -335,8 +335,9 @@ class ProductRecommendationEngine:
     def _load_catalog(self, catalog_path: Optional[Path]) -> List[ProductCatalogItem]:
         """Load product catalog from CSV file."""
         if catalog_path is None:
-            # Default path based on client
-            catalog_path = Path(f"data/{self.client_id}/minimal-product-catalog.csv")
+            # Default path based on client (convert underscores to hyphens for directory name)
+            client_dir = self.client_id.replace('_', '-')
+            catalog_path = Path(f"data/{client_dir}/minimal-product-catalog.csv")
 
         if not catalog_path.exists():
             # Return empty catalog if file doesn't exist
