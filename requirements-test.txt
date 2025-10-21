@@ -1,0 +1,13 @@
+# Test dependencies for pytest-based test suite
+
+# Core testing framework
+pytest>=7.4.0
+pytest-asyncio>=0.21.0  # For async test support
+pytest-mock>=3.12.0     # For mocking with mocker fixture
+pytest-cov>=4.1.0       # For coverage reports (optional)
+
+# HTTP testing for FastAPI
+httpx>=0.25.0           # Already in requirements.txt but needed for TestClient
+
+# Install main dependencies
+-r requirements.txt

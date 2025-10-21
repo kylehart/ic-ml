@@ -24,7 +24,7 @@ except ImportError:
 sys.path.insert(0, str(Path(__file__).parent))
 
 from llm_client import LLMClient
-from health_quiz_use_case import HealthQuizInput, HealthQuizOutput
+from health_quiz_models import HealthQuizInput, HealthQuizOutput
 from product_recommendation_engine import ProductRecommendationEngine
 from model_config import get_config_manager
 
@@ -335,19 +335,26 @@ def process_health_quiz(quiz_input: HealthQuizInput,
 
     # Import framework components
     from health_quiz_use_case import HealthQuizUseCase
-    from model_config import UseCaseConfig
+    from use_case_framework import UseCaseConfig
 
     # Initialize use case with config
+    from use_case_framework import ProcessingMode
     config_obj = UseCaseConfig(
+        client_id="rogue_herbalist",
         use_case_name="health_quiz",
         model_config=model,
-        client_id="rogue_herbalist"
+        processing_mode=ProcessingMode.REALTIME,
+        custom_settings=use_case_config
     )
 
     # Add use_case_config to config object for ProductRecommendationEngine
     config_obj.use_case_config = use_case_config
 
     use_case = HealthQuizUseCase(config=config_obj)
+
+    # Manually inject LLM client (framework doesn't automatically do this when instantiating directly)
+    llm_client = LLMClient(model)
+    use_case.set_dependencies(llm_client=llm_client, usage_tracker=None)
 
     start_time = time.time()
     errors = []

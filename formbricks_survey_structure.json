@@ -2,7 +2,7 @@
   "data": {
     "id": "cmf5homcz0p1kww010hzezjjp",
     "createdAt": "2025-09-04T14:16:18.227Z",
-    "updatedAt": "2025-10-20T21:15:14.300Z",
+    "updatedAt": "2025-10-21T16:33:53.932Z",
     "name": "health-quiz",
     "type": "link",
     "environmentId": "cmf5hjgfq13pcyp01c8zzzlsk",
@@ -25,52 +25,23 @@
     },
     "questions": [
       {
-        "id": "d9klpkum9vi8x9vkunhu63fn",
-        "type": "contactInfo",
-        "email": {
-          "show": true,
-          "required": true,
-          "placeholder": {
-            "default": "Email"
-          }
-        },
-        "phone": {
-          "show": false,
-          "required": true,
-          "placeholder": {
-            "default": "Phone"
-          }
-        },
-        "company": {
-          "show": false,
-          "required": true,
-          "placeholder": {
-            "default": "Company"
-          }
-        },
+        "id": "y4t3q9ctov2dn6qdon1kdbrq",
+        "type": "openText",
         "headline": {
-          "default": "What is your name and email address?"
-        },
-        "lastName": {
-          "show": false,
-          "required": true,
-          "placeholder": {
-            "default": "Last Name"
-          }
+          "default": "What is your email address?"
         },
         "required": true,
-        "firstName": {
-          "show": true,
-          "required": false,
-          "placeholder": {
-            "default": "First Name"
-          }
-        },
+        "charLimit": {},
+        "inputType": "email",
         "subheader": {
-          "default": "Your email will be used to send you the quiz results.  Rogue Herbalist will be given this email for folllow-up, but you will not be automatically subscribed to anything.  Your name will be used to customize the report. "
+          "default": "We will send your report to your email account. "
         },
+        "longAnswer": false,
         "buttonLabel": {
           "default": "Next"
+        },
+        "placeholder": {
+          "default": "example@email.com"
         },
         "backButtonLabel": {
           "default": "Back"
@@ -296,7 +267,7 @@
     "endings": [
       {
         "id": "th1conrmt0lvjubrmsx26nee",
-        "url": "https://ic-ml-production.up.railway.app/results/{{responseId}}",
+        "url": "https://ic-ml-production.up.railway.app/results?e=@y4t3q9ctov2dn6qdon1kdbrq",
         "type": "redirectToUrl",
         "label": "Health Quiz App"
       }

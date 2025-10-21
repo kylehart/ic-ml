@@ -14,7 +14,7 @@ import re
 from collections import defaultdict
 import math
 
-from health_quiz_use_case import ProductRecommendation, HealthQuizInput
+from health_quiz_models import ProductRecommendation, HealthQuizInput
 
 
 @dataclass

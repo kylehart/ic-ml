@@ -22,7 +22,7 @@ from pathlib import Path
 import os
 
 from use_case_framework import UseCaseManager, use_case_registry
-from health_quiz_use_case import HealthQuizInput, HealthQuizOutput
+from health_quiz_models import HealthQuizInput, HealthQuizOutput
 
 
 # Configure logging
@@ -511,7 +511,7 @@ async def process_health_quiz_webhook(email: str, health_issue: str,
 
         # Import framework components
         from health_quiz_use_case import HealthQuizUseCase
-        from model_config import UseCaseConfig
+        from use_case_framework import UseCaseConfig, ProcessingMode
         import time
 
         # Create quiz input
@@ -526,11 +526,18 @@ async def process_health_quiz_webhook(email: str, health_issue: str,
 
         # Initialize use case with config
         use_case_config = UseCaseConfig(
+            client_id="rogue_herbalist",
             use_case_name="health_quiz",
             model_config="gpt4o_mini",  # Default model
-            client_id="rogue_herbalist"
+            processing_mode=ProcessingMode.REALTIME,
+            custom_settings={}
         )
         use_case = HealthQuizUseCase(config=use_case_config)
+
+        # Manually inject LLM client (framework doesn't automatically do this when instantiating directly)
+        from llm_client import LLMClient
+        llm_client = LLMClient("gpt4o_mini")
+        use_case.set_dependencies(llm_client=llm_client, usage_tracker=None)
 
         # Process through framework
         start_time = time.time()
