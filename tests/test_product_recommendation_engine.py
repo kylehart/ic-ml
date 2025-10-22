@@ -355,7 +355,8 @@ class TestProductRecommendationEngine:
         )
 
         product = sample_product_catalog[0]  # Has slug
-        link = engine._generate_purchase_link(product)
+        quiz_input = HealthQuizInput(health_issue_description="Test issue")
+        link = engine._generate_purchase_link(product, quiz_input)
 
         assert "rogueherbalist.com" in link
         assert product.slug in link
@@ -375,8 +376,9 @@ class TestProductRecommendationEngine:
             slug=""  # Empty slug
         )
 
+        quiz_input = HealthQuizInput(health_issue_description="Test issue")
         with pytest.raises(ValueError, match="has no slug"):
-            engine._generate_purchase_link(product)
+            engine._generate_purchase_link(product, quiz_input)
 
     def test_generate_rationale(self, sample_product_catalog, mock_use_case_config):
         """Test rationale generation for recommendations."""
