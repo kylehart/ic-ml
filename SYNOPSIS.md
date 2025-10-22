@@ -8,8 +8,9 @@
 - Customer-facing Health Quiz feature for Rogue Herbalist with personalized product recommendations
 - Taxonomy generation for e-commerce category structure and descriptions
 - SEO metadata generation for categories and products
+- **Instruction Coach protocols** for long-running daily interactive workflows
 
-**Current Status**: Production-ready classification system, **fully deployed Health Quiz MVP** on Railway with Formbricks integration, Resend email delivery, and **UTM marketing attribution tracking** (deployed October 21, 2025), plus taxonomy/SEO generation framework with experimental runners.
+**Current Status**: Production-ready classification system, **fully deployed Health Quiz MVP** on Railway with Formbricks integration, Resend email delivery, and **UTM marketing attribution tracking** (deployed October 21, 2025), plus taxonomy/SEO generation framework with experimental runners. **Formbricks research completed** (October 22, 2025) for future multi-day protocol implementations.
 
 ## Key Achievements
 
@@ -58,6 +59,19 @@
 - **URL Validation**: HTTP HEAD requests to verify canonical URLs work
 - **Idempotent Operations**: Re-running SEO generation replaces existing metadata cleanly
 
+**Formbricks Research & Architecture Analysis (October 22, 2025):**
+- **Comprehensive Documentation Collection**: 184+ Formbricks documentation files indexed
+- **Licensing Analysis**: AGPLv3 vs Cloud vs Enterprise comparison (15,000+ word deep dive)
+- **Mutable Records Architecture**: Deep technical analysis for long-running protocol use cases
+- **One Survey Per Day Pattern** (Breakthrough): Architectural pattern for multi-day protocols
+  - Works WITH Formbricks' survey-centric design (Survey 1 = Day 1, Survey 2 = Day 2, etc.)
+  - Built-in cohort analysis ("How many users completed Day 15?")
+  - Native Formbricks analytics show per-day metrics automatically
+  - Perfect schema match: each day can have different questions
+  - Can use Formbricks ALONE for basic protocols (add Supabase only for audit trails)
+- **Self-Hosting Decision Guide**: Cost analysis, compliance checklist, quick-start commands
+- **Key Finding**: Unlimited responses for FREE with AGPLv3 self-hosting (only requirement: keep "Powered by Formbricks" badge)
+
 ## Architecture Overview
 
 ### Multi-Use Case Framework
@@ -97,6 +111,7 @@
    - Category mapping system connecting health concerns to products
    - Configurable recommendation thresholds and ranking
    - 787-product catalog with working WordPress/WooCommerce URLs
+   - UTM parameter generation for marketing attribution
 
 7. **Document Generation Framework** (`src/document_generation_framework.py`)
    - Abstract base classes for XML document generation use cases
@@ -164,6 +179,54 @@ src/
 - **Runners** (2,182 lines): `run_assign_cat.py`, `run_health_quiz.py`, `run_seo_gen.py`, `run_taxonomy_gen.py`, `reanalyze_assign_cat.py`
 - **Web Service** (1,411 lines): `web_service.py` (FastAPI with 15+ endpoints)
 
+### Tests (`tests/`) - 122 Passing Tests
+
+```
+tests/
+├── conftest.py                          # 12 shared fixtures for consistent test setup
+├── test_product_recommendation_engine.py # 28 tests (scoring, matching, catalog)
+├── test_health_quiz_use_case.py         # 27 tests (validation, consultation logic)
+├── test_model_config.py                 # 21 tests (config loading, model resolution)
+├── test_llm_client.py                   # 20 tests (cost tracking, metadata tagging)
+└── test_web_service.py                  # 26 tests (API endpoints, webhooks) - requires FastAPI
+```
+
+**Test Coverage:**
+- 122 passing tests with 100% pass rate
+- Full LLM API mocking (no API costs during testing)
+- Parametrized tests for thorough coverage of edge cases
+- Comprehensive fixtures: product catalogs, health quiz inputs, config mocking
+
+### External Research (`external/formbricks-docs/`) - October 22, 2025
+
+```
+external/formbricks-docs/
+├── README.md                                    # Documentation collection overview (154 lines)
+├── QUICK_DECISION_GUIDE.md                      # 2-minute decision tree (244 lines)
+├── LICENSING_AND_FEATURE_COMPARISON.md          # Complete licensing analysis (15,000+ words)
+├── MUTABLE_RECORDS_ANALYSIS.md                  # Protocol architecture deep dive (25,000+ words)
+├── KEY_FEATURES_FOR_HEALTH_QUIZ.md              # Health quiz integration guide
+├── DOCUMENTATION_INDEX.md                       # 184 documentation files indexed
+├── RESEARCH_SUMMARY.md                          # Research process documentation
+└── external/formbricks/                         # Full Formbricks source code (TypeScript, Next.js, React)
+    ├── packages/database/schema.prisma          # Database schema (Response model analysis)
+    ├── packages/types/responses.ts              # Type definitions (ZResponseUpdateInput verified)
+    ├── apps/web/app/api/                        # API route handlers (PUT /responses examined)
+    ├── apps/web/modules/ee/                     # Enterprise Edition modules
+    └── docs/                                    # Official documentation (184 .mdx files)
+```
+
+**Key Research Findings:**
+- **AGPLv3 Self-Hosting**: Unlimited responses for FREE (only requirement: keep branding)
+- **Cloud Free Tier**: 1,000 responses/month (good for MVP testing)
+- **Response Mutation**: Full `data` field update via PUT API (verified in source)
+- **No Native Versioning**: No Response_History table (need external solution)
+- **One Survey Per Day**: Breakthrough architectural pattern for protocols
+  - Survey 1 = Day 1, Survey 2 = Day 2, etc.
+  - Native Formbricks analytics show per-day drop-off
+  - Built-in cohort analysis without custom queries
+  - Works WITH platform design, not against it
+
 ### Prompts (`prompts/`)
 
 ```
@@ -182,7 +245,7 @@ config/
     ├── models: 6+ models across 2 providers
     ├── experiments: custom configurations
     ├── use_cases:
-    │   ├── health_quiz: max_recommendations, consultation_threshold, product_url_template
+    │   ├── health_quiz: max_recommendations, consultation_threshold, product_url_template, utm_tracking
     │   ├── product_classification: taxonomy settings
     │   ├── taxonomy_generation: chunk_size=3, max_tokens=4000
     │   └── seo_generation: field specs, url_templates, validate_urls
@@ -197,6 +260,8 @@ config/
 ├── Dockerfile                       # Railway deployment container configuration
 ├── railway.json                     # Railway service configuration with health checks
 ├── requirements.txt                 # Python dependencies (FastAPI, Resend, httpx, etc.)
+├── requirements-test.txt            # Test dependencies (pytest, pytest-asyncio, pytest-mock)
+├── pytest.ini                       # Pytest configuration with asyncio support
 ├── .env.example                     # Environment variables template with Resend config
 ├── MVP_QUICKSTART.md                # Quick deployment guide (5 steps, 2 hours)
 ├── FORMBRICKS_IDS_VERIFIED.md       # Formbricks question/choice ID verification report
@@ -311,6 +376,19 @@ python src/run_health_quiz.py --persona "Sarah Chen" --model gpt4o_mini  # $0.00
 python src/run_health_quiz.py --persona "Sarah Chen" --model haiku
 ```
 
+### Unit Tests
+
+```bash
+# Run all tests (excluding web_service which needs FastAPI installed)
+pytest tests/ --ignore=tests/test_web_service.py -v
+
+# Run specific test file
+pytest tests/test_product_recommendation_engine.py -v
+
+# Run with coverage report
+pytest tests/ --ignore=tests/test_web_service.py --cov=src --cov-report=html
+```
+
 ### Taxonomy Generation
 
 ```bash
@@ -341,9 +419,6 @@ python src/run_seo_gen.py \
 python src/run_seo_gen.py \
   --source data/rogue-herbalist/latest-best-taxonomy-with-seo.xml \
   --output data/rogue-herbalist/latest-best-taxonomy-with-seo.xml
-
-# Process single element for testing
-# (Currently processes all elements, but validates each independently)
 
 # Output: SEO generation report with validation errors and URL validation results
 ```
@@ -472,6 +547,21 @@ railway variables --set KEY=VALUE
   - Consistent typography with uppercase headings
 - **Result**: Professional branded experience in email templates, web results pages, CLI HTML reports, and processing pages
 
+### 10. **One Survey Per Day Pattern (October 22, 2025)**
+- **Why**: Need architecture for multi-day protocols (30-day meditation, 90-day wellness programs)
+- **Initial Approach**: One survey with dynamic schema (days 1-30 in same survey) - fought Formbricks' design
+- **Breakthrough**: Dedicate ONE SURVEY to EACH DAY (Survey 1 = Day 1, Survey 2 = Day 2, etc.)
+- **Why This Wins**:
+  - Works WITH Formbricks' survey-centric design, not against it
+  - Perfect schema match: Day N = Survey N
+  - Built-in cohort analysis: "How many users completed Day 15?" = native Formbricks query
+  - Native analytics show per-day metrics automatically (drop-off, completion rates)
+  - Survey evolution without breaking history (each day independent)
+  - Can use Formbricks ALONE (add Supabase only for detailed audit trails)
+- **User Insight**: Pattern identified by user as architecturally superior to original database-centric thinking
+- **Implementation**: Survey cloning automation, daily notification system with survey-specific URLs
+- **Result**: Simple, powerful architecture leveraging platform strengths
+
 ## Code Quality & Maintainability
 
 ### Codebase Metrics (Last Review: October 2025)
@@ -511,6 +601,47 @@ railway variables --set KEY=VALUE
 - ✅ **UTM Marketing Attribution**: Deployed to production with WooCommerce and GA4 tracking (October 21, 2025)
 - ✅ **Unit Test Suite**: 122 passing tests covering core modules (October 2025)
 - ✅ **Brand Integration**: Complete Rogue Herbalist branding across all outputs (October 2025)
+- ✅ **Formbricks Research**: Comprehensive architecture analysis for protocol implementations (October 22, 2025)
+
+### Recently Completed (October 22, 2025)
+
+**Formbricks Research & Architecture Analysis:**
+- ✅ **Documentation Collection**: Downloaded and indexed 184+ Formbricks docs + complete source code
+- ✅ **Licensing Analysis**: 15,000+ word comparison (AGPLv3 vs Cloud vs Enterprise)
+  - **Key Finding**: Unlimited responses FREE with AGPLv3 self-hosting (only need to keep branding)
+  - Cost savings: $1,908/year at 10,000 responses/month (self-hosted vs cloud)
+  - Quick Decision Guide with 2-minute decision tree
+- ✅ **Mutable Records Deep Dive**: 25,000+ word technical analysis
+  - Response mutation capabilities verified in source code (PUT /api/v1/management/responses/{id})
+  - Response.data field IS mutable via API (ZResponseUpdateInput examined)
+  - No native versioning found (searched schema.prisma thoroughly)
+  - responseUpdated webhook fires on every update (PipelineTriggers enum confirmed)
+- ✅ **One Survey Per Day Pattern**: Breakthrough architectural insight
+  - Initial analysis emphasized "One Response Per Protocol" (database thinking)
+  - User identified superior pattern: "One Survey Per Day" (survey-centric thinking)
+  - Documentation updated to emphasize this as PRIMARY recommendation
+  - Pattern works WITH Formbricks design: Survey 1 = Day 1, Survey 2 = Day 2
+  - Built-in cohort analysis without custom queries
+  - Native Formbricks analytics show per-day drop-off automatically
+  - Can use Formbricks ALONE (Supabase optional for audit trails)
+- ✅ **Hybrid Architecture**: Formbricks + Supabase pattern documented
+  - Formbricks for robust data collection + webhooks + multi-channel input
+  - Supabase for versioning + audit trails + complex queries
+  - Complete 30-day protocol implementation example with webhook handlers
+  - Supabase schema with automatic audit triggers
+- ✅ **Self-Hosting Guide**: Docker, Railway, and Kubernetes deployment patterns
+- ✅ **Documentation Organization**:
+  - QUICK_DECISION_GUIDE.md (2 minutes, decision tree)
+  - LICENSING_AND_FEATURE_COMPARISON.md (comprehensive 15K+ words)
+  - MUTABLE_RECORDS_ANALYSIS.md (deep technical 25K+ words)
+  - KEY_FEATURES_FOR_HEALTH_QUIZ.md (health quiz specific features)
+  - DOCUMENTATION_INDEX.md (complete catalog of 184 files)
+
+**Architectural Lessons Learned:**
+- Work WITH tool's design philosophy, not against it
+- "More surveys" isn't complexity when platform makes surveys easy (cloning, webhooks, analytics)
+- User insights can correct database-centric thinking with survey-centric patterns
+- Built-in platform features (analytics, cohort queries) often better than custom code
 
 ### Recently Implemented (October 21, 2025)
 
@@ -678,6 +809,11 @@ railway variables --set KEY=VALUE
 - 📋 **Full Taxonomy Regeneration**: Regenerate with improved natural description prompt
 - 📋 **Full SEO Regeneration**: Regenerate with improved character limit enforcement prompt
 - 📋 **Advanced Personalization**: Follow-up recommendations and user profiles
+- 📋 **Instruction Coach Protocols**: Implement multi-day protocols using "One Survey Per Day" pattern
+  - Potential use cases: 30-day meditation, 90-day wellness programs, habit tracking
+  - Architecture decided: Formbricks for data collection, optional Supabase for audit trails
+  - Survey cloning automation needed for protocol creation
+  - Daily notification system with survey-specific URLs
 
 ## Technical Dependencies
 
@@ -704,6 +840,11 @@ railway variables --set KEY=VALUE
 - **Resend**: Email delivery service (3000 emails/month free tier)
 - **Docker**: Containerization for consistent deployment
 - **ngrok**: Local webhook testing during development
+
+### Future Infrastructure (Protocols - Research Complete)
+- **Formbricks Self-Hosted**: AGPLv3 unlimited responses (deployment guides ready)
+- **Supabase** (Optional): Audit trails and versioning for protocol modifications
+- **PostgreSQL**: Replace in-memory storage for production protocols
 
 ## Quality Metrics & Performance
 
@@ -751,7 +892,67 @@ railway variables --set KEY=VALUE
 - **Reporting Format**: `client_cost_breakdown.json` with billing-ready data structure
 - **Zero Infrastructure**: Uses LiteLLM's built-in metadata and cost calculation features
 
+### Formbricks Research (October 22, 2025)
+- **Documentation Coverage**: 184+ files indexed and analyzed
+- **Source Code Examination**: PostgreSQL schema, TypeScript types, API handlers verified
+- **Architectural Patterns Identified**: 3 patterns analyzed (One Survey Per Day, Single Response, Hybrid)
+- **Cost Analysis**: Self-hosted vs cloud comparison ($1,908/year savings at 10K responses/month)
+- **Time Investment**: ~4 hours research, ~25,000 words documentation produced
+- **Key Insight**: "One Survey Per Day" pattern identified as architecturally superior
+
 ## Development Workflow
+
+### Recent Work: Formbricks Research & Architecture (October 22, 2025)
+1. ✅ **Downloaded Formbricks Source Code** - Complete repository cloned to external/formbricks/
+2. ✅ **Created Documentation Collection** - Organized external/formbricks-docs/ directory structure
+3. ✅ **Analyzed Licensing** - Examined license files, docs, and source code for AGPLv3 vs Enterprise
+4. ✅ **Wrote Licensing Comparison** - 15,000+ word analysis (LICENSING_AND_FEATURE_COMPARISON.md)
+5. ✅ **Created Quick Decision Guide** - 2-minute decision tree with cost comparison table
+6. ✅ **Deep Technical Analysis** - Examined schema.prisma, response types, API handlers for mutable records
+7. ✅ **Wrote Mutable Records Analysis** - 25,000+ word technical deep dive (MUTABLE_RECORDS_ANALYSIS.md)
+8. ✅ **User Insight Recognition** - User identified "One Survey Per Day" as superior pattern
+9. ✅ **Documentation Revision** - Updated MUTABLE_RECORDS_ANALYSIS.md to emphasize Pattern 1
+10. ✅ **Updated Executive Summary** - Changed from "work with architecture" to emphasize breakthrough pattern
+11. ✅ **Reorganized Pattern Sections** - Moved "One Survey Per Day" from Pattern 2 to Pattern 1 (primary)
+12. ✅ **Added Comparison Tables** - Showing Pattern 1 winning on cohort analysis, drop-off tracking, UI fit
+13. ✅ **Updated Architectural Limitations** - Explained how Pattern 1 solves schema mismatch problem
+14. ✅ **Rewrote Final Recommendations** - PRIMARY RECOMMENDATION: One Survey Per Day
+15. ✅ **Acknowledged User Contribution** - Added note crediting user's architectural insight
+
+**Key Documents Produced:**
+- LICENSING_AND_FEATURE_COMPARISON.md (15,000+ words)
+- MUTABLE_RECORDS_ANALYSIS.md (25,000+ words) - **Updated to emphasize Pattern 1**
+- QUICK_DECISION_GUIDE.md (2-minute decision tree)
+- KEY_FEATURES_FOR_HEALTH_QUIZ.md (health quiz specific features)
+- DOCUMENTATION_INDEX.md (184 files cataloged)
+- README.md (navigation hub)
+
+**Technical Findings Verified in Source Code:**
+- Response.data IS mutable (PUT /api/v1/management/responses/{id})
+- ZResponseUpdateInput schema allows full data field updates
+- responseUpdated webhook fires on every update (PipelineTriggers enum)
+- No Response_History table (no native versioning)
+- No Survey.version field (survey changes lose historical context)
+- Partial response tracking automatic (documented + verified)
+- Contact-based tracking available (Response.contactId foreign key)
+
+**Architectural Breakthrough:**
+- Initial analysis emphasized "Single Response Per Protocol" (Pattern 1 in original)
+- User correctly identified "One Survey Per Day" as superior (was Pattern 2)
+- Pattern works WITH Formbricks' survey-centric design philosophy
+- Built-in cohort analysis without custom code
+- Native Formbricks analytics show per-day metrics
+- Documentation fully revised to emphasize this pattern
+- Lesson: Work WITH tool's design, not against it
+
+**Files Modified:**
+- external/formbricks-docs/MUTABLE_RECORDS_ANALYSIS.md: Complete pattern reorganization
+  - Pattern 1: One Survey Per Day (RECOMMENDED) - promoted from Pattern 2
+  - Pattern 2: Single Response Per Protocol (Alternative) - demoted
+  - Pattern 3: Hybrid Formbricks + Supabase (Production-Ready) - unchanged
+  - Updated executive summary, conclusion, architectural limitations sections
+  - Added comparison tables and automation examples
+  - Added user insight acknowledgment note
 
 ### Recent Work: UTM Tracking for Marketing Attribution (October 21, 2025)
 1. ✅ **Added UTM Configuration** - Added utm_tracking section to config/models.yaml for health_quiz use case
@@ -911,10 +1112,16 @@ https://rogueherbalist.com/product/hemp-bitters-2oz/
 8. ✅ **Improved taxonomy prompt** to remove forced ingredient mentions
 9. 🔄 **Pending**: Full regeneration with improved prompts (awaiting user approval due to cost)
 
-### Next Phase: Production Optimization
+### Next Phase: Production Optimization & Protocol Implementation
 1. **Advanced Personalization**: User profiles and follow-up recommendations
 2. **E-commerce Integration**: Direct product purchase workflows
 3. **Complete Taxonomy/SEO Generation**: Regenerate with improved prompts, fix cost tracking bug
+4. **Instruction Coach Protocols**: Implement multi-day protocols using "One Survey Per Day" pattern
+   - Start with cloud Formbricks (1,000 responses/month free)
+   - Migrate to self-hosted when hitting limits (unlimited responses)
+   - Survey cloning automation for protocol creation
+   - Daily notification system with survey-specific URLs
+   - Optional: Add Supabase for detailed audit trails and versioning
 
 ### Multi-Client Expansion
 1. **Add new clients** via configuration files
@@ -955,4 +1162,4 @@ This project can occasionally be on hold for a brief while and we want to be rea
    - Keep the "Rebuilding SYNOPSIS.md" section at the end
    - Ensure all sections are comprehensive but concise
 
-**When prompted with "rebuild synopsis", use the above instructions to regenerate this file with updated information.**
+**When prompted with "regenerate synopsis", use the above instructions to regenerate this file with updated information.**
