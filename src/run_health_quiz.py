@@ -29,6 +29,122 @@ from product_recommendation_engine import ProductRecommendationEngine
 from model_config import get_config_manager
 
 
+def verify_recommendations(persona_name: str,
+                           actual_products: List[Dict[str, Any]],
+                           expected: Optional[Dict[str, Any]]) -> Optional[Dict[str, Any]]:
+    """
+    Verify product recommendations match expectations.
+
+    Args:
+        persona_name: Name of the persona being tested
+        actual_products: List of actual product recommendations
+        expected: Expected recommendations dict from persona config
+
+    Returns:
+        Verification results dict or None if no expectations defined
+    """
+    if not expected:
+        return None
+
+    actual_slugs = [p.get('purchase_link', '').split('/')[-2] if p.get('purchase_link') else ''
+                    for p in actual_products]
+
+    results = {
+        "persona": persona_name,
+        "passed": True,
+        "failures": [],
+        "warnings": [],
+        "checks": {}
+    }
+
+    # Check must_include_slugs
+    must_include = expected.get("must_include_slugs", [])
+    if must_include:
+        found_slugs = []
+        missing_slugs = []
+        for slug in must_include:
+            if slug in actual_slugs:
+                position = actual_slugs.index(slug) + 1
+                found_slugs.append((slug, position))
+            else:
+                missing_slugs.append(slug)
+                results["passed"] = False
+                results["failures"].append(f"Missing required product: {slug}")
+
+        results["checks"]["must_include"] = {
+            "required": len(must_include),
+            "found": len(found_slugs),
+            "found_products": found_slugs,
+            "missing_products": missing_slugs
+        }
+
+    # Check min_product_count
+    min_count = expected.get("min_product_count", 0)
+    if min_count:
+        if len(actual_products) < min_count:
+            results["passed"] = False
+            results["failures"].append(
+                f"Only {len(actual_products)} products, expected at least {min_count}"
+            )
+        results["checks"]["product_count"] = {
+            "expected_min": min_count,
+            "actual": len(actual_products),
+            "passed": len(actual_products) >= min_count
+        }
+
+    # Check min_relevance_score
+    min_relevance = expected.get("min_relevance_score", 0)
+    if min_relevance and actual_products:
+        top_score = max([p.get('relevance_score', 0) for p in actual_products])
+        if top_score < min_relevance:
+            results["passed"] = False
+            results["failures"].append(
+                f"Top relevance score {top_score:.2f} below minimum {min_relevance:.2f}"
+            )
+        results["checks"]["relevance_score"] = {
+            "expected_min": min_relevance,
+            "top_score": top_score,
+            "passed": top_score >= min_relevance
+        }
+
+    # Check should_include_slugs (warnings, not failures)
+    should_include = expected.get("should_include_slugs", [])
+    if should_include:
+        found_optional = []
+        missing_optional = []
+        for slug in should_include:
+            if slug in actual_slugs:
+                position = actual_slugs.index(slug) + 1
+                found_optional.append((slug, position))
+            else:
+                missing_optional.append(slug)
+                results["warnings"].append(f"Expected product not found: {slug}")
+
+        results["checks"]["should_include"] = {
+            "expected": len(should_include),
+            "found": len(found_optional),
+            "found_products": found_optional,
+            "missing_products": missing_optional
+        }
+
+    # Check primary_categories
+    primary_categories = expected.get("primary_categories", [])
+    if primary_categories and actual_products:
+        product_categories = [p.get('category', '') for p in actual_products]
+        matching_categories = [cat for cat in primary_categories if cat in product_categories]
+        if not matching_categories:
+            results["warnings"].append(
+                f"No products from expected categories: {', '.join(primary_categories)}"
+            )
+        results["checks"]["categories"] = {
+            "expected": primary_categories,
+            "found": list(set(product_categories)),
+            "matching": matching_categories
+        }
+
+    return results
+
+
 class HealthQuizRunner:
     """Manages experimental health quiz runs with complete artifact capture."""
 
@@ -53,13 +169,17 @@ class HealthQuizRunner:
 
         print(f"📁 Run directory created: {self.run_dir}")
 
-    def snapshot_inputs(self, quiz_input: HealthQuizInput, persona_name: str = None):
+    def snapshot_inputs(self, quiz_input: HealthQuizInput, persona_name: str = None, expected_recommendations: Optional[Dict[str, Any]] = None):
         """Snapshot quiz input data."""
         input_data = {
             "persona_name": persona_name,
             "quiz_input": quiz_input.to_dict(),
             "timestamp": self.start_time.isoformat()
         }
+
+        # Add expected recommendations if present
+        if expected_recommendations:
+            input_data["expected_recommendations"] = expected_recommendations
 
         with open(self.run_dir / "inputs" / "quiz_input.json", "w") as f:
             json.dump(input_data, f, indent=2)
@@ -140,8 +260,33 @@ class HealthQuizRunner:
         except:
             pass
 
+        # Run verification if expected recommendations are provided
+        verification_results = None
+        if quiz_input_data.get("expected_recommendations"):
+            persona_name = quiz_input_data.get("persona_name", "Unknown")
+            verification_results = verify_recommendations(
+                persona_name=persona_name,
+                actual_products=product_recommendations,
+                expected=quiz_input_data["expected_recommendations"]
+            )
+
+            # Save verification results
+            if verification_results:
+                with open(self.run_dir / "outputs" / "verification_results.json", "w") as f:
+                    json.dump(verification_results, f, indent=2)
+
+                # Print verification status
+                status = "✅ PASSED" if verification_results["passed"] else "❌ FAILED"
+                print(f"🔍 Verification: {status}")
+                if verification_results["failures"]:
+                    for failure in verification_results["failures"]:
+                        print(f"   ❌ {failure}")
+                if verification_results["warnings"]:
+                    for warning in verification_results["warnings"]:
+                        print(f"   ⚠️  {warning}")
+
         # Generate markdown report
-        self.generate_markdown_report(quiz_input_data, quiz_output, llm_response, product_recommendations, timing_info)
+        self.generate_markdown_report(quiz_input_data, quiz_output, llm_response, product_recommendations, timing_info, verification_results)
 
         print(f"📤 Outputs saved")
 
@@ -150,7 +295,8 @@ class HealthQuizRunner:
                                 quiz_output: Dict[str, Any],
                                 llm_response: Dict[str, Any],
                                 product_recommendations: List[Dict[str, Any]],
-                                timing_info: Dict[str, Any]):
+                                timing_info: Dict[str, Any],
+                                verification_results: Optional[Dict[str, Any]] = None):
         """Generate human-readable markdown report."""
 
         report = f"""# Health Quiz Report
@@ -222,6 +368,76 @@ Found {len(product_recommendations)} relevant products:
 - **Link**: [Purchase {product.get('title', 'Product')}]({product.get('purchase_link', '#')})
 
 """
+
+        # Add verification section if present
+        if verification_results:
+            status_icon = "✅" if verification_results["passed"] else "❌"
+            status_text = "PASSED" if verification_results["passed"] else "FAILED"
+
+            report += f"""
+## Recommendation Verification
+
+**Status**: {status_icon} {status_text}
+
+"""
+            # Required products check
+            if "must_include" in verification_results["checks"]:
+                must_check = verification_results["checks"]["must_include"]
+                report += f"""### Required Products
+**Found**: {must_check['found']}/{must_check['required']}
+
+"""
+                for slug, position in must_check.get("found_products", []):
+                    report += f"- ✅ `{slug}` (found at position {position})\n"
+                for slug in must_check.get("missing_products", []):
+                    report += f"- ❌ `{slug}` (missing)\n"
+                report += "\n"
+
+            # Optional products check
+            if "should_include" in verification_results["checks"]:
+                should_check = verification_results["checks"]["should_include"]
+                if should_check["expected"] > 0:
+                    report += f"""### Expected Products (Optional)
+**Found**: {should_check['found']}/{should_check['expected']}
+
+"""
+                    for slug, position in should_check.get("found_products", []):
+                        report += f"- ✅ `{slug}` (found at position {position})\n"
+                    for slug in should_check.get("missing_products", []):
+                        report += f"- ⚠️  `{slug}` (not in top recommendations)\n"
+                    report += "\n"
+
+            # Summary checks
+            report += "### Verification Summary\n"
+            if "product_count" in verification_results["checks"]:
+                count_check = verification_results["checks"]["product_count"]
+                icon = "✅" if count_check["passed"] else "❌"
+                report += f"- {icon} Product count: {count_check['actual']} (minimum {count_check['expected_min']})\n"
+
+            if "relevance_score" in verification_results["checks"]:
+                rel_check = verification_results["checks"]["relevance_score"]
+                icon = "✅" if rel_check["passed"] else "❌"
+                report += f"- {icon} Top relevance score: {rel_check['top_score']:.2f} (minimum {rel_check['expected_min']:.2f})\n"
+
+            if "categories" in verification_results["checks"]:
+                cat_check = verification_results["checks"]["categories"]
+                if cat_check["matching"]:
+                    report += f"- ✅ Categories matched: {', '.join(cat_check['matching'])}\n"
+                else:
+                    report += f"- ⚠️  Expected categories: {', '.join(cat_check['expected'])}\n"
+
+            # Show failures and warnings
+            if verification_results["failures"]:
+                report += "\n**Failures:**\n"
+                for failure in verification_results["failures"]:
+                    report += f"- ❌ {failure}\n"
+
+            if verification_results["warnings"]:
+                report += "\n**Warnings:**\n"
+                for warning in verification_results["warnings"]:
+                    report += f"- ⚠️  {warning}\n"
+
+            report += "\n"
 
         if quiz_output.get("consultation_recommended"):
             report += """
@@ -576,8 +792,13 @@ def process_health_quiz(quiz_input: HealthQuizInput,
         )
 
 
-def load_persona(persona_name: str) -> tuple[HealthQuizInput, str]:
-    """Load a persona from the test data."""
+def load_persona(persona_name: str) -> tuple[HealthQuizInput, str, Optional[Dict[str, Any]]]:
+    """
+    Load a persona from the test data.
+
+    Returns:
+        tuple: (quiz_input, persona_name, expected_recommendations)
+    """
     personas_path = Path("data/health-quiz-samples/user_personas.json")
 
     if not personas_path.exists():
@@ -605,7 +826,10 @@ def load_persona(persona_name: str) -> tuple[HealthQuizInput, str]:
                 lifestyle_factors=quiz_data.get("lifestyle_factors")
             )
 
-            return quiz_input, user["name"]
+            # Get expected recommendations if present
+            expected_recommendations = user.get("expected_recommendations")
+
+            return quiz_input, user["name"], expected_recommendations
 
     raise ValueError(f"Persona '{persona_name}' not found")
 
@@ -626,9 +850,10 @@ def main():
 
     try:
         # Prepare quiz input
+        expected_recommendations = None
         if args.persona:
             # Load from persona
-            quiz_input, persona_name = load_persona(args.persona)
+            quiz_input, persona_name, expected_recommendations = load_persona(args.persona)
             print(f"🧑 Using persona: {persona_name}")
         elif args.custom_input:
             # Create from command line
@@ -640,7 +865,7 @@ def main():
             persona_name = "Custom Input"
         else:
             # Use default test case (Sarah Chen)
-            quiz_input, persona_name = load_persona("Sarah Chen")
+            quiz_input, persona_name, expected_recommendations = load_persona("Sarah Chen")
             print(f"🧑 Using default persona: {persona_name}")
 
         print(f"🚀 Starting health quiz run with model: {args.model or 'default'}")
@@ -650,7 +875,7 @@ def main():
             process_health_quiz(quiz_input, args.model)
 
         # Save everything
-        runner.snapshot_inputs(quiz_input, persona_name)
+        runner.snapshot_inputs(quiz_input, persona_name, expected_recommendations)
         runner.snapshot_config(model_override=args.model)
         runner.save_outputs(
             quiz_output=quiz_output,

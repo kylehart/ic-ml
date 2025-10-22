@@ -14,6 +14,18 @@
         "severity_level": 6,
         "budget_preference": "medium",
         "lifestyle_factors": "High stress job in tech, irregular eating schedule, limited time for meal prep, tries to exercise 2-3x per week"
+      },
+      "expected_recommendations": {
+        "must_include_slugs": [
+          "hemp-bitters-by-rogue-herbalist",
+          "digestive-bitters-formula-2oz-tincture"
+        ],
+        "should_include_slugs": [
+          "ginger-organic-ginger-root-capsules-90-count"
+        ],
+        "min_product_count": 5,
+        "primary_categories": ["digestive_health"],
+        "min_relevance_score": 0.45
       }
     },
     {
@@ -31,6 +43,13 @@
         "age_range": "45-55",
         "budget_preference": "low",
         "lifestyle_factors": "Physical job requiring lifting and standing, father of two teenagers, limited time for self-care"
+      },
+      "expected_recommendations": {
+        "must_include_slugs": [],
+        "should_include_slugs": [],
+        "min_product_count": 3,
+        "primary_categories": ["joint_health"],
+        "min_relevance_score": 0.30
       }
     },
     {
@@ -47,6 +66,13 @@
         "severity_level": 8,
         "budget_preference": "high",
         "lifestyle_factors": "Full-time marketing manager, mother of 6 and 8 year old, interested in natural health solutions, has time for self-care on weekends"
+      },
+      "expected_recommendations": {
+        "must_include_slugs": [],
+        "should_include_slugs": [],
+        "min_product_count": 5,
+        "primary_categories": ["stress_relief", "sleep_support"],
+        "min_relevance_score": 0.50
       }
     },
     {
@@ -64,6 +90,13 @@
         "age_range": "55-65",
         "budget_preference": "high",
         "lifestyle_factors": "Semi-retired consultant, regular exercise routine, good diet, proactive about health, has time to research natural health options"
+      },
+      "expected_recommendations": {
+        "must_include_slugs": [],
+        "should_include_slugs": [],
+        "min_product_count": 5,
+        "primary_categories": ["immune_support", "energy_vitality"],
+        "min_relevance_score": 0.50
       }
     },
     {
@@ -80,6 +113,13 @@
         "severity_level": 5,
         "budget_preference": "low",
         "lifestyle_factors": "Graduate student in psychology, irregular sleep schedule, limited budget, new to natural health, willing to learn"
+      },
+      "expected_recommendations": {
+        "must_include_slugs": [],
+        "should_include_slugs": [],
+        "min_product_count": 3,
+        "primary_categories": ["immune_support"],
+        "min_relevance_score": 0.40
       }
     }
   ]
