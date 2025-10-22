@@ -9,7 +9,7 @@
 - Taxonomy generation for e-commerce category structure and descriptions
 - SEO metadata generation for categories and products
 
-**Current Status**: Production-ready classification system, **fully deployed Health Quiz MVP** on Railway with Formbricks integration and Resend email delivery, and taxonomy/SEO generation framework with experimental runners.
+**Current Status**: Production-ready classification system, **fully deployed Health Quiz MVP** on Railway with Formbricks integration, Resend email delivery, and **UTM marketing attribution tracking** (deployed October 21, 2025), plus taxonomy/SEO generation framework with experimental runners.
 
 ## Key Achievements
 
@@ -508,6 +508,7 @@ railway variables --set KEY=VALUE
 - ✅ **Client Cost Tracking**: LiteLLM metadata integration for multi-client billing
 - ✅ **Health Quiz**: Working end-to-end with real testing, HTML reports, working product URLs
 - ✅ **Health Quiz MVP**: Fully deployed on Railway with Formbricks + Resend integration (October 2025)
+- ✅ **UTM Marketing Attribution**: Deployed to production with WooCommerce and GA4 tracking (October 21, 2025)
 - ✅ **Unit Test Suite**: 122 passing tests covering core modules (October 2025)
 - ✅ **Brand Integration**: Complete Rogue Herbalist branding across all outputs (October 2025)
 
@@ -545,6 +546,10 @@ railway variables --set KEY=VALUE
   - Measure which health concerns drive most purchases
   - Calculate customer journey metrics (time to purchase)
   - Analyze average order value by source
+- ✅ **Deployed to Production**: Committed and pushed to GitHub (commit 20e38ca)
+  - Railway CI/CD auto-deployment triggered
+  - 6 files changed: 238 insertions, 19 deletions
+  - Live in production within minutes of commit
 
 **Rogue Herbalist Brand Integration:**
 - ✅ **Email Template Branding**: Updated HTML email templates with green gradient backgrounds, Google Fonts, branded buttons
@@ -750,6 +755,7 @@ railway variables --set KEY=VALUE
 5. ✅ **Verified WooCommerce Order Attribution** - Confirmed ENABLED on rogueherbalist.com (WC 10.2.2)
 6. ✅ **Verified Google Analytics 4 Tracking** - Confirmed GA4 automatically capturing UTM parameters (GA ID: G-SX7VJKZKEM)
 7. ✅ **CLI Reports Remain Clean** - No UTM parameters added to local test reports (development only)
+8. ✅ **Deployed to Production** - Committed (20e38ca), pushed to GitHub, Railway CI/CD auto-deployment triggered
 
 **UTM Parameters Implemented:**
 - utm_source: `health_quiz` (identifies traffic from health quiz feature)
