@@ -99,6 +99,15 @@ use_cases:
     # Fallback if slug generation fails:
     # product_url_template: "https://rogueherbalist.com/shop/"
 
+    # UTM Tracking Configuration (for web and email, NOT CLI reports)
+    utm_tracking:
+      enabled: true
+      utm_source: "health_quiz"
+      utm_campaign: "health_quiz_recommendations"
+      # utm_medium is set dynamically: 'email' or 'web'
+      # utm_content is set to product_slug
+      # utm_term is optionally set to primary_health_area
+
   taxonomy_generation:
     default_model: "gpt4o"  # Premium quality with tightened brevity prompt (references gpt4o alias)
     max_tokens: 16000  # GPT-4o hard limit: 16,384 tokens output maximum

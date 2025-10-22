@@ -115,6 +115,44 @@ ngrok http 8000
 # ✅ Complete deployment guide: docs/railway_formbricks_deployment_guide.md
 ```
 
+### UTM Marketing Attribution (NEW - October 2025)
+```bash
+# AUTOMATIC TRACKING - No Setup Required!
+
+# All product recommendation links include UTM parameters:
+# utm_source=health_quiz
+# utm_medium=email (from emails) or web (from web results page)
+# utm_campaign=health_quiz_recommendations
+# utm_content={product_slug}
+# utm_term={primary_health_area}
+
+# Example URL:
+# https://rogueherbalist.com/product/hemp-bitters-2oz/
+#   ?utm_source=health_quiz
+#   &utm_medium=email
+#   &utm_campaign=health_quiz_recommendations
+#   &utm_content=hemp-bitters-2oz
+#   &utm_term=digestive_health
+
+# TRACKING SYSTEMS (Both Active):
+# 1. WooCommerce Order Attribution (CONFIRMED ENABLED - Oct 21, 2025)
+#    - View: WooCommerce → Orders (Origin column)
+#    - Shows: utm_source, utm_medium, utm_campaign, utm_content, utm_term
+#    - Attribution: Last-click model
+#
+# 2. Google Analytics 4 (ACTIVE - GA ID: G-SX7VJKZKEM)
+#    - View: Reports → Acquisition → Traffic acquisition
+#    - Shows: Full customer journey, sessions, conversions
+#    - Attribution: Multi-touch available
+
+# BUSINESS METRICS TRACKED:
+# ✅ Email vs web conversion rates
+# ✅ Which products drive most purchases
+# ✅ Which health concerns convert best
+# ✅ Time from quiz to purchase
+# ✅ Average order value by source
+```
+
 ### Cost Tracking
 ```python
 # Get client cost breakdown (automatic in all runs)

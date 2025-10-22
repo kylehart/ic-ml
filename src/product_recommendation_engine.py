@@ -294,8 +294,17 @@ class ProductRecommendationEngine:
                           quiz_input: HealthQuizInput,
                           llm_context: Dict[str, Any] = None,
                           max_recommendations: int = 5,
-                          min_score_threshold: float = 0.3) -> List[ProductRecommendation]:
-        """Generate product recommendations based on quiz input."""
+                          min_score_threshold: float = 0.3,
+                          utm_medium: Optional[str] = None) -> List[ProductRecommendation]:
+        """Generate product recommendations based on quiz input.
+
+        Args:
+            quiz_input: Health quiz input data
+            llm_context: Optional LLM context for enhanced matching
+            max_recommendations: Maximum number of products to recommend
+            min_score_threshold: Minimum relevance score for inclusion
+            utm_medium: Optional UTM medium for tracking ('email' or 'web'), None disables UTM tracking
+        """
 
         recommendations = []
 
@@ -325,7 +334,7 @@ class ProductRecommendationEngine:
                 description=product.description,
                 category=product.categories[0] if product.categories else "general",
                 relevance_score=score,
-                purchase_link=self._generate_purchase_link(product),
+                purchase_link=self._generate_purchase_link(product, quiz_input, utm_medium),
                 rationale=self._generate_rationale(product, quiz_input, score),
                 ingredient_highlights=self._get_key_ingredients(product, quiz_input)
             )
@@ -363,8 +372,17 @@ class ProductRecommendationEngine:
 
         return catalog
 
-    def _generate_purchase_link(self, product: ProductCatalogItem) -> str:
-        """Generate purchase link for a product using configuration."""
+    def _generate_purchase_link(self,
+                              product: ProductCatalogItem,
+                              quiz_input: HealthQuizInput,
+                              utm_medium: Optional[str] = None) -> str:
+        """Generate purchase link for a product using configuration.
+
+        Args:
+            product: Product to generate link for
+            quiz_input: Health quiz input for UTM context
+            utm_medium: Optional UTM medium ('email' or 'web'), None disables UTM tracking
+        """
         url_template = self.config.get('product_url_template', 'https://rogueherbalist.com/product/{product_slug}/')
 
         # Handle different URL template formats
@@ -373,14 +391,57 @@ class ProductRecommendationEngine:
             slug = product.slug
             if not slug:
                 raise ValueError(f"Product {product.id} ({product.title}) has no slug. Ensure WooCommerce export includes slug field.")
-            return url_template.format(product_slug=slug)
+            base_url = url_template.format(product_slug=slug)
         elif '{product_name}' in url_template:
-            return url_template.format(product_name=product.title)
+            base_url = url_template.format(product_name=product.title)
         elif '{product_id}' in url_template:
-            return url_template.format(product_id=product.id)
+            base_url = url_template.format(product_id=product.id)
         else:
             # Static URL (like shop page)
-            return url_template
+            base_url = url_template
+
+        # Add UTM parameters if utm_medium is provided
+        if utm_medium:
+            utm_params = self._build_utm_parameters(product, quiz_input, utm_medium)
+            if utm_params:
+                separator = '&' if '?' in base_url else '?'
+                base_url = f"{base_url}{separator}{utm_params}"
+
+        return base_url
+
+    def _build_utm_parameters(self,
+                            product: ProductCatalogItem,
+                            quiz_input: HealthQuizInput,
+                            utm_medium: str) -> str:
+        """Build UTM parameter string for tracking.
+
+        Args:
+            product: Product being recommended
+            quiz_input: Health quiz input for context
+            utm_medium: UTM medium ('email' or 'web')
+
+        Returns:
+            URL-encoded UTM parameter string (e.g., 'utm_source=health_quiz&utm_medium=email&...')
+        """
+        from urllib.parse import urlencode
+
+        # Get UTM config from use case config
+        utm_config = self.config.get('utm_tracking', {})
+        if not utm_config.get('enabled', False):
+            return ''
+
+        utm_params = {
+            'utm_source': utm_config.get('utm_source', 'health_quiz'),
+            'utm_medium': utm_medium,
+            'utm_campaign': utm_config.get('utm_campaign', 'health_quiz_recommendations'),
+            'utm_content': product.slug or product.id,
+        }
+
+        # Optionally add primary health area as utm_term
+        if quiz_input.primary_health_areas and len(quiz_input.primary_health_areas) > 0:
+            utm_params['utm_term'] = quiz_input.primary_health_areas[0]
+
+        return urlencode(utm_params)
 
     def _generate_rationale(self,
                           product: ProductCatalogItem,

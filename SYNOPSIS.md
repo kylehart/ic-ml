@@ -45,6 +45,10 @@
 - **In-Memory Storage**: MVP uses in-memory dict with dual access (email hash + response token), upgrade path to PostgreSQL documented
 - **Cost-Effective**: $0/month on free tiers (Railway $5 credit, Resend 3000 emails/month, Formbricks unlimited)
 - **Branded Experience**: Consistent green branding with Google Fonts across all touchpoints
+- **UTM Marketing Attribution**: Automatic tracking of product recommendation clicks to WooCommerce orders
+  - All product links tagged with utm_source=health_quiz, utm_medium=email/web, utm_campaign=health_quiz_recommendations
+  - WooCommerce native Order Attribution automatically captures UTM parameters via cookies
+  - Track conversions, product performance, and health concern → purchase correlation
 
 **Taxonomy & SEO Generation (September 2025):**
 - **Document Generation Framework**: Abstract framework for multi-element XML document generation
@@ -509,6 +513,39 @@ railway variables --set KEY=VALUE
 
 ### Recently Implemented (October 21, 2025)
 
+**UTM Tracking for Marketing Attribution:**
+- ✅ **Configuration**: Added utm_tracking section to config/models.yaml
+  - utm_source: health_quiz (constant)
+  - utm_medium: email or web (dynamic based on context)
+  - utm_campaign: health_quiz_recommendations (constant)
+  - utm_content: {product_slug} (dynamic per product)
+  - utm_term: {primary_health_area} (dynamic from quiz input)
+- ✅ **Product Recommendation Engine Updates**: Added utm_medium parameter and _build_utm_parameters() method
+  - Automatically appends UTM query string to product purchase URLs
+  - Uses urllib.parse.urlencode for proper URL encoding
+  - Only adds UTM when utm_medium is provided (email/web), not CLI
+- ✅ **Health Quiz Use Case Integration**: Process UTM medium through recommendation pipeline
+  - Extracts utm_medium from input_data in process_request()
+  - Passes to _find_relevant_products() and down to engine
+- ✅ **Web Service UTM Context**: Different mediums for different channels
+  - Email background task: utm_medium='email' in quiz_input_dict
+  - Web results lookup: Converts utm_medium=email → utm_medium=web for browser display
+  - Both token-based and email-based lookups perform conversion
+- ✅ **WooCommerce Native Order Attribution**: Verified rogueherbalist.com tracking capability
+  - Site runs WooCommerce 10.2.2 (Order Attribution available since 8.5.0)
+  - **Order Attribution confirmed ENABLED** on rogueherbalist.com (October 21, 2025)
+  - Automatically captures all 5 UTM parameters via browser cookies
+  - Persists across navigation, saved with order at checkout
+  - View in Orders table (Origin column) and order detail pages
+  - Last-click attribution model (credits final interaction before purchase)
+  - **Google Analytics 4 also tracking UTMs automatically** (GA ID: G-SX7VJKZKEM)
+- ✅ **Business Intelligence Ready**: Marketing analytics enabled without additional setup
+  - Track conversion rates by channel (email vs web)
+  - Identify top-performing recommended products
+  - Measure which health concerns drive most purchases
+  - Calculate customer journey metrics (time to purchase)
+  - Analyze average order value by source
+
 **Rogue Herbalist Brand Integration:**
 - ✅ **Email Template Branding**: Updated HTML email templates with green gradient backgrounds, Google Fonts, branded buttons
   - Primary Green (#206932) and Dark Green (#2a9242) color scheme
@@ -704,6 +741,52 @@ railway variables --set KEY=VALUE
 - **Zero Infrastructure**: Uses LiteLLM's built-in metadata and cost calculation features
 
 ## Development Workflow
+
+### Recent Work: UTM Tracking for Marketing Attribution (October 21, 2025)
+1. ✅ **Added UTM Configuration** - Added utm_tracking section to config/models.yaml for health_quiz use case
+2. ✅ **Updated Product Recommendation Engine** - Added utm_medium parameter support and _build_utm_parameters() method
+3. ✅ **Updated Health Quiz Use Case** - Modified to extract and pass utm_medium through recommendation pipeline
+4. ✅ **Updated Web Service** - Email flow uses utm_medium=email, web results convert to utm_medium=web
+5. ✅ **Verified WooCommerce Order Attribution** - Confirmed ENABLED on rogueherbalist.com (WC 10.2.2)
+6. ✅ **Verified Google Analytics 4 Tracking** - Confirmed GA4 automatically capturing UTM parameters (GA ID: G-SX7VJKZKEM)
+7. ✅ **CLI Reports Remain Clean** - No UTM parameters added to local test reports (development only)
+
+**UTM Parameters Implemented:**
+- utm_source: `health_quiz` (identifies traffic from health quiz feature)
+- utm_medium: `email` or `web` (identifies channel - set dynamically)
+- utm_campaign: `health_quiz_recommendations` (groups all health quiz traffic)
+- utm_content: `{product_slug}` (identifies specific product clicked)
+- utm_term: `{primary_health_area}` (identifies health concern that triggered recommendation)
+
+**WooCommerce Integration:**
+- Native Order Attribution available in WooCommerce 8.5+ (site runs 10.2.2)
+- Automatically captures all 5 UTM parameters via browser cookies
+- Last-click attribution model (credits final interaction before purchase)
+- View data in WooCommerce → Orders (Origin column) and order detail pages
+- Optional WooCommerce Analytics extension ($79/year) provides detailed reports
+
+**Example Product URL:**
+```
+https://rogueherbalist.com/product/hemp-bitters-2oz/
+?utm_source=health_quiz
+&utm_medium=email
+&utm_campaign=health_quiz_recommendations
+&utm_content=hemp-bitters-2oz
+&utm_term=digestive_health
+```
+
+**Business Intelligence Enabled:**
+- Track conversion rates: email vs web
+- Identify top-performing products from recommendations
+- Measure which health concerns drive most purchases
+- Calculate time from quiz completion to purchase
+- Analyze average order value by source
+
+**Files Modified:**
+- config/models.yaml: Added utm_tracking configuration (9 lines)
+- src/product_recommendation_engine.py: UTM parameter building (50 lines)
+- src/health_quiz_use_case.py: UTM medium extraction and passing (15 lines)
+- src/web_service.py: Email tracking and web conversion (12 lines)
 
 ### Recent Work: Rogue Herbalist Brand Integration (October 21, 2025)
 1. ✅ **Extracted Brand Guidelines** - Analyzed rogueherbalist.com to identify colors, fonts, and design patterns

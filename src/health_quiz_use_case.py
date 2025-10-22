@@ -61,14 +61,21 @@ class HealthQuizUseCase(RealtimeUseCase):
         start_time = datetime.now()
 
         try:
+            # Extract UTM medium for tracking (optional, used for email/web tracking)
+            utm_medium = input_data.get('utm_medium', None)
+
             # Parse input
             quiz_input = HealthQuizInput.from_dict(input_data)
 
             # Generate LLM-based recommendations
             llm_recommendations = self._generate_llm_recommendations(quiz_input)
 
-            # Find relevant products
-            product_recommendations = self._find_relevant_products(quiz_input, llm_recommendations)
+            # Find relevant products with optional UTM tracking
+            product_recommendations = self._find_relevant_products(
+                quiz_input,
+                llm_recommendations,
+                utm_medium=utm_medium
+            )
 
             # Generate educational content
             educational_content = self._generate_educational_content(quiz_input)
@@ -245,8 +252,15 @@ Guidelines:
 
     def _find_relevant_products(self,
                               quiz_input: HealthQuizInput,
-                              llm_recommendations: Dict[str, Any]) -> List[ProductRecommendation]:
-        """Find relevant products from catalog using ProductRecommendationEngine."""
+                              llm_recommendations: Dict[str, Any],
+                              utm_medium: Optional[str] = None) -> List[ProductRecommendation]:
+        """Find relevant products from catalog using ProductRecommendationEngine.
+
+        Args:
+            quiz_input: Health quiz input data
+            llm_recommendations: LLM-generated recommendations for context
+            utm_medium: Optional UTM medium for tracking ('email' or 'web'), None disables UTM
+        """
         # Initialize the product recommendation engine
         # Use client_id from config, default to 'rogue_herbalist'
         client_id = getattr(self.config, 'client_id', 'rogue_herbalist')
@@ -261,12 +275,13 @@ Guidelines:
             config=self.config.use_case_config if hasattr(self.config, 'use_case_config') else {}
         )
 
-        # Get recommendations from engine
+        # Get recommendations from engine with optional UTM tracking
         return engine.recommend_products(
             quiz_input=quiz_input,
             llm_context=llm_recommendations,
             max_recommendations=max_recs,
-            min_score_threshold=min_threshold
+            min_score_threshold=min_threshold,
+            utm_medium=utm_medium
         )
 
     def _generate_educational_content(self, quiz_input: HealthQuizInput) -> List[str]:

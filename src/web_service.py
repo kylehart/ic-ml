@@ -548,14 +548,15 @@ async def process_health_quiz_webhook(email: str, health_issue: str,
         from model_config import ModelConfigManager
         import time
 
-        # Create quiz input
+        # Create quiz input with UTM tracking for email
         quiz_input_dict = {
             "health_issue_description": health_issue,
             "tried_already": tried_already,
             "primary_health_areas": primary_areas,  # New: list of areas
             "severity_level": severity,
             "age_range": age_range,
-            "lifestyle_factors": lifestyle
+            "lifestyle_factors": lifestyle,
+            "utm_medium": "email"  # Product links will have utm_medium=email for email tracking
         }
 
         # Load configuration from models.yaml (same as CLI runner)
@@ -1263,9 +1264,15 @@ async def lookup_results(request: ResultsLookupRequest):
             }
 
         logger.info(f"✅ Found result for email: {email}, status: {result['status']}")
+
+        # Convert email tracking to web tracking for web display
+        html_report = result.get("html_report", "")
+        if html_report:
+            html_report = html_report.replace("utm_medium=email", "utm_medium=web")
+
         return {
             "status": result["status"],
-            "html_report": result.get("html_report"),
+            "html_report": html_report,
             "data": result.get("data"),
             "timestamp": result.get("timestamp")
         }
@@ -1296,9 +1303,15 @@ async def lookup_results_by_token(token: str):
             }
 
         logger.info(f"✅ Found result for token: {token[:8]}..., status: {result['status']}")
+
+        # Convert email tracking to web tracking for web display
+        html_report = result.get("html_report", "")
+        if html_report:
+            html_report = html_report.replace("utm_medium=email", "utm_medium=web")
+
         return {
             "status": result["status"],
-            "html_report": result.get("html_report"),
+            "html_report": html_report,
             "data": result.get("data"),
             "timestamp": result.get("timestamp")
         }
