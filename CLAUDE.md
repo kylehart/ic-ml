@@ -113,6 +113,16 @@ ngrok http 8000
 # ✅ Resend email delivery with HTML reports
 # ✅ In-memory storage (upgrade to PostgreSQL in Phase 2)
 # ✅ Complete deployment guide: docs/railway_formbricks_deployment_guide.md
+
+# FORMBRICKS API VERSION:
+# ⚠️ IMPORTANT: This project exclusively uses Formbricks API v2
+# - All endpoints use /api/v2/... paths
+# - v1 API is legacy and NOT used in this project
+# - Formbricks source code available in external/formbricks/ for reference
+# - Future self-hosting will use Docker-hosted Formbricks instance
+# - Management API v2: Survey, webhook, response management
+# - Client API v2: Frontend survey interactions
+# - DO NOT generate code using /api/v1/... endpoints
 ```
 
 ### UTM Marketing Attribution (NEW - October 2025)

@@ -8,6 +8,11 @@ Usage:
     3. Run: python3 extract_formbricks_ids.py
 
 This will fetch your survey structure and generate Python code with all the correct mappings.
+
+API Version Note:
+    This script uses Formbricks API v1 temporarily because the survey GET endpoint
+    is not yet available in API v2 (Beta). See external/formbricks/API_VERSION_POLICY.md
+    for details. All other integrations in this project use API v2.
 """
 
 import os
@@ -17,6 +22,7 @@ import requests
 
 # Your survey ID (from form URL)
 SURVEY_ID = "cmf5homcz0p1kww010hzezjjp"
+# NOTE: Using v1 temporarily - v2 doesn't have surveys/{surveyId} GET endpoint yet
 API_BASE_URL = "https://app.formbricks.com/api/v1/management"
 
 def fetch_survey_structure(api_key: str, survey_id: str) -> dict:

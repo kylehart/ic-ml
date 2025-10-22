@@ -602,6 +602,12 @@ railway variables --set KEY=VALUE
 - ✅ **End-to-End Validation**: All 5 personas return 3 recommendations + 5 products with working URLs
 
 **Formbricks Integration Refinements:**
+- ✅ **API Version Commitment**: Project exclusively uses **Formbricks API v2** (Beta) for all new development
+  - Formbricks source code downloaded to `external/formbricks/` for reference and future self-hosting
+  - All generated code and integrations use API v2 endpoints only (`/api/v2/...`)
+  - Management API v2 for programmatic survey/webhook/response management
+  - Client API v2 for frontend survey interactions
+  - v1 API endpoints intentionally excluded from this project (legacy compatibility not needed)
 - ✅ **Question ID Verification**: Extracted actual IDs via Management API, confirmed all 7 question IDs and choice IDs 100% correct (FORMBRICKS_IDS_VERIFIED.md)
 - ✅ **Email Question Type Migration**: Replaced contactInfo (no prefill support) with openText + inputType=email for validation
   - Question ID: `d9klpkum9vi8x9vkunhu63fn` → `y4t3q9ctov2dn6qdon1kdbrq`
