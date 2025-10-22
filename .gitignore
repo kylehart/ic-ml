@@ -31,3 +31,6 @@ data/raw/
 models/
 notebooks/.ipynb_checkpoints/
 runs/
+
+# External source code for exploration (not part of this repo)
+external/
