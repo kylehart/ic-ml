@@ -1453,7 +1453,7 @@ def generate_html_report_from_results(quiz_output: Dict[str, Any],
     for i, product in enumerate(product_recommendations, 1):
         products_html += f"""
         <div class="product-card">
-            <h3>{i}. {product.get('title', 'Unknown Product')}</h3>
+            <h3><a href="{product.get('purchase_link', '#')}" style="color: #1c390d; text-decoration: none; transition: color 0.3s ease;" onmouseover="this.style.color='#206932'" onmouseout="this.style.color='#1c390d'">{i}. {product.get('title', 'Unknown Product')}</a></h3>
             <div class="relevance-score">Relevance: {product.get('relevance_score', 0):.0%}</div>
             <p><strong>Category:</strong> {product.get('category', 'Unknown')}</p>
             <p><strong>Why we recommend this:</strong> {product.get('rationale', 'No rationale provided')}</p>
@@ -1501,7 +1501,7 @@ def generate_html_report_from_results(quiz_output: Dict[str, Any],
         )
         logger.info(f"✅ Generated prefill URL: {revision_url[:200]}...")
         revision_button_html = f"""
-        <div style="text-align: center; margin-top: 30px; padding: 20px; background: #f8f9fa; border-radius: 8px;">
+        <div style="text-align: center; margin-top: 30px; padding: 20px; background: #f0f7f2; border: 1px solid #c8e6ce; border-radius: 8px;">
             <p style="margin-bottom: 15px; color: #1c390d; font-size: 16px; font-family: 'Arvo', serif;">
                 Want to explore different recommendations?
             </p>
@@ -1587,11 +1587,13 @@ def generate_html_report_from_results(quiz_output: Dict[str, Any],
                 margin-bottom: 12px;
             }}
             .product-card {{
-                background: #f8f9fa;
+                background: white;
+                border: 1px solid #e0e0e0;
                 border-left: 4px solid #206932;
                 padding: 20px;
                 margin: 20px 0;
                 border-radius: 0 8px 8px 0;
+                box-shadow: 0 2px 4px rgba(0,0,0,0.05);
             }}
             .product-card h3 {{
                 margin-top: 0;
@@ -1669,9 +1671,9 @@ def generate_html_report_from_results(quiz_output: Dict[str, Any],
             <ul>
                 {recommendations_html}
             </ul>
-            <div class="confidence-badge">
-                Confidence Level: {quiz_output.get('confidence_score', 0):.0%}
-            </div>
+            {f'''<div class="confidence-badge">
+                Confidence Level: {quiz_output.get("confidence_score", 0):.0%}
+            </div>''' if quiz_output.get("confidence_score", 0) > 0 else ''}
         </div>
 
         <div class="section">

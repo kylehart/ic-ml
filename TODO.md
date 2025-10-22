@@ -155,6 +155,133 @@
 - **Solution**: Connect to PostgreSQL or similar for real usage tracking
 - **Files**: `src/web_service.py` lines ~1181
 
+## Multi-Tenancy / Multi-Client Architecture
+
+### Future Consideration (October 22, 2025)
+
+**Context**: IC-ML currently single-tenant, but needs multi-client architecture for scaling.
+
+**Research Completed**: Analyzed Formbricks multi-tenant architecture (see SYNOPSIS.md section on "Top 10 Multi-Tenant Challenges")
+- Formbricks uses Organization → Project → Environment hierarchy
+- Application-layer filtering (no database RLS)
+- API key scoping per tenant
+- Team-based permissions system
+
+**Database-Level Multi-Tenancy Options**:
+
+1. **Supabase "Multigres"** (Announced August 2025) 🔬 MONITORING
+   - **Description**: "Vitess for Postgres - horizontally scalable Postgres architecture that supports multi-tenant, highly available, and globally distributed deployments"
+   - **Promise**: Database-level tenant isolation with transparent sharding
+   - **Status**: Announced but details unclear - may be Supabase-internal infrastructure
+   - **Impact**: If available for self-hosted, would allow application code to stay simple (no manual tenant filtering)
+   - **Action**: Check Supabase blog/GitHub quarterly for updates on Multigres availability
+
+2. **PostgreSQL Row-Level Security (RLS)** (Available Now) ✅ PROVEN
+   - **How It Works**: Database automatically adds `WHERE tenant_id = X` to all queries
+   - **Setup Required**:
+     ```sql
+     ALTER TABLE products ADD COLUMN tenant_id UUID;
+     ALTER TABLE products ENABLE ROW LEVEL SECURITY;
+     CREATE POLICY tenant_isolation ON products
+       USING (tenant_id = current_setting('app.current_tenant_id')::uuid);
+     ```
+   - **Application Code**: Must set tenant context at start of request
+     ```typescript
+     await prisma.$executeRaw`SET LOCAL app.current_tenant_id = ${clientId}`;
+     ```
+   - **Benefits**: Database-enforced safety net even if application code has bugs
+   - **Limitations**: Still need triggers to auto-populate tenant_id on INSERT
+   - **Performance**: Index tenant_id column (every query gets filtered)
+
+**Recommended Approach for IC-ML**:
+
+**Phase 1** (First 2-3 clients): Simple application-layer filtering
+- Add `clientId` parameter to all service functions
+- Use Prisma middleware to enforce tenant filtering
+- Single PostgreSQL database with tenant_id column
+
+**Phase 2** (3-10 clients): Add PostgreSQL RLS as defense-in-depth
+- Enable RLS policies for all tables
+- Keep application-layer filtering (for clarity)
+- Database acts as safety net for bugs
+
+**Phase 3** (10+ clients): Re-evaluate with Multigres or sharding
+- Check if Multigres is production-ready and self-hostable
+- Consider database-per-tenant if clients have very different data volumes
+- Consider connection pooling strategies
+
+**Next Review Date**: Q1 2026 (3 months after multi-client launch)
+
+**Resources**:
+- Formbricks multi-tenant analysis: SYNOPSIS.md "Top 10 Multi-Tenant Challenges" section
+- Supabase Multigres announcement: https://x.com/supabase/status/1957827542754234857
+- PostgreSQL RLS docs: https://www.postgresql.org/docs/current/ddl-rowsecurity.html
+
+---
+
+## Open Source Contributions
+
+### Report Formbricks Bug: TTC Object Data Corruption (Low Priority)
+
+**Date Identified**: October 22, 2025
+**Severity**: Low (doesn't affect IC-ML functionality)
+**Status**: Not reported yet
+
+**Issue Description**:
+Formbricks webhook payload (`responseFinished` event) contains malformed `ttc` (time-to-complete) object with duplicate question IDs and mixed data types.
+
+**Expected Behavior**:
+```json
+{
+  "ttc": {
+    "questionId1": 2213,    // Milliseconds only
+    "questionId2": 1732,
+    "questionId3": 3053
+  }
+}
+```
+
+**Actual Behavior**:
+```json
+{
+  "ttc": {
+    "questionId1": "kylehart@me.com",  // ❌ Answer value (string)
+    "questionId1": 2213,                // ✅ Timing value (number)
+    "questionId2": "caffeine",          // ❌ Answer value
+    "questionId2": 1732,                // ✅ Timing value
+    "questionId3": "56-65",             // ❌ Answer value
+    "questionId3": 3053                 // ✅ Timing value
+  }
+}
+```
+
+**Impact**:
+- In valid JSON, duplicate keys result in last value winning (numbers overwrite strings)
+- TTC data becomes unreliable for analytics
+- No functional impact on applications that don't use `ttc` field
+
+**Example Webhook Payload**:
+```
+Survey ID: cmf5homcz0p1kww010hzezjjp
+Response ID: cmh28frb82y7fad01lwvdvaeu
+Date: 2025-10-22T16:54:32.767Z
+```
+
+**Formbricks Version**: [TBD - check deployed version]
+
+**To Report**:
+1. Create GitHub issue at https://github.com/formbricks/formbricks/issues
+2. Title: "Webhook payload contains duplicate question IDs in ttc object with mixed data types"
+3. Include above description and example payload
+4. Tag: `bug`, `webhooks`, `api`
+
+**Why Low Priority**:
+- IC-ML uses custom `timing_info` instead of Formbricks `ttc`
+- Doesn't break functionality
+- Good OSS citizenship but not urgent
+
+---
+
 ## Product Classification
 
 ### Refactor Multi-assignment
