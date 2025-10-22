@@ -1,5 +1,65 @@
 # TODO
 
+## Instruction Coach Protocols - Research & Planning
+
+### Research Completed (October 22, 2025)
+
+**Cal.com Integration Vision** ✅ COMPLETED
+- **Status**: Comprehensive 67-page research document completed
+- **File**: `docs/calcom_integration_vision.md`
+- **Contents**:
+  - 15 revolutionary use cases across 5 tiers (Supplement Protocol → AI Personalization)
+  - Technical architecture: Docker stack (Formbricks + Cal.com + IC-ML API + PostgreSQL)
+  - Business model projections: $740K (Year 1) → $4.03M (Year 3)
+  - 6-phase implementation roadmap (26 weeks total)
+  - Key use cases: Herbal Protocol Calendar™, Symptom Check-in Cascade™, Quiz-to-Coach Pipeline™
+  - Integration patterns: iCal feeds, native calendar sync, Cal.com booking workflows
+  - Behavioral psychology research on calendar commitments and adherence gamification
+- **Next Steps**: Phase 1 POC (2 weeks) - Manual calendar generation for 5 beta users
+
+**Formbricks Architecture Analysis** ✅ COMPLETED
+- **Status**: Deep technical research with source code verification
+- **Documentation**: `external/formbricks-docs/` directory with 184+ files indexed
+- **Key Documents**:
+  - `LICENSING_AND_FEATURE_COMPARISON.md` (15,000+ words) - AGPLv3 vs Cloud vs Enterprise
+  - `MUTABLE_RECORDS_ANALYSIS.md` (25,000+ words) - Protocol architecture patterns
+  - `QUICK_DECISION_GUIDE.md` (2-minute decision tree with cost comparison)
+  - `KEY_FEATURES_FOR_HEALTH_QUIZ.md` (health quiz specific features)
+  - `DOCUMENTATION_INDEX.md` (complete catalog of 184 documentation files)
+- **Breakthrough Finding**: "One Survey Per Day" pattern for multi-day protocols
+  - Survey 1 = Day 1, Survey 2 = Day 2 (works WITH Formbricks design, not against it)
+  - Built-in cohort analysis: "How many users completed Day 15?" = native Formbricks query
+  - Native analytics show per-day drop-off automatically
+  - Can use Formbricks ALONE (Supabase optional for audit trails)
+  - Pattern identified by user as architecturally superior to database-centric thinking
+- **Cost Analysis**: AGPLv3 self-hosting = unlimited responses FREE (vs $99/mo cloud at 10K/month)
+- **Technical Verification**: Response mutation via PUT API verified in source code
+- **Next Steps**: Implement first protocol using One Survey Per Day pattern
+
+### Implementation Planning
+
+**Protocol Implementation Framework** 📋 NEXT PHASE (Post-MVP)
+- **Architecture Decided**: One Survey Per Day pattern with Formbricks
+- **Implementation Components**:
+  1. Survey cloning automation (create Day 1-30 surveys from template)
+  2. Daily notification system with survey-specific URLs
+  3. User protocol enrollment and tracking
+  4. Completion tracking and adherence metrics
+  5. Optional: Supabase integration for audit trails and versioning
+- **Potential Use Cases**:
+  - 30-day meditation programs
+  - 90-day wellness transformations
+  - Habit tracking protocols
+  - Supplement protocol adherence
+- **Deployment Strategy**:
+  - Start with Formbricks Cloud (1,000 responses/month free tier for testing)
+  - Migrate to self-hosted when hitting limits (unlimited responses)
+  - Self-host Cal.com alongside Formbricks in Docker stack
+- **Files to Create**:
+  - `src/protocol_framework.py` - Base classes for protocol management
+  - `src/survey_automation.py` - Formbricks survey cloning and daily automation
+  - Protocol-specific use cases (meditation, wellness, supplement tracking)
+
 ## Health Quiz MVP - Production Readiness
 
 ### High Priority
