@@ -359,6 +359,27 @@ engine = ProductRecommendationEngine('rogue_herbalist')
 print(engine.get_catalog_stats())  # Should show 787 products, all in stock
 ```
 
+## Unix Tool Environment Gaps
+
+**Purpose**: Track Unix commands that Claude attempts to use but are not installed on this system. These should be installed to improve Claude's effectiveness.
+
+**Missing Tools Discovered**:
+- `tree` - Directory structure visualization (attempted: 2025-10-22)
+  - Install: `brew install tree` (macOS)
+  - Use case: Better directory structure display in exploration
+  - Priority: Low (nice-to-have for documentation)
+
+**Previously Missing (Now Available)**:
+- `uvicorn` - ASGI server for FastAPI
+  - Status: Installed via pip in Python environment
+  - Use case: Running web_service.py locally
+
+**Installation Notes**:
+- Add new discoveries to this list with date attempted
+- Mark priority: High (blocks work), Medium (frequent use), Low (convenience)
+- Note installation method when resolved
+- Move to "Previously Missing" section once installed
+
 ## Current Development State
 - **Health Quiz**: PRODUCTION READY - working end-to-end with real testing
 - **Product Classification**: PRODUCTION - 100% valid slug output with auto-correction
