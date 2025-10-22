@@ -26,6 +26,9 @@ class HealthQuizInput:
     budget_preference: Optional[str] = None  # "low", "medium", "high"
     lifestyle_factors: Optional[str] = None  # Additional context
 
+    # UTM tracking for marketing attribution
+    utm_medium: Optional[str] = None  # "email" or "web" for attribution tracking
+
     def __post_init__(self):
         """Normalize primary_health_areas to always be a list."""
         # If primary_health_areas is not set but primary_health_area is (legacy single choice)
