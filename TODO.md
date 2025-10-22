@@ -60,6 +60,36 @@
   - `src/survey_automation.py` - Formbricks survey cloning and daily automation
   - Protocol-specific use cases (meditation, wellness, supplement tracking)
 
+## LLM Cost Optimization
+
+### High Priority
+
+**Implement Prompt Caching for Cost Reduction** 📋 NEW (October 2025)
+- **Opportunity**: Save 47-90% on repeated prompt content (product catalog, taxonomy)
+- **Current Cost**: Paying full price for ~50K tokens of product catalog on every health quiz
+- **Potential Savings**:
+  - Health Quiz: 47% reduction with GPT-4o-mini caching (50% discount)
+  - Health Quiz: 90% reduction with GPT-5 caching (90% discount)
+  - At 100 quizzes/day: Save ~$2-5/month
+- **Implementation**:
+  1. Add cache control to `LLMClient.completion()` method
+  2. Modify health quiz to mark product catalog as cacheable
+  3. Modify product classification to mark taxonomy as cacheable
+  4. Update prompt structure to separate static (cacheable) from dynamic content
+- **Cache Discount Rates**:
+  - GPT-4o-mini: $0.075 per 1M cached tokens (50% discount from $0.15)
+  - GPT-5 nano: $0.005 per 1M cached tokens (90% discount from $0.05)
+  - GPT-5 mini: $0.025 per 1M cached tokens (90% discount from $0.25)
+  - GPT-5: $0.125 per 1M cached tokens (90% discount from $1.25)
+- **Files to Modify**:
+  - `src/llm_client.py` - Add `completion_with_caching()` method
+  - `src/health_quiz_use_case.py` - Separate static product catalog from dynamic user input
+  - `src/run_assign_cat.py` - Mark taxonomy XML as cacheable
+- **Resources**:
+  - OpenAI prompt caching: https://platform.openai.com/docs/guides/prompt-caching
+  - Anthropic prompt caching: https://docs.anthropic.com/claude/docs/prompt-caching
+- **Priority**: High - immediate ROI on production workloads
+
 ## Health Quiz MVP - Production Readiness
 
 ### High Priority
